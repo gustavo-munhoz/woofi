@@ -22,6 +22,7 @@
 		B30622EB2BE81100009441CB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622EA2BE81100009441CB /* RegisterView.swift */; };
 		B30622ED2BE8141D009441CB /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622EC2BE8141D009441CB /* AuthenticationViewModel.swift */; };
 		B30622F02BE81475009441CB /* AuthenticationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622EF2BE81475009441CB /* AuthenticationType.swift */; };
+		B30622F32BE826FE009441CB /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622F22BE826FE009441CB /* FirestoreService.swift */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -37,6 +38,7 @@
 		B30622EA2BE81100009441CB /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B30622EC2BE8141D009441CB /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		B30622EF2BE81475009441CB /* AuthenticationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationType.swift; sourceTree = "<group>"; };
+		B30622F22BE826FE009441CB /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,22 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
+		B30622F12BE826ED009441CB /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				B30622F42BE827BE009441CB /* Firestore */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		B30622F42BE827BE009441CB /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				B30622F22BE826FE009441CB /* FirestoreService.swift */,
+			);
+			path = Firestore;
+			sourceTree = "<group>";
+		};
 		B3A7E83B2BE74DF9009B6630 = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +153,7 @@
 				B3A7E8652BE7FB0D009B6630 /* Model */,
 				B3A7E8672BE7FB16009B6630 /* View */,
 				B3A7E8692BE7FB1B009B6630 /* ViewModel */,
+				B30622F12BE826ED009441CB /* Service */,
 				B3A7E8502BE74DFB009B6630 /* Assets.xcassets */,
 				B3A7E8552BE74DFB009B6630 /* Info.plist */,
 			);
@@ -258,6 +277,7 @@
 				B30622EB2BE81100009441CB /* RegisterView.swift in Sources */,
 				B30622F02BE81475009441CB /* AuthenticationType.swift in Sources */,
 				B30622DE2BE80705009441CB /* LoginView.swift in Sources */,
+				B30622F32BE826FE009441CB /* FirestoreService.swift in Sources */,
 				B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

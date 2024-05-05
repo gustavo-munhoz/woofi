@@ -52,19 +52,35 @@ class AuthenticationViewController: UIViewController {
             loginView = LoginView()
             loginView?.viewModel = viewModel
         }
-        
-        view = loginView
+
+        guard let loginView = loginView else { return }
+
+        fadeInOutToView(loginView)
     }
-    
+
     private func showRegisterView() {
         if registerView == nil {
             registerView = RegisterView()
             registerView?.viewModel = viewModel
         }
-        
-        view = registerView
+
+        guard let registerView = registerView else { return }
+
+        fadeInOutToView(registerView)
     }
     
+    private func fadeInOutToView(_ newView: UIView) {
+        UIView.animate(withDuration: 0.15) {
+            self.view.alpha = 0
+            
+        } completion: { _ in
+            UIView.animate(withDuration: 0.15) {
+                self.view = newView
+                self.view.alpha = 1
+            }
+        }
+    }
+
     
     // MARK: Notifications
     
