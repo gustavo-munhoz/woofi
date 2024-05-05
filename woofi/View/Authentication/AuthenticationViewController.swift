@@ -31,6 +31,14 @@ class AuthenticationViewController: UIViewController {
     
     private func setupViewModel() {
         viewModel = AuthenticationViewModel()
+        
+        viewModel?.onAuthenticationSuccess = {
+            print("Success")
+        }
+        
+        viewModel?.onAuthenticationFailure = { error in
+            print("Failure: ", error.localizedDescription)
+        }
     }
     
     // MARK: View methods
@@ -85,15 +93,15 @@ class AuthenticationViewController: UIViewController {
     // MARK: Notifications
     
     private func setupSubscriptions() {
-        viewModel?.currentAuthType.sink(receiveValue: { [weak self] authType in
-            DispatchQueue.main.async {
-                switch authType {
-                    case .login:
-                        self?.showLoginView()
-                        
-                    case .register:
-                        self?.showRegisterView()
-                }
+        viewModel?.currentAuthType
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] authType in
+            switch authType {
+                case .login:
+                    self?.showLoginView()
+                    
+                case .register:
+                    self?.showRegisterView()
             }
         }).store(in: &cancellables)
     }

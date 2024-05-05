@@ -7,12 +7,17 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 class LoginView: UIView {
     
     // MARK: - Properties
-    
-    weak var viewModel: AuthenticationViewModel?
+    private var cancellables = Set<AnyCancellable>()
+    weak var viewModel: AuthenticationViewModel? {
+        didSet {
+            bindViewModel()
+        }
+    }
     
     // MARK: - Views
     
@@ -26,11 +31,11 @@ class LoginView: UIView {
         return view
     }()
     
-    private(set) lazy var usernameTextField: UITextField = {
+    private(set) lazy var emailTextField: UITextField = {
         let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.placeholder = LocalizedString.LoginAndRegister.usernameInput
+        view.placeholder = LocalizedString.LoginAndRegister.emailInput
         view.borderStyle = .roundedRect
         
         return view
@@ -60,6 +65,7 @@ class LoginView: UIView {
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(loginButtonPress), for: .touchUpInside)
         
         return view
     }()
@@ -86,9 +92,27 @@ class LoginView: UIView {
     
     // MARK: - Actions
     
+    @objc func loginButtonPress() {
+        viewModel?.performAuthentication()
+    }
+    
     @objc func registerButtonPress() {
         viewModel?.toggleCurrentAuthType()
     }
+    
+    private func bindViewModel() {
+        guard let viewModel = viewModel else { return }
+        
+        emailTextField.textPublisher
+            .assign(to: \.value, on: viewModel.email)
+            .store(in: &cancellables)
+        
+        passwordTextField.textPublisher
+            .assign(to: \.value, on: viewModel.password)
+            .store(in: &cancellables)
+    }
+    
+    // MARK: - Default methods
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -104,7 +128,7 @@ class LoginView: UIView {
     
     func addSubviews() {
         let subviews = [
-            appLogo, usernameTextField, passwordTextField,
+            appLogo, emailTextField, passwordTextField,
             loginButton, registerButton
         ]
         
@@ -121,7 +145,7 @@ class LoginView: UIView {
             make.width.equalTo(appLogo.snp.height)
         }
         
-        usernameTextField.snp.makeConstraints { make in
+        emailTextField.snp.makeConstraints { make in
             make.top.equalTo(appLogo.snp.bottom).offset(40)
             make.height.equalTo(50)
             make.left.equalToSuperview().offset(50)
@@ -129,9 +153,9 @@ class LoginView: UIView {
         }
         
         passwordTextField.snp.makeConstraints { make in
-            make.top.equalTo(usernameTextField.snp.bottom).offset(25)
-            make.height.equalTo(usernameTextField.snp.height)
-            make.left.right.equalTo(usernameTextField)
+            make.top.equalTo(emailTextField.snp.bottom).offset(25)
+            make.height.equalTo(emailTextField.snp.height)
+            make.left.right.equalTo(emailTextField)
         }
         
         loginButton.snp.makeConstraints { make in

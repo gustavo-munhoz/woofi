@@ -8,8 +8,8 @@
 import Foundation
 import FirebaseFirestore
 
-/// Shared singleton to handle firestore logic.
-class FirestoreService {
+/// Shared singleton to handle Firestore logic, conforming to FirestoreServiceProtocol.
+class FirestoreService: FirestoreServiceProtocol {
     
     /// Instance for global access
     static let shared = FirestoreService()
@@ -23,9 +23,7 @@ class FirestoreService {
         var userData = data
         userData[FirestoreKeys.Users.createdAt] = FieldValue.serverTimestamp()
         
-        db.collection(FirestoreKeys.Users.collectionTitle).document(userId).setData(userData) { error in
-            completion(error)
-        }
+        db.collection(FirestoreKeys.Users.collectionTitle).document(userId).setData(userData, completion: completion)
     }
     
     /// Fetches user data from Firestore
@@ -44,26 +42,11 @@ class FirestoreService {
     
     /// Updates user data in Firestore
     func updateUserData(userId: String, data: [String: Any], completion: @escaping (Error?) -> Void) {
-        db.collection(FirestoreKeys.Users.collectionTitle).document(userId).updateData(data) { error in
-            completion(error)
-        }
+        db.collection(FirestoreKeys.Users.collectionTitle).document(userId).updateData(data, completion: completion)
     }
     
     /// Removes a user from Firestore
     func removeUser(userId: String, completion: @escaping (Error?) -> Void) {
-        db.collection(FirestoreKeys.Users.collectionTitle).document(userId).delete() { error in
-            completion(error)
-        }
-    }
-}
-
-struct FirestoreKeys {
-    private init() {}
-    
-    struct Users {
-        private init() {}
-        
-        static let collectionTitle = "users"
-        static let createdAt = "createdAt"
+        db.collection(FirestoreKeys.Users.collectionTitle).document(userId).delete(completion: completion)
     }
 }
