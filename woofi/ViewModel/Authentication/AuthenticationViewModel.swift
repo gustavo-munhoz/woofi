@@ -20,6 +20,8 @@ class AuthenticationViewModel: NSObject {
     // MARK: - Authentication
     var email = CurrentValueSubject<String, Never>("")
     var password = CurrentValueSubject<String, Never>("")
+    var username = CurrentValueSubject<String, Never>("")
+    
     var onAuthenticationSuccess: (() -> Void)?
     var onAuthenticationFailure: ((Error) -> Void)?
     
@@ -52,6 +54,18 @@ class AuthenticationViewModel: NSObject {
     
     // MARK: - Register logic
     private func registerUser() {
+        let additionalData: [String:Any] = [
+            FirestoreKeys.Users.username: username.value
+        ]
         
+        AuthenticationService.shared.registerUser(withEmail: email.value, password: password.value, additionalData: additionalData) { [weak self] result in
+            switch result {
+                case .success():
+                    self?.onAuthenticationSuccess?()
+                    
+                case .failure(let error):
+                    self?.onAuthenticationFailure?(error)
+            }
+        }
     }
 }

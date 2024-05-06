@@ -7,12 +7,19 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 class RegisterView: UIView {
     
     // MARK: - Properties
     
-    weak var viewModel: AuthenticationViewModel?
+    private var cancellables = Set<AnyCancellable>()
+    
+    weak var viewModel: AuthenticationViewModel? {
+        didSet {
+            bindViewModel()
+        }
+    }
     
     // MARK: Views
     
@@ -70,7 +77,7 @@ class RegisterView: UIView {
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
-        
+        view.addTarget(self, action: #selector(registerButtonPress), for: .touchUpInside)
         return view
     }()
     
@@ -89,16 +96,38 @@ class RegisterView: UIView {
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
+        view.addTarget(self, action: #selector(loginButtonPress), for: .touchUpInside)
         
         return view
     }()
     
     // MARK: - Actions
     
-    @objc func loginButtonPressed() {
+    @objc func registerButtonPress() {
+        viewModel?.performAuthentication()
+    }
+    
+    @objc func loginButtonPress() {
         viewModel?.toggleCurrentAuthType()
     }
+    
+    private func bindViewModel() {
+        guard let viewModel = viewModel else { return }
+        
+        emailTextField.textPublisher
+            .assign(to: \.value, on: viewModel.email)
+            .store(in: &cancellables)
+        
+        usernameTextField.textPublisher
+            .assign(to: \.value, on: viewModel.username)
+            .store(in: &cancellables)
+        
+        passwordTextField.textPublisher
+            .assign(to: \.value, on: viewModel.password)
+            .store(in: &cancellables)
+    }
+    
+    // MARK: - Default methods
     
     override init(frame: CGRect) {
         super.init(frame: frame)

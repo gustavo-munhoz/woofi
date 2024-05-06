@@ -37,7 +37,7 @@ class AuthenticationViewController: UIViewController {
         }
         
         viewModel?.onAuthenticationFailure = { error in
-            print("Failure: ", error.localizedDescription)
+            print("Failure:", error.localizedDescription)
         }
     }
     

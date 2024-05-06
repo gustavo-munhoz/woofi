@@ -15,5 +15,8 @@ struct FirestoreKeys {
         
         static let collectionTitle = "users"
         static let createdAt = "createdAt"
+        static let email = "email"
+        static let uid = "uid"
+        static let username = "username"
     }
 }
