@@ -74,7 +74,7 @@ class StatsCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func setup(with stat: TaskStat) {
+    func setup(with stat: UserTaskStat) {
         statValueLabel.text = "\(stat.value)"
         statDescriptionLabel.text = stat.task.description
         

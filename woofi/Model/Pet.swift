@@ -14,9 +14,9 @@ class Pet: Hashable {
     let breed: String
     let age: String
     let picture: UIImage?
-    var tasks: [PetTask]
+    var tasks: [PetTaskGroup]
     
-    init(id: String, name: String, breed: String, age: String, picture: UIImage? = nil, tasks: [PetTask] = []) {
+    init(id: String, name: String, breed: String, age: String, picture: UIImage? = nil, tasks: [PetTaskGroup] = []) {
         self.id = id
         self.name = name
         self.breed = breed

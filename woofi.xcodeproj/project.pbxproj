@@ -39,8 +39,8 @@
 		B306231D2BEB0715009441CB /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B306231C2BEB0715009441CB /* UserViewModel.swift */; };
 		B31D301B2BEC1C3C00CE903A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D301A2BEC1C3C00CE903A /* HomeViewModel.swift */; };
 		B31D301F2BED136E00CE903A /* StatsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D301E2BED136D00CE903A /* StatsCollectionViewCell.swift */; };
-		B31D30222BED148300CE903A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D30212BED148300CE903A /* Task.swift */; };
-		B31D30242BED14A400CE903A /* TaskStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D30232BED14A400CE903A /* TaskStat.swift */; };
+		B31D30222BED148300CE903A /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D30212BED148300CE903A /* TaskType.swift */; };
+		B31D30242BED14A400CE903A /* UserTaskStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D30232BED14A400CE903A /* UserTaskStat.swift */; };
 		B31D31B82BEEB78D00CE903A /* PetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31B72BEEB78D00CE903A /* PetListViewController.swift */; };
 		B31D31BA2BEEB80F00CE903A /* PetListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31B92BEEB80F00CE903A /* PetListView.swift */; };
 		B31D31BD2BEEBB5600CE903A /* PetListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31BC2BEEBB5600CE903A /* PetListViewModel.swift */; };
@@ -49,7 +49,11 @@
 		B31D31C52BF303F600CE903A /* PetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31C42BF303F600CE903A /* PetView.swift */; };
 		B31D31C72BF3043400CE903A /* PetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31C62BF3043400CE903A /* PetViewModel.swift */; };
 		B31D31C92BF30B1700CE903A /* PetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31C82BF30B1700CE903A /* PetViewController.swift */; };
-		B31D31CB2BF3887F00CE903A /* PetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31CA2BF3887F00CE903A /* PetTask.swift */; };
+		B31D31CB2BF3887F00CE903A /* PetTaskGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31CA2BF3887F00CE903A /* PetTaskGroup.swift */; };
+		B31D31CE2BF38EDE00CE903A /* PetSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31CD2BF38EDE00CE903A /* PetSectionHeaderView.swift */; };
+		B31D31D02BF3ED4E00CE903A /* PetTaskCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31CF2BF3ED4E00CE903A /* PetTaskCollectionViewCell.swift */; };
+		B31D31D22BF3F04E00CE903A /* TaskFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31D12BF3F04E00CE903A /* TaskFrequency.swift */; };
+		B31D31D62BF3F0C300CE903A /* PetTaskInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31D52BF3F0C300CE903A /* PetTaskInstance.swift */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -96,8 +100,8 @@
 		B306231C2BEB0715009441CB /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		B31D301A2BEC1C3C00CE903A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B31D301E2BED136D00CE903A /* StatsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCollectionViewCell.swift; sourceTree = "<group>"; };
-		B31D30212BED148300CE903A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		B31D30232BED14A400CE903A /* TaskStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStat.swift; sourceTree = "<group>"; };
+		B31D30212BED148300CE903A /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
+		B31D30232BED14A400CE903A /* UserTaskStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTaskStat.swift; sourceTree = "<group>"; };
 		B31D31B72BEEB78D00CE903A /* PetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListViewController.swift; sourceTree = "<group>"; };
 		B31D31B92BEEB80F00CE903A /* PetListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListView.swift; sourceTree = "<group>"; };
 		B31D31BC2BEEBB5600CE903A /* PetListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListViewModel.swift; sourceTree = "<group>"; };
@@ -106,7 +110,11 @@
 		B31D31C42BF303F600CE903A /* PetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetView.swift; sourceTree = "<group>"; };
 		B31D31C62BF3043400CE903A /* PetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewModel.swift; sourceTree = "<group>"; };
 		B31D31C82BF30B1700CE903A /* PetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewController.swift; sourceTree = "<group>"; };
-		B31D31CA2BF3887F00CE903A /* PetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTask.swift; sourceTree = "<group>"; };
+		B31D31CA2BF3887F00CE903A /* PetTaskGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTaskGroup.swift; sourceTree = "<group>"; };
+		B31D31CD2BF38EDE00CE903A /* PetSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSectionHeaderView.swift; sourceTree = "<group>"; };
+		B31D31CF2BF3ED4E00CE903A /* PetTaskCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTaskCollectionViewCell.swift; sourceTree = "<group>"; };
+		B31D31D12BF3F04E00CE903A /* TaskFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFrequency.swift; sourceTree = "<group>"; };
+		B31D31D52BF3F0C300CE903A /* PetTaskInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PetTaskInstance.swift; path = woofi/Model/Tasks/PetTaskInstance.swift; sourceTree = SOURCE_ROOT; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -266,9 +274,9 @@
 		B31D30202BED147800CE903A /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
-				B31D30212BED148300CE903A /* Task.swift */,
-				B31D30232BED14A400CE903A /* TaskStat.swift */,
-				B31D31CA2BF3887F00CE903A /* PetTask.swift */,
+				B31D31D42BF3F0AE00CE903A /* Pet */,
+				B31D31D32BF3F0AB00CE903A /* User */,
+				B31D30212BED148300CE903A /* TaskType.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -304,10 +312,38 @@
 		B31D31C32BF303EA00CE903A /* PetSingle */ = {
 			isa = PBXGroup;
 			children = (
+				B31D31CC2BF38EC900CE903A /* CollectionViewCells */,
 				B31D31C42BF303F600CE903A /* PetView.swift */,
 				B31D31C82BF30B1700CE903A /* PetViewController.swift */,
 			);
 			path = PetSingle;
+			sourceTree = "<group>";
+		};
+		B31D31CC2BF38EC900CE903A /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				B31D31CD2BF38EDE00CE903A /* PetSectionHeaderView.swift */,
+				B31D31CF2BF3ED4E00CE903A /* PetTaskCollectionViewCell.swift */,
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		B31D31D32BF3F0AB00CE903A /* User */ = {
+			isa = PBXGroup;
+			children = (
+				B31D30232BED14A400CE903A /* UserTaskStat.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		B31D31D42BF3F0AE00CE903A /* Pet */ = {
+			isa = PBXGroup;
+			children = (
+				B31D31CA2BF3887F00CE903A /* PetTaskGroup.swift */,
+				B31D31D12BF3F04E00CE903A /* TaskFrequency.swift */,
+				B31D31D52BF3F0C300CE903A /* PetTaskInstance.swift */,
+			);
+			path = Pet;
 			sourceTree = "<group>";
 		};
 		B3A7E83B2BE74DF9009B6630 = {
@@ -466,13 +502,17 @@
 				B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */,
 				B31D301B2BEC1C3C00CE903A /* HomeViewModel.swift in Sources */,
 				B30623072BE8842F009441CB /* GroupView.swift in Sources */,
+				B31D31D02BF3ED4E00CE903A /* PetTaskCollectionViewCell.swift in Sources */,
+				B31D31CE2BF38EDE00CE903A /* PetSectionHeaderView.swift in Sources */,
 				B31D31BD2BEEBB5600CE903A /* PetListViewModel.swift in Sources */,
 				B30622ED2BE8141D009441CB /* AuthenticationViewModel.swift in Sources */,
 				B30623132BEACCC2009441CB /* UserCollectionViewCell.swift in Sources */,
 				B30623032BE8835F009441CB /* HomeViewController.swift in Sources */,
+				B31D31D22BF3F04E00CE903A /* TaskFrequency.swift in Sources */,
 				B31D301F2BED136E00CE903A /* StatsCollectionViewCell.swift in Sources */,
 				B31D31C92BF30B1700CE903A /* PetViewController.swift in Sources */,
 				B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */,
+				B31D31D62BF3F0C300CE903A /* PetTaskInstance.swift in Sources */,
 				B31D31BA2BEEB80F00CE903A /* PetListView.swift in Sources */,
 				B30623092BE88437009441CB /* GroupViewController.swift in Sources */,
 				B31D31BF2BEEBBE600CE903A /* Pet.swift in Sources */,
@@ -482,12 +522,12 @@
 				B30623182BEB06BE009441CB /* UserView.swift in Sources */,
 				B30623112BEAC949009441CB /* GroupViewModel.swift in Sources */,
 				B30622F82BE82BB6009441CB /* FirestoreKeys.swift in Sources */,
-				B31D30222BED148300CE903A /* Task.swift in Sources */,
+				B31D30222BED148300CE903A /* TaskType.swift in Sources */,
 				B30622F02BE81475009441CB /* AuthenticationType.swift in Sources */,
 				B30622DE2BE80705009441CB /* LoginView.swift in Sources */,
 				B31D31C12BEEC7CA00CE903A /* PetCollectionViewCell.swift in Sources */,
-				B31D30242BED14A400CE903A /* TaskStat.swift in Sources */,
-				B31D31CB2BF3887F00CE903A /* PetTask.swift in Sources */,
+				B31D30242BED14A400CE903A /* UserTaskStat.swift in Sources */,
+				B31D31CB2BF3887F00CE903A /* PetTaskGroup.swift in Sources */,
 				B31D31B82BEEB78D00CE903A /* PetListViewController.swift in Sources */,
 				B30622FB2BE82C77009441CB /* AuthenticationServiceProtocol.swift in Sources */,
 				B306230E2BEAC80C009441CB /* User.swift in Sources */,

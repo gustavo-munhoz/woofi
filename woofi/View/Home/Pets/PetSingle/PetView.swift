@@ -59,6 +59,15 @@ class PetView: UIView {
         backgroundColor = .systemBackground
     }
     
+    private(set) lazy var tasksCollectionView: UICollectionView = {
+        let layout = createCompositionalLayout()
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -66,7 +75,8 @@ class PetView: UIView {
     private func addSubviews() {
         [
             petPicture,
-            titleStack
+            titleStack,
+            tasksCollectionView
         ].forEach { v in
             addSubview(v)
         }
@@ -83,6 +93,49 @@ class PetView: UIView {
             make.right.equalToSuperview().offset(-24)
             make.top.equalTo(petPicture.snp.bottom).offset(16)
             make.height.equalTo(42)
+        }
+        
+        tasksCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(titleStack.snp.bottom).offset(16)
+            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.left.equalToSuperview().offset(24)
+            make.right.equalToSuperview().offset(-24)
+        }
+    }
+    
+    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout {
+            sectionIndex,
+            environment -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(100)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(100)
+            )
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16)
+            section.interGroupSpacing = 10
+            
+            let sectionHeaderSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(44)
+            )
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: sectionHeaderSize,
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
+            
+            section.boundarySupplementaryItems = [sectionHeader]
+            
+            return section
         }
     }
 }

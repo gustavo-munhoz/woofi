@@ -1,11 +1,12 @@
 //
-//  Task.swift
+//  TaskType.swift
 //  woofi
 //
 //  Created by Gustavo Munhoz Correa on 09/05/24.
 //
 
-enum Task {
+/// Defines the types of Tasks that users can add to their pets.
+enum TaskType {
     case walk
     case feed
     case bath

@@ -1,20 +1,21 @@
 //
-//  TaskStat.swift
+//  UserTaskStat.swift
 //  woofi
 //
 //  Created by Gustavo Munhoz Correa on 09/05/24.
 //
 
-class TaskStat: Hashable {
-    var task: Task
+/// Contains the amount of times or correspondent value that a `Task` has been completed.
+class UserTaskStat: Hashable {
+    var task: TaskType
     var value: Int
     
-    init(task: Task, value: Int) {
+    init(task: TaskType, value: Int) {
         self.task = task
         self.value = value
     }
     
-    static func == (lhs: TaskStat, rhs: TaskStat) -> Bool {
+    static func == (lhs: UserTaskStat, rhs: UserTaskStat) -> Bool {
         return lhs.task == rhs.task && lhs.value == rhs.value
     }
 
@@ -23,7 +24,7 @@ class TaskStat: Hashable {
         hasher.combine(value)
     }
     
-    static func createAllWithZeroValue() -> [TaskStat] {
+    static func createAllWithZeroValue() -> [UserTaskStat] {
         [
             .init(
                 task: .walk,

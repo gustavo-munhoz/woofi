@@ -14,7 +14,7 @@ class User: Hashable {
     var description: String
     var profilePicture: UIImage?
     
-    var stats: [TaskStat]
+    var stats: [UserTaskStat]
     
     init(id: String, name: String, description: String, profilePicure: UIImage? = nil) {
         self.id = id
@@ -22,7 +22,7 @@ class User: Hashable {
         self.description = description
         self.profilePicture = profilePicure
         
-        self.stats = TaskStat.createAllWithZeroValue()
+        self.stats = UserTaskStat.createAllWithZeroValue()
     }
     
     static func ==(_ lhs: User, _ rhs: User) -> Bool {
