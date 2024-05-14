@@ -17,7 +17,6 @@
 		B30622DE2BE80705009441CB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622DD2BE80705009441CB /* LoginView.swift */; };
 		B30622E12BE8073D009441CB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B30622E02BE8073D009441CB /* Localizable.xcstrings */; };
 		B30622E42BE80863009441CB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B30622E32BE80863009441CB /* SnapKit */; };
-		B30622E62BE80863009441CB /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = B30622E52BE80863009441CB /* SnapKit-Dynamic */; };
 		B30622E92BE80A71009441CB /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622E82BE80A71009441CB /* LocalizedString.swift */; };
 		B30622EB2BE81100009441CB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622EA2BE81100009441CB /* RegisterView.swift */; };
 		B30622ED2BE8141D009441CB /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622EC2BE8141D009441CB /* AuthenticationViewModel.swift */; };
@@ -28,12 +27,48 @@
 		B30622FB2BE82C77009441CB /* AuthenticationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622FA2BE82C77009441CB /* AuthenticationServiceProtocol.swift */; };
 		B30622FD2BE82C8C009441CB /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622FC2BE82C8C009441CB /* AuthenticationService.swift */; };
 		B30622FF2BE83C14009441CB /* UITextField+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622FE2BE83C14009441CB /* UITextField+Publisher.swift */; };
+		B30623032BE8835F009441CB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30623022BE8835F009441CB /* HomeViewController.swift */; };
+		B30623072BE8842F009441CB /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30623062BE8842F009441CB /* GroupView.swift */; };
+		B30623092BE88437009441CB /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30623082BE88437009441CB /* GroupViewController.swift */; };
+		B306230E2BEAC80C009441CB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B306230D2BEAC80C009441CB /* User.swift */; };
+		B30623112BEAC949009441CB /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30623102BEAC949009441CB /* GroupViewModel.swift */; };
+		B30623132BEACCC2009441CB /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30623122BEACCC2009441CB /* UserCollectionViewCell.swift */; };
+		B30623152BEAFA1B009441CB /* UIColor+Primary.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30623142BEAFA1B009441CB /* UIColor+Primary.swift */; };
+		B30623182BEB06BE009441CB /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30623172BEB06BE009441CB /* UserView.swift */; };
+		B306231A2BEB06D9009441CB /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30623192BEB06D9009441CB /* UserViewController.swift */; };
+		B306231D2BEB0715009441CB /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B306231C2BEB0715009441CB /* UserViewModel.swift */; };
+		B31D301B2BEC1C3C00CE903A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D301A2BEC1C3C00CE903A /* HomeViewModel.swift */; };
+		B31D301F2BED136E00CE903A /* StatsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D301E2BED136D00CE903A /* StatsCollectionViewCell.swift */; };
+		B31D30222BED148300CE903A /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D30212BED148300CE903A /* Task.swift */; };
+		B31D30242BED14A400CE903A /* TaskStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D30232BED14A400CE903A /* TaskStat.swift */; };
+		B31D31B82BEEB78D00CE903A /* PetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31B72BEEB78D00CE903A /* PetListViewController.swift */; };
+		B31D31BA2BEEB80F00CE903A /* PetListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31B92BEEB80F00CE903A /* PetListView.swift */; };
+		B31D31BD2BEEBB5600CE903A /* PetListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31BC2BEEBB5600CE903A /* PetListViewModel.swift */; };
+		B31D31BF2BEEBBE600CE903A /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31BE2BEEBBE600CE903A /* Pet.swift */; };
+		B31D31C12BEEC7CA00CE903A /* PetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31C02BEEC7CA00CE903A /* PetCollectionViewCell.swift */; };
+		B31D31C52BF303F600CE903A /* PetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31C42BF303F600CE903A /* PetView.swift */; };
+		B31D31C72BF3043400CE903A /* PetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31C62BF3043400CE903A /* PetViewModel.swift */; };
+		B31D31C92BF30B1700CE903A /* PetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31C82BF30B1700CE903A /* PetViewController.swift */; };
+		B31D31CB2BF3887F00CE903A /* PetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31CA2BF3887F00CE903A /* PetTask.swift */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
 		B3A7E8512BE74DFB009B6630 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A7E8502BE74DFB009B6630 /* Assets.xcassets */; };
 		B3A7E8542BE74DFB009B6630 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B3A7E8532BE74DFB009B6630 /* Base */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B31D30192BEC181300CE903A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B30622CC2BE805C8009441CB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -49,6 +84,29 @@
 		B30622FA2BE82C77009441CB /* AuthenticationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationServiceProtocol.swift; sourceTree = "<group>"; };
 		B30622FC2BE82C8C009441CB /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		B30622FE2BE83C14009441CB /* UITextField+Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Publisher.swift"; sourceTree = "<group>"; };
+		B30623022BE8835F009441CB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B30623062BE8842F009441CB /* GroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupView.swift; sourceTree = "<group>"; };
+		B30623082BE88437009441CB /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		B306230D2BEAC80C009441CB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B30623102BEAC949009441CB /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
+		B30623122BEACCC2009441CB /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
+		B30623142BEAFA1B009441CB /* UIColor+Primary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Primary.swift"; sourceTree = "<group>"; };
+		B30623172BEB06BE009441CB /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		B30623192BEB06D9009441CB /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		B306231C2BEB0715009441CB /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		B31D301A2BEC1C3C00CE903A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		B31D301E2BED136D00CE903A /* StatsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCollectionViewCell.swift; sourceTree = "<group>"; };
+		B31D30212BED148300CE903A /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		B31D30232BED14A400CE903A /* TaskStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStat.swift; sourceTree = "<group>"; };
+		B31D31B72BEEB78D00CE903A /* PetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListViewController.swift; sourceTree = "<group>"; };
+		B31D31B92BEEB80F00CE903A /* PetListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListView.swift; sourceTree = "<group>"; };
+		B31D31BC2BEEBB5600CE903A /* PetListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetListViewModel.swift; sourceTree = "<group>"; };
+		B31D31BE2BEEBBE600CE903A /* Pet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
+		B31D31C02BEEC7CA00CE903A /* PetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetCollectionViewCell.swift; sourceTree = "<group>"; };
+		B31D31C42BF303F600CE903A /* PetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetView.swift; sourceTree = "<group>"; };
+		B31D31C62BF3043400CE903A /* PetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewModel.swift; sourceTree = "<group>"; };
+		B31D31C82BF30B1700CE903A /* PetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewController.swift; sourceTree = "<group>"; };
+		B31D31CA2BF3887F00CE903A /* PetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTask.swift; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,7 +124,6 @@
 				B30622D22BE80621009441CB /* FirebaseAnalyticsSwift in Frameworks */,
 				B30622D62BE80621009441CB /* FirebaseCrashlytics in Frameworks */,
 				B30622D42BE80621009441CB /* FirebaseAuth in Frameworks */,
-				B30622E62BE80863009441CB /* SnapKit-Dynamic in Frameworks */,
 				B30622E42BE80863009441CB /* SnapKit in Frameworks */,
 				B30622D82BE80621009441CB /* FirebaseFirestore in Frameworks */,
 				B30622D02BE80621009441CB /* FirebaseAnalytics in Frameworks */,
@@ -155,8 +212,102 @@
 			isa = PBXGroup;
 			children = (
 				B30622FE2BE83C14009441CB /* UITextField+Publisher.swift */,
+				B30623142BEAFA1B009441CB /* UIColor+Primary.swift */,
 			);
 			path = "+ext";
+			sourceTree = "<group>";
+		};
+		B30623012BE88357009441CB /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B31D31B62BEEB78400CE903A /* Pets */,
+				B30623052BE88425009441CB /* Group */,
+				B30623022BE8835F009441CB /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B30623052BE88425009441CB /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				B30623062BE8842F009441CB /* GroupView.swift */,
+				B30623082BE88437009441CB /* GroupViewController.swift */,
+				B30623122BEACCC2009441CB /* UserCollectionViewCell.swift */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
+		B306230F2BEAC941009441CB /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				B30623102BEAC949009441CB /* GroupViewModel.swift */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
+		B30623162BEB06B5009441CB /* User */ = {
+			isa = PBXGroup;
+			children = (
+				B30623172BEB06BE009441CB /* UserView.swift */,
+				B30623192BEB06D9009441CB /* UserViewController.swift */,
+				B31D301E2BED136D00CE903A /* StatsCollectionViewCell.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		B306231B2BEB0710009441CB /* User */ = {
+			isa = PBXGroup;
+			children = (
+				B306231C2BEB0715009441CB /* UserViewModel.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		B31D30202BED147800CE903A /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				B31D30212BED148300CE903A /* Task.swift */,
+				B31D30232BED14A400CE903A /* TaskStat.swift */,
+				B31D31CA2BF3887F00CE903A /* PetTask.swift */,
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
+		B31D31B62BEEB78400CE903A /* Pets */ = {
+			isa = PBXGroup;
+			children = (
+				B31D31C32BF303EA00CE903A /* PetSingle */,
+				B31D31C22BF303E100CE903A /* PetList */,
+			);
+			path = Pets;
+			sourceTree = "<group>";
+		};
+		B31D31BB2BEEBB4D00CE903A /* Pets */ = {
+			isa = PBXGroup;
+			children = (
+				B31D31BC2BEEBB5600CE903A /* PetListViewModel.swift */,
+				B31D31C62BF3043400CE903A /* PetViewModel.swift */,
+			);
+			path = Pets;
+			sourceTree = "<group>";
+		};
+		B31D31C22BF303E100CE903A /* PetList */ = {
+			isa = PBXGroup;
+			children = (
+				B31D31B72BEEB78D00CE903A /* PetListViewController.swift */,
+				B31D31B92BEEB80F00CE903A /* PetListView.swift */,
+				B31D31C02BEEC7CA00CE903A /* PetCollectionViewCell.swift */,
+			);
+			path = PetList;
+			sourceTree = "<group>";
+		};
+		B31D31C32BF303EA00CE903A /* PetSingle */ = {
+			isa = PBXGroup;
+			children = (
+				B31D31C42BF303F600CE903A /* PetView.swift */,
+				B31D31C82BF30B1700CE903A /* PetViewController.swift */,
+			);
+			path = PetSingle;
 			sourceTree = "<group>";
 		};
 		B3A7E83B2BE74DF9009B6630 = {
@@ -193,6 +344,9 @@
 		B3A7E8652BE7FB0D009B6630 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B31D30202BED147800CE903A /* Tasks */,
+				B306230D2BEAC80C009441CB /* User.swift */,
+				B31D31BE2BEEBBE600CE903A /* Pet.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -200,6 +354,8 @@
 		B3A7E8672BE7FB16009B6630 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B30623162BEB06B5009441CB /* User */,
+				B30623012BE88357009441CB /* Home */,
 				B30623002BE83C16009441CB /* +ext */,
 				B30622DF2BE80706009441CB /* Authentication */,
 				B30622DC2BE8063B009441CB /* LaunchScreen */,
@@ -210,7 +366,11 @@
 		B3A7E8692BE7FB1B009B6630 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B31D31BB2BEEBB4D00CE903A /* Pets */,
+				B306231B2BEB0710009441CB /* User */,
+				B306230F2BEAC941009441CB /* Group */,
 				B30622EE2BE8144E009441CB /* Authentication */,
+				B31D301A2BEC1C3C00CE903A /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -225,6 +385,7 @@
 				B3A7E8402BE74DF9009B6630 /* Sources */,
 				B3A7E8412BE74DF9009B6630 /* Frameworks */,
 				B3A7E8422BE74DF9009B6630 /* Resources */,
+				B31D30192BEC181300CE903A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -239,7 +400,6 @@
 				B30622D72BE80621009441CB /* FirebaseFirestore */,
 				B30622D92BE80621009441CB /* FirebaseFirestoreSwift */,
 				B30622E32BE80863009441CB /* SnapKit */,
-				B30622E52BE80863009441CB /* SnapKit-Dynamic */,
 			);
 			productName = woofi;
 			productReference = B3A7E8442BE74DF9009B6630 /* woofi.app */;
@@ -302,19 +462,42 @@
 			buildActionMask = 2147483647;
 			files = (
 				B30622E92BE80A71009441CB /* LocalizedString.swift in Sources */,
+				B306231D2BEB0715009441CB /* UserViewModel.swift in Sources */,
 				B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */,
+				B31D301B2BEC1C3C00CE903A /* HomeViewModel.swift in Sources */,
+				B30623072BE8842F009441CB /* GroupView.swift in Sources */,
+				B31D31BD2BEEBB5600CE903A /* PetListViewModel.swift in Sources */,
 				B30622ED2BE8141D009441CB /* AuthenticationViewModel.swift in Sources */,
+				B30623132BEACCC2009441CB /* UserCollectionViewCell.swift in Sources */,
+				B30623032BE8835F009441CB /* HomeViewController.swift in Sources */,
+				B31D301F2BED136E00CE903A /* StatsCollectionViewCell.swift in Sources */,
+				B31D31C92BF30B1700CE903A /* PetViewController.swift in Sources */,
 				B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */,
+				B31D31BA2BEEB80F00CE903A /* PetListView.swift in Sources */,
+				B30623092BE88437009441CB /* GroupViewController.swift in Sources */,
+				B31D31BF2BEEBBE600CE903A /* Pet.swift in Sources */,
 				B30622FF2BE83C14009441CB /* UITextField+Publisher.swift in Sources */,
 				B30622EB2BE81100009441CB /* RegisterView.swift in Sources */,
 				B30622F62BE82B91009441CB /* FirestoreServiceProtocol.swift in Sources */,
+				B30623182BEB06BE009441CB /* UserView.swift in Sources */,
+				B30623112BEAC949009441CB /* GroupViewModel.swift in Sources */,
 				B30622F82BE82BB6009441CB /* FirestoreKeys.swift in Sources */,
+				B31D30222BED148300CE903A /* Task.swift in Sources */,
 				B30622F02BE81475009441CB /* AuthenticationType.swift in Sources */,
 				B30622DE2BE80705009441CB /* LoginView.swift in Sources */,
+				B31D31C12BEEC7CA00CE903A /* PetCollectionViewCell.swift in Sources */,
+				B31D30242BED14A400CE903A /* TaskStat.swift in Sources */,
+				B31D31CB2BF3887F00CE903A /* PetTask.swift in Sources */,
+				B31D31B82BEEB78D00CE903A /* PetListViewController.swift in Sources */,
 				B30622FB2BE82C77009441CB /* AuthenticationServiceProtocol.swift in Sources */,
+				B306230E2BEAC80C009441CB /* User.swift in Sources */,
 				B30622F32BE826FE009441CB /* FirestoreService.swift in Sources */,
 				B30622FD2BE82C8C009441CB /* AuthenticationService.swift in Sources */,
+				B31D31C52BF303F600CE903A /* PetView.swift in Sources */,
+				B31D31C72BF3043400CE903A /* PetViewModel.swift in Sources */,
+				B306231A2BEB06D9009441CB /* UserViewController.swift in Sources */,
 				B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */,
+				B30623152BEAFA1B009441CB /* UIColor+Primary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,8 +646,9 @@
 				INFOPLIST_FILE = woofi/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -490,8 +674,9 @@
 				INFOPLIST_FILE = woofi/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -582,11 +767,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B30622E22BE80863009441CB /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		B30622E52BE80863009441CB /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B30622E22BE80863009441CB /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

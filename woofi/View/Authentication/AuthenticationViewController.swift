@@ -33,11 +33,12 @@ class AuthenticationViewController: UIViewController {
         viewModel = AuthenticationViewModel()
         
         viewModel?.onAuthenticationSuccess = {
-            print("Success")
+            print("Authentication successful")
+            self.navigationController?.pushViewController(HomeViewController(), animated: true)
         }
         
         viewModel?.onAuthenticationFailure = { error in
-            print("Failure:", error.localizedDescription)
+            print("Authentication failed:", error.localizedDescription)
         }
     }
     

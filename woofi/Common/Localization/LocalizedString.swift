@@ -19,4 +19,34 @@ struct LocalizedString {
         static let registerButton = String(localized: "registerButton")
         
     }
+    
+    struct Group {
+        private init() {}
+        
+        static let navbarTitle = String(localized: "group")
+    }
+    
+    struct PetList {
+        private init() {}
+        
+        static let navbarTitle = String(localized: "petList")
+    }
+    
+    struct Pet {
+        private init() {}
+        
+        static let largeTitleTasks = String(localized: "largeTitleTasks")
+    }
+    
+    struct Tasks {
+        private init() {}
+        
+        static let title = String(localized: "tasksTitle")
+        
+        static let walk = String(localized: "taskWalk")
+        static let feed = String(localized: "taskFeed")
+        static let bath = String(localized: "taskBath")
+        static let distance = String(localized: "taskDistance")
+    }
+    
 }
