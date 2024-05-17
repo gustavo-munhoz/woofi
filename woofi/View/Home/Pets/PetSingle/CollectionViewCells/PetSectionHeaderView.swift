@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-class PetSectionHeaderView: UICollectionReusableView {
+class PetSectionHeaderView: UITableViewHeaderFooterView {
     
-    static let reusableIdentifier = "PetSectionHeaderView"
+    static let reuseIdentifier = "PetSectionHeaderView"
     
     private(set) lazy var titleLabel: UILabel = {
         let view = UILabel()
@@ -24,8 +24,8 @@ class PetSectionHeaderView: UICollectionReusableView {
         return view
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: "PetSectionHeaderView")
         addSubviews()
         setupConstraints()
     }

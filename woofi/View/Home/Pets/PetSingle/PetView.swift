@@ -45,7 +45,12 @@ class PetView: UIView {
     }()
     
     private(set) lazy var titleStack: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [largeTitleLabel, newTaskButton])
+        let view = UIStackView(arrangedSubviews: [
+            largeTitleLabel,
+            SpacerView(axis: .horizontal),
+            newTaskButton
+        ])
+        
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -59,14 +64,23 @@ class PetView: UIView {
         backgroundColor = .systemBackground
     }
     
-    private(set) lazy var tasksCollectionView: UICollectionView = {
-        let layout = createCompositionalLayout()
+//    private(set) lazy var tasksCollectionView: UICollectionView = {
+//        let layout = createCompositionalLayout()
+//        
+//        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        return view
+//    }()
+
+    private(set) lazy var tasksTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
         
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
+        return tableView
     }()
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -76,7 +90,7 @@ class PetView: UIView {
         [
             petPicture,
             titleStack,
-            tasksCollectionView
+            tasksTableView
         ].forEach { v in
             addSubview(v)
         }
@@ -95,7 +109,14 @@ class PetView: UIView {
             make.height.equalTo(42)
         }
         
-        tasksCollectionView.snp.makeConstraints { make in
+//        tasksCollectionView.snp.makeConstraints { make in
+//            make.top.equalTo(titleStack.snp.bottom).offset(16)
+//            make.bottom.equalTo(safeAreaLayoutGuide)
+//            make.left.equalToSuperview().offset(24)
+//            make.right.equalToSuperview().offset(-24)
+//        }
+        
+        tasksTableView.snp.makeConstraints { make in
             make.top.equalTo(titleStack.snp.bottom).offset(16)
             make.bottom.equalTo(safeAreaLayoutGuide)
             make.left.equalToSuperview().offset(24)
@@ -103,13 +124,12 @@ class PetView: UIView {
         }
     }
     
+    
     private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout {
-            sectionIndex,
-            environment -> NSCollectionLayoutSection? in
+        return UICollectionViewCompositionalLayout { sectionIndex, environment -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(100)
+                heightDimension: .estimated(150)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
@@ -139,4 +159,3 @@ class PetView: UIView {
         }
     }
 }
-

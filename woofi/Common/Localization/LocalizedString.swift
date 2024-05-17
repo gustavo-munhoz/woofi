@@ -36,6 +36,10 @@ struct LocalizedString {
         private init() {}
         
         static let largeTitleTasks = String(localized: "largeTitleTasks")
+        
+        static let dailyTasksTitle = String(localized: "taskSectionTitleDaily")
+        static let weeklyTasksTitle = String(localized: "taskSectionTitleWeekly")
+        static let monthlyTasksTitle = String(localized: "taskSectionTitleMonthly")
     }
     
     struct Tasks {
