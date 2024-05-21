@@ -12,6 +12,7 @@ class PetViewModel {
     var pet: Pet
     
     init(pet: Pet) {
-        self.pet = Pet.mockPet()
+        self.pet = pet
     }
 }
+ 

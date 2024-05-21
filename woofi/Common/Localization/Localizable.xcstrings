@@ -87,12 +87,34 @@
         }
       }
     },
+    "taskBathFirst" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First bath"
+          }
+        }
+      }
+    },
+    "taskBathSecond" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Second bath"
+          }
+        }
+      }
+    },
     "taskBrush" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Grooming"
+            "value" : "Brushing"
           }
         }
       }
@@ -104,6 +126,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Feeding"
+          }
+        }
+      }
+    },
+    "taskFeedMorning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Morning meal"
+          }
+        }
+      }
+    },
+    "taskFeedNight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Night meal"
+          }
+        }
+      }
+    },
+    "taskBrushWeekly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekly brush"
           }
         }
       }
@@ -162,6 +217,17 @@
         }
       }
     },
+    "taskVeterinaryFirst" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veterinary appointment"
+          }
+        }
+      }
+    },
     "taskWalk" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -169,6 +235,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Walks"
+          }
+        }
+      }
+    },
+    "taskWalkAfternoon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afternoon walk"
+          }
+        }
+      }
+    },
+    "taskWalkMorning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Morning walk"
+          }
+        }
+      }
+    },
+    "taskWalkNight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Night walk"
           }
         }
       }

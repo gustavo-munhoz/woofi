@@ -14,6 +14,8 @@ class PetTaskInstanceView: UIView {
         didSet {
             titleLabel.text = taskInstance?.label
             completedByLabel.text = taskInstance?.completedBy?.name
+            completionImage.image = (taskInstance?.completed ?? false) ?
+                UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
         }
     }
     
