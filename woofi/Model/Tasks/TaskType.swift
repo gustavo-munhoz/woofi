@@ -10,7 +10,8 @@ enum TaskType {
     case walk
     case feed
     case bath
-    case distance
+    case brush
+    case vet
     
     var description: String {
         switch self {
@@ -20,8 +21,10 @@ enum TaskType {
             return LocalizedString.Tasks.feed
         case .bath:
             return LocalizedString.Tasks.bath
-        case .distance:
-            return LocalizedString.Tasks.distance
+        case .brush:
+            return LocalizedString.Tasks.brush
+        case .vet:
+            return LocalizedString.Tasks.vet
         }
     }
 }

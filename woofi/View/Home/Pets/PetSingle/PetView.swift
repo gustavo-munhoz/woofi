@@ -10,7 +10,13 @@ import SnapKit
 
 class PetView: UIView {
     
-    weak var viewModel: PetViewModel?
+    weak var viewModel: PetViewModel? {
+        didSet {
+            dailyTasks.setup(withTaskGroup: viewModel!.pet.taskGroups.first(where:  {
+                $0.frequency == .daily
+            })!)
+        }
+    }
     
     private(set) lazy var petPicture: UIImageView = {
         let view = UIImageView(image: UIImage(systemName: "dog.circle"))
@@ -33,25 +39,51 @@ class PetView: UIView {
         return view
     }()
     
-    private(set) lazy var newTaskButton: UIButton = {
-        let view = UIButton(type: .custom)
+    private(set) lazy var dailyTasksLabel: UILabel = {
+        let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setImage(UIImage(systemName: "plus.circle.fill")?
-            .withTintColor(.primary, renderingMode: .alwaysOriginal), for: .normal)
         
-        view.setPreferredSymbolConfiguration(.init(textStyle: .largeTitle), forImageIn: .normal)
+        view.text = LocalizedString.Pet.dailyTasksTitle
+        
+        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title2)
+        let boldFd = fd.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.bold]])
+        view.font = UIFont(descriptor: boldFd, size: .zero)
+        view.textColor = .primary
         
         return view
     }()
     
-    private(set) lazy var titleStack: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [
-            largeTitleLabel,
-            SpacerView(axis: .horizontal),
-            newTaskButton
-        ])
-        
+    private(set) lazy var dailyTasks: PetTaskGroupView = {
+        let view = PetTaskGroupView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    private(set) lazy var weeklyTasksLabel: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.text = LocalizedString.Pet.weeklyTasksTitle
+        
+        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title2)
+        let boldFd = fd.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.bold]])
+        view.font = UIFont(descriptor: boldFd, size: .zero)
+        view.textColor = .primary
+        
+        return view
+    }()
+    
+    private(set) lazy var monthlyTasksLabel: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.text = LocalizedString.Pet.monthlyTasksTitle
+        
+        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title2)
+        let boldFd = fd.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.bold]])
+        view.font = UIFont(descriptor: boldFd, size: .zero)
+        view.textColor = .primary
         
         return view
     }()
@@ -64,23 +96,7 @@ class PetView: UIView {
         backgroundColor = .systemBackground
     }
     
-//    private(set) lazy var tasksCollectionView: UICollectionView = {
-//        let layout = createCompositionalLayout()
-//        
-//        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        return view
-//    }()
-
-    private(set) lazy var tasksTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
-        
-        return tableView
-    }()
-
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -89,8 +105,11 @@ class PetView: UIView {
     private func addSubviews() {
         [
             petPicture,
-            titleStack,
-            tasksTableView
+            largeTitleLabel,
+            dailyTasksLabel,
+            dailyTasks,
+            weeklyTasksLabel,
+            monthlyTasksLabel
         ].forEach { v in
             addSubview(v)
         }
@@ -102,60 +121,33 @@ class PetView: UIView {
             make.width.height.equalTo(175)
         }
         
-        titleStack.snp.makeConstraints { make in
+        largeTitleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(24)
             make.right.equalToSuperview().offset(-24)
             make.top.equalTo(petPicture.snp.bottom).offset(16)
             make.height.equalTo(42)
         }
         
-//        tasksCollectionView.snp.makeConstraints { make in
-//            make.top.equalTo(titleStack.snp.bottom).offset(16)
-//            make.bottom.equalTo(safeAreaLayoutGuide)
-//            make.left.equalToSuperview().offset(24)
-//            make.right.equalToSuperview().offset(-24)
-//        }
-        
-        tasksTableView.snp.makeConstraints { make in
-            make.top.equalTo(titleStack.snp.bottom).offset(16)
-            make.bottom.equalTo(safeAreaLayoutGuide)
-            make.left.equalToSuperview().offset(24)
-            make.right.equalToSuperview().offset(-24)
+        dailyTasksLabel.snp.makeConstraints { make in
+            make.left.right.equalTo(largeTitleLabel)
+            make.top.equalTo(largeTitleLabel.snp.bottom).offset(16)
+            make.height.equalTo(28)
         }
-    }
-    
-    
-    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { sectionIndex, environment -> NSCollectionLayoutSection? in
-            let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(150)
-            )
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(100)
-            )
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 10, trailing: 16)
-            section.interGroupSpacing = 10
-            
-            let sectionHeaderSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(44)
-            )
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: sectionHeaderSize,
-                elementKind: UICollectionView.elementKindSectionHeader,
-                alignment: .top
-            )
-            
-            section.boundarySupplementaryItems = [sectionHeader]
-            
-            return section
+        
+        dailyTasks.snp.makeConstraints { make in
+            make.left.right.equalTo(dailyTasksLabel)
+            make.top.equalTo(dailyTasksLabel.snp.bottom).offset(16)
+            make.height.equalTo(160)
+        }
+        
+        weeklyTasksLabel.snp.makeConstraints { make in
+            make.left.right.height.equalTo(dailyTasksLabel)
+            make.top.equalTo(dailyTasks.snp.bottom).offset(16)
+        }
+        
+        monthlyTasksLabel.snp.makeConstraints { make in
+            make.left.right.height.equalTo(weeklyTasksLabel)
+            make.top.equalTo(weeklyTasksLabel.snp.bottom).offset(16)
         }
     }
 }

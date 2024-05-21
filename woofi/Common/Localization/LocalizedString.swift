@@ -45,12 +45,28 @@ struct LocalizedString {
     struct Tasks {
         private init() {}
         
+        static func ofType(_ type: TaskType) -> String {
+            switch type {
+                case .walk:
+                    return walk
+                case .feed:
+                    return feed
+                case .bath:
+                    return bath
+                case .brush:
+                    return brush
+                case .vet:
+                    return vet
+            }
+        }
+        
         static let title = String(localized: "tasksTitle")
         
         static let walk = String(localized: "taskWalk")
         static let feed = String(localized: "taskFeed")
         static let bath = String(localized: "taskBath")
-        static let distance = String(localized: "taskDistance")
+        static let brush = String(localized: "taskBrush")
+        static let vet = String(localized: "taskVet")
     }
     
 }

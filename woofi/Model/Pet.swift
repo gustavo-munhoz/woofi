@@ -54,7 +54,7 @@ extension Pet {
             PetTaskInstance(label: "Banho", completedBy: user1)
         ])
         
-        let vetTaskGroup = PetTaskGroup(task: .distance, frequency: .monthly, instances: [
+        let vetTaskGroup = PetTaskGroup(task: .vet, frequency: .monthly, instances: [
             PetTaskInstance(label: "Consulta Veterinária", completedBy: user2)
         ])
         

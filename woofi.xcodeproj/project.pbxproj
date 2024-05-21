@@ -50,12 +50,11 @@
 		B31D31C72BF3043400CE903A /* PetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31C62BF3043400CE903A /* PetViewModel.swift */; };
 		B31D31C92BF30B1700CE903A /* PetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31C82BF30B1700CE903A /* PetViewController.swift */; };
 		B31D31CB2BF3887F00CE903A /* PetTaskGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31CA2BF3887F00CE903A /* PetTaskGroup.swift */; };
-		B31D31CE2BF38EDE00CE903A /* PetSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31CD2BF38EDE00CE903A /* PetSectionHeaderView.swift */; };
-		B31D31D02BF3ED4E00CE903A /* PetTaskGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31CF2BF3ED4E00CE903A /* PetTaskGroupCell.swift */; };
 		B31D31D22BF3F04E00CE903A /* TaskFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31D12BF3F04E00CE903A /* TaskFrequency.swift */; };
 		B31D31D62BF3F0C300CE903A /* PetTaskInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31D52BF3F0C300CE903A /* PetTaskInstance.swift */; };
-		B31D31D82BF400EC00CE903A /* PetTaskInstanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31D72BF400EC00CE903A /* PetTaskInstanceCell.swift */; };
 		B31D31DA2BF64E0100CE903A /* UIView+Spacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31D92BF64E0100CE903A /* UIView+Spacer.swift */; };
+		B31D31DC2BFC57F100CE903A /* PetTaskGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31DB2BFC57F100CE903A /* PetTaskGroupView.swift */; };
+		B31D31DE2BFC5CAF00CE903A /* PetTaskInstanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31DD2BFC5CAF00CE903A /* PetTaskInstanceView.swift */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -113,12 +112,11 @@
 		B31D31C62BF3043400CE903A /* PetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewModel.swift; sourceTree = "<group>"; };
 		B31D31C82BF30B1700CE903A /* PetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewController.swift; sourceTree = "<group>"; };
 		B31D31CA2BF3887F00CE903A /* PetTaskGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTaskGroup.swift; sourceTree = "<group>"; };
-		B31D31CD2BF38EDE00CE903A /* PetSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSectionHeaderView.swift; sourceTree = "<group>"; };
-		B31D31CF2BF3ED4E00CE903A /* PetTaskGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTaskGroupCell.swift; sourceTree = "<group>"; };
 		B31D31D12BF3F04E00CE903A /* TaskFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFrequency.swift; sourceTree = "<group>"; };
 		B31D31D52BF3F0C300CE903A /* PetTaskInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PetTaskInstance.swift; path = woofi/Model/Tasks/PetTaskInstance.swift; sourceTree = SOURCE_ROOT; };
-		B31D31D72BF400EC00CE903A /* PetTaskInstanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTaskInstanceCell.swift; sourceTree = "<group>"; };
 		B31D31D92BF64E0100CE903A /* UIView+Spacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Spacer.swift"; sourceTree = "<group>"; };
+		B31D31DB2BFC57F100CE903A /* PetTaskGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTaskGroupView.swift; sourceTree = "<group>"; };
+		B31D31DD2BFC5CAF00CE903A /* PetTaskInstanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTaskInstanceView.swift; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -317,21 +315,12 @@
 		B31D31C32BF303EA00CE903A /* PetSingle */ = {
 			isa = PBXGroup;
 			children = (
-				B31D31CC2BF38EC900CE903A /* CollectionViewCells */,
 				B31D31C42BF303F600CE903A /* PetView.swift */,
 				B31D31C82BF30B1700CE903A /* PetViewController.swift */,
+				B31D31DB2BFC57F100CE903A /* PetTaskGroupView.swift */,
+				B31D31DD2BFC5CAF00CE903A /* PetTaskInstanceView.swift */,
 			);
 			path = PetSingle;
-			sourceTree = "<group>";
-		};
-		B31D31CC2BF38EC900CE903A /* CollectionViewCells */ = {
-			isa = PBXGroup;
-			children = (
-				B31D31CD2BF38EDE00CE903A /* PetSectionHeaderView.swift */,
-				B31D31CF2BF3ED4E00CE903A /* PetTaskGroupCell.swift */,
-				B31D31D72BF400EC00CE903A /* PetTaskInstanceCell.swift */,
-			);
-			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
 		B31D31D32BF3F0AB00CE903A /* User */ = {
@@ -507,9 +496,8 @@
 				B306231D2BEB0715009441CB /* UserViewModel.swift in Sources */,
 				B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */,
 				B31D301B2BEC1C3C00CE903A /* HomeViewModel.swift in Sources */,
+				B31D31DE2BFC5CAF00CE903A /* PetTaskInstanceView.swift in Sources */,
 				B30623072BE8842F009441CB /* GroupView.swift in Sources */,
-				B31D31D02BF3ED4E00CE903A /* PetTaskGroupCell.swift in Sources */,
-				B31D31CE2BF38EDE00CE903A /* PetSectionHeaderView.swift in Sources */,
 				B31D31BD2BEEBB5600CE903A /* PetListViewModel.swift in Sources */,
 				B30622ED2BE8141D009441CB /* AuthenticationViewModel.swift in Sources */,
 				B30623132BEACCC2009441CB /* UserCollectionViewCell.swift in Sources */,
@@ -539,13 +527,13 @@
 				B30622FB2BE82C77009441CB /* AuthenticationServiceProtocol.swift in Sources */,
 				B306230E2BEAC80C009441CB /* User.swift in Sources */,
 				B30622F32BE826FE009441CB /* FirestoreService.swift in Sources */,
-				B31D31D82BF400EC00CE903A /* PetTaskInstanceCell.swift in Sources */,
 				B30622FD2BE82C8C009441CB /* AuthenticationService.swift in Sources */,
 				B31D31C52BF303F600CE903A /* PetView.swift in Sources */,
 				B31D31C72BF3043400CE903A /* PetViewModel.swift in Sources */,
 				B306231A2BEB06D9009441CB /* UserViewController.swift in Sources */,
 				B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */,
 				B30623152BEAFA1B009441CB /* UIColor+Primary.swift in Sources */,
+				B31D31DC2BFC57F100CE903A /* PetTaskGroupView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -82,18 +82,17 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Took to bath"
+            "value" : "Bath"
           }
         }
       }
     },
-    "taskDistance" : {
-      "extractionState" : "manual",
+    "taskBrush" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Distance walked"
+            "value" : "Grooming"
           }
         }
       }
@@ -104,7 +103,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fed the dog"
+            "value" : "Feeding"
           }
         }
       }
@@ -153,13 +152,23 @@
         }
       }
     },
+    "taskVet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veterinary"
+          }
+        }
+      }
+    },
     "taskWalk" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Walks completed"
+            "value" : "Walks"
           }
         }
       }

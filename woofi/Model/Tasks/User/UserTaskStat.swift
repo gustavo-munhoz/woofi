@@ -39,7 +39,7 @@ class UserTaskStat: Hashable {
                 value: 0
             ),
             .init(
-                task: .distance,
+                task: .vet,
                 value: 0
             )
         ]
