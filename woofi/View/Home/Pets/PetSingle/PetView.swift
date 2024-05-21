@@ -37,16 +37,15 @@ class PetView: UIView {
         return view
     }()
     
-    // MARK: - Trying collectionView
-    
     private(set) lazy var tasksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 10
-        layout.headerReferenceSize = CGSizeMake(UIScreen.main.bounds.width, 44)
+        layout.headerReferenceSize = CGSizeMake(UIScreen.main.bounds.width, 60)
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.showsVerticalScrollIndicator = false
         
         return view
     }()

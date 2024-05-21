@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Combine
 
 class Pet: Hashable {
     let id: String
@@ -14,18 +15,32 @@ class Pet: Hashable {
     let breed: String
     let age: String
     let picture: UIImage?
-    var taskGroups: [PetTaskGroup]
     
-    init(id: String, name: String, breed: String, age: String, picture: UIImage? = nil, tasks: [PetTaskGroup] = []) {
+    var dailyTasks: CurrentValueSubject<[PetTaskGroup], Never>
+    var weeklyTasks: CurrentValueSubject<[PetTaskGroup], Never>
+    var monthlyTasks: CurrentValueSubject<[PetTaskGroup], Never>
+    
+    init(
+        id: String,
+        name: String,
+        breed: String,
+        age: String,
+        picture: UIImage? = nil,
+        dailyTasks: [PetTaskGroup] = [],
+        weeklyTasks: [PetTaskGroup] = [],
+        monthlyTasks: [PetTaskGroup] = []
+    ) {
         self.id = id
         self.name = name
         self.breed = breed
         self.age = age
         self.picture = picture
-        self.taskGroups = tasks
+        self.dailyTasks = CurrentValueSubject(dailyTasks)
+        self.weeklyTasks = CurrentValueSubject(weeklyTasks)
+        self.monthlyTasks = CurrentValueSubject(monthlyTasks)
     }
     
-    static func ==(_ lhs: Pet, _ rhs: Pet) -> Bool {
+    static func == (_ lhs: Pet, _ rhs: Pet) -> Bool {
         lhs.id == rhs.id
     }
     
@@ -36,34 +51,37 @@ class Pet: Hashable {
 
 extension Pet {
     static func mockPet() -> Pet {
-        let user1 = User(id: "1", name: "Membro 1", description: "Descrição do Membro 1")
-        let user2 = User(id: "2", name: "Membro 2", description: "Descrição do Membro 2")
 
         // Tarefas Diárias
-        let walkMorning = PetTaskInstance(label: "Passeio Manhã", completed: true, completedBy: user1)
-        let walkAfternoon = PetTaskInstance(label: "Passeio Tarde", completed: true, completedBy: user2)
+        let walkMorning = PetTaskInstance(label: "Passeio Manhã")
+        let walkAfternoon = PetTaskInstance(label: "Passeio Tarde")
         let walkEvening = PetTaskInstance(label: "Passeio Noite")
         
-        let feedMorning = PetTaskInstance(label: "Refeição Manhã", completedBy: user1)
-        let feedEvening = PetTaskInstance(label: "Refeição Noite", completedBy: user2)
+        let feedMorning = PetTaskInstance(label: "Refeição Manhã")
+        let feedEvening = PetTaskInstance(label: "Refeição Noite")
         
-        let walkTaskGroup = PetTaskGroup(task: .walk, frequency: .daily, instances: [walkMorning, walkAfternoon, walkEvening])
-        let feedTaskGroup = PetTaskGroup(task: .feed, frequency: .daily, instances: [feedMorning, feedEvening])
+        let dailyTasks = [
+            PetTaskGroup(task: .walk, frequency: .daily, instances: [walkMorning, walkAfternoon, walkEvening]),
+            PetTaskGroup(task: .feed, frequency: .daily, instances: [feedMorning, feedEvening])
+        ]
         
         // Tarefas Semanais
-        let brushTaskGroup = PetTaskGroup(task: .brush, frequency: .weekly, instances: [
-            PetTaskInstance(label: "Escovação", completedBy: user1)
-        ])
+        let weeklyTasks = [
+            PetTaskGroup(task: .brush, frequency: .weekly, instances: [
+                PetTaskInstance(label: "Escovação")
+            ])
+        ]
         
         // Tarefas Mensais
-        let bathFirst = PetTaskInstance(label: "Banho 1", completedBy: user1)
-        let bathSecond = PetTaskInstance(label: "Banho 2", completedBy: user2)
+        let bathFirst = PetTaskInstance(label: "Banho 1")
+        let bathSecond = PetTaskInstance(label: "Banho 2")
         
-        let bathTaskGroup = PetTaskGroup(task: .bath, frequency: .monthly, instances: [bathFirst, bathSecond])
-        
-        let vetTaskGroup = PetTaskGroup(task: .vet, frequency: .monthly, instances: [
-            PetTaskInstance(label: "Consulta Veterinária", completedBy: user2)
-        ])
+        let monthlyTasks = [
+            PetTaskGroup(task: .bath, frequency: .monthly, instances: [bathFirst, bathSecond]),
+            PetTaskGroup(task: .vet, frequency: .monthly, instances: [
+                PetTaskInstance(label: "Consulta Veterinária")
+            ])
+        ]
         
         return Pet(
             id: UUID().uuidString,
@@ -71,7 +89,9 @@ extension Pet {
             breed: "Schipperke",
             age: "1 ano",
             picture: UIImage(named: "skippy"),
-            tasks: [walkTaskGroup, feedTaskGroup, brushTaskGroup, bathTaskGroup, vetTaskGroup]
+            dailyTasks: dailyTasks,
+            weeklyTasks: weeklyTasks,
+            monthlyTasks: monthlyTasks
         )
     }
 }

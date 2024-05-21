@@ -125,9 +125,9 @@ class PetViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, PetTaskGroup>()
         snapshot.appendSections(Section.allCases)
         
-        snapshot.appendItems(viewModel.dailyTaskGroups.value, toSection: .daily)
-        snapshot.appendItems(viewModel.weeklyTaskGroups.value, toSection: .weekly)
-        snapshot.appendItems(viewModel.monthlyTaskGroups.value, toSection: .monthly)
+        snapshot.appendItems(viewModel.pet.dailyTasks.value, toSection: .daily)
+        snapshot.appendItems(viewModel.pet.weeklyTasks.value, toSection: .weekly)
+        snapshot.appendItems(viewModel.pet.monthlyTasks.value, toSection: .monthly)
         
         dataSource.apply(snapshot, animatingDifferences: false)
     }

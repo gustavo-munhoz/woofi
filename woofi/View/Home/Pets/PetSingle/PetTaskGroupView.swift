@@ -30,7 +30,7 @@ class PetTaskGroupView: UICollectionViewCell {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
-        view.spacing = 14
+        view.spacing = 16
         view.distribution = .fillEqually
         
         return view
