@@ -8,7 +8,9 @@
 import UIKit
 import SnapKit
 
-class PetTaskGroupView: UIView {
+class PetTaskGroupView: UICollectionViewCell {
+    
+    static let reuseIdentifier = "PetTaskGroup"
     
     weak var taskGroup: PetTaskGroup?
     
@@ -36,6 +38,9 @@ class PetTaskGroupView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        backgroundColor = .systemGray5
+        layer.cornerRadius = 12
     }
     
     required init?(coder: NSCoder) {
@@ -46,6 +51,8 @@ class PetTaskGroupView: UIView {
         self.taskGroup = taskGroup
         
         titleLabel.text = LocalizedString.Tasks.ofType(taskGroup.task)
+        
+        guard instancesStackView.arrangedSubviews.isEmpty else { return }
         
         for instance in taskGroup.instances {
             let view = PetTaskInstanceView()
@@ -74,7 +81,7 @@ class PetTaskGroupView: UIView {
         instancesStackView.snp.makeConstraints { make in
             make.left.right.equalTo(titleLabel)
             make.top.equalTo(titleLabel.snp.bottom).offset(14)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-14)
         }
     }
 }

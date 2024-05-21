@@ -55,6 +55,7 @@
 		B31D31DA2BF64E0100CE903A /* UIView+Spacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31D92BF64E0100CE903A /* UIView+Spacer.swift */; };
 		B31D31DC2BFC57F100CE903A /* PetTaskGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31DB2BFC57F100CE903A /* PetTaskGroupView.swift */; };
 		B31D31DE2BFC5CAF00CE903A /* PetTaskInstanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31DD2BFC5CAF00CE903A /* PetTaskInstanceView.swift */; };
+		B31D31E02BFD1A8500CE903A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31DF2BFD1A8500CE903A /* HeaderView.swift */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -117,6 +118,7 @@
 		B31D31D92BF64E0100CE903A /* UIView+Spacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Spacer.swift"; sourceTree = "<group>"; };
 		B31D31DB2BFC57F100CE903A /* PetTaskGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTaskGroupView.swift; sourceTree = "<group>"; };
 		B31D31DD2BFC5CAF00CE903A /* PetTaskInstanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTaskInstanceView.swift; sourceTree = "<group>"; };
+		B31D31DF2BFD1A8500CE903A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				B31D31C82BF30B1700CE903A /* PetViewController.swift */,
 				B31D31DB2BFC57F100CE903A /* PetTaskGroupView.swift */,
 				B31D31DD2BFC5CAF00CE903A /* PetTaskInstanceView.swift */,
+				B31D31DF2BFD1A8500CE903A /* HeaderView.swift */,
 			);
 			path = PetSingle;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				B30622EB2BE81100009441CB /* RegisterView.swift in Sources */,
 				B30622F62BE82B91009441CB /* FirestoreServiceProtocol.swift in Sources */,
 				B30623182BEB06BE009441CB /* UserView.swift in Sources */,
+				B31D31E02BFD1A8500CE903A /* HeaderView.swift in Sources */,
 				B30623112BEAC949009441CB /* GroupViewModel.swift in Sources */,
 				B30622F82BE82BB6009441CB /* FirestoreKeys.swift in Sources */,
 				B31D30222BED148300CE903A /* TaskType.swift in Sources */,

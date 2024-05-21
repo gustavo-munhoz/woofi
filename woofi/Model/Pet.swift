@@ -38,21 +38,28 @@ extension Pet {
     static func mockPet() -> Pet {
         let user1 = User(id: "1", name: "Membro 1", description: "Descrição do Membro 1")
         let user2 = User(id: "2", name: "Membro 2", description: "Descrição do Membro 2")
+
+        // Tarefas Diárias
+        let walkMorning = PetTaskInstance(label: "Passeio Manhã", completed: true, completedBy: user1)
+        let walkAfternoon = PetTaskInstance(label: "Passeio Tarde", completed: true, completedBy: user2)
+        let walkEvening = PetTaskInstance(label: "Passeio Noite")
         
-        let walkMorning = PetTaskInstance(label: "Manhã", completed: true, completedBy: user1)
-        let walkAfternoon = PetTaskInstance(label: "Tarde", completed: true, completedBy: user2)
-        let walkEvening = PetTaskInstance(label: "Noite")
-        
-        let feedMorning = PetTaskInstance(label: "Manhã", completedBy: user1)
-        let feedAfternoon = PetTaskInstance(label: "Tarde", completedBy: user2)
-        let feedEvening = PetTaskInstance(label: "Noite")
+        let feedMorning = PetTaskInstance(label: "Refeição Manhã", completedBy: user1)
+        let feedEvening = PetTaskInstance(label: "Refeição Noite", completedBy: user2)
         
         let walkTaskGroup = PetTaskGroup(task: .walk, frequency: .daily, instances: [walkMorning, walkAfternoon, walkEvening])
-        let feedTaskGroup = PetTaskGroup(task: .feed, frequency: .daily, instances: [feedMorning, feedAfternoon, feedEvening])
+        let feedTaskGroup = PetTaskGroup(task: .feed, frequency: .daily, instances: [feedMorning, feedEvening])
         
-        let bathTaskGroup = PetTaskGroup(task: .bath, frequency: .weekly, instances: [
-            PetTaskInstance(label: "Banho", completedBy: user1)
+        // Tarefas Semanais
+        let brushTaskGroup = PetTaskGroup(task: .brush, frequency: .weekly, instances: [
+            PetTaskInstance(label: "Escovação", completedBy: user1)
         ])
+        
+        // Tarefas Mensais
+        let bathFirst = PetTaskInstance(label: "Banho 1", completedBy: user1)
+        let bathSecond = PetTaskInstance(label: "Banho 2", completedBy: user2)
+        
+        let bathTaskGroup = PetTaskGroup(task: .bath, frequency: .monthly, instances: [bathFirst, bathSecond])
         
         let vetTaskGroup = PetTaskGroup(task: .vet, frequency: .monthly, instances: [
             PetTaskInstance(label: "Consulta Veterinária", completedBy: user2)
@@ -64,7 +71,7 @@ extension Pet {
             breed: "Schipperke",
             age: "1 ano",
             picture: UIImage(named: "skippy"),
-            tasks: [walkTaskGroup, feedTaskGroup, bathTaskGroup, vetTaskGroup]
+            tasks: [walkTaskGroup, feedTaskGroup, brushTaskGroup, bathTaskGroup, vetTaskGroup]
         )
     }
 }

@@ -12,9 +12,7 @@ class PetView: UIView {
     
     weak var viewModel: PetViewModel? {
         didSet {
-            dailyTasks.setup(withTaskGroup: viewModel!.pet.taskGroups.first(where:  {
-                $0.frequency == .daily
-            })!)
+            tasksCollectionView.reloadData()
         }
     }
     
@@ -39,51 +37,16 @@ class PetView: UIView {
         return view
     }()
     
-    private(set) lazy var dailyTasksLabel: UILabel = {
-        let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.text = LocalizedString.Pet.dailyTasksTitle
-        
-        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title2)
-        let boldFd = fd.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.bold]])
-        view.font = UIFont(descriptor: boldFd, size: .zero)
-        view.textColor = .primary
-        
-        return view
-    }()
+    // MARK: - Trying collectionView
     
-    private(set) lazy var dailyTasks: PetTaskGroupView = {
-        let view = PetTaskGroupView()
+    private(set) lazy var tasksCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 10
+        layout.headerReferenceSize = CGSizeMake(UIScreen.main.bounds.width, 44)
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
-    private(set) lazy var weeklyTasksLabel: UILabel = {
-        let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.text = LocalizedString.Pet.weeklyTasksTitle
-        
-        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title2)
-        let boldFd = fd.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.bold]])
-        view.font = UIFont(descriptor: boldFd, size: .zero)
-        view.textColor = .primary
-        
-        return view
-    }()
-    
-    private(set) lazy var monthlyTasksLabel: UILabel = {
-        let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.text = LocalizedString.Pet.monthlyTasksTitle
-        
-        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title2)
-        let boldFd = fd.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.bold]])
-        view.font = UIFont(descriptor: boldFd, size: .zero)
-        view.textColor = .primary
         
         return view
     }()
@@ -96,8 +59,6 @@ class PetView: UIView {
         backgroundColor = .systemBackground
     }
     
-    
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -106,10 +67,7 @@ class PetView: UIView {
         [
             petPicture,
             largeTitleLabel,
-            dailyTasksLabel,
-            dailyTasks,
-            weeklyTasksLabel,
-            monthlyTasksLabel
+            tasksCollectionView
         ].forEach { v in
             addSubview(v)
         }
@@ -128,26 +86,10 @@ class PetView: UIView {
             make.height.equalTo(42)
         }
         
-        dailyTasksLabel.snp.makeConstraints { make in
-            make.left.right.equalTo(largeTitleLabel)
+        tasksCollectionView.snp.makeConstraints { make in
             make.top.equalTo(largeTitleLabel.snp.bottom).offset(16)
-            make.height.equalTo(28)
-        }
-        
-        dailyTasks.snp.makeConstraints { make in
-            make.left.right.equalTo(dailyTasksLabel)
-            make.top.equalTo(dailyTasksLabel.snp.bottom).offset(16)
-            make.height.equalTo(160)
-        }
-        
-        weeklyTasksLabel.snp.makeConstraints { make in
-            make.left.right.height.equalTo(dailyTasksLabel)
-            make.top.equalTo(dailyTasks.snp.bottom).offset(16)
-        }
-        
-        monthlyTasksLabel.snp.makeConstraints { make in
-            make.left.right.height.equalTo(weeklyTasksLabel)
-            make.top.equalTo(weeklyTasksLabel.snp.bottom).offset(16)
+            make.left.right.equalTo(largeTitleLabel)
+            make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
 }
