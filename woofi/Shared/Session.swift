@@ -12,5 +12,10 @@ class Session {
     
     private init() {}
     
-    var currentUser: User? = User(id: "1", name: "Gustavo", description: "Filho")
+    var currentUser: User? = User(
+        id: "3qzsiH2y0QPvDDTORqxt8jO6gl03",
+        username: "Johndoe",
+        bio: "...",
+        groupID: "0"
+    )
 }

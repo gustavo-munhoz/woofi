@@ -18,14 +18,26 @@ class GroupViewModel: NSObject {
  
     override init() {
         super.init()
-        loadUsers()
+        
+        Task {
+            await loadUsers()
+        }
     }
     
-    /// Loads the users from firestore.
-    func loadUsers() {
-        let user1 = User(id: "1", name: "Alice", description: "Description of Alice")
-        let user2 = User(id: "2", name: "Bob", description: "Description of Bob")
-        users.value = [user1, user2]
+    /// Loads related users from firestore.
+    func loadUsers() async {
+        guard let groupID = Session.shared.currentUser?.groupID else { return }
+        
+        let result = await FirestoreService.shared.fetchUsersInSameGroup(groupID: groupID)
+        
+        switch result {
+            case .success(let users):
+                print("Users fetched: \(users.map { $0.id })")
+                self.users.value = users
+                
+            case .failure(let error):
+                print("Error loading users: \(error)")
+        }
     }
     
     func navigateToUser(_ user: User) {

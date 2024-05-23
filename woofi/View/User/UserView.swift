@@ -101,8 +101,8 @@ class UserView: UIView {
     // MARK: - Setup methods
     
     func setupData() {
-        nameLabel.text = viewModel?.user.name
-        descriptionLabel.text = viewModel?.user.description
+        nameLabel.text = viewModel?.user.username
+        descriptionLabel.text = viewModel?.user.bio
     }
     
     func addSubviews() {

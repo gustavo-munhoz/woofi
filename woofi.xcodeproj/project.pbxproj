@@ -58,6 +58,8 @@
 		B31D31E02BFD1A8500CE903A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31DF2BFD1A8500CE903A /* HeaderView.swift */; };
 		B31D31E32BFD284900CE903A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31E22BFD284900CE903A /* Session.swift */; };
 		B35CC3712BFD366E007FBEFC /* DefaultPetTaskStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3702BFD366E007FBEFC /* DefaultPetTaskStructure.swift */; };
+		B35CC3742BFFC776007FBEFC /* InviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3732BFFC776007FBEFC /* InviteView.swift */; };
+		B35CC3762BFFC77D007FBEFC /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -123,6 +125,8 @@
 		B31D31DF2BFD1A8500CE903A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B31D31E22BFD284900CE903A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		B35CC3702BFD366E007FBEFC /* DefaultPetTaskStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPetTaskStructure.swift; sourceTree = "<group>"; };
+		B35CC3732BFFC776007FBEFC /* InviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteView.swift; sourceTree = "<group>"; };
+		B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -247,6 +251,7 @@
 		B30623052BE88425009441CB /* Group */ = {
 			isa = PBXGroup;
 			children = (
+				B35CC3722BFFC76A007FBEFC /* Invite */,
 				B30623062BE8842F009441CB /* GroupView.swift */,
 				B30623082BE88437009441CB /* GroupViewController.swift */,
 				B30623122BEACCC2009441CB /* UserCollectionViewCell.swift */,
@@ -371,6 +376,15 @@
 				B35CC3702BFD366E007FBEFC /* DefaultPetTaskStructure.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		B35CC3722BFFC76A007FBEFC /* Invite */ = {
+			isa = PBXGroup;
+			children = (
+				B35CC3732BFFC776007FBEFC /* InviteView.swift */,
+				B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */,
+			);
+			path = Invite;
 			sourceTree = "<group>";
 		};
 		B3A7E83B2BE74DF9009B6630 = {
@@ -526,6 +540,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B30622E92BE80A71009441CB /* LocalizedString.swift in Sources */,
+				B35CC3742BFFC776007FBEFC /* InviteView.swift in Sources */,
 				B306231D2BEB0715009441CB /* UserViewModel.swift in Sources */,
 				B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */,
 				B31D301B2BEC1C3C00CE903A /* HomeViewModel.swift in Sources */,
@@ -565,6 +580,7 @@
 				B30622FD2BE82C8C009441CB /* AuthenticationService.swift in Sources */,
 				B31D31C52BF303F600CE903A /* PetView.swift in Sources */,
 				B31D31C72BF3043400CE903A /* PetViewModel.swift in Sources */,
+				B35CC3762BFFC77D007FBEFC /* InviteViewController.swift in Sources */,
 				B306231A2BEB06D9009441CB /* UserViewController.swift in Sources */,
 				B31D31E32BFD284900CE903A /* Session.swift in Sources */,
 				B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */,

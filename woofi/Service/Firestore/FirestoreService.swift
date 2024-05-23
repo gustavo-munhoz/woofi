@@ -40,6 +40,33 @@ class FirestoreService: FirestoreServiceProtocol {
         }
     }
     
+    /// Fetches all users related to the same group as the current user
+    func fetchUsersInSameGroup(groupID: String) async -> Result<[User], Error> {
+        do {
+            let querySnapshot = try await db.collection(FirestoreKeys.Users.collectionTitle)
+                .whereField(FirestoreKeys.Users.groupID, isEqualTo: groupID)
+                .getDocuments()
+            
+            var users = [User]()
+            for document in querySnapshot.documents {
+                let data = document.data()
+                if let id = data[FirestoreKeys.Users.uid] as? String,
+                   id != Session.shared.currentUser?.id,
+                   let name = data[FirestoreKeys.Users.username] as? String,
+//                   let bio = data[FirestoreKeys.Users.bio] as? String,
+                   let groupID = data[FirestoreKeys.Users.groupID] as? String {
+//                    let user = User(id: id, username: name, bio: bio, groupID: groupID)
+                    let user = User(id: id, username: name, groupID: groupID)
+                    users.append(user)
+                }
+            }
+            return .success(users)
+            
+        } catch {
+            return .failure(error)
+        }
+    }
+    
     /// Updates user data in Firestore
     func updateUserData(userId: String, data: [String: Any], completion: @escaping (Error?) -> Void) {
         db.collection(FirestoreKeys.Users.collectionTitle).document(userId).updateData(data, completion: completion)

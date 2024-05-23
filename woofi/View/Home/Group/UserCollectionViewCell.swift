@@ -60,8 +60,8 @@ class UserCollectionViewCell: UICollectionViewCell {
     
     func setup(with user: User) {
         self.image = user.profilePicture
-        self.title = user.name
-        self.subtitle = user.description
+        self.title = user.username
+        self.subtitle = user.bio
         
         addSubviews()
         setupConstraints()
