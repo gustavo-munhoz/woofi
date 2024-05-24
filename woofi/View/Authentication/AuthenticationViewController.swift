@@ -32,9 +32,30 @@ class AuthenticationViewController: UIViewController {
     private func setupViewModel() {
         viewModel = AuthenticationViewModel()
         
-        viewModel?.onAuthenticationSuccess = {
-            print("Authentication successful")
-            self.navigationController?.pushViewController(HomeViewController(), animated: true)
+        viewModel?.onAuthenticationSuccess = { userId in
+            
+            Task {
+                do {
+                    let userData = try await FirestoreService.shared.fetchUserData(userId: userId)
+                    
+                    let user = User(
+                        id: userId,
+                        username: userData[FirestoreKeys.Users.username] as? String ?? "?",
+                        bio: userData[FirestoreKeys.Users.bio] as? String ?? "",
+                        groupID: userData[FirestoreKeys.Users.groupID] as? String ?? UUID().uuidString
+                    )
+                    
+                    Session.shared.currentUser = user
+                    
+                    print("Authentication successful")
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(HomeViewController(), animated: true)
+                    }
+                }
+                catch {
+                    print("Error fetching user data: \(error)")
+                }
+            }
         }
         
         viewModel?.onAuthenticationFailure = { error in

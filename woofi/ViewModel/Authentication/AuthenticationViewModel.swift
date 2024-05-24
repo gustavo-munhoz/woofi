@@ -22,7 +22,7 @@ class AuthenticationViewModel: NSObject {
     var password = CurrentValueSubject<String, Never>("")
     var username = CurrentValueSubject<String, Never>("")
     
-    var onAuthenticationSuccess: (() -> Void)?
+    var onAuthenticationSuccess: ((String) -> Void)?
     var onAuthenticationFailure: ((Error) -> Void)?
     
     /// Tries to perform authentication depending on the current selected authentication type (register or login).
@@ -43,8 +43,8 @@ class AuthenticationViewModel: NSObject {
     private func loginUser() {
         AuthenticationService.shared.loginUser(withEmail: email.value, password: password.value) { [weak self] result in
             switch result {
-                case .success():
-                    self?.onAuthenticationSuccess?()
+                case .success(let authResult):
+                    self?.onAuthenticationSuccess?(authResult.user.uid)
                     
                 case .failure(let error):
                     self?.onAuthenticationFailure?(error)
@@ -55,13 +55,14 @@ class AuthenticationViewModel: NSObject {
     // MARK: - Register logic
     private func registerUser() {
         let additionalData: [String:Any] = [
-            FirestoreKeys.Users.username: username.value
+            FirestoreKeys.Users.username: username.value,
+            FirestoreKeys.Users.groupID: UUID().uuidString
         ]
         
         AuthenticationService.shared.registerUser(withEmail: email.value, password: password.value, additionalData: additionalData) { [weak self] result in
             switch result {
-                case .success():
-                    self?.onAuthenticationSuccess?()
+                case .success(let authResult):
+                    self?.onAuthenticationSuccess?(authResult.user.uid)
                     
                 case .failure(let error):
                     self?.onAuthenticationFailure?(error)

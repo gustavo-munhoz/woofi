@@ -34,3 +34,4 @@ class User: Hashable {
         hasher.combine(id)
     }
 }
+

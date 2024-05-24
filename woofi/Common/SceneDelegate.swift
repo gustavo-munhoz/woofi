@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        let rootViewController: UIViewController = HomeViewController()
+        let rootViewController: UIViewController = AuthenticationViewController()
         let navigationController = UINavigationController(rootViewController: rootViewController)
         
         window?.rootViewController = navigationController
@@ -77,8 +77,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func handleDynamicLink(url: URL) {
-        let handled = DynamicLinks.dynamicLinks().handleUniversalLink(url) { dynamicLink, error in
-            guard let dynamicLink = dynamicLink, let url = dynamicLink.url else {
+        DynamicLinks.dynamicLinks().handleUniversalLink(url) { dynamicLink, error in
+            guard let dynamicLink = dynamicLink else {
                 return
             }
             self.handleIncomingDynamicLink(dynamicLink)
