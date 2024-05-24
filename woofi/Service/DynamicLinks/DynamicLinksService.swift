@@ -14,19 +14,27 @@ class DynamicLinksService {
     
     private init() {}
     
-    // TODO: Fix this function
-    func generateDynamicLink(groupID: String, completion: @escaping (URL?) -> Void) {
-        guard let link = URL(string: "https://example.page.link/invite?groupId=\(groupID)") else {
+    func generateDynamicLink(completion: @escaping (URL?) -> Void) {
+        guard let userID = Session.shared.currentUser?.id else {
+            print("Missing user id.")
+            return
+        }
+        
+        guard let groupID = Session.shared.currentUser?.groupID else {
+            print("Missing groupID.")
+            return
+        }
+        
+        guard let link = URL(string: "https://woofiapp.page.link/invite?userID=\(userID)&groupID=\(groupID)") else {
             completion(nil)
             return
         }
 
-        let dynamicLinksDomainURIPrefix = "https://example.page.link"
+        let dynamicLinksDomainURIPrefix = "https://woofiapp.page.link"
         let linkBuilder = DynamicLinkComponents(link: link, domainURIPrefix: dynamicLinksDomainURIPrefix)
         
         linkBuilder?.iOSParameters = DynamicLinkIOSParameters(bundleID: Bundle.main.bundleIdentifier!)
         linkBuilder?.iOSParameters?.appStoreID = "123456789" // Seu ID do App Store
-        linkBuilder?.androidParameters = DynamicLinkAndroidParameters(packageName: "com.example.android")
 
         linkBuilder?.shorten { shortURL, warnings, error in
             if let error = error {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseDynamicLinks
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -15,6 +16,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        // Universal Link
+        if let userActivity = connectionOptions.userActivities.first,
+           userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+           let url = userActivity.webpageURL{
+            
+            handleDynamicLink(url: url)
+        }
+        
+        // Deeplink
+        if let url = connectionOptions.urlContexts.first?.url {
+            handleDynamicLink(url: url)
+        }
+        
         window = UIWindow(windowScene: windowScene)
         
         let rootViewController: UIViewController = HomeViewController()
@@ -23,7 +38,51 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
-
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let url = URLContexts.first?.url {
+            self.handleDynamicLink(url: url)
+        }
+    }
+    
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        if let incomingURL = userActivity.webpageURL {
+            print("Incoming URL: \(incomingURL)")
+            
+            DynamicLinks.dynamicLinks().handleUniversalLink(incomingURL) { (dynamicLink, error) in
+                guard error == nil else {
+                    print("Error handling dynamic link: \(error!.localizedDescription)")
+                    return
+                }
+                
+                if let dynamicLink = dynamicLink {
+                    self.handleIncomingDynamicLink(dynamicLink)
+                }
+            }
+        }
+    }
+    
+    func handleIncomingDynamicLink(_ dynamicLink: DynamicLink) {
+        guard let url = dynamicLink.url else { return }
+        // Handle the incoming dynamic link
+        print("Incoming dynamic link: \(url.absoluteString)")
+        if let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
+           components.path.contains("/invite"),
+           let queryItems = components.queryItems,
+           let _ = queryItems.first(where: { $0.name == "groupId" })?.value {
+            // will do later
+        }
+    }
+    
+    func handleDynamicLink(url: URL) {
+        let handled = DynamicLinks.dynamicLinks().handleUniversalLink(url) { dynamicLink, error in
+            guard let dynamicLink = dynamicLink, let url = dynamicLink.url else {
+                return
+            }
+            self.handleIncomingDynamicLink(dynamicLink)
+        }
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

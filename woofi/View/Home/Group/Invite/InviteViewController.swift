@@ -22,11 +22,14 @@ class InviteViewController: UIViewController {
     }
     
     @objc private func sendInvite() {
-        // Crie o link de convite
-        let inviteLink = "https://example.com/invite"
-        let activityVC = UIActivityViewController(activityItems: [inviteLink], applicationActivities: nil)
-        
-        // Apresentar o activity view controller
-        present(activityVC, animated: true, completion: nil)
+        DynamicLinksService.shared.generateDynamicLink { shortURL in
+            guard let shortURL = shortURL else {
+                
+                return
+            }
+            
+            let activityVC = UIActivityViewController(activityItems: [shortURL], applicationActivities: nil)
+            self.present(activityVC, animated: true, completion: nil)
+        }
     }
 }
