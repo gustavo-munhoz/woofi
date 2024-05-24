@@ -69,8 +69,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
            components.path.contains("/invite"),
            let queryItems = components.queryItems,
-           let _ = queryItems.first(where: { $0.name == "groupId" })?.value {
-            // will do later
+           let groupID = queryItems.first(where: { $0.name == "groupID" })?.value,
+           let inviterID = queryItems.first(where: { $0.name == "userID"})?.value
+        {
+            self.presentJoinGroupViewController(with: groupID, inviterID: inviterID)
         }
     }
     
@@ -81,6 +83,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
             self.handleIncomingDynamicLink(dynamicLink)
         }
+    }
+    
+    func presentJoinGroupViewController(with groupID: String, inviterID: String) {
+        let joinGroupVC = JoinGroupViewController(groupId: groupID, inviterId: inviterID)
+        
+        window?.rootViewController?.present(joinGroupVC, animated: true)
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

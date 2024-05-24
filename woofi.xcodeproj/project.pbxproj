@@ -62,6 +62,8 @@
 		B35CC3762BFFC77D007FBEFC /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */; };
 		B35CC3792C005417007FBEFC /* DynamicLinksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3782C005417007FBEFC /* DynamicLinksService.swift */; };
 		B35CC37C2C005495007FBEFC /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = B35CC37B2C005495007FBEFC /* FirebaseDynamicLinks */; };
+		B35CC3802C010DB7007FBEFC /* JoinGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC37F2C010DB7007FBEFC /* JoinGroupView.swift */; };
+		B35CC3822C010EE9007FBEFC /* JoinGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3812C010EE9007FBEFC /* JoinGroupViewController.swift */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -131,6 +133,8 @@
 		B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
 		B35CC3782C005417007FBEFC /* DynamicLinksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLinksService.swift; sourceTree = "<group>"; };
 		B35CC37D2C00E141007FBEFC /* woofi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = woofi.entitlements; sourceTree = "<group>"; };
+		B35CC37F2C010DB7007FBEFC /* JoinGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupView.swift; sourceTree = "<group>"; };
+		B35CC3812C010EE9007FBEFC /* JoinGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupViewController.swift; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -257,6 +261,7 @@
 		B30623052BE88425009441CB /* Group */ = {
 			isa = PBXGroup;
 			children = (
+				B35CC37E2C010DAF007FBEFC /* Join */,
 				B35CC3722BFFC76A007FBEFC /* Invite */,
 				B30623062BE8842F009441CB /* GroupView.swift */,
 				B30623082BE88437009441CB /* GroupViewController.swift */,
@@ -406,6 +411,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B35CC37E2C010DAF007FBEFC /* Join */ = {
+			isa = PBXGroup;
+			children = (
+				B35CC37F2C010DB7007FBEFC /* JoinGroupView.swift */,
+				B35CC3812C010EE9007FBEFC /* JoinGroupViewController.swift */,
+			);
+			path = Join;
 			sourceTree = "<group>";
 		};
 		B3A7E83B2BE74DF9009B6630 = {
@@ -581,6 +595,7 @@
 				B31D31D62BF3F0C300CE903A /* PetTaskInstance.swift in Sources */,
 				B31D31BA2BEEB80F00CE903A /* PetListView.swift in Sources */,
 				B30623092BE88437009441CB /* GroupViewController.swift in Sources */,
+				B35CC3802C010DB7007FBEFC /* JoinGroupView.swift in Sources */,
 				B31D31BF2BEEBBE600CE903A /* Pet.swift in Sources */,
 				B35CC3712BFD366E007FBEFC /* DefaultPetTaskStructure.swift in Sources */,
 				B30622FF2BE83C14009441CB /* UITextField+Publisher.swift in Sources */,
@@ -600,6 +615,7 @@
 				B31D31CB2BF3887F00CE903A /* PetTaskGroup.swift in Sources */,
 				B31D31B82BEEB78D00CE903A /* PetListViewController.swift in Sources */,
 				B30622FB2BE82C77009441CB /* AuthenticationServiceProtocol.swift in Sources */,
+				B35CC3822C010EE9007FBEFC /* JoinGroupViewController.swift in Sources */,
 				B306230E2BEAC80C009441CB /* User.swift in Sources */,
 				B30622F32BE826FE009441CB /* FirestoreService.swift in Sources */,
 				B30622FD2BE82C8C009441CB /* AuthenticationService.swift in Sources */,
