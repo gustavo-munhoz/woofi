@@ -9,13 +9,34 @@ import UIKit
 
 class InviteView: UIView {
     
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Invite Others"
+        
+        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle)
+        
+        let customFd = fd.addingAttributes([
+            .traits: [
+                UIFontDescriptor.TraitKey.weight: UIFont.Weight.bold
+            ]
+        ])
+        
+        label.font = UIFont(descriptor: customFd, size: .zero)
+        
+        
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .primary
+        return label
+    }()
+    
     let tutorialLabel: UILabel = {
         let label = UILabel()
         label.text = "Here's how you can invite others to join your group."
-        label.textColor = .primary
         label.numberOfLines = 0
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .primary
         return label
     }()
     
@@ -39,14 +60,18 @@ class InviteView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = .white
+        backgroundColor = .systemBackground
         
+        addSubview(titleLabel)
         addSubview(tutorialLabel)
         addSubview(sendButton)
         
         NSLayoutConstraint.activate([
-            tutorialLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            tutorialLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -20),
+            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 32),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            
+            tutorialLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             tutorialLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             tutorialLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
@@ -55,5 +80,4 @@ class InviteView: UIView {
         ])
     }
 }
-
 

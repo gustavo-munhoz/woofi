@@ -12,13 +12,7 @@ class HomeViewModel: NSObject {
     
     var userNavigationPublisher = PassthroughSubject<User, Never>()
     
-    var invitePublisher = PassthroughSubject<Bool, Never>()
-    
     func navigateToUserView(_ user: User) {
         userNavigationPublisher.send(user)
-    }
-    
-    func showInviteSheet() {
-        invitePublisher.send(true)
     }
 }

@@ -118,7 +118,11 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
     
     @objc private func presentInviteSheet() {
         let inviteVC = InviteViewController()
-        inviteVC.modalPresentationStyle = .automatic
+        
+        if let sheet = inviteVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        
         present(inviteVC, animated: true)
     }
 }

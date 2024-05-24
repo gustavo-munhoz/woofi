@@ -60,6 +60,8 @@
 		B35CC3712BFD366E007FBEFC /* DefaultPetTaskStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3702BFD366E007FBEFC /* DefaultPetTaskStructure.swift */; };
 		B35CC3742BFFC776007FBEFC /* InviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3732BFFC776007FBEFC /* InviteView.swift */; };
 		B35CC3762BFFC77D007FBEFC /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */; };
+		B35CC3792C005417007FBEFC /* DynamicLinksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3782C005417007FBEFC /* DynamicLinksService.swift */; };
+		B35CC37C2C005495007FBEFC /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = B35CC37B2C005495007FBEFC /* FirebaseDynamicLinks */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -127,6 +129,7 @@
 		B35CC3702BFD366E007FBEFC /* DefaultPetTaskStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPetTaskStructure.swift; sourceTree = "<group>"; };
 		B35CC3732BFFC776007FBEFC /* InviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteView.swift; sourceTree = "<group>"; };
 		B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
+		B35CC3782C005417007FBEFC /* DynamicLinksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLinksService.swift; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +147,7 @@
 				B30622D22BE80621009441CB /* FirebaseAnalyticsSwift in Frameworks */,
 				B30622D62BE80621009441CB /* FirebaseCrashlytics in Frameworks */,
 				B30622D42BE80621009441CB /* FirebaseAuth in Frameworks */,
+				B35CC37C2C005495007FBEFC /* FirebaseDynamicLinks in Frameworks */,
 				B30622E42BE80863009441CB /* SnapKit in Frameworks */,
 				B30622D82BE80621009441CB /* FirebaseFirestore in Frameworks */,
 				B30622D02BE80621009441CB /* FirebaseAnalytics in Frameworks */,
@@ -203,6 +207,7 @@
 		B30622F12BE826ED009441CB /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				B35CC3772C00540A007FBEFC /* DynamicLinks */,
 				B30622F92BE82C6E009441CB /* Authentication */,
 				B30622F42BE827BE009441CB /* Firestore */,
 			);
@@ -387,11 +392,27 @@
 			path = Invite;
 			sourceTree = "<group>";
 		};
+		B35CC3772C00540A007FBEFC /* DynamicLinks */ = {
+			isa = PBXGroup;
+			children = (
+				B35CC3782C005417007FBEFC /* DynamicLinksService.swift */,
+			);
+			path = DynamicLinks;
+			sourceTree = "<group>";
+		};
+		B35CC37A2C005495007FBEFC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B3A7E83B2BE74DF9009B6630 = {
 			isa = PBXGroup;
 			children = (
 				B3A7E8462BE74DF9009B6630 /* woofi */,
 				B3A7E8452BE74DF9009B6630 /* Products */,
+				B35CC37A2C005495007FBEFC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -478,6 +499,7 @@
 				B30622D72BE80621009441CB /* FirebaseFirestore */,
 				B30622D92BE80621009441CB /* FirebaseFirestoreSwift */,
 				B30622E32BE80863009441CB /* SnapKit */,
+				B35CC37B2C005495007FBEFC /* FirebaseDynamicLinks */,
 			);
 			productName = woofi;
 			productReference = B3A7E8442BE74DF9009B6630 /* woofi.app */;
@@ -566,6 +588,7 @@
 				B31D31E02BFD1A8500CE903A /* HeaderView.swift in Sources */,
 				B30623112BEAC949009441CB /* GroupViewModel.swift in Sources */,
 				B30622F82BE82BB6009441CB /* FirestoreKeys.swift in Sources */,
+				B35CC3792C005417007FBEFC /* DynamicLinksService.swift in Sources */,
 				B31D30222BED148300CE903A /* TaskType.swift in Sources */,
 				B30622F02BE81475009441CB /* AuthenticationType.swift in Sources */,
 				B31D31DA2BF64E0100CE903A /* UIView+Spacer.swift in Sources */,
@@ -857,6 +880,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B30622E22BE80863009441CB /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		B35CC37B2C005495007FBEFC /* FirebaseDynamicLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B30622CE2BE80621009441CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDynamicLinks;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
