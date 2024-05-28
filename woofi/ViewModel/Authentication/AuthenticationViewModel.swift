@@ -56,7 +56,8 @@ class AuthenticationViewModel: NSObject {
     private func registerUser() {
         let additionalData: [String:Any] = [
             FirestoreKeys.Users.username: username.value,
-            FirestoreKeys.Users.groupID: UUID().uuidString
+            FirestoreKeys.Users.groupID: UUID().uuidString,
+            FirestoreKeys.Users.bio: "Biography"
         ]
         
         AuthenticationService.shared.registerUser(withEmail: email.value, password: password.value, additionalData: additionalData) { [weak self] result in

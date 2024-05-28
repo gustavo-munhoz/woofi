@@ -10,6 +10,8 @@ import Combine
 
 class GroupViewModel: NSObject {
     
+    private var cancellables = Set<AnyCancellable>()
+    
     /// The current list of users related to the main app user.
     var users = CurrentValueSubject<[User], Never>.init([])
     
@@ -42,5 +44,14 @@ class GroupViewModel: NSObject {
     
     func navigateToUser(_ user: User) {
         navigateToUserPublisher.send(user)
+    }
+    
+    private func setupSubscriptions() {
+        // TODO: Verificar se isso funciona
+        Session.shared.cachedUsers
+            .sink { [weak self] users in
+                self?.users.value = users
+            }
+            .store(in: &cancellables)
     }
 }

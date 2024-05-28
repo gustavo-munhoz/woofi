@@ -8,13 +8,15 @@
 import UIKit
 
 class JoinGroupViewController: UIViewController {
-
+    
+    weak var groupViewModel: GroupViewModel?
+    
     private let joinGroupView = JoinGroupView()
-    private let groupId: String
+    private let groupID: String
     private let inviterId: String
     
     init(groupId: String, inviterId: String) {
-        self.groupId = groupId
+        self.groupID = groupId
         self.inviterId = inviterId
         super.init(nibName: nil, bundle: nil)
     }
@@ -54,14 +56,27 @@ class JoinGroupViewController: UIViewController {
     }
     
     @objc private func acceptInvite() {
-        if var currentUser = Session.shared.currentUser {
-            currentUser.groupID = groupId
+        if let currentUser = Session.shared.currentUser {
+            currentUser.groupID = groupID
+            
             // Save the updated user data
-            FirestoreService.shared.updateUserData(userId: currentUser.id, data: ["groupID": groupId]) { error in
+            FirestoreService.shared.updateUserData(userId: currentUser.id, data: ["groupID": groupID]) { error in
                 if let error = error {
                     print("Failed to update groupID: \(error)")
                 } else {
                     print("Successfully updated groupID")
+                    Task {
+                        // TODO: Passar usuarios para groupview
+                        let res =  await FirestoreService.shared.fetchUsersInSameGroup(groupID: currentUser.groupID!)
+                        
+                        switch res {
+                            case .success(let users):
+                                Session.shared.cachedUsers.value = users
+                                
+                            case .failure(let failure):
+                                return
+                        }
+                    }
                 }
             }
         }

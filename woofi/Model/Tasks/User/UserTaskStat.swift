@@ -5,8 +5,10 @@
 //  Created by Gustavo Munhoz Correa on 09/05/24.
 //
 
+import Foundation
+
 /// Contains the amount of times or correspondent value that a `Task` has been completed.
-class UserTaskStat: Hashable {
+class UserTaskStat: Hashable, Codable {
     var task: TaskType
     var value: Int
     

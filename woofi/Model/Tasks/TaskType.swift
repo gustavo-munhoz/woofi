@@ -5,8 +5,10 @@
 //  Created by Gustavo Munhoz Correa on 09/05/24.
 //
 
+import Foundation
+
 /// Defines the types of Tasks that users can add to their pets.
-enum TaskType {
+enum TaskType: Codable {
     case walk
     case feed
     case bath

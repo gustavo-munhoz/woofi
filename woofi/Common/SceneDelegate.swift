@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        let rootViewController: UIViewController = AuthenticationViewController()
+        let rootViewController: UIViewController = Session.shared.currentUser == nil ? AuthenticationViewController() : HomeViewController()
         let navigationController = UINavigationController(rootViewController: rootViewController)
         
         window?.rootViewController = navigationController
@@ -63,9 +63,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func handleIncomingDynamicLink(_ dynamicLink: DynamicLink) {
-        guard let url = dynamicLink.url else { return }
-        // Handle the incoming dynamic link
+        guard let url = dynamicLink.url, Session.shared.currentUser != nil else { return }
+        
         print("Incoming dynamic link: \(url.absoluteString)")
+        
         if let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
            components.path.contains("/invite"),
            let queryItems = components.queryItems,

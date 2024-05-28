@@ -29,7 +29,8 @@ class InviteViewController: UIViewController {
             }
             
             let activityVC = UIActivityViewController(activityItems: [shortURL], applicationActivities: nil)
-            self.present(activityVC, animated: true, completion: nil)
+            
+            self.present(activityVC, animated: true)
         }
     }
 }

@@ -6,11 +6,25 @@
 //
 
 import Foundation
+import Combine
 
 class Session {
     static let shared = Session()
     
-    private init() {}
+    private init() {
+        currentUser = UserDefaults.standard.loadUser()
+    }
     
-    var currentUser: User?
+    var cachedUsers: CurrentValueSubject<[User], Never> = CurrentValueSubject([])
+    
+    var currentUser: User? {
+        didSet {
+            if let user = currentUser {
+                UserDefaults.standard.saveUser(user)
+            }
+            else {
+                UserDefaults.standard.removeUser()
+            }
+        }
+    }
 }

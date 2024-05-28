@@ -38,11 +38,15 @@ class AuthenticationViewController: UIViewController {
                 do {
                     let userData = try await FirestoreService.shared.fetchUserData(userId: userId)
                     
+                    guard let username = userData[FirestoreKeys.Users.username] as? String else {
+                        fatalError("Username not found")
+                    }
+                    
                     let user = User(
                         id: userId,
-                        username: userData[FirestoreKeys.Users.username] as? String ?? "?",
-                        bio: userData[FirestoreKeys.Users.bio] as? String ?? "",
-                        groupID: userData[FirestoreKeys.Users.groupID] as? String ?? UUID().uuidString
+                        username: username,
+                        bio: userData[FirestoreKeys.Users.bio] as? String,
+                        groupID: userData[FirestoreKeys.Users.groupID] as? String
                     )
                     
                     Session.shared.currentUser = user
