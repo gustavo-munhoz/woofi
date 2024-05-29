@@ -58,22 +58,23 @@ class JoinGroupViewController: UIViewController {
     @objc private func acceptInvite() {
         if let currentUser = Session.shared.currentUser {
             currentUser.groupID = groupID
+            print("Successfully updated groupID")
             
             // Save the updated user data
             FirestoreService.shared.updateUserData(userId: currentUser.id, data: ["groupID": groupID]) { error in
                 if let error = error {
                     print("Failed to update groupID: \(error)")
                 } else {
-                    print("Successfully updated groupID")
                     Task {
-                        // TODO: Passar usuarios para groupview
                         let res =  await FirestoreService.shared.fetchUsersInSameGroup(groupID: currentUser.groupID!)
                         
                         switch res {
                             case .success(let users):
+                                print("Users fetched: \(users.map { $0.id })")
                                 Session.shared.cachedUsers.value = users
                                 
-                            case .failure(let failure):
+                            case .failure(let error):
+                                print("Error fetching users: \(error.localizedDescription)")
                                 return
                         }
                     }

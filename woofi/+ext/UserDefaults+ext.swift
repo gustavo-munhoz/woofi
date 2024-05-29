@@ -17,6 +17,7 @@ extension UserDefaults {
         do {
             let data = try JSONEncoder().encode(user)
             set(data, forKey: Keys.currentUser)
+            print("User saved successfully in UserDefaults.")
         } catch {
             print("Failed to save user: \(error)")
         }
@@ -26,6 +27,7 @@ extension UserDefaults {
         guard let data = data(forKey: Keys.currentUser) else { return nil }
         do {
             let user = try JSONDecoder().decode(User.self, from: data)
+            print("User loaded successfully from UserDefaults. id: \(user.id)")
             return user
         } catch {
             print("Failed to load user: \(error)")
@@ -34,6 +36,7 @@ extension UserDefaults {
     }
     
     func removeUser() {
+        print("User removed successfully from UserDefaults.")
         removeObject(forKey: Keys.currentUser)
     }
 }

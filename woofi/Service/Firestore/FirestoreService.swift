@@ -37,6 +37,8 @@ class FirestoreService: FirestoreServiceProtocol {
     /// Fetches all users related to the same group as the current user
     func fetchUsersInSameGroup(groupID: String) async -> Result<[User], Error> {
         do {
+            print("Fetching users for group id: \(groupID)")
+            
             let querySnapshot = try await db.collection(FirestoreKeys.Users.collectionTitle)
                 .whereField(FirestoreKeys.Users.groupID, isEqualTo: groupID)
                 .getDocuments()

@@ -24,6 +24,7 @@ class GroupViewModel: NSObject {
         Task {
             await loadUsers()
         }
+        setupSubscriptions()
     }
     
     /// Loads related users from firestore.
@@ -50,6 +51,8 @@ class GroupViewModel: NSObject {
         // TODO: Verificar se isso funciona
         Session.shared.cachedUsers
             .sink { [weak self] users in
+                guard !users.isEmpty else { return }
+                
                 self?.users.value = users
             }
             .store(in: &cancellables)

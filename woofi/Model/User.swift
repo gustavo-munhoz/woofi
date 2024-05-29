@@ -10,12 +10,26 @@ import UIKit
 class User: Hashable, Codable {
     
     let id: String
-    var username: String
-    var bio: String?
-    var profilePicture: UIImage?
-    var groupID: String?
     
-    var stats: [UserTaskStat]
+    var username: String {
+        didSet { savePersistedChanges() }
+    }
+    
+    var bio: String? {
+        didSet { savePersistedChanges() }
+    }
+    
+    var profilePicture: UIImage? {
+        didSet { savePersistedChanges() }
+    }
+    
+    var groupID: String? {
+        didSet { savePersistedChanges() }
+    }
+        
+    var stats: [UserTaskStat] {
+        didSet { savePersistedChanges() }
+    }
     
     init(id: String, username: String, bio: String? = nil, groupID: String? = nil, profilePicture: UIImage? = nil) {
         self.id = id
@@ -68,6 +82,10 @@ class User: Hashable, Codable {
             try container.encode(profilePictureData, forKey: .profilePicture)
         }
         try container.encode(stats, forKey: .stats)
+    }
+    
+    func savePersistedChanges() {
+        UserDefaults.standard.saveUser(self)
     }
 }
 

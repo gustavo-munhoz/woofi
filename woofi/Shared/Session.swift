@@ -9,10 +9,14 @@ import Foundation
 import Combine
 
 class Session {
+    private var cancellables = Set<AnyCancellable>()
+    
     static let shared = Session()
     
     private init() {
-        currentUser = UserDefaults.standard.loadUser()
+        if let user = UserDefaults.standard.loadUser() {
+            self.currentUser = user
+        }
     }
     
     var cachedUsers: CurrentValueSubject<[User], Never> = CurrentValueSubject([])
