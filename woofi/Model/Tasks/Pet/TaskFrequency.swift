@@ -5,8 +5,10 @@
 //  Created by Gustavo Munhoz Correa on 14/05/24.
 //
 
+import Foundation
+
 /// Defines how often a task can be completed.
-enum TaskFrequency {
+enum TaskFrequency: Codable {
     case daily
     case weekly
     case monthly
