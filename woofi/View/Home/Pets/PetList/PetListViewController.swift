@@ -32,6 +32,23 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
         configureDataSource()
         configureCollectionView()
         setupSubscriptions()
+                
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let tabvc = tabBarController as? HomeViewController {
+            tabvc.addButton.addTarget(self, action: #selector(presentAddPetSheet), for: .touchUpInside)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let tabvc = tabBarController as? HomeViewController {
+            tabvc.addButton.removeTarget(self, action: #selector(presentAddPetSheet), for: .touchUpInside)
+        }
     }
     
     private func setupViewModel() {
@@ -87,6 +104,15 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
     }
     
     // MARK: - Runtime methods
+    @objc private func presentAddPetSheet() {
+        let vc = AddPetViewController()
+        
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        
+        present(vc, animated: true)
+    }
     
     private func applySnapshot(pets: [Pet]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Pet>()

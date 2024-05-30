@@ -9,6 +9,8 @@ import UIKit
 
 class InviteView: UIView {
     
+    // TODO: Localize texts
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Invite Others"
@@ -67,9 +69,9 @@ class InviteView: UIView {
         addSubview(sendButton)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 32),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             tutorialLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             tutorialLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),

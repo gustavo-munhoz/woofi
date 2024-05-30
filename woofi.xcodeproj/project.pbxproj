@@ -65,6 +65,8 @@
 		B35CC3802C010DB7007FBEFC /* JoinGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC37F2C010DB7007FBEFC /* JoinGroupView.swift */; };
 		B35CC3822C010EE9007FBEFC /* JoinGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3812C010EE9007FBEFC /* JoinGroupViewController.swift */; };
 		B35CC3882C054883007FBEFC /* UserDefaults+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3872C054883007FBEFC /* UserDefaults+ext.swift */; };
+		B35CC38B2C07F32E007FBEFC /* AddPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC38A2C07F32D007FBEFC /* AddPetView.swift */; };
+		B35CC38D2C07F79D007FBEFC /* AddPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC38C2C07F79D007FBEFC /* AddPetViewController.swift */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -137,6 +139,8 @@
 		B35CC37F2C010DB7007FBEFC /* JoinGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupView.swift; sourceTree = "<group>"; };
 		B35CC3812C010EE9007FBEFC /* JoinGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupViewController.swift; sourceTree = "<group>"; };
 		B35CC3872C054883007FBEFC /* UserDefaults+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+ext.swift"; sourceTree = "<group>"; };
+		B35CC38A2C07F32D007FBEFC /* AddPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetView.swift; sourceTree = "<group>"; };
+		B35CC38C2C07F79D007FBEFC /* AddPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetViewController.swift; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -339,6 +343,7 @@
 		B31D31C32BF303EA00CE903A /* PetSingle */ = {
 			isa = PBXGroup;
 			children = (
+				B35CC3892C07F305007FBEFC /* AddPet */,
 				B35CC36F2BFD3661007FBEFC /* Helper */,
 				B35CC36E2BFD3653007FBEFC /* Collection */,
 				B31D31C42BF303F600CE903A /* PetView.swift */,
@@ -430,6 +435,15 @@
 				B35CC3872C054883007FBEFC /* UserDefaults+ext.swift */,
 			);
 			path = "+ext";
+			sourceTree = "<group>";
+		};
+		B35CC3892C07F305007FBEFC /* AddPet */ = {
+			isa = PBXGroup;
+			children = (
+				B35CC38A2C07F32D007FBEFC /* AddPetView.swift */,
+				B35CC38C2C07F79D007FBEFC /* AddPetViewController.swift */,
+			);
+			path = AddPet;
 			sourceTree = "<group>";
 		};
 		B3A7E83B2BE74DF9009B6630 = {
@@ -623,6 +637,7 @@
 				B31D31DA2BF64E0100CE903A /* UIView+Spacer.swift in Sources */,
 				B30622DE2BE80705009441CB /* LoginView.swift in Sources */,
 				B31D31C12BEEC7CA00CE903A /* PetCollectionViewCell.swift in Sources */,
+				B35CC38D2C07F79D007FBEFC /* AddPetViewController.swift in Sources */,
 				B31D30242BED14A400CE903A /* UserTaskStat.swift in Sources */,
 				B31D31CB2BF3887F00CE903A /* PetTaskGroup.swift in Sources */,
 				B31D31B82BEEB78D00CE903A /* PetListViewController.swift in Sources */,
@@ -636,6 +651,7 @@
 				B35CC3762BFFC77D007FBEFC /* InviteViewController.swift in Sources */,
 				B306231A2BEB06D9009441CB /* UserViewController.swift in Sources */,
 				B31D31E32BFD284900CE903A /* Session.swift in Sources */,
+				B35CC38B2C07F32E007FBEFC /* AddPetView.swift in Sources */,
 				B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */,
 				B30623152BEAFA1B009441CB /* UIColor+Primary.swift in Sources */,
 				B31D31DC2BFC57F100CE903A /* PetTaskGroupView.swift in Sources */,

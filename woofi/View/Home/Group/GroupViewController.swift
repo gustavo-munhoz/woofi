@@ -13,7 +13,7 @@ fileprivate enum Section {
 }
 
 class GroupViewController: UIViewController, UICollectionViewDelegate {
-    
+         
     private var groupView = GroupView()
     
     private var cancellables = Set<AnyCancellable>()
@@ -33,6 +33,22 @@ class GroupViewController: UIViewController, UICollectionViewDelegate {
         configureDataSource()
         configureCollectionView()
         setupSubscriptions()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let tabvc = tabBarController as? HomeViewController {
+            tabvc.addButton.addTarget(self, action: #selector(presentInviteSheet), for: .touchUpInside)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let tabvc = tabBarController as? HomeViewController {
+            tabvc.addButton.removeTarget(self, action: #selector(presentInviteSheet), for: .touchUpInside)
+        }
     }
     
     private func setupViewModel() {
@@ -81,6 +97,15 @@ class GroupViewController: UIViewController, UICollectionViewDelegate {
     }
     
     // MARK: - Runtime methods
+    @objc private func presentInviteSheet() {
+        let inviteVC = InviteViewController()
+        
+        if let sheet = inviteVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        
+        present(inviteVC, animated: true)
+    }
     
     private func applySnapshot(users: [User]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, User>()

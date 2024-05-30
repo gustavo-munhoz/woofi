@@ -35,7 +35,9 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
         }
         
         view.configurationUpdateHandler = handler
-        view.addTarget(self, action: #selector(presentInviteSheet), for: .touchUpInside)
+        view.accessibilityIdentifier = "addButton"
+        
+        if #available(iOS 17.0, *) { view.isSymbolAnimationEnabled = true }
         
         return view
     }()
@@ -56,40 +58,40 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
         )
         
         viewControllers = [groupViewController, petListViewController]
-        
-        navigationController?.navigationBar.addObserver(self, forKeyPath: "bounds", options: [.new], context: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         setupNavigationBar()
-        setupAddButton()
+        
+        addButton.isHidden = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        removeAddButton()
+        addButton.isHidden = true
     }
     
     private func setupNavigationBar() {
         navigationItem.setHidesBackButton(true, animated: false)
-        navigationItem.title = LocalizedString.Group.navbarTitle
+        navigationItem.title = selectedIndex == 0 ? LocalizedString.Group.navbarTitle : LocalizedString.PetList.navbarTitle
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.primary]
+        
         setupAddButton()
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        navigationItem.title = item.title
-        if item.tag == 0 {
-            setupAddButton()
-        } else {
-            removeAddButton()
+        if #available(iOS 17.0, *) {
+            addButton.imageView?.addSymbolEffect(.bounce, options: .speed(4))
         }
+        
+        navigationItem.title = item.title
     }
     
     private func setupAddButton() {
+        guard view.subviews.first(where: { $0.accessibilityIdentifier == "addButton"}) == nil else { return }
+        
         if let navigationBar = navigationController?.navigationBar {
             UIView.animate(withDuration: 0.3) {
                 navigationBar.addSubview(self.addButton)
@@ -102,27 +104,5 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
                 ])
             }
         }
-    }
-    
-    private func removeAddButton() {
-        if let navigationBar = navigationController?.navigationBar {
-            for view in navigationBar.subviews {
-                if let button = view as? UIButton, button.imageView?.image == UIImage(systemName: "plus.circle.fill") {
-                    UIView.animate(withDuration: 0.3) {
-                        button.removeFromSuperview()
-                    }
-                }
-            }
-        }
-    }
-    
-    @objc private func presentInviteSheet() {
-        let inviteVC = InviteViewController()
-        
-        if let sheet = inviteVC.sheetPresentationController {
-            sheet.detents = [.medium()]
-        }
-        
-        present(inviteVC, animated: true)
     }
 }
