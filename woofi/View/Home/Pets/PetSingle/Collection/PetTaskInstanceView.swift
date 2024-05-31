@@ -7,15 +7,38 @@
 
 import UIKit
 import SnapKit
+import os
+
 
 class PetTaskInstanceView: UIView {
+    
+    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "PetTaskInstanceView")    
     
     weak var taskInstance: PetTaskInstance? {
         didSet {
             titleLabel.text = taskInstance?.label
-            completedByLabel.text = taskInstance?.completedBy?.username
             completionImage.image = (taskInstance?.completed ?? false) ?
-                UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+            UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
+            
+            Task {
+                do {
+                    if let taskInstance = taskInstance, let id = taskInstance.completedByUserWithID {
+                        let userData = try await FirestoreService.shared.fetchUserData(userId: id)
+                        let username = userData[FirestoreKeys.Users.username] as? String
+                        DispatchQueue.main.async {
+                            self.completedByLabel.text = username ?? ""
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.completedByLabel.text = ""
+                        }
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        self.completedByLabel.text = "Error"
+                    }
+                }
+            }
         }
     }
     
@@ -100,7 +123,7 @@ class PetTaskInstanceView: UIView {
         guard let taskInstance = taskInstance else { return }
         
         taskInstance.completed.toggle()
-        taskInstance.completedBy = taskInstance.completed ? Session.shared.currentUser : nil
+        taskInstance.completedByUserWithID = taskInstance.completed ? Session.shared.currentUser?.id : nil
         
         UIView.transition(with: self,
                           duration: 0.3,
@@ -128,7 +151,12 @@ class PetTaskInstanceView: UIView {
     }
     
     private func updateCompletionImage() {
-        let imageName = taskInstance?.completed == true ? "checkmark.circle.fill" : "circle"
+        guard let taskInstance = taskInstance else { 
+            logger.log(level: .fault, "Task Instance is not set.")
+            return
+        }
+        
+        let imageName = taskInstance.completed == true ? "checkmark.circle.fill" : "circle"
         
         if let image = UIImage(systemName: imageName) {
             if #available(iOS 17.0, *) {
@@ -138,6 +166,6 @@ class PetTaskInstanceView: UIView {
             }
         }
         
-        completedByLabel.text = taskInstance?.completedBy?.username
+        completedByLabel.text = taskInstance.completed ? Session.shared.currentUser?.username : nil
     }
 }

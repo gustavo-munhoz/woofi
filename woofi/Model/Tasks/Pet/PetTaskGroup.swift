@@ -28,8 +28,7 @@ class PetTaskGroup: Hashable, Codable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-    
-    // Conformidade com o protocolo Codable
+        
     enum CodingKeys: String, CodingKey {
         case id
         case task
