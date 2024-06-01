@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import os
 
 /// Shared singleton to handle Firestore logic, conforming to FirestoreServiceProtocol.
 class FirestoreService: FirestoreServiceProtocol {
@@ -14,6 +15,7 @@ class FirestoreService: FirestoreServiceProtocol {
     /// Instance for global access
     static let shared = FirestoreService()
     private let db = Firestore.firestore()
+    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "FirestoreService")
     
     /// Private constructor to enforce singleton usage
     private init() {}
@@ -80,4 +82,27 @@ class FirestoreService: FirestoreServiceProtocol {
     func removeUser(userId: String, completion: @escaping (Error?) -> Void) {
         db.collection(FirestoreKeys.Users.collectionTitle).document(userId).delete(completion: completion)
     }
+    
+    /// Fetches all pets related to the group
+    func fetchPetsInSameGroup(groupID: String) async -> Result<[Pet], Error> {
+            do {
+                logger.log("Fetching pets for group id: \(groupID)")
+                
+                let querySnapshot = try await db.collection("pets")
+                    .whereField("groupID", isEqualTo: groupID)
+                    .getDocuments()
+                
+                var pets = [Pet]()
+                for document in querySnapshot.documents {
+                    let data = try JSONSerialization.data(withJSONObject: document.data(), options: [])
+                    let pet = try JSONDecoder().decode(Pet.self, from: data)
+                    pets.append(pet)
+                }
+                return .success(pets)
+                
+            } catch {
+                logger.error("Error fetching pets for group id \(groupID): \(error.localizedDescription)")
+                return .failure(error)
+            }
+        }
 }
