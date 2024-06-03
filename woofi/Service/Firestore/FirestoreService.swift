@@ -85,24 +85,34 @@ class FirestoreService: FirestoreServiceProtocol {
     
     /// Fetches all pets related to the group
     func fetchPetsInSameGroup(groupID: String) async -> Result<[Pet], Error> {
-            do {
-                logger.log("Fetching pets for group id: \(groupID)")
-                
-                let querySnapshot = try await db.collection("pets")
-                    .whereField("groupID", isEqualTo: groupID)
-                    .getDocuments()
-                
-                var pets = [Pet]()
-                for document in querySnapshot.documents {
-                    let data = try JSONSerialization.data(withJSONObject: document.data(), options: [])
-                    let pet = try JSONDecoder().decode(Pet.self, from: data)
-                    pets.append(pet)
-                }
-                return .success(pets)
-                
-            } catch {
-                logger.error("Error fetching pets for group id \(groupID): \(error.localizedDescription)")
-                return .failure(error)
+        do {
+            logger.log("Fetching pets for group id: \(groupID)")
+            
+            let querySnapshot = try await db.collection(FirestoreKeys.Pets.collectionTitle)
+                .whereField(FirestoreKeys.Pets.groupID, isEqualTo: groupID)
+                .getDocuments()
+            
+            var pets = [Pet]()
+            for document in querySnapshot.documents {
+                let data = try JSONSerialization.data(withJSONObject: document.data(), options: [])
+                let pet = try JSONDecoder().decode(Pet.self, from: data)
+                pets.append(pet)
             }
+            return .success(pets)
+            
+        } catch {
+            logger.error("Error fetching pets for group id \(groupID): \(error.localizedDescription)")
+            return .failure(error)
         }
+    }
+    
+    /// Saves pet data to firestore with a server-side timestamp.
+    func savePetData(petId: String, data: [String: Any], completion: @escaping (Error?) -> Void) {
+        logger.log("Saving pet data for id: \(petId)")
+        
+        var petData = data
+        petData[FirestoreKeys.Pets.createdAt] = FieldValue.serverTimestamp()
+        
+        db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).setData(petData, completion: completion)
+    }
 }

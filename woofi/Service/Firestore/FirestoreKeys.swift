@@ -21,4 +21,12 @@ struct FirestoreKeys {
         static let username = "username"
         static let groupID = "groupID"
     }
+    
+    struct Pets {
+        private init() {}
+        
+        static let collectionTitle = "pets"
+        static let createdAt = "createdAt"
+        static let groupID = "groupID"
+    }
 }
