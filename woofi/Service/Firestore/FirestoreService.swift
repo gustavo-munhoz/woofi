@@ -115,4 +115,14 @@ class FirestoreService: FirestoreServiceProtocol {
         
         db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).setData(petData, completion: completion)
     }
+    
+    /// Updates pet data in Firestore
+    func updatePetData(petId: String, data: [String: Any], completion: @escaping (Error?) -> Void) {
+        db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).updateData(data, completion: completion)
+    }
+    
+    /// Removes a pet from Firestore
+    func removePet(petId: String, completion: @escaping (Error?) -> Void) {
+        db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).delete(completion: completion)
+    }
 }
