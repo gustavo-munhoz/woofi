@@ -59,6 +59,7 @@
 		B31D31E32BFD284900CE903A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31E22BFD284900CE903A /* Session.swift */; };
 		B354B66B2C2B579900CEA618 /* String+sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = B354B66A2C2B579900CEA618 /* String+sha256.swift */; };
 		B354B66D2C2B57AF00CEA618 /* Data+base36EncodedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B354B66C2C2B57AF00CEA618 /* Data+base36EncodedString.swift */; };
+		B354B66F2C2B740F00CEA618 /* Notification+groupIDDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = B354B66E2C2B740F00CEA618 /* Notification+groupIDDidChange.swift */; };
 		B35CC3712BFD366E007FBEFC /* DefaultPetTaskStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3702BFD366E007FBEFC /* DefaultPetTaskStructure.swift */; };
 		B35CC3742BFFC776007FBEFC /* InviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3732BFFC776007FBEFC /* InviteView.swift */; };
 		B35CC3762BFFC77D007FBEFC /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */; };
@@ -134,6 +135,7 @@
 		B31D31E22BFD284900CE903A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		B354B66A2C2B579900CEA618 /* String+sha256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+sha256.swift"; sourceTree = "<group>"; };
 		B354B66C2C2B57AF00CEA618 /* Data+base36EncodedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+base36EncodedString.swift"; sourceTree = "<group>"; };
+		B354B66E2C2B740F00CEA618 /* Notification+groupIDDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+groupIDDidChange.swift"; sourceTree = "<group>"; };
 		B35CC3702BFD366E007FBEFC /* DefaultPetTaskStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPetTaskStructure.swift; sourceTree = "<group>"; };
 		B35CC3732BFFC776007FBEFC /* InviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteView.swift; sourceTree = "<group>"; };
 		B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 				B35CC3872C054883007FBEFC /* UserDefaults+ext.swift */,
 				B354B66A2C2B579900CEA618 /* String+sha256.swift */,
 				B354B66C2C2B57AF00CEA618 /* Data+base36EncodedString.swift */,
+				B354B66E2C2B740F00CEA618 /* Notification+groupIDDidChange.swift */,
 			);
 			path = "+ext";
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */,
 				B30623152BEAFA1B009441CB /* UIColor+Primary.swift in Sources */,
 				B31D31DC2BFC57F100CE903A /* PetTaskGroupView.swift in Sources */,
+				B354B66F2C2B740F00CEA618 /* Notification+groupIDDidChange.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

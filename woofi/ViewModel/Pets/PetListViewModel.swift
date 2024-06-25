@@ -9,27 +9,48 @@ import Foundation
 import Combine
 
 class PetListViewModel: NSObject {
-    
+
     /// The current list of pets in the user's group.
     var pets = CurrentValueSubject<[Pet], Never>.init([])
     
     /// The publisher to signal controllers to navigate.
     var navigateToPetPublisher = PassthroughSubject<Pet, Never>()
-    
+
     override init() {
         super.init()
         loadPets()
+        observeGroupIDChanges()
     }
-    
-    func loadPets() {
-        let pet1 = Pet(id: "1", name: "Skippy", breed: "Schipperke", age: "1 year")
-        let pet2 = Pet(id: "2", name: "Daftonerson Scrobblers da Silva", breed: "Schipperke", age: "1 year")
-        let pet3 = Pet(id: "3", name: "Cachorra Burra", breed: "Gato", age: "1 year")
-        
-        pets.value = [pet1, pet2, pet3]
+
+    @objc func loadPets() {
+        guard let currentUser = Session.shared.currentUser, let groupID = currentUser.groupID else {
+            pets.value = []
+            return
+        }
+
+        Task {
+            let result = await FirestoreService.shared.fetchPetsInSameGroup(groupID: groupID)
+            switch result {
+            case .success(let pets):
+                self.pets.value = pets
+                print("Pets fetched: \(pets)")
+            case .failure(let error):
+                print("Error fetching pets: \(error.localizedDescription)")
+                self.pets.value = []
+            }
+        }
     }
-    
+
     func navigateToPet(_ pet: Pet) {
         navigateToPetPublisher.send(pet)
+    }
+
+    private func observeGroupIDChanges() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(loadPets),
+            name: .groupIDDidChange,
+            object: nil
+        )
     }
 }
