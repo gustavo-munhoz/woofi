@@ -12,7 +12,7 @@ import os
 
 class PetTaskInstanceView: UIView {
     
-    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "PetTaskInstanceView")    
+    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "PetTaskInstanceView")
     
     weak var taskInstance: PetTaskInstance? {
         didSet {

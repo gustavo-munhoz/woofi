@@ -17,19 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        // Universal Link
-        if let userActivity = connectionOptions.userActivities.first,
-           userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-           let url = userActivity.webpageURL{
-            
-            handleDynamicLink(url: url)
-        }
-        
-        // Deeplink
-        if let url = connectionOptions.urlContexts.first?.url {
-            handleDynamicLink(url: url)
-        }
-        
         window = UIWindow(windowScene: windowScene)
         
         let rootViewController: UIViewController = Session.shared.currentUser == nil ? AuthenticationViewController() : HomeViewController()
@@ -39,52 +26,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
     
-    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        if let url = URLContexts.first?.url {
-            self.handleDynamicLink(url: url)
-        }
-    }
-    
-    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        if let incomingURL = userActivity.webpageURL {
-            print("Incoming URL: \(incomingURL)")
-            
-            DynamicLinks.dynamicLinks().handleUniversalLink(incomingURL) { (dynamicLink, error) in
-                guard error == nil else {
-                    print("Error handling dynamic link: \(error!.localizedDescription)")
-                    return
-                }
-                
-                if let dynamicLink = dynamicLink {
-                    self.handleIncomingDynamicLink(dynamicLink)
-                }
-            }
-        }
-    }
-    
-    func handleIncomingDynamicLink(_ dynamicLink: DynamicLink) {
-        guard let url = dynamicLink.url, Session.shared.currentUser != nil else { return }
-        
-        print("Incoming dynamic link: \(url.absoluteString)")
-        
-        if let components = URLComponents(url: url, resolvingAgainstBaseURL: true),
-           components.path.contains("/invite"),
-           let queryItems = components.queryItems,
-           let groupID = queryItems.first(where: { $0.name == "groupID" })?.value,
-           let inviterID = queryItems.first(where: { $0.name == "userID"})?.value
-        {
-            self.presentJoinGroupViewController(with: groupID, inviterID: inviterID)
-        }
-    }
-    
-    func handleDynamicLink(url: URL) {
-        DynamicLinks.dynamicLinks().handleUniversalLink(url) { dynamicLink, error in
-            guard let dynamicLink = dynamicLink else {
-                return
-            }
-            self.handleIncomingDynamicLink(dynamicLink)
-        }
-    }
     
     func presentJoinGroupViewController(with groupID: String, inviterID: String) {
         let joinGroupVC = JoinGroupViewController(groupId: groupID, inviterId: inviterID)
@@ -119,7 +60,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 

@@ -22,15 +22,6 @@ class InviteViewController: UIViewController {
     }
     
     @objc private func sendInvite() {
-        DynamicLinksService.shared.generateDynamicLink { shortURL in
-            guard let shortURL = shortURL else {
-                
-                return
-            }
-            
-            let activityVC = UIActivityViewController(activityItems: [shortURL], applicationActivities: nil)
-            
-            self.present(activityVC, animated: true)
-        }
+        // Create/share code
     }
 }

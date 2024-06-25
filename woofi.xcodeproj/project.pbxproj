@@ -60,7 +60,6 @@
 		B35CC3712BFD366E007FBEFC /* DefaultPetTaskStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3702BFD366E007FBEFC /* DefaultPetTaskStructure.swift */; };
 		B35CC3742BFFC776007FBEFC /* InviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3732BFFC776007FBEFC /* InviteView.swift */; };
 		B35CC3762BFFC77D007FBEFC /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */; };
-		B35CC3792C005417007FBEFC /* DynamicLinksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3782C005417007FBEFC /* DynamicLinksService.swift */; };
 		B35CC37C2C005495007FBEFC /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = B35CC37B2C005495007FBEFC /* FirebaseDynamicLinks */; };
 		B35CC3802C010DB7007FBEFC /* JoinGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC37F2C010DB7007FBEFC /* JoinGroupView.swift */; };
 		B35CC3822C010EE9007FBEFC /* JoinGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3812C010EE9007FBEFC /* JoinGroupViewController.swift */; };
@@ -134,7 +133,6 @@
 		B35CC3702BFD366E007FBEFC /* DefaultPetTaskStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPetTaskStructure.swift; sourceTree = "<group>"; };
 		B35CC3732BFFC776007FBEFC /* InviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteView.swift; sourceTree = "<group>"; };
 		B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
-		B35CC3782C005417007FBEFC /* DynamicLinksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLinksService.swift; sourceTree = "<group>"; };
 		B35CC37D2C00E141007FBEFC /* woofi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = woofi.entitlements; sourceTree = "<group>"; };
 		B35CC37F2C010DB7007FBEFC /* JoinGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupView.swift; sourceTree = "<group>"; };
 		B35CC3812C010EE9007FBEFC /* JoinGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupViewController.swift; sourceTree = "<group>"; };
@@ -218,7 +216,6 @@
 		B30622F12BE826ED009441CB /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				B35CC3772C00540A007FBEFC /* DynamicLinks */,
 				B30622F92BE82C6E009441CB /* Authentication */,
 				B30622F42BE827BE009441CB /* Firestore */,
 			);
@@ -403,14 +400,6 @@
 				B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */,
 			);
 			path = Invite;
-			sourceTree = "<group>";
-		};
-		B35CC3772C00540A007FBEFC /* DynamicLinks */ = {
-			isa = PBXGroup;
-			children = (
-				B35CC3782C005417007FBEFC /* DynamicLinksService.swift */,
-			);
-			path = DynamicLinks;
 			sourceTree = "<group>";
 		};
 		B35CC37A2C005495007FBEFC /* Frameworks */ = {
@@ -631,7 +620,6 @@
 				B31D31E02BFD1A8500CE903A /* HeaderView.swift in Sources */,
 				B30623112BEAC949009441CB /* GroupViewModel.swift in Sources */,
 				B30622F82BE82BB6009441CB /* FirestoreKeys.swift in Sources */,
-				B35CC3792C005417007FBEFC /* DynamicLinksService.swift in Sources */,
 				B31D30222BED148300CE903A /* TaskType.swift in Sources */,
 				B30622F02BE81475009441CB /* AuthenticationType.swift in Sources */,
 				B31D31DA2BF64E0100CE903A /* UIView+Spacer.swift in Sources */,
@@ -724,7 +712,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -781,7 +769,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -802,6 +790,7 @@
 				DEVELOPMENT_TEAM = 7U55BCTM6U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = woofi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Woofy;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -812,8 +801,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.mnhz.woofi;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mnhz.woofy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -832,6 +821,7 @@
 				DEVELOPMENT_TEAM = 7U55BCTM6U;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = woofi/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Woofy;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
@@ -842,8 +832,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.mnhz.woofi;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.mnhz.woofy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
