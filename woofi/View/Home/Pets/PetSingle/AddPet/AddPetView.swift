@@ -54,11 +54,12 @@ class AddPetView: UIView {
     }()
     
     let createPetButton: UIButton = {
-        let button = UIButton(type: .roundedRect)
+        let button = UIButton(type: .system)
         button.setTitle("Create Pet", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.backgroundColor = .systemGray4
+        button.backgroundColor = .systemBlue
+        button.tintColor = .white
         button.layer.cornerRadius = 12
         
         return button
@@ -86,36 +87,31 @@ class AddPetView: UIView {
     
     private func setupConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(15)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
+            make.top.equalTo(safeAreaLayoutGuide).offset(30)
+            make.left.right.equalToSuperview().inset(24)
         }
         
         nameTextField.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.height.equalTo(40)
+            make.left.right.equalTo(titleLabel)
+            make.height.equalTo(44)
         }
         
         breedTextField.snp.makeConstraints { make in
             make.top.equalTo(nameTextField.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.height.equalTo(40)
+            make.left.right.equalTo(nameTextField)
+            make.height.equalTo(44)
         }
         
         ageTextField.snp.makeConstraints { make in
             make.top.equalTo(breedTextField.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.height.equalTo(40)
+            make.left.right.equalTo(nameTextField)
+            make.height.equalTo(44)
         }
         
         createPetButton.snp.makeConstraints { make in
             make.bottom.equalTo(safeAreaLayoutGuide).offset(-30)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
+            make.left.right.equalTo(nameTextField)
             make.height.equalTo(50)
         }
     }
