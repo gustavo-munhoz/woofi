@@ -24,9 +24,19 @@ class InviteViewController: UIViewController {
         
         guard let currentUser = Session.shared.currentUser else { return }
         let groupID = currentUser.groupID ?? "0"
-        code = generateSimplifiedID(from: groupID)
         
-        inviteView.setCodeText(code)
+        Task {
+            let result = await FirestoreService.shared.generateInviteCode(forGroupID: groupID)
+            
+            switch result {
+                case .success(let success):
+                    code = success
+                    inviteView.setCodeText(code)
+                    
+                case .failure(let failure):
+                    print("Error generating invite code: \(failure.localizedDescription)")
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,14 +50,5 @@ class InviteViewController: UIViewController {
         
         let activityVC = UIActivityViewController(activityItems: [inviteMessage], applicationActivities: nil)
         present(activityVC, animated: true, completion: nil)
-    }
-
-    
-    func generateSimplifiedID(from groupID: String) -> String {
-        let hashData = groupID.sha256()
-        let base36String = hashData.base36EncodedString()
-        
-        let simplifiedID = String(base36String.prefix(6))
-        return simplifiedID
-    }
+    }        
 }

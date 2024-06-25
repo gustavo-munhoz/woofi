@@ -133,6 +133,7 @@ class GroupViewController: UIViewController, UICollectionViewDelegate {
 
     private func presentJoinGroupViewController() {
         let joinGroupVC = JoinGroupViewController()
+        joinGroupVC.groupViewModel = viewModel
         
         if let sheet = joinGroupVC.sheetPresentationController {
             sheet.detents = [.medium()]

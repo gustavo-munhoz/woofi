@@ -126,3 +126,38 @@ class FirestoreService: FirestoreServiceProtocol {
         db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).delete(completion: completion)
     }
 }
+
+extension FirestoreService {
+    func generateSimplifiedID(from groupID: String) -> String {
+        let hashData = groupID.sha256()
+        let base36String = hashData.base36EncodedString()
+        
+        let simplifiedID = String(base36String.prefix(6))
+        return simplifiedID
+    }
+    
+    func generateInviteCode(forGroupID groupID: String) async -> Result<String, Error> {
+        let simplifiedID = generateSimplifiedID(from: groupID)
+        let inviteData: [String: Any] = ["groupID": groupID]
+        
+        do {
+            try await db.collection("invites").document(simplifiedID).setData(inviteData)
+            return .success(simplifiedID)
+        } catch {
+            return .failure(error)
+        }
+    }
+    
+    func fetchGroupID(forInviteCode inviteCode: String) async -> Result<String, Error> {
+        do {
+            let document = try await db.collection("invites").document(inviteCode).getDocument()
+            if let data = document.data(), let groupID = data["groupID"] as? String {
+                return .success(groupID)
+            } else {
+                return .failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid invite code"]))
+            }
+        } catch {
+            return .failure(error)
+        }
+    }
+}
