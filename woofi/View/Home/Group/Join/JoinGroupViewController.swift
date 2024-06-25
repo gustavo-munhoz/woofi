@@ -44,7 +44,7 @@ class JoinGroupViewController: UIViewController {
             let result = await FirestoreService.shared.fetchGroupID(forInviteCode: inviteCode)
             switch result {
                 case .success(let groupID):
-                    if var currentUser = Session.shared.currentUser {
+                    if let currentUser = Session.shared.currentUser {
                         currentUser.groupID = groupID
                         FirestoreService.shared.updateUserData(userId: currentUser.id, data: ["groupID": groupID]) { error in
                             if let error = error {
