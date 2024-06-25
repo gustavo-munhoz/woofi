@@ -39,7 +39,7 @@ class GroupViewController: UIViewController, UICollectionViewDelegate {
         super.viewWillAppear(animated)
         
         if let tabvc = tabBarController as? HomeViewController {
-            tabvc.addButton.addTarget(self, action: #selector(presentInviteSheet), for: .touchUpInside)
+            tabvc.addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         }
     }
     
@@ -47,7 +47,7 @@ class GroupViewController: UIViewController, UICollectionViewDelegate {
         super.viewWillDisappear(animated)
         
         if let tabvc = tabBarController as? HomeViewController {
-            tabvc.addButton.removeTarget(self, action: #selector(presentInviteSheet), for: .touchUpInside)
+            tabvc.addButton.removeTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         }
     }
     
@@ -97,7 +97,31 @@ class GroupViewController: UIViewController, UICollectionViewDelegate {
     }
     
     // MARK: - Runtime methods
-    @objc private func presentInviteSheet() {
+    @objc private func didTapAddButton() {
+        let alertController = UIAlertController(
+            title: "Invite Options",
+            message: "Please choose an option",
+            preferredStyle: .actionSheet
+        )
+        
+        let inviteAction = UIAlertAction(title: "Invite", style: .default) { _ in
+            self.presentInviteViewController()
+        }
+        
+        let joinAction = UIAlertAction(title: "Join Group", style: .default) { _ in
+            self.presentJoinGroupViewController()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(inviteAction)
+        alertController.addAction(joinAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+
+    private func presentInviteViewController() {
         let inviteVC = InviteViewController()
         
         if let sheet = inviteVC.sheetPresentationController {
@@ -106,6 +130,17 @@ class GroupViewController: UIViewController, UICollectionViewDelegate {
         
         present(inviteVC, animated: true)
     }
+
+    private func presentJoinGroupViewController() {
+        let joinGroupVC = JoinGroupViewController()
+        
+        if let sheet = joinGroupVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        
+        present(joinGroupVC, animated: true)
+    }
+
     
     private func applySnapshot(users: [User]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, User>()

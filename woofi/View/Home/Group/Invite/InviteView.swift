@@ -11,9 +11,10 @@ class InviteView: UIView {
     
     // TODO: Localize texts
     
+    
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Invite Others"
+        label.text = "Invite Members"
         
         let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle)
         
@@ -34,13 +35,22 @@ class InviteView: UIView {
     
     let tutorialLabel: UILabel = {
         let label = UILabel()
-        label.text = "Here's how you can invite others to join your group."
+        label.text = "Share this code with people you want to invite."
         label.numberOfLines = 0
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .primary
+        
         return label
     }()
+    
+    let codeLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        
+        return label
+    }()
+
     
     let sendButton: UIButton = {
         var config = UIButton.Configuration.filled()
@@ -61,25 +71,57 @@ class InviteView: UIView {
         setupViews()
     }
     
+    func setCodeText(_ code: String) {
+        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle)
+        
+        let customFd = fd.addingAttributes([
+            .traits: [
+                UIFontDescriptor.TraitKey.weight: UIFont.Weight.ultraLight,
+            ]
+        ])
+        
+        let customFont = UIFont(descriptor: customFd, size: .zero)
+        
+        let attributedString = NSAttributedString(
+            string: code,
+            attributes: [
+                .font: customFont,
+                .foregroundColor: UIColor.primary,
+                .kern: 4
+            ]
+        )
+        
+        codeLabel.attributedText = attributedString
+    }
+    
     private func setupViews() {
         backgroundColor = .systemBackground
         
         addSubview(titleLabel)
         addSubview(tutorialLabel)
+        addSubview(codeLabel)
         addSubview(sendButton)
         
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
-            tutorialLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
-            tutorialLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            tutorialLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            
-            sendButton.topAnchor.constraint(equalTo: tutorialLabel.bottomAnchor, constant: 20),
-            sendButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-        ])
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).inset(24)
+            make.left.right.equalToSuperview().inset(24)
+        }
+        
+        tutorialLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(24)
+            make.left.right.equalTo(titleLabel)
+        }
+        
+        codeLabel.snp.makeConstraints { make in
+            make.top.equalTo(tutorialLabel).offset(100)
+            make.left.right.equalTo(tutorialLabel)
+        }
+        
+        sendButton.snp.makeConstraints { make in
+            make.height.equalTo(44)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(24)
+            make.left.right.equalTo(codeLabel)
+        }
     }
 }
 

@@ -12,12 +12,8 @@ class JoinGroupViewController: UIViewController {
     weak var groupViewModel: GroupViewModel?
     
     private let joinGroupView = JoinGroupView()
-    private let groupID: String
-    private let inviterId: String
     
-    init(groupId: String, inviterId: String) {
-        self.groupID = groupId
-        self.inviterId = inviterId
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -32,30 +28,30 @@ class JoinGroupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupActions()
-        fetchInviterName()
+//        fetchInviterName()
     }
     
     private func setupActions() {
-        joinGroupView.acceptButton.addTarget(self, action: #selector(acceptInvite), for: .touchUpInside)
-        joinGroupView.declineButton.addTarget(self, action: #selector(declineInvite), for: .touchUpInside)
+//        joinGroupView.acceptButton.addTarget(self, action: #selector(joinGroup), for: .touchUpInside)
+//        joinGroupView.declineButton.addTarget(self, action: #selector(declineInvite), for: .touchUpInside)
     }
 
     private func fetchInviterName() {
-        Task {
-            do {
-                let userData = try await FirestoreService.shared.fetchUserData(userId: inviterId)
-                if let inviterName = userData["username"] as? String {
-                    DispatchQueue.main.async {
-                        self.joinGroupView.inviterLabel.text = "Invited by: \(inviterName)"
-                    }
-                }
-            } catch {
-                print("Error fetching inviter name: \(error)")
-            }
-        }
+//        Task {
+//            do {
+//                let userData = try await FirestoreService.shared.fetchUserData(userId: inviterId)
+//                if let inviterName = userData["username"] as? String {
+//                    DispatchQueue.main.async {
+//                        self.joinGroupView.inviterLabel.text = "Invited by: \(inviterName)"
+//                    }
+//                }
+//            } catch {
+//                print("Error fetching inviter name: \(error)")
+//            }
+//        }
     }
     
-    @objc private func acceptInvite() {
+    @objc private func joinGroup(withId groupID: String) {
         if let currentUser = Session.shared.currentUser {
             currentUser.groupID = groupID
             print("Successfully updated groupID")

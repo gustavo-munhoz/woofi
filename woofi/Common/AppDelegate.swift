@@ -7,7 +7,6 @@
 
 import UIKit
 import FirebaseCore
-import FirebaseDynamicLinks
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

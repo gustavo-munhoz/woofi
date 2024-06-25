@@ -26,13 +26,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
     
-    
-    func presentJoinGroupViewController(with groupID: String, inviterID: String) {
-        let joinGroupVC = JoinGroupViewController(groupId: groupID, inviterId: inviterID)
-        
-        window?.rootViewController?.present(joinGroupVC, animated: true)
-    }
-    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

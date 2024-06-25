@@ -57,6 +57,8 @@
 		B31D31DE2BFC5CAF00CE903A /* PetTaskInstanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31DD2BFC5CAF00CE903A /* PetTaskInstanceView.swift */; };
 		B31D31E02BFD1A8500CE903A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31DF2BFD1A8500CE903A /* HeaderView.swift */; };
 		B31D31E32BFD284900CE903A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D31E22BFD284900CE903A /* Session.swift */; };
+		B354B66B2C2B579900CEA618 /* String+sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = B354B66A2C2B579900CEA618 /* String+sha256.swift */; };
+		B354B66D2C2B57AF00CEA618 /* Data+base36EncodedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B354B66C2C2B57AF00CEA618 /* Data+base36EncodedString.swift */; };
 		B35CC3712BFD366E007FBEFC /* DefaultPetTaskStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3702BFD366E007FBEFC /* DefaultPetTaskStructure.swift */; };
 		B35CC3742BFFC776007FBEFC /* InviteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3732BFFC776007FBEFC /* InviteView.swift */; };
 		B35CC3762BFFC77D007FBEFC /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */; };
@@ -130,6 +132,8 @@
 		B31D31DD2BFC5CAF00CE903A /* PetTaskInstanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTaskInstanceView.swift; sourceTree = "<group>"; };
 		B31D31DF2BFD1A8500CE903A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		B31D31E22BFD284900CE903A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		B354B66A2C2B579900CEA618 /* String+sha256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+sha256.swift"; sourceTree = "<group>"; };
+		B354B66C2C2B57AF00CEA618 /* Data+base36EncodedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+base36EncodedString.swift"; sourceTree = "<group>"; };
 		B35CC3702BFD366E007FBEFC /* DefaultPetTaskStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPetTaskStructure.swift; sourceTree = "<group>"; };
 		B35CC3732BFFC776007FBEFC /* InviteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteView.swift; sourceTree = "<group>"; };
 		B35CC3752BFFC77D007FBEFC /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
@@ -422,6 +426,8 @@
 			isa = PBXGroup;
 			children = (
 				B35CC3872C054883007FBEFC /* UserDefaults+ext.swift */,
+				B354B66A2C2B579900CEA618 /* String+sha256.swift */,
+				B354B66C2C2B57AF00CEA618 /* Data+base36EncodedString.swift */,
 			);
 			path = "+ext";
 			sourceTree = "<group>";
@@ -597,9 +603,11 @@
 				B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */,
 				B31D301B2BEC1C3C00CE903A /* HomeViewModel.swift in Sources */,
 				B31D31DE2BFC5CAF00CE903A /* PetTaskInstanceView.swift in Sources */,
+				B354B66D2C2B57AF00CEA618 /* Data+base36EncodedString.swift in Sources */,
 				B30623072BE8842F009441CB /* GroupView.swift in Sources */,
 				B31D31BD2BEEBB5600CE903A /* PetListViewModel.swift in Sources */,
 				B30622ED2BE8141D009441CB /* AuthenticationViewModel.swift in Sources */,
+				B354B66B2C2B579900CEA618 /* String+sha256.swift in Sources */,
 				B35CC3882C054883007FBEFC /* UserDefaults+ext.swift in Sources */,
 				B30623132BEACCC2009441CB /* UserCollectionViewCell.swift in Sources */,
 				B30623032BE8835F009441CB /* HomeViewController.swift in Sources */,
