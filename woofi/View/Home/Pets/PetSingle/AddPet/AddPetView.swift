@@ -53,17 +53,25 @@ class AddPetView: UIView {
         return textField
     }()
     
-    let createPetButton: UIButton = {
+    lazy var createPetButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Create Pet", for: .normal)
+        button.setTitle("Create pet", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .systemGray
         button.tintColor = .white
         button.layer.cornerRadius = 12
+        button.addTarget(self, action: #selector(didPressCreateButton), for: .touchUpInside)
+        button.isEnabled = false
         
         return button
     }()
+    
+    var didPressCreateAction: (() -> Void)?
+    
+    @objc func didPressCreateButton() {
+        didPressCreateAction?()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -71,6 +79,7 @@ class AddPetView: UIView {
         
         addSubviews()
         setupConstraints()
+        setupTextFieldObservers()
     }
     
     required init?(coder: NSCoder) {
@@ -83,6 +92,21 @@ class AddPetView: UIView {
         addSubview(breedTextField)
         addSubview(ageTextField)
         addSubview(createPetButton)
+    }
+    
+    private func setupTextFieldObservers() {
+        nameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        breedTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        ageTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+    
+    @objc private func textFieldDidChange() {
+        let isFormValid = !(nameTextField.text?.isEmpty ?? true) &&
+        !(breedTextField.text?.isEmpty ?? true) &&
+        !(ageTextField.text?.isEmpty ?? true)
+        
+        createPetButton.isEnabled = isFormValid
+        createPetButton.backgroundColor = isFormValid ? .systemBlue : .systemGray
     }
     
     private func setupConstraints() {
