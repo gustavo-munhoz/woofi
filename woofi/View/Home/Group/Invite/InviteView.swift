@@ -47,17 +47,21 @@ class InviteView: UIView {
     let codeLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.text = "..."
         
         return label
     }()
 
     
     let sendButton: UIButton = {
-        var config = UIButton.Configuration.filled()
-        config.title = "Send Invite"
-        config.baseBackgroundColor = .systemBlue
-        let button = UIButton(configuration: config)
+        let button = UIButton(type: .system)
+        button.setTitle("Send invite", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        button.backgroundColor = .systemBlue
+        button.tintColor = .white
+        button.layer.cornerRadius = 12
+        
         return button
     }()
     

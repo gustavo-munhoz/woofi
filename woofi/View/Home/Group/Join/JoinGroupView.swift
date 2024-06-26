@@ -46,11 +46,13 @@ class JoinGroupView: UIView, UITextFieldDelegate {
     var textFields: [UITextField] = []
 
     let joinButton: UIButton = {
-        var config = UIButton.Configuration.filled()
-        config.title = "Join Group"
-        config.baseBackgroundColor = .systemBlue
-        let button = UIButton(configuration: config)
+        let button = UIButton(type: .system)
+        button.setTitle("Join group", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        button.backgroundColor = .systemBlue
+        button.tintColor = .white
+        button.layer.cornerRadius = 12
         return button
     }()
     
