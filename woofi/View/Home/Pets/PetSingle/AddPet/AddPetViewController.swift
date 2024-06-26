@@ -9,6 +9,8 @@ import UIKit
 
 class AddPetViewController: UIViewController {
     
+    weak var petListViewModel: PetListViewModel?
+    
     private var addPetView = AddPetView()
     
     override func loadView() {
@@ -26,7 +28,6 @@ class AddPetViewController: UIViewController {
               let breed = addPetView.breedTextField.text, !breed.isEmpty,
               let age = addPetView.ageTextField.text, !age.isEmpty else {
             print("Please fill in all fields")
-            
             return
         }
         
@@ -38,23 +39,14 @@ class AddPetViewController: UIViewController {
         
         let pet = Pet(id: petID, name: name, breed: breed, age: age, groupID: groupID)
         
-        let petData: [String: Any] = [
-            "id": pet.id,
-            "name": pet.name,
-            "breed": pet.breed,
-            "age": pet.age,
-            "groupID": pet.groupID ?? ""
-        ]
-        
-        FirestoreService.shared.savePetData(petId: petID, data: petData) { error in
+        FirestoreService.shared.savePet(pet) { [weak self] error in
             if let error = error {
                 print("Failed to save pet: \(error.localizedDescription)")
-                
             } else {
                 print("Successfully saved pet")
-                
+                self?.petListViewModel?.pets.value.append(pet)
                 DispatchQueue.main.async {
-                    self.dismiss(animated: true, completion: nil)
+                    self?.dismiss(animated: true, completion: nil)
                 }
             }
         }

@@ -94,9 +94,20 @@ class FirestoreService: FirestoreServiceProtocol {
             
             var pets = [Pet]()
             for document in querySnapshot.documents {
-                let data = try JSONSerialization.data(withJSONObject: document.data(), options: [])
-                let pet = try JSONDecoder().decode(Pet.self, from: data)
-                pets.append(pet)
+                var data = document.data()
+                
+                // Remove the createdAt field if it exists
+                data.removeValue(forKey: "createdAt")
+                
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                    let pet = try JSONDecoder().decode(Pet.self, from: jsonData)
+                    pets.append(pet)
+                } catch {
+                    logger.error("Error decoding pet data: \(error.localizedDescription)")
+                    logger.error("Pet data: \(data)")
+                    return .failure(error)
+                }
             }
             return .success(pets)
             
@@ -114,6 +125,17 @@ class FirestoreService: FirestoreServiceProtocol {
         petData[FirestoreKeys.Pets.createdAt] = FieldValue.serverTimestamp()
         
         db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).setData(petData, completion: completion)
+    }
+    
+    func savePet(_ pet: Pet, completion: @escaping (Error?) -> Void) {
+        do {
+            let jsonData = try JSONEncoder().encode(pet)
+            if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                savePetData(petId: pet.id, data: jsonObject, completion: completion)
+            }
+        } catch {
+            completion(error)
+        }
     }
     
     /// Updates pet data in Firestore

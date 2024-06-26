@@ -106,6 +106,7 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
     // MARK: - Runtime methods
     @objc private func presentAddPetSheet() {
         let vc = AddPetViewController()
+        vc.petListViewModel = self.viewModel
         
         if let sheet = vc.sheetPresentationController {
             sheet.detents = [.medium()]
