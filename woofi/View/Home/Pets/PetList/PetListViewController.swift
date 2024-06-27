@@ -98,7 +98,10 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
         viewModel?.navigateToPetPublisher
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] pet in
-                self?.navigationController?.pushViewController(PetViewController(pet: pet), animated: true)
+                let vc = PetViewController(pet: pet)
+                vc.listViewModel = self?.viewModel
+                
+                self?.navigationController?.pushViewController(vc, animated: true)
             })
             .store(in: &cancellables)
     }

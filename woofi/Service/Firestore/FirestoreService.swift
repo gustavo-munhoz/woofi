@@ -16,6 +16,7 @@ class FirestoreService: FirestoreServiceProtocol {
     static let shared = FirestoreService()
     private let db = Firestore.firestore()
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "FirestoreService")
+    private var petListeners: [ListenerRegistration] = []
     
     /// Private constructor to enforce singleton usage
     private init() {}
@@ -51,9 +52,9 @@ class FirestoreService: FirestoreServiceProtocol {
                 if let id = data[FirestoreKeys.Users.uid] as? String,
                    id != Session.shared.currentUser?.id,
                    let name = data[FirestoreKeys.Users.username] as? String,
-//                   let bio = data[FirestoreKeys.Users.bio] as? String,
+                   //                   let bio = data[FirestoreKeys.Users.bio] as? String,
                    let groupID = data[FirestoreKeys.Users.groupID] as? String {
-//                    let user = User(id: id, username: name, bio: bio, groupID: groupID)
+                    //                    let user = User(id: id, username: name, bio: bio, groupID: groupID)
                     let user = User(id: id, username: name, groupID: groupID)
                     users.append(user)
                 }
@@ -160,20 +161,20 @@ class FirestoreService: FirestoreServiceProtocol {
         case .monthly:
             taskGroupField = "monthlyTasks"
         }
-
+        
         petRef.getDocument { (document, error) in
             guard let document = document, document.exists else {
                 completion(error ?? NSError(domain: "FirestoreService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Pet not found"]))
                 return
             }
-
+            
             var petData = document.data() ?? [:]
             
             var taskGroups = petData[taskGroupField] as? [[String: Any]] ?? []
-
+            
             if let taskGroupIndex = taskGroups.firstIndex(where: { ($0["id"] as? String) == taskGroupID.uuidString }) {
                 var taskGroup = taskGroups[taskGroupIndex]
-                                
+                
                 var instances = taskGroup["instances"] as? [[String: Any]] ?? []
                 
                 if let taskInstanceIndex = instances.firstIndex(where: { ($0["id"] as? String) == taskInstance.id.uuidString }) {
@@ -220,7 +221,50 @@ class FirestoreService: FirestoreServiceProtocol {
             }
         }
     }
-
+    
+    func addPetsListener(groupID: String, onUpdate: @escaping (Result<[Pet], Error>) -> Void) {
+        let petsRef = db.collection(FirestoreKeys.Pets.collectionTitle).whereField("groupID", isEqualTo: groupID)
+        
+        let listener = petsRef.addSnapshotListener { (snapshot, error) in
+            if let error = error {
+                onUpdate(.failure(error))
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                onUpdate(.success([]))
+                return
+            }
+            
+            var pets: [Pet] = []
+            for document in documents {
+                var data = document.data()
+                
+                // Remove the createdAt field if it exists
+                data.removeValue(forKey: "createdAt")
+                
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                    let pet = try JSONDecoder().decode(Pet.self, from: jsonData)
+                    pets.append(pet)
+                } catch {
+                    onUpdate(.failure(error))
+                    return
+                }
+            }
+            
+            onUpdate(.success(pets))
+        }
+        
+        petListeners.append(listener)
+    }
+    
+    func removeAllListeners() {
+        for listener in petListeners {
+            listener.remove()
+        }
+        petListeners.removeAll()
+    }
 }
 
 extension FirestoreService {

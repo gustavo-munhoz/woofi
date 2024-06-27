@@ -18,25 +18,21 @@ class PetListViewModel: NSObject {
 
     override init() {
         super.init()
-        loadPets()
+        addPetsListener()
         observeGroupIDChanges()
     }
 
-    @objc func loadPets() {
+    @objc private func addPetsListener() {
         guard let currentUser = Session.shared.currentUser, let groupID = currentUser.groupID else {
-            pets.value = []
             return
         }
-
-        Task {
-            let result = await FirestoreService.shared.fetchPetsInSameGroup(groupID: groupID)
+        
+        FirestoreService.shared.addPetsListener(groupID: groupID) { [weak self] result in
             switch result {
-            case .success(let pets):
-                self.pets.value = pets
-                print("Pets fetched: \(pets.map { $0.id })")
-            case .failure(let error):
-                print("Error fetching pets: \(error.localizedDescription)")
-                self.pets.value = []
+                case .success(let pets):
+                    self?.pets.value = pets
+                case .failure(let error):
+                    print("Error fetching pets: \(error.localizedDescription)")
             }
         }
     }
@@ -48,7 +44,7 @@ class PetListViewModel: NSObject {
     private func observeGroupIDChanges() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(loadPets),
+            selector: #selector(addPetsListener),
             name: .groupIDDidChange,
             object: nil
         )

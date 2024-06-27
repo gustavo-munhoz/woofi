@@ -15,12 +15,12 @@ fileprivate enum Section: Int, CaseIterable {
     
     var title: String {
         switch self {
-            case .daily:
-                return LocalizedString.Pet.dailyTasksTitle
-            case .weekly:
-                return LocalizedString.Pet.weeklyTasksTitle
-            case .monthly:
-                return LocalizedString.Pet.monthlyTasksTitle
+        case .daily:
+            return LocalizedString.Pet.dailyTasksTitle
+        case .weekly:
+            return LocalizedString.Pet.weeklyTasksTitle
+        case .monthly:
+            return LocalizedString.Pet.monthlyTasksTitle
         }
     }
 }
@@ -36,6 +36,38 @@ class PetViewController: UIViewController {
     var viewModel: PetViewModel? {
         didSet {
             navigationItem.title = viewModel?.pet.name
+            
+            pet.dailyTasks
+                .receive(on: RunLoop.main)
+                .sink(receiveValue: { [weak self] _ in
+                    self?.applySnapshot()
+                })
+                .store(in: &cancellables)
+            
+            pet.weeklyTasks
+                .receive(on: RunLoop.main)
+                .sink(receiveValue: { [weak self] _ in
+                    self?.applySnapshot()
+                })
+                .store(in: &cancellables)
+            
+            pet.monthlyTasks
+                .receive(on: RunLoop.main)
+                .sink(receiveValue: { [weak self] _ in
+                    self?.applySnapshot()
+                })
+                .store(in: &cancellables)
+        }
+    }
+    
+    weak var listViewModel: PetListViewModel? {
+        didSet {
+            listViewModel?.pets
+                .receive(on: RunLoop.main)
+                .sink(receiveValue: { [weak self] _ in
+                    self?.applySnapshot()
+                })
+                .store(in: &cancellables)
         }
     }
     
@@ -101,8 +133,7 @@ class PetViewController: UIViewController {
             return headerView
         }
         
-        
-        applySnapshot()
+//        applySnapshot()
     }
     
     private func configureCollectionView() {
@@ -119,17 +150,16 @@ class PetViewController: UIViewController {
         )
     }
     
-    private func applySnapshot() {
-            guard let viewModel = viewModel else { return }
-        
+    private func applySnapshot(dailyTasks: [PetTaskGroup], weeklyTasks: [PetTaskGroup], monthlyTasks: [PetTaskGroup]) {
+        print("Applying snapshot: Daily \(dailyTasks.count), Weekly \(weeklyTasks.count), Monthly \(monthlyTasks.count)")
         var snapshot = NSDiffableDataSourceSnapshot<Section, PetTaskGroup>()
         snapshot.appendSections(Section.allCases)
         
-        snapshot.appendItems(viewModel.pet.dailyTasks.value, toSection: .daily)
-        snapshot.appendItems(viewModel.pet.weeklyTasks.value, toSection: .weekly)
-        snapshot.appendItems(viewModel.pet.monthlyTasks.value, toSection: .monthly)
+        snapshot.appendItems(dailyTasks, toSection: .daily)
+        snapshot.appendItems(weeklyTasks, toSection: .weekly)
+        snapshot.appendItems(monthlyTasks, toSection: .monthly)
         
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -141,16 +171,16 @@ extension PetViewController: UICollectionViewDelegate, UICollectionViewDelegateF
         let width = UIScreen.main.bounds.width - 48
         
         switch taskGroup.task {
-            case .walk:
-                return CGSizeMake(width, 156)
-            case .feed:
-                return CGSizeMake(width, 120)
-            case .bath:
-                return CGSizeMake(width, 120)
-            case .brush:
-                return CGSizeMake(width, 84)
-            case .vet:
-                return CGSizeMake(width, 84)
+        case .walk:
+            return CGSizeMake(width, 156)
+        case .feed:
+            return CGSizeMake(width, 120)
+        case .bath:
+            return CGSizeMake(width, 120)
+        case .brush:
+            return CGSizeMake(width, 84)
+        case .vet:
+            return CGSizeMake(width, 84)
         }
     }
 }
