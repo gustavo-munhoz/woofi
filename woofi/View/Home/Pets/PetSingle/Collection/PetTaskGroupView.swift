@@ -47,7 +47,7 @@ class PetTaskGroupView: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(withTaskGroup taskGroup: PetTaskGroup) {
+    func setup(withTaskGroup taskGroup: PetTaskGroup, petID: String?) {
         self.taskGroup = taskGroup
         
         titleLabel.text = LocalizedString.Tasks.ofType(taskGroup.task)
@@ -55,8 +55,12 @@ class PetTaskGroupView: UICollectionViewCell {
         guard instancesStackView.arrangedSubviews.isEmpty else { return }
         
         for instance in taskGroup.instances {
+            
             let view = PetTaskInstanceView()
             view.taskInstance = instance
+            view.petID = petID
+            view.taskGroupID = taskGroup.id
+            view.frequency = taskGroup.frequency
             
             instancesStackView.addArrangedSubview(view)
         }

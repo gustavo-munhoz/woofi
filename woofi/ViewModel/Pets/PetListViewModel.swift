@@ -33,7 +33,7 @@ class PetListViewModel: NSObject {
             switch result {
             case .success(let pets):
                 self.pets.value = pets
-                print("Pets fetched: \(pets)")
+                print("Pets fetched: \(pets.map { $0.id })")
             case .failure(let error):
                 print("Error fetching pets: \(error.localizedDescription)")
                 self.pets.value = []

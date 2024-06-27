@@ -17,30 +17,14 @@ class PetTaskInstanceView: UIView {
     weak var taskInstance: PetTaskInstance? {
         didSet {
             titleLabel.text = taskInstance?.label
-            completionImage.image = (taskInstance?.completed ?? false) ?
-            UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "circle")
-            
-            Task {
-                do {
-                    if let taskInstance = taskInstance, let id = taskInstance.completedByUserWithID {
-                        let userData = try await FirestoreService.shared.fetchUserData(userId: id)
-                        let username = userData[FirestoreKeys.Users.username] as? String
-                        DispatchQueue.main.async {
-                            self.completedByLabel.text = username ?? ""
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self.completedByLabel.text = ""
-                        }
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        self.completedByLabel.text = "Error"
-                    }
-                }
-            }
+            updateCompletionImage()
+            loadCompletedByUser()
         }
     }
+    
+    var petID: String?
+    var taskGroupID: UUID?
+    var frequency: TaskFrequency?
     
     private(set) lazy var completionImage: UIImageView = {
         let view = UIImageView(image: UIImage(systemName: "circle"))
@@ -130,8 +114,9 @@ class PetTaskInstanceView: UIView {
                           options: .transitionCrossDissolve,
                           animations: {
             self.updateCompletionImage()
-            
-        }, completion: nil)
+        }, completion: { _ in
+            self.updateTaskInstanceInFirestore()
+        })
     }
     
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
@@ -151,12 +136,12 @@ class PetTaskInstanceView: UIView {
     }
     
     private func updateCompletionImage() {
-        guard let taskInstance = taskInstance else { 
+        guard let taskInstance = taskInstance else {
             logger.log(level: .fault, "Task Instance is not set.")
             return
         }
         
-        let imageName = taskInstance.completed == true ? "checkmark.circle.fill" : "circle"
+        let imageName = taskInstance.completed ? "checkmark.circle.fill" : "circle"
         
         if let image = UIImage(systemName: imageName) {
             if #available(iOS 17.0, *) {
@@ -167,5 +152,39 @@ class PetTaskInstanceView: UIView {
         }
         
         completedByLabel.text = taskInstance.completed ? Session.shared.currentUser?.username : nil
+    }
+    
+    private func loadCompletedByUser() {
+        Task {
+            do {
+                if let taskInstance = taskInstance, let id = taskInstance.completedByUserWithID {
+                    let userData = try await FirestoreService.shared.fetchUserData(userId: id)
+                    let username = userData[FirestoreKeys.Users.username] as? String
+                    DispatchQueue.main.async {
+                        self.completedByLabel.text = username ?? ""
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.completedByLabel.text = ""
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.completedByLabel.text = "Error"
+                }
+            }
+        }
+    }
+    
+    private func updateTaskInstanceInFirestore() {
+        guard let petID = petID, let frequency = frequency, let taskGroupID = taskGroupID, let taskInstance = taskInstance else { return }
+        
+        FirestoreService.shared.updateTaskInstance(petID: petID, frequency: frequency, taskGroupID: taskGroupID, taskInstance: taskInstance) { error in
+            if let error = error {
+                print("Failed to update task instance: \(error)")
+            } else {
+                print("Successfully updated task instance")
+            }
+        }
     }
 }

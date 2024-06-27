@@ -14,6 +14,8 @@ class PetTaskGroup: Hashable, Codable {
     var frequency: TaskFrequency
     var instances: [PetTaskInstance]
     
+    var petID: String?
+    
     init(task: TaskType, frequency: TaskFrequency, instances: [PetTaskInstance] = []) {
         self.id = UUID()
         self.task = task

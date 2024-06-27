@@ -86,7 +86,7 @@ class FirestoreService: FirestoreServiceProtocol {
     /// Fetches all pets related to the group
     func fetchPetsInSameGroup(groupID: String) async -> Result<[Pet], Error> {
         do {
-            logger.log("Fetching pets for group id: \(groupID)")
+            logger.debug("Fetching pets for group id: \(groupID)")
             
             let querySnapshot = try await db.collection(FirestoreKeys.Pets.collectionTitle)
                 .whereField(FirestoreKeys.Pets.groupID, isEqualTo: groupID)
@@ -147,6 +147,80 @@ class FirestoreService: FirestoreServiceProtocol {
     func removePet(petId: String, completion: @escaping (Error?) -> Void) {
         db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).delete(completion: completion)
     }
+    
+    func updateTaskInstance(petID: String, frequency: TaskFrequency, taskGroupID: UUID, taskInstance: PetTaskInstance, completion: @escaping (Error?) -> Void) {
+        let petRef = db.collection(FirestoreKeys.Pets.collectionTitle).document(petID)
+        
+        let taskGroupField: String
+        switch frequency {
+        case .daily:
+            taskGroupField = "dailyTasks"
+        case .weekly:
+            taskGroupField = "weeklyTasks"
+        case .monthly:
+            taskGroupField = "monthlyTasks"
+        }
+
+        petRef.getDocument { (document, error) in
+            guard let document = document, document.exists else {
+                completion(error ?? NSError(domain: "FirestoreService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Pet not found"]))
+                return
+            }
+
+            var petData = document.data() ?? [:]
+            
+            var taskGroups = petData[taskGroupField] as? [[String: Any]] ?? []
+
+            if let taskGroupIndex = taskGroups.firstIndex(where: { ($0["id"] as? String) == taskGroupID.uuidString }) {
+                var taskGroup = taskGroups[taskGroupIndex]
+                                
+                var instances = taskGroup["instances"] as? [[String: Any]] ?? []
+                
+                if let taskInstanceIndex = instances.firstIndex(where: { ($0["id"] as? String) == taskInstance.id.uuidString }) {
+                    do {
+                        let jsonData = try JSONEncoder().encode(taskInstance)
+                        if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                            instances[taskInstanceIndex] = jsonObject
+                        }
+                    } catch {
+                        completion(error)
+                        return
+                    }
+                } else {
+                    do {
+                        let jsonData = try JSONEncoder().encode(taskInstance)
+                        if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                            instances.append(jsonObject)
+                        }
+                    } catch {
+                        completion(error)
+                        return
+                    }
+                }
+                
+                taskGroup["instances"] = instances
+                taskGroups[taskGroupIndex] = taskGroup
+            } else {
+                var newTaskGroup: [String: Any] = ["id": taskGroupID.uuidString, "frequency": frequency]
+                do {
+                    let jsonData = try JSONEncoder().encode(taskInstance)
+                    if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                        newTaskGroup["instances"] = [jsonObject]
+                    }
+                } catch {
+                    completion(error)
+                    return
+                }
+                taskGroups.append(newTaskGroup)
+            }
+            
+            petData[taskGroupField] = taskGroups
+            petRef.setData(petData, merge: true) { error in
+                completion(error)
+            }
+        }
+    }
+
 }
 
 extension FirestoreService {

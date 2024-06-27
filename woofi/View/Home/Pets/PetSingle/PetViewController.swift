@@ -83,7 +83,7 @@ class PetViewController: UIViewController {
                     for: indexPath) as? PetTaskGroupView
                 else { fatalError("Could not dequeue PetTaskGroupCell") }
                 
-                cell.setup(withTaskGroup: taskGroup)
+                cell.setup(withTaskGroup: taskGroup, petID: self.viewModel?.pet.id)
                 return cell
             }
         )
