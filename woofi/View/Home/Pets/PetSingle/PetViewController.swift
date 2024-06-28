@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import FirebaseStorage
 
 fileprivate enum Section: Int, CaseIterable {
     case daily
@@ -39,7 +40,7 @@ class PetViewController: UIViewController {
             petListViewModel?.updatePetPublisher
                 .receive(on: RunLoop.main)
                 .sink { [weak self] pet in
-                    self?.viewModel.pet = pet                    
+                    self?.viewModel.pet = pet
                 }
                 .store(in: &cancellables)
         }
@@ -64,6 +65,10 @@ class PetViewController: UIViewController {
         setupViewModel()
         configureDataSource()
         configureCollectionView()
+        
+        petView.onPetPictureTapped = { [weak self] in
+            self?.presentImagePicker()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -146,7 +151,7 @@ class PetViewController: UIViewController {
         snapshot.appendItems(dailyTasks, toSection: .daily)
         snapshot.appendItems(weeklyTasks, toSection: .weekly)
         snapshot.appendItems(monthlyTasks, toSection: .monthly)
-         
+        
         self.dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
@@ -171,4 +176,52 @@ extension PetViewController: UICollectionViewDelegate, UICollectionViewDelegateF
             return CGSizeMake(width, 84)
         }
     }
+}
+
+extension PetViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    private func presentImagePicker() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        if let selectedImage = info[.originalImage] as? UIImage {
+            petView.petPicture.image = selectedImage
+            viewModel.pet.picture = selectedImage
+                        
+            guard let imageData = selectedImage.jpegData(compressionQuality: 0.8) else { return }
+            let storageRef = Storage.storage().reference().child("pet_images").child("\(viewModel.pet.id).jpg")
+            
+            storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+                if let error = error {
+                    print("Error uploading image: \(error.localizedDescription)")
+                    return
+                }
+                
+                storageRef.downloadURL { (url, error) in
+                    if let error = error {
+                        print("Error getting download URL: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let downloadURL = url else { return }
+                    
+                    
+                    FirestoreService.shared.updatePetData(petId: self.viewModel.pet.id, data: ["pictureURL": downloadURL.absoluteString]) { error in
+                        if let error = error {
+                            print("Error updating pet image URL: \(error.localizedDescription)")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+
 }

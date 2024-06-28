@@ -12,16 +12,33 @@ class PetView: UIView {
     
     weak var viewModel: PetViewModel? {
         didSet {
+            petPicture.image = viewModel!.pet.picture ?? UIImage(systemName: "dog.circle")
             tasksCollectionView.reloadData()
         }
     }
     
+    var onPetPictureTapped: (() -> Void)?
+    
     private(set) lazy var petPicture: UIImageView = {
         let view = UIImageView(image: UIImage(systemName: "dog.circle"))
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(petPictureTapped))
+        view.addGestureRecognizer(tapGesture)
+        
+        view.layer.cornerRadius = 24
+        view.clipsToBounds = true
+        view.layer.borderWidth = 2
+        view.layer.borderColor = UIColor.primary.cgColor
+        view.contentMode = .scaleToFill
         
         return view
     }()
+    
+    @objc private func petPictureTapped() {
+        onPetPictureTapped?()
+    }
+        
     
     private(set) lazy var largeTitleLabel: UILabel = {
         let view = UILabel()
@@ -74,14 +91,15 @@ class PetView: UIView {
     
     private func setupConstraints() {
         petPicture.snp.makeConstraints { make in
-            make.top.centerX.equalTo(safeAreaLayoutGuide)
+            make.top.equalTo(safeAreaLayoutGuide).inset(24)
+            make.centerX.equalToSuperview()
             make.width.height.equalTo(175)
         }
         
         largeTitleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(24)
             make.right.equalToSuperview().offset(-24)
-            make.top.equalTo(petPicture.snp.bottom).offset(16)
+            make.top.equalTo(petPicture.snp.bottom).offset(24)
             make.height.equalTo(42)
         }
         

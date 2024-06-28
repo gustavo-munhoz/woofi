@@ -246,6 +246,20 @@ class FirestoreService: FirestoreServiceProtocol {
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                     let pet = try JSONDecoder().decode(Pet.self, from: jsonData)
+                    
+                    // Fetch the picture if it exists
+                    if let pictureURLString = pet.pictureURL,
+                       let pictureURL = URL(string: pictureURLString) {
+                        self.fetchImage(from: pictureURL) { result in
+                            switch result {
+                            case .success(let image):
+                                pet.picture = image
+                            case .failure(let error):
+                                print("Failed to fetch image: \(error)")
+                            }
+                        }
+                    }
+                    
                     pets.append(pet)
                 } catch {
                     onUpdate(.failure(error))
@@ -257,6 +271,22 @@ class FirestoreService: FirestoreServiceProtocol {
         }
         
         petListeners.append(listener)
+    }
+    
+    private func fetchImage(from url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data, let image = UIImage(data: data) else {
+                completion(.failure(NSError(domain: "ImageErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to decode image"])))
+                return
+            }
+            
+            completion(.success(image))
+        }.resume()
     }
     
     func removeAllListeners() {

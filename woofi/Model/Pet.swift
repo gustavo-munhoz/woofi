@@ -14,7 +14,8 @@ class Pet: Hashable, Codable {
     let name: String
     let breed: String
     let age: String
-    let picture: UIImage?
+    var pictureURL: String?
+    var picture: UIImage?
     var groupID: String?
     
     var dailyTasks: CurrentValueSubject<[PetTaskGroup], Never>
@@ -26,14 +27,15 @@ class Pet: Hashable, Codable {
         name: String,
         breed: String,
         age: String,
-        picture: UIImage? = nil,
+        pictureURL: String? = nil,
+        picture: UIImage? = UIImage(systemName: "dog.circle"),
         groupID: String? = nil
     ) {
         self.id = id
         self.name = name
         self.breed = breed
         self.age = age
-        self.picture = picture
+        self.pictureURL = pictureURL
         self.groupID = groupID
         self.dailyTasks = CurrentValueSubject(DefaultPetTaskStructure.dailyTasks())
         self.weeklyTasks = CurrentValueSubject(DefaultPetTaskStructure.weeklyTasks())
@@ -53,7 +55,7 @@ class Pet: Hashable, Codable {
         case name
         case breed
         case age
-        case picture
+        case pictureURL
         case groupID
         case dailyTasks
         case weeklyTasks
@@ -66,13 +68,8 @@ class Pet: Hashable, Codable {
         name = try container.decode(String.self, forKey: .name)
         breed = try container.decode(String.self, forKey: .breed)
         age = try container.decode(String.self, forKey: .age)
+        pictureURL = try container.decodeIfPresent(String.self, forKey: .pictureURL)
         groupID = try container.decodeIfPresent(String.self, forKey: .groupID)
-        
-        if let pictureData = try container.decodeIfPresent(Data.self, forKey: .picture) {
-            picture = UIImage(data: pictureData)
-        } else {
-            picture = nil
-        }
         
         dailyTasks = CurrentValueSubject(try container.decode([PetTaskGroup].self, forKey: .dailyTasks))
         weeklyTasks = CurrentValueSubject(try container.decode([PetTaskGroup].self, forKey: .weeklyTasks))
@@ -85,13 +82,8 @@ class Pet: Hashable, Codable {
         try container.encode(name, forKey: .name)
         try container.encode(breed, forKey: .breed)
         try container.encode(age, forKey: .age)
+        try container.encode(pictureURL, forKey: .pictureURL)
         try container.encode(groupID, forKey: .groupID)
-        
-        if let picture = picture {
-            let pictureData = picture.pngData()
-            try container.encode(pictureData, forKey: .picture)
-        }
-        
         try container.encode(dailyTasks.value, forKey: .dailyTasks)
         try container.encode(weeklyTasks.value, forKey: .weeklyTasks)
         try container.encode(monthlyTasks.value, forKey: .monthlyTasks)
