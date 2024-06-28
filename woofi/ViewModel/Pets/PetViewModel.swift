@@ -9,7 +9,13 @@ import Foundation
 import Combine
 
 class PetViewModel {
-    var pet: Pet
+    var pet: Pet {
+        didSet {
+            changePublisher.send(pet)
+        }
+    }
+    
+    var changePublisher = PassthroughSubject<Pet, Never>()
     
     init(pet: Pet) {
         self.pet = pet

@@ -32,19 +32,18 @@ class PetViewController: UIViewController {
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, PetTaskGroup>!
     
-    var viewModel: PetViewModel? {
+    var viewModel: PetViewModel
+    
+    weak var petListViewModel: PetListViewModel? {
         didSet {
-            navigationItem.title = viewModel!.pet.name
-            
-            viewModel!.pet.dailyTasks
-                .combineLatest(viewModel!.pet.weeklyTasks, viewModel!.pet.monthlyTasks)
+            petListViewModel?.updatePetPublisher
                 .receive(on: RunLoop.main)
-                .sink { [weak self] dailyTasks, weeklyTasks, monthlyTasks in
-                    self?.applySnapshot(dailyTasks: dailyTasks, weeklyTasks: weeklyTasks, monthlyTasks: monthlyTasks)
+                .sink { [weak self] pet in
+                    self?.viewModel.pet = pet                    
                 }
                 .store(in: &cancellables)
         }
-    }    
+    }
     
     init(viewModel: PetViewModel) {
         self.viewModel = viewModel
@@ -77,6 +76,19 @@ class PetViewController: UIViewController {
     
     private func setupViewModel() {
         petView.viewModel = viewModel
+        
+        navigationItem.title = viewModel.pet.name
+        
+        viewModel.changePublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] pet in
+                self?.applySnapshot(
+                    dailyTasks: pet.dailyTasks.value,
+                    weeklyTasks: pet.weeklyTasks.value,
+                    monthlyTasks: pet.monthlyTasks.value
+                )
+            }
+            .store(in: &cancellables)
     }
     
     private func configureDataSource() {
@@ -88,7 +100,7 @@ class PetViewController: UIViewController {
                     for: indexPath) as? PetTaskGroupView
                 else { fatalError("Could not dequeue PetTaskGroupCell") }
                 
-                cell.setup(withTaskGroup: taskGroup, petID: self.viewModel?.pet.id)
+                cell.setup(withTaskGroup: taskGroup, petID: self.viewModel.pet.id)
                 return cell
             }
         )
@@ -107,9 +119,9 @@ class PetViewController: UIViewController {
         }
         
         applySnapshot(
-            dailyTasks: viewModel?.pet.dailyTasks.value ?? DefaultPetTaskStructure.dailyTasks(),
-            weeklyTasks: viewModel?.pet.weeklyTasks.value ?? DefaultPetTaskStructure.weeklyTasks(),
-            monthlyTasks: viewModel?.pet.monthlyTasks.value ?? DefaultPetTaskStructure.monthlyTasks()
+            dailyTasks: viewModel.pet.dailyTasks.value,
+            weeklyTasks: viewModel.pet.weeklyTasks.value,
+            monthlyTasks: viewModel.pet.monthlyTasks.value
         )
     }
     
@@ -128,7 +140,6 @@ class PetViewController: UIViewController {
     }
     
     private func applySnapshot(dailyTasks: [PetTaskGroup], weeklyTasks: [PetTaskGroup], monthlyTasks: [PetTaskGroup]) {
-        print("Applying snapshot: Daily \(dailyTasks.count), Weekly \(weeklyTasks.count), Monthly \(monthlyTasks.count)")
         var snapshot = NSDiffableDataSourceSnapshot<Section, PetTaskGroup>()
         snapshot.appendSections(Section.allCases)
         

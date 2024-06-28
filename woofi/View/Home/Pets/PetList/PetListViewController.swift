@@ -95,9 +95,12 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
             .sink(receiveValue: { [weak self] pets in
                 self?.applySnapshot(pets: pets)
                 
+                guard let currentPet = self?.currentPet else { return }
+                
                 for p in pets {
-                    if p == self?.currentPet {
-                        
+                    if p.id == currentPet.id {
+                        self?.currentPet = p
+                        self?.viewModel?.publishPetChange(p)
                     }
                 }
             })
@@ -106,9 +109,12 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
         viewModel?.navigateToPetPublisher
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] pet in
+                self?.currentPet = pet
                 let vm = PetViewModel(pet: pet)
+                let vc = PetViewController(viewModel: vm)
+                vc.petListViewModel = self?.viewModel
                 
-                self?.navigationController?.pushViewController(PetViewController(viewModel: vm), animated: true)
+                self?.navigationController?.pushViewController(vc, animated: true)
             })
             .store(in: &cancellables)
     }

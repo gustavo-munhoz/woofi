@@ -15,6 +15,9 @@ class PetListViewModel: NSObject {
     
     /// The publisher to signal controllers to navigate.
     var navigateToPetPublisher = PassthroughSubject<Pet, Never>()
+    
+    /// Used to update pet after listener updates.
+    var updatePetPublisher = PassthroughSubject<Pet, Never>()
 
     override init() {
         super.init()
@@ -37,6 +40,10 @@ class PetListViewModel: NSObject {
         }
     }
 
+    func publishPetChange(_ pet: Pet) {
+        updatePetPublisher.send(pet)
+    }
+    
     func navigateToPet(_ pet: Pet) {
         navigateToPetPublisher.send(pet)
     }
