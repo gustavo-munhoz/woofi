@@ -146,8 +146,8 @@ class PetViewController: UIViewController {
         snapshot.appendItems(dailyTasks, toSection: .daily)
         snapshot.appendItems(weeklyTasks, toSection: .weekly)
         snapshot.appendItems(monthlyTasks, toSection: .monthly)
-        
-        dataSource.apply(snapshot, animatingDifferences: true)
+         
+        self.dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -156,7 +156,7 @@ extension PetViewController: UICollectionViewDelegate, UICollectionViewDelegateF
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let taskGroup = dataSource.itemIdentifier(for: indexPath) else { return CGSize.zero }
         
-        let width = UIScreen.main.bounds.width - 48
+        let width = UIScreen.main.bounds.width - 48                
         
         switch taskGroup.task {
         case .walk:

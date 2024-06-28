@@ -84,8 +84,8 @@ class PetTaskGroupView: UICollectionViewCell {
         
         instancesStackView.snp.makeConstraints { make in
             make.left.right.equalTo(titleLabel)
-            make.top.equalTo(titleLabel.snp.bottom).offset(14)
-            make.bottom.equalToSuperview().offset(-14)
+            make.top.equalTo(titleLabel.snp.bottom).offset(14).priority(.required)
+            make.bottom.equalToSuperview().offset(-14).priority(.required)
         }
     }
 }

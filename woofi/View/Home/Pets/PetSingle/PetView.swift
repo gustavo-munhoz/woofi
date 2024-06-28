@@ -88,7 +88,7 @@ class PetView: UIView {
         tasksCollectionView.snp.makeConstraints { make in
             make.top.equalTo(largeTitleLabel.snp.bottom)
             make.left.right.equalTo(largeTitleLabel)
-            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.bottom.greaterThanOrEqualTo(safeAreaLayoutGuide).priority(.required)
         }
     }
 }
