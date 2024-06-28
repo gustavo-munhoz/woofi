@@ -94,7 +94,7 @@ class PetTaskInstanceView: UIView {
             make.left.equalTo(completionImage.snp.right).offset(10)
             make.right.centerY.equalToSuperview()
             make.height.equalTo(completionImage)
-        }
+        }                
     }
     
     private func setupGesture() {
