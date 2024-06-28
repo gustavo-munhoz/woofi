@@ -32,47 +32,22 @@ class PetViewController: UIViewController {
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, PetTaskGroup>!
     
-    var pet: Pet
     var viewModel: PetViewModel? {
         didSet {
-            navigationItem.title = viewModel?.pet.name
+            navigationItem.title = viewModel!.pet.name
             
-            pet.dailyTasks
+            viewModel!.pet.dailyTasks
+                .combineLatest(viewModel!.pet.weeklyTasks, viewModel!.pet.monthlyTasks)
                 .receive(on: RunLoop.main)
-                .sink(receiveValue: { [weak self] _ in
-                    self?.applySnapshot()
-                })
-                .store(in: &cancellables)
-            
-            pet.weeklyTasks
-                .receive(on: RunLoop.main)
-                .sink(receiveValue: { [weak self] _ in
-                    self?.applySnapshot()
-                })
-                .store(in: &cancellables)
-            
-            pet.monthlyTasks
-                .receive(on: RunLoop.main)
-                .sink(receiveValue: { [weak self] _ in
-                    self?.applySnapshot()
-                })
+                .sink { [weak self] dailyTasks, weeklyTasks, monthlyTasks in
+                    self?.applySnapshot(dailyTasks: dailyTasks, weeklyTasks: weeklyTasks, monthlyTasks: monthlyTasks)
+                }
                 .store(in: &cancellables)
         }
-    }
+    }    
     
-    weak var listViewModel: PetListViewModel? {
-        didSet {
-            listViewModel?.pets
-                .receive(on: RunLoop.main)
-                .sink(receiveValue: { [weak self] _ in
-                    self?.applySnapshot()
-                })
-                .store(in: &cancellables)
-        }
-    }
-    
-    init(pet: Pet) {
-        self.pet = pet
+    init(viewModel: PetViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -101,8 +76,6 @@ class PetViewController: UIViewController {
     }
     
     private func setupViewModel() {
-        let viewModel = PetViewModel(pet: pet)
-        self.viewModel = viewModel
         petView.viewModel = viewModel
     }
     
@@ -133,7 +106,11 @@ class PetViewController: UIViewController {
             return headerView
         }
         
-//        applySnapshot()
+        applySnapshot(
+            dailyTasks: viewModel?.pet.dailyTasks.value ?? DefaultPetTaskStructure.dailyTasks(),
+            weeklyTasks: viewModel?.pet.weeklyTasks.value ?? DefaultPetTaskStructure.weeklyTasks(),
+            monthlyTasks: viewModel?.pet.monthlyTasks.value ?? DefaultPetTaskStructure.monthlyTasks()
+        )
     }
     
     private func configureCollectionView() {

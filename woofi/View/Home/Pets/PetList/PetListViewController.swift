@@ -21,6 +21,8 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
     
     var viewModel: PetListViewModel?
     
+    var currentPet: Pet?
+    
     override func loadView() {
         view = petListView
     }
@@ -92,16 +94,21 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] pets in
                 self?.applySnapshot(pets: pets)
+                
+                for p in pets {
+                    if p == self?.currentPet {
+                        
+                    }
+                }
             })
             .store(in: &cancellables)
         
         viewModel?.navigateToPetPublisher
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] pet in
-                let vc = PetViewController(pet: pet)
-                vc.listViewModel = self?.viewModel
+                let vm = PetViewModel(pet: pet)
                 
-                self?.navigationController?.pushViewController(vc, animated: true)
+                self?.navigationController?.pushViewController(PetViewController(viewModel: vm), animated: true)
             })
             .store(in: &cancellables)
     }
