@@ -141,7 +141,7 @@ class PetViewController: UIViewController {
     
     private func applySnapshot(dailyTasks: [PetTaskGroup], weeklyTasks: [PetTaskGroup], monthlyTasks: [PetTaskGroup]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, PetTaskGroup>()
-        snapshot.appendSections(Section.allCases)               
+        snapshot.appendSections(Section.allCases)
         
         snapshot.appendItems(dailyTasks, toSection: .daily)
         snapshot.appendItems(weeklyTasks, toSection: .weekly)
