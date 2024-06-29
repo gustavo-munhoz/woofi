@@ -34,6 +34,7 @@ class PetListViewModel: NSObject {
             switch result {
                 case .success(let pets):
                     self?.pets.value = pets
+                
                 case .failure(let error):
                     print("Error fetching pets: \(error.localizedDescription)")
             }
@@ -48,6 +49,14 @@ class PetListViewModel: NSObject {
         navigateToPetPublisher.send(pet)
     }
 
+    func updatePet(_ pet: Pet) {
+        var currentPets = pets.value
+        if let index = currentPets.firstIndex(where: { $0 == pet }) {
+            currentPets[index] = pet
+            pets.send(currentPets)
+        }
+    }
+    
     private func observeGroupIDChanges() {
         NotificationCenter.default.addObserver(
             self,

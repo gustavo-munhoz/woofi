@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import os
+import FirebaseStorage
 
 /// Shared singleton to handle Firestore logic, conforming to FirestoreServiceProtocol.
 class FirestoreService: FirestoreServiceProtocol {
@@ -221,7 +222,7 @@ class FirestoreService: FirestoreServiceProtocol {
             }
         }
     }
-    
+
     func addPetsListener(groupID: String, onUpdate: @escaping (Result<[Pet], Error>) -> Void) {
         let petsRef = db.collection(FirestoreKeys.Pets.collectionTitle).whereField("groupID", isEqualTo: groupID)
         
@@ -237,6 +238,8 @@ class FirestoreService: FirestoreServiceProtocol {
             }
             
             var pets: [Pet] = []
+            let dispatchGroup = DispatchGroup()
+            
             for document in documents {
                 var data = document.data()
                 
@@ -245,11 +248,12 @@ class FirestoreService: FirestoreServiceProtocol {
                 
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                    let pet = try JSONDecoder().decode(Pet.self, from: jsonData)
+                    var pet = try JSONDecoder().decode(Pet.self, from: jsonData)
                     
                     // Fetch the picture if it exists
                     if let pictureURLString = pet.pictureURL,
                        let pictureURL = URL(string: pictureURLString) {
+                        dispatchGroup.enter()
                         self.fetchImage(from: pictureURL) { result in
                             switch result {
                             case .success(let image):
@@ -257,6 +261,7 @@ class FirestoreService: FirestoreServiceProtocol {
                             case .failure(let error):
                                 print("Failed to fetch image: \(error)")
                             }
+                            dispatchGroup.leave()
                         }
                     }
                     
@@ -267,26 +272,27 @@ class FirestoreService: FirestoreServiceProtocol {
                 }
             }
             
-            onUpdate(.success(pets))
+            dispatchGroup.notify(queue: .main) {
+                onUpdate(.success(pets))
+            }
         }
         
         petListeners.append(listener)
     }
-    
-    private func fetchImage(from url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
+
+    func fetchImage(from url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        let storageRef = Storage.storage().reference(forURL: url.absoluteString)
+        storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-            
-            guard let data = data, let image = UIImage(data: data) else {
-                completion(.failure(NSError(domain: "ImageErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to decode image"])))
-                return
+            if let data = data, let image = UIImage(data: data) {
+                completion(.success(image))
+            } else {
+                completion(.failure(NSError(domain: "ImageErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert data to image."])))
             }
-            
-            completion(.success(image))
-        }.resume()
+        }
     }
     
     func removeAllListeners() {

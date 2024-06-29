@@ -106,6 +106,13 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
             })
             .store(in: &cancellables)
         
+        viewModel?.updatePetPublisher
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] pet in
+                self?.viewModel?.updatePet(pet) // is being called in loop apparently
+            })
+            .store(in: &cancellables)
+        
         viewModel?.navigateToPetPublisher
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] pet in

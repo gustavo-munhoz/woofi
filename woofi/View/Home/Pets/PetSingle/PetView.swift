@@ -20,7 +20,7 @@ class PetView: UIView {
     var onPetPictureTapped: (() -> Void)?
     
     private(set) lazy var petPicture: UIImageView = {
-        let view = UIImageView(image: UIImage(systemName: "dog.circle"))
+        let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(petPictureTapped))

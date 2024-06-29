@@ -18,7 +18,11 @@ class PetCollectionViewCell: UICollectionViewCell {
     
     private var type: CellType = .tall
     
-    private var image: UIImage?
+    private var image: UIImage? {
+        didSet {
+            petImageView.image = image
+        }
+    }
     private var name: String?
     private var breed: String?
     private var age: String?
@@ -28,6 +32,7 @@ class PetCollectionViewCell: UICollectionViewCell {
         
         backgroundColor = .systemGray5
         layer.cornerRadius = 15
+        clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {
@@ -42,7 +47,8 @@ class PetCollectionViewCell: UICollectionViewCell {
         )
         
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFit
+        view.contentMode = .scaleAspectFill        
+        view.clipsToBounds = true
         
         return view
     }()

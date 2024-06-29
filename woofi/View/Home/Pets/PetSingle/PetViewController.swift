@@ -92,6 +92,9 @@ class PetViewController: UIViewController {
                     weeklyTasks: pet.weeklyTasks.value,
                     monthlyTasks: pet.monthlyTasks.value
                 )
+                
+                self?.petListViewModel?.updatePet(pet)
+                
             }
             .store(in: &cancellables)
     }
