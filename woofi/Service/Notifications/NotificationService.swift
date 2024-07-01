@@ -8,13 +8,21 @@
 import FirebaseFunctions
 
 class NotificationService {
+    static let shared = NotificationService()
+    
+    private init() {}
+    
     private let functions = Functions.functions()
 
-    func sendTaskCompletedNotification(toGroupID groupID: String, byUserID userID: String, taskLabel: String) {
+    func sendTaskCompletedNotification(toGroupID groupID: String, byUserID userID: String, taskType: TaskType, petName: String) {
+        let username = Session.shared.currentUser?.username ?? "Someone"
+        let message = NotificationFactory.createTaskCompletedMessage(username: username, taskType: taskType, petName: petName)
+
         let data: [String: Any] = [
             "groupID": groupID,
             "userID": userID,
-            "taskLabel": taskLabel
+            "title": message.0,
+            "body": message.1
         ]
 
         functions.httpsCallable("sendTaskCompletedNotification").call(data) { result, error in

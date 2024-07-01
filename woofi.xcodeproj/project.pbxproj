@@ -73,6 +73,7 @@
 		B37059532C3266AC00FDD70B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = B37059522C3266AC00FDD70B /* FirebaseMessaging */; };
 		B37059562C32674300FDD70B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37059552C32674300FDD70B /* NotificationService.swift */; };
 		B37059582C32675A00FDD70B /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = B37059572C32675A00FDD70B /* FirebaseFunctions */; };
+		B370595A2C33495A00FDD70B /* NotificationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37059592C33495A00FDD70B /* NotificationFactory.swift */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -150,6 +151,7 @@
 		B35CC38A2C07F32D007FBEFC /* AddPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetView.swift; sourceTree = "<group>"; };
 		B35CC38C2C07F79D007FBEFC /* AddPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetViewController.swift; sourceTree = "<group>"; };
 		B37059552C32674300FDD70B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		B37059592C33495A00FDD70B /* NotificationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFactory.swift; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 			isa = PBXGroup;
 			children = (
 				B37059552C32674300FDD70B /* NotificationService.swift */,
+				B37059592C33495A00FDD70B /* NotificationFactory.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -622,6 +625,7 @@
 			files = (
 				B30622E92BE80A71009441CB /* LocalizedString.swift in Sources */,
 				B35CC3742BFFC776007FBEFC /* InviteView.swift in Sources */,
+				B370595A2C33495A00FDD70B /* NotificationFactory.swift in Sources */,
 				B306231D2BEB0715009441CB /* UserViewModel.swift in Sources */,
 				B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */,
 				B31D301B2BEC1C3C00CE903A /* HomeViewModel.swift in Sources */,
