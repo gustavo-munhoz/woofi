@@ -109,7 +109,7 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
         viewModel?.updatePetPublisher
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] pet in
-                self?.viewModel?.updatePet(pet) // is being called in loop apparently
+                self?.viewModel?.updatePet(pet)
             })
             .store(in: &cancellables)
         
