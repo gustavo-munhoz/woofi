@@ -51,10 +51,11 @@ class PetListViewModel: NSObject {
 
     func updatePet(_ pet: Pet) {
         var currentPets = pets.value
-        if let index = currentPets.firstIndex(where: { $0 == pet }) {
-            currentPets[index] = pet
-            pets.send(currentPets)
-        }
+        
+//        if let index = currentPets.firstIndex(where: { $0 == pet }) {
+//            currentPets[index] = pet
+//            pets.send(currentPets)
+//        }
     }
     
     private func observeGroupIDChanges() {
