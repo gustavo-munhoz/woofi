@@ -50,7 +50,8 @@ class PetListViewModel: NSObject {
     }
 
     func updatePet(_ pet: Pet) {
-        var currentPets = pets.value
+        // may need to implement later, but maybe not
+        return
     }
     
     private func observeGroupIDChanges() {

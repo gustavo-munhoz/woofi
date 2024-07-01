@@ -70,6 +70,9 @@
 		B35CC38B2C07F32E007FBEFC /* AddPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC38A2C07F32D007FBEFC /* AddPetView.swift */; };
 		B35CC38D2C07F79D007FBEFC /* AddPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CC38C2C07F79D007FBEFC /* AddPetViewController.swift */; };
 		B37059512C2F6A2100FDD70B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B37059502C2F6A2100FDD70B /* FirebaseStorage */; };
+		B37059532C3266AC00FDD70B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = B37059522C3266AC00FDD70B /* FirebaseMessaging */; };
+		B37059562C32674300FDD70B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37059552C32674300FDD70B /* NotificationService.swift */; };
+		B37059582C32675A00FDD70B /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = B37059572C32675A00FDD70B /* FirebaseFunctions */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -146,6 +149,7 @@
 		B35CC3872C054883007FBEFC /* UserDefaults+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+ext.swift"; sourceTree = "<group>"; };
 		B35CC38A2C07F32D007FBEFC /* AddPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetView.swift; sourceTree = "<group>"; };
 		B35CC38C2C07F79D007FBEFC /* AddPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetViewController.swift; sourceTree = "<group>"; };
+		B37059552C32674300FDD70B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,12 +166,14 @@
 			files = (
 				B30622D22BE80621009441CB /* FirebaseAnalyticsSwift in Frameworks */,
 				B30622D62BE80621009441CB /* FirebaseCrashlytics in Frameworks */,
+				B37059532C3266AC00FDD70B /* FirebaseMessaging in Frameworks */,
 				B37059512C2F6A2100FDD70B /* FirebaseStorage in Frameworks */,
 				B30622D42BE80621009441CB /* FirebaseAuth in Frameworks */,
 				B35CC37C2C005495007FBEFC /* FirebaseDynamicLinks in Frameworks */,
 				B30622E42BE80863009441CB /* SnapKit in Frameworks */,
 				B30622D82BE80621009441CB /* FirebaseFirestore in Frameworks */,
 				B30622D02BE80621009441CB /* FirebaseAnalytics in Frameworks */,
+				B37059582C32675A00FDD70B /* FirebaseFunctions in Frameworks */,
 				B30622DA2BE80621009441CB /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -224,6 +230,7 @@
 		B30622F12BE826ED009441CB /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				B37059542C32673800FDD70B /* Notifications */,
 				B30622F92BE82C6E009441CB /* Authentication */,
 				B30622F42BE827BE009441CB /* Firestore */,
 			);
@@ -446,6 +453,14 @@
 			path = AddPet;
 			sourceTree = "<group>";
 		};
+		B37059542C32673800FDD70B /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				B37059552C32674300FDD70B /* NotificationService.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		B3A7E83B2BE74DF9009B6630 = {
 			isa = PBXGroup;
 			children = (
@@ -542,6 +557,8 @@
 				B30622E32BE80863009441CB /* SnapKit */,
 				B35CC37B2C005495007FBEFC /* FirebaseDynamicLinks */,
 				B37059502C2F6A2100FDD70B /* FirebaseStorage */,
+				B37059522C3266AC00FDD70B /* FirebaseMessaging */,
+				B37059572C32675A00FDD70B /* FirebaseFunctions */,
 			);
 			productName = woofi;
 			productReference = B3A7E8442BE74DF9009B6630 /* woofi.app */;
@@ -647,6 +664,7 @@
 				B35CC3822C010EE9007FBEFC /* JoinGroupViewController.swift in Sources */,
 				B306230E2BEAC80C009441CB /* User.swift in Sources */,
 				B30622F32BE826FE009441CB /* FirestoreService.swift in Sources */,
+				B37059562C32674300FDD70B /* NotificationService.swift in Sources */,
 				B30622FD2BE82C8C009441CB /* AuthenticationService.swift in Sources */,
 				B31D31C52BF303F600CE903A /* PetView.swift in Sources */,
 				B31D31C72BF3043400CE903A /* PetViewModel.swift in Sources */,
@@ -943,6 +961,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B30622CE2BE80621009441CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		B37059522C3266AC00FDD70B /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B30622CE2BE80621009441CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		B37059572C32675A00FDD70B /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B30622CE2BE80621009441CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

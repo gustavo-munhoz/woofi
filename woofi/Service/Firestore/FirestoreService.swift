@@ -248,7 +248,7 @@ class FirestoreService: FirestoreServiceProtocol {
                 
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                    var pet = try JSONDecoder().decode(Pet.self, from: jsonData)
+                    let pet = try JSONDecoder().decode(Pet.self, from: jsonData)
                     
                     // Fetch the picture if it exists
                     if let pictureURLString = pet.pictureURL,
