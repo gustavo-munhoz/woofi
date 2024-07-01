@@ -12,9 +12,11 @@ import os
 
 class PetTaskInstanceView: UIView {
     
+    private var notificationTimer: Timer?
+    
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "PetTaskInstanceView")
     
-    weak var taskInstance: PetTaskInstance? {
+    var taskInstance: PetTaskInstance? {
         didSet {
             titleLabel.text = taskInstance?.label
             updateCompletionImage()
@@ -22,8 +24,8 @@ class PetTaskInstanceView: UIView {
         }
     }
     
-    var petID: String?
-    var taskGroupID: UUID?
+    var pet: Pet?
+    var taskGroup: PetTaskGroup?
     var frequency: TaskFrequency?
     
     private(set) lazy var completionImage: UIImageView = {
@@ -116,6 +118,12 @@ class PetTaskInstanceView: UIView {
             self.updateCompletionImage()
         }, completion: { _ in
             self.updateTaskInstanceInFirestore()
+            
+            self.notificationTimer?.invalidate()
+            
+            if taskInstance.completed {                
+                self.notificationTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(self.sendNotification), userInfo: nil, repeats: false)
+            }
         })
     }
     
@@ -177,7 +185,7 @@ class PetTaskInstanceView: UIView {
     }
     
     private func updateTaskInstanceInFirestore() {
-        guard let petID = petID, let frequency = frequency, let taskGroupID = taskGroupID, let taskInstance = taskInstance else { return }
+        guard let petID = pet?.id, let frequency = frequency, let taskGroupID = taskGroup?.id, let taskInstance = taskInstance else { return }
         
         FirestoreService.shared.updateTaskInstance(petID: petID, frequency: frequency, taskGroupID: taskGroupID, taskInstance: taskInstance) { error in
             if let error = error {
@@ -186,5 +194,16 @@ class PetTaskInstanceView: UIView {
                 print("Successfully updated task instance")
             }
         }
+    }
+    
+    @objc private func sendNotification() {
+        guard let taskInstance = taskInstance, taskInstance.completed, let taskType = taskGroup?.task, let petName = pet?.name else { return }
+        
+        let userID = Session.shared.currentUser?.id ?? ""
+        let groupID = Session.shared.currentUser?.groupID ?? ""
+        
+        print("Requesting notification for: \n-groupID: \(groupID)\n-userID: \(userID)\n-taskType: \(taskType)\n-petName: \(petName)")
+        
+        NotificationService.shared.sendTaskCompletedNotification(toGroupID: groupID, byUserID: userID, taskType: taskType, petName: petName)
     }
 }

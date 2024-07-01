@@ -5,16 +5,23 @@
 //  Created by Gustavo Munhoz Correa on 01/07/24.
 //
 
+import Foundation
 import FirebaseFunctions
+import os
 
 class NotificationService {
     static let shared = NotificationService()
     
-    private init() {}
+    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: NotificationService.self))
+    private let functions: Functions
     
-    private let functions = Functions.functions()
+    private init() {
+        functions = Functions.functions()
+        functions.useEmulator(withHost: "127.0.0.1", port: 5001)
+    }
 
     func sendTaskCompletedNotification(toGroupID groupID: String, byUserID userID: String, taskType: TaskType, petName: String) {
+        logger.debug("Sending task notification...")
         let username = Session.shared.currentUser?.username ?? "Someone"
         let message = NotificationFactory.createTaskCompletedMessage(username: username, taskType: taskType, petName: petName)
 
@@ -25,11 +32,11 @@ class NotificationService {
             "body": message.1
         ]
 
-        functions.httpsCallable("sendTaskCompletedNotification").call(data) { result, error in
+        functions.httpsCallable("sendTaskCompletedNotification").call(data) { [weak self] result, error in
             if let error = error {
-                print("Error sending notification: \(error.localizedDescription)")
+                self?.logger.error("Error sending notification: \(error.localizedDescription)")
             } else {
-                print("Notification sent successfully")
+                self?.logger.info("Notification sent successfully")
             }
         }
     }
