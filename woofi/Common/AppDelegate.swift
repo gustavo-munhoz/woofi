@@ -6,42 +6,55 @@
 //
 
 import UIKit
-import FirebaseCore
+import Firebase
 import FirebaseMessaging
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+
+        UNUserNotificationCenter.current().delegate = self
         
-        if #available(iOS 10.0, *) {
-            // For iOS 10 display notification (sent via APNS)
-            UNUserNotificationCenter.current().delegate = self
-            
-            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-            UNUserNotificationCenter.current().requestAuthorization(
-                options: authOptions,
-                completionHandler: {_, _ in })
-        } else {
-            let settings: UIUserNotificationSettings =
-            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-            application.registerUserNotificationSettings(settings)
-        }
-        
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: {_, _ in })
+
         application.registerForRemoteNotifications()
-        
+
         Messaging.messaging().delegate = self
-        
-        
+
         return true
+    }
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        print("Device Token: \(token)")
+        
+        // Configure Firebase with APNs token
+        Messaging.messaging().apnsToken = deviceToken
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .badge, .sound])
     }
 }
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("Firebase registration token: \(String(describing: fcmToken))")
-        
+        guard let fcmToken = fcmToken else { return }
+
+        print("FCM Token: \(fcmToken)")
+        if let userID = Auth.auth().currentUser?.uid {
+            Firestore.firestore().collection("users").document(userID).updateData(["fcmToken": fcmToken])
+        }
     }
 }
