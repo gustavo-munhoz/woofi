@@ -27,6 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             completionHandler: {_, _ in })
 
         application.registerForRemoteNotifications()
+        
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if let user = user, let fcmToken = self.fcmToken {
+                Firestore.firestore()
+                    .collection(FirestoreKeys.Users.collectionTitle)
+                    .document(user.uid)
+                    .updateData(["fcmToken": fcmToken])
+                
+                print("Registered fcm token in firebase: \(fcmToken)")
+            }
+        }
 
         Messaging.messaging().delegate = self
 
@@ -58,7 +69,7 @@ extension AppDelegate: MessagingDelegate {
             Firestore.firestore().collection("users").document(userID).updateData(["fcmToken": fcmToken])
             
         } else {
-            // TODO: Save fcm token in user after authentication.
+            // Store FCM Token temporarily
             self.fcmToken = fcmToken
         }
     }

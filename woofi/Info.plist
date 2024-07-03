@@ -11,7 +11,7 @@
 			<string>Bundle ID</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>dev.mnhz.woofi</string>
+				<string>dev.mnhz.woofy</string>
 			</array>
 		</dict>
 	</array>

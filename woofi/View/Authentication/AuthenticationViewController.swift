@@ -33,7 +33,6 @@ class AuthenticationViewController: UIViewController {
         viewModel = AuthenticationViewModel()
         
         viewModel?.onAuthenticationSuccess = { userId in
-            
             Task {
                 do {
                     let userData = try await FirestoreService.shared.fetchUserData(userId: userId)
@@ -50,6 +49,8 @@ class AuthenticationViewController: UIViewController {
                     )
                     
                     Session.shared.currentUser = user
+                    
+                    
                     
                     print("Authentication successful")
                     DispatchQueue.main.async {
@@ -113,8 +114,7 @@ class AuthenticationViewController: UIViewController {
                 self.view.alpha = 1
             }
         }
-    }
-
+    }    
     
     // MARK: Notifications
     

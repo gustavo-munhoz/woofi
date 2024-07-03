@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B30622CD2BE805C8009441CB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B30622CC2BE805C8009441CB /* GoogleService-Info.plist */; };
 		B30622D02BE80621009441CB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B30622CF2BE80621009441CB /* FirebaseAnalytics */; };
 		B30622D22BE80621009441CB /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B30622D12BE80621009441CB /* FirebaseAnalyticsSwift */; };
 		B30622D42BE80621009441CB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B30622D32BE80621009441CB /* FirebaseAuth */; };
@@ -74,6 +73,7 @@
 		B37059562C32674300FDD70B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37059552C32674300FDD70B /* NotificationService.swift */; };
 		B37059582C32675A00FDD70B /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = B37059572C32675A00FDD70B /* FirebaseFunctions */; };
 		B370595A2C33495A00FDD70B /* NotificationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37059592C33495A00FDD70B /* NotificationFactory.swift */; };
+		B37059652C35186F00FDD70B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B37059642C35186F00FDD70B /* GoogleService-Info.plist */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -95,7 +95,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B30622CC2BE805C8009441CB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B30622DD2BE80705009441CB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B30622E02BE8073D009441CB /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		B30622E82BE80A71009441CB /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
@@ -152,6 +151,7 @@
 		B35CC38C2C07F79D007FBEFC /* AddPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPetViewController.swift; sourceTree = "<group>"; };
 		B37059552C32674300FDD70B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		B37059592C33495A00FDD70B /* NotificationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFactory.swift; sourceTree = "<group>"; };
+		B37059642C35186F00FDD70B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -484,11 +484,11 @@
 		B3A7E8462BE74DF9009B6630 /* woofi */ = {
 			isa = PBXGroup;
 			children = (
+				B37059642C35186F00FDD70B /* GoogleService-Info.plist */,
 				B35CC3862C054872007FBEFC /* +ext */,
 				B35CC37D2C00E141007FBEFC /* woofi.entitlements */,
 				B31D31E12BFD284300CE903A /* Shared */,
 				B30622DB2BE80629009441CB /* Common */,
-				B30622CC2BE805C8009441CB /* GoogleService-Info.plist */,
 				B3A7E8652BE7FB0D009B6630 /* Model */,
 				B3A7E8672BE7FB16009B6630 /* View */,
 				B3A7E8692BE7FB1B009B6630 /* ViewModel */,
@@ -610,9 +610,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3A7E8512BE74DFB009B6630 /* Assets.xcassets in Resources */,
+				B37059652C35186F00FDD70B /* GoogleService-Info.plist in Resources */,
 				B3A7E8542BE74DFB009B6630 /* Base in Resources */,
 				B30622E12BE8073D009441CB /* Localizable.xcstrings in Resources */,
-				B30622CD2BE805C8009441CB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
