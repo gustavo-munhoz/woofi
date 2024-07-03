@@ -17,7 +17,7 @@ class NotificationService {
     
     private init() {
         functions = Functions.functions()
-        functions.useEmulator(withHost: "127.0.0.1", port: 5001)
+//        functions.useEmulator(withHost: "127.0.0.1", port: 5001)
     }
 
     func sendTaskCompletedNotification(toGroupID groupID: String, byUserID userID: String, taskType: TaskType, petName: String) {
