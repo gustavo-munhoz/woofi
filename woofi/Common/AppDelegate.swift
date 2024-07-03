@@ -14,6 +14,7 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var fcmToken: String?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
@@ -55,6 +56,10 @@ extension AppDelegate: MessagingDelegate {
         print("FCM Token: \(fcmToken)")
         if let userID = Auth.auth().currentUser?.uid {
             Firestore.firestore().collection("users").document(userID).updateData(["fcmToken": fcmToken])
+            
+        } else {
+            // TODO: Save fcm token in user after authentication.
+            self.fcmToken = fcmToken
         }
     }
 }
