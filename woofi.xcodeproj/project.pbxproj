@@ -74,6 +74,7 @@
 		B37059582C32675A00FDD70B /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = B37059572C32675A00FDD70B /* FirebaseFunctions */; };
 		B370595A2C33495A00FDD70B /* NotificationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37059592C33495A00FDD70B /* NotificationFactory.swift */; };
 		B37059652C35186F00FDD70B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B37059642C35186F00FDD70B /* GoogleService-Info.plist */; };
+		B37059792C365F2700FDD70B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37059782C365F2700FDD70B /* ProfileViewController.swift */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -152,6 +153,7 @@
 		B37059552C32674300FDD70B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		B37059592C33495A00FDD70B /* NotificationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFactory.swift; sourceTree = "<group>"; };
 		B37059642C35186F00FDD70B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B37059782C365F2700FDD70B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 		B30623012BE88357009441CB /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B37059752C365EC700FDD70B /* Profile */,
 				B31D31B62BEEB78400CE903A /* Pets */,
 				B30623052BE88425009441CB /* Group */,
 				B30623022BE8835F009441CB /* HomeViewController.swift */,
@@ -464,6 +467,14 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		B37059752C365EC700FDD70B /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B37059782C365F2700FDD70B /* ProfileViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		B3A7E83B2BE74DF9009B6630 = {
 			isa = PBXGroup;
 			children = (
@@ -636,6 +647,7 @@
 				B30622ED2BE8141D009441CB /* AuthenticationViewModel.swift in Sources */,
 				B354B66B2C2B579900CEA618 /* String+sha256.swift in Sources */,
 				B35CC3882C054883007FBEFC /* UserDefaults+ext.swift in Sources */,
+				B37059792C365F2700FDD70B /* ProfileViewController.swift in Sources */,
 				B30623132BEACCC2009441CB /* UserCollectionViewCell.swift in Sources */,
 				B30623032BE8835F009441CB /* HomeViewController.swift in Sources */,
 				B31D31D22BF3F04E00CE903A /* TaskFrequency.swift in Sources */,

@@ -15,6 +15,7 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
     var viewModel: HomeViewModel?
     var groupViewController = GroupViewController()
     var petListViewController = PetListViewController()
+    var profileViewController = ProfileViewController()
     
     private(set) lazy var addButton: UIButton = {
         var config = UIButton.Configuration.plain()
@@ -57,7 +58,13 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
             tag: 1
         )
         
-        viewControllers = [groupViewController, petListViewController]
+        profileViewController.tabBarItem = UITabBarItem(
+            title: "Profile",
+            image: UIImage(systemName: "person.fill"),
+            tag: 2
+        )
+        
+        viewControllers = [groupViewController, petListViewController, profileViewController]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,8 +80,15 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
     }
     
     private func setupNavigationBar() {
+        guard selectedIndex != 2 else {
+            navigationItem.title = nil
+            return
+        }
+        
         navigationItem.setHidesBackButton(true, animated: false)
+        
         navigationItem.title = selectedIndex == 0 ? LocalizedString.Group.navbarTitle : LocalizedString.PetList.navbarTitle
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.primary]
         
@@ -82,6 +96,13 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        guard item.tag != 2 else {
+            navigationItem.title = nil
+            addButton.isHidden = true
+            return
+        }
+        
+        addButton.isHidden = false
         if #available(iOS 17.0, *) {
             addButton.imageView?.addSymbolEffect(.bounce, options: .speed(4))
         }
