@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import SnapKit
+import Combine
 
 class UserView: UIView {
     
     // MARK: - Properties
+    
+    var isEditable: Bool = false
     
     weak var viewModel: UserViewModel? {
         didSet {
@@ -31,108 +35,111 @@ class UserView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setIsEditable(_ value: Bool) {
+        isEditable = value
+    }
+    
     // MARK: - Subviews
     
-    /// Contains the user name as content.
-    private(set) lazy var nameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private(set) lazy var nameTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
         let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title1)
         let semiboldDescriptor = fontDescriptor.addingAttributes([
             .traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.semibold]
         ])
         
-        // Font size will not be set due to descriptor
-        label.font = UIFont(descriptor: semiboldDescriptor, size: .zero)
-
-        label.textColor = .primary
-        label.textAlignment = .center
+        textField.font = UIFont(descriptor: semiboldDescriptor, size: .zero)
+        textField.textColor = .primary
+        textField.textAlignment = .center
+        textField.isUserInteractionEnabled = false  // Initially not editable
         
-        return label
+        return textField
     }()
     
-    /// Contains the user's description as content.
-    private(set) lazy var descriptionLabel: UILabel = {
-        let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private(set) lazy var descriptionTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
        
-        view.font = .preferredFont(forTextStyle: .subheadline)
-        view.textColor = .primary.withAlphaComponent(0.6)
-        view.textAlignment = .center
+        textField.font = .preferredFont(forTextStyle: .subheadline)
+        textField.textColor = .primary.withAlphaComponent(0.6)
+        textField.textAlignment = .center
+        textField.isUserInteractionEnabled = false  // Initially not editable
         
-        return view
+        return textField
     }()
     
-    /// Separates the top items from the collection view below.
     private(set) lazy var topSectionSeparator: UIView = {
         let view = UIView()
-        
         view.backgroundColor = .primary
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         return view
     }()
     
     private(set) lazy var statsLabel: UILabel = {
-        let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.font = .preferredFont(forTextStyle: .title1)
-        view.textColor = .primary
-        view.text = LocalizedString.Tasks.title
-        
-        return view
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .title1)
+        label.textColor = .primary
+        label.text = LocalizedString.Tasks.title
+        return label
     }()
     
     private(set) lazy var statsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSizeMake(UIScreen.main.bounds.width * 0.41, UIScreen.main.bounds.height * 0.154)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.41, height: UIScreen.main.bounds.height * 0.154)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
         
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.isScrollEnabled = false
-        
-        return view
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isScrollEnabled = false
+        return collectionView
+    }()
+    
+    private(set) lazy var editButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Edit", for: .normal)
+        button.addTarget(self, action: #selector(toggleEditMode), for: .touchUpInside)
+        return button
     }()
     
     // MARK: - Setup methods
     
     func setupData() {
-        nameLabel.text = viewModel?.user.username
-        descriptionLabel.text = viewModel?.user.bio
+        nameTextField.text = viewModel?.user.username
+        descriptionTextField.text = viewModel?.user.bio
     }
     
     func addSubviews() {
-        [
-            nameLabel,
-            descriptionLabel,
-            topSectionSeparator,
-            statsLabel,
-            statsCollectionView
-        ].forEach { view in
-            addSubview(view)
-        }
+        
+        addSubview(nameTextField)
+        addSubview(descriptionTextField)
+        addSubview(topSectionSeparator)
+        addSubview(statsLabel)
+        addSubview(statsCollectionView)
+        
+        if isEditable { addSubview(editButton) }
     }
     
     func setupConstraints() {
-        nameLabel.snp.makeConstraints { make in
+        nameTextField.snp.makeConstraints { make in
             make.centerX.top.equalTo(safeAreaLayoutGuide)
             make.width.equalToSuperview()
         }
         
-        descriptionLabel.snp.makeConstraints { make in
-            make.centerX.width.equalTo(nameLabel)
-            make.top.equalTo(nameLabel.snp.bottom).offset(12)
+        descriptionTextField.snp.makeConstraints { make in
+            make.centerX.width.equalTo(nameTextField)
+            make.top.equalTo(nameTextField.snp.bottom).offset(12)
         }
         
         topSectionSeparator.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().multipliedBy(0.8)
             make.height.equalTo(1)
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(12)
+            make.top.equalTo(descriptionTextField.snp.bottom).offset(12)
         }
         
         statsLabel.snp.makeConstraints { make in
@@ -147,8 +154,25 @@ class UserView: UIView {
             make.top.equalTo(statsLabel.snp.bottom).offset(16)
             make.height.equalToSuperview().dividedBy(3.13)
         }
+        
+        if isEditable {
+            editButton.snp.makeConstraints { make in
+                make.top.equalTo(statsCollectionView.snp.bottom).offset(16)
+                make.centerX.equalToSuperview()
+            }
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func toggleEditMode() {
+        let isEditable = !nameTextField.isUserInteractionEnabled
+        nameTextField.isUserInteractionEnabled = isEditable
+        descriptionTextField.isUserInteractionEnabled = isEditable
+        editButton.setTitle(isEditable ? "Save" : "Edit", for: .normal)
+        
+        if !isEditable {
+            viewModel?.updateUser(name: nameTextField.text, bio: descriptionTextField.text)
+        }
     }
 }
-
-
-
