@@ -11,7 +11,7 @@ class UserViewController: UIViewController, UICollectionViewDelegate {
     
     var user: User
     
-    private var userView = UserView()
+    internal var userView = UserView()
     var viewModel: UserViewModel?
     
     init(user: User) {
@@ -38,18 +38,18 @@ class UserViewController: UIViewController, UICollectionViewDelegate {
         navigationItem.largeTitleDisplayMode = .never
     }
     
-    private func setupCollectionView() {
+    internal func setupCollectionView() {
         userView.statsCollectionView.delegate = self
         userView.statsCollectionView.dataSource = self
         userView.statsCollectionView.register(StatsCollectionViewCell.self, forCellWithReuseIdentifier: StatsCollectionViewCell.reuseIdentifier)
     }
     
-    private func setupViewModel() {
+    internal func setupViewModel() {
         viewModel = UserViewModel(user: user)
         userView.viewModel = viewModel
     }
     
-    private func setupSubscriptions() {
+    internal func setupSubscriptions() {
         
     }
 }

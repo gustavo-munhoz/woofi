@@ -15,5 +15,6 @@ class ProfileViewController: UserViewController {
         guard let user = Session.shared.currentUser else { fatalError("User is not authenticated.") }
         
         self.init(user: user)
+        userView.isEditable = true
     }
 }
