@@ -27,6 +27,7 @@ class UserView: UIView {
         super.init(frame: frame)
         addSubviews()
         setupConstraints()
+        setupTapGestureRecognizer()
         
         backgroundColor = .systemBackground
     }
@@ -37,6 +38,8 @@ class UserView: UIView {
     
     func setIsEditable(_ value: Bool) {
         isEditable = value
+        nameTextField.isUserInteractionEnabled = isEditable
+        descriptionTextField.isUserInteractionEnabled = isEditable
     }
     
     // MARK: - Subviews
@@ -53,7 +56,8 @@ class UserView: UIView {
         textField.font = UIFont(descriptor: semiboldDescriptor, size: .zero)
         textField.textColor = .primary
         textField.textAlignment = .center
-        textField.isUserInteractionEnabled = false  // Initially not editable
+        textField.isUserInteractionEnabled = false
+        textField.delegate = self
         
         return textField
     }()
@@ -65,7 +69,8 @@ class UserView: UIView {
         textField.font = .preferredFont(forTextStyle: .subheadline)
         textField.textColor = .primary.withAlphaComponent(0.6)
         textField.textAlignment = .center
-        textField.isUserInteractionEnabled = false  // Initially not editable
+        textField.isUserInteractionEnabled = false
+        textField.delegate = self
         
         return textField
     }()
@@ -98,14 +103,6 @@ class UserView: UIView {
         return collectionView
     }()
     
-    private(set) lazy var editButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Edit", for: .normal)
-        button.addTarget(self, action: #selector(toggleEditMode), for: .touchUpInside)
-        return button
-    }()
-    
     // MARK: - Setup methods
     
     func setupData() {
@@ -120,8 +117,6 @@ class UserView: UIView {
         addSubview(topSectionSeparator)
         addSubview(statsLabel)
         addSubview(statsCollectionView)
-        
-        if isEditable { addSubview(editButton) }
     }
     
     func setupConstraints() {
@@ -154,25 +149,23 @@ class UserView: UIView {
             make.top.equalTo(statsLabel.snp.bottom).offset(16)
             make.height.equalToSuperview().dividedBy(3.13)
         }
-        
-        if isEditable {
-            editButton.snp.makeConstraints { make in
-                make.top.equalTo(statsCollectionView.snp.bottom).offset(16)
-                make.centerX.equalToSuperview()
-            }
-        }
     }
     
     // MARK: - Actions
     
-    @objc private func toggleEditMode() {
-        let isEditable = !nameTextField.isUserInteractionEnabled
-        nameTextField.isUserInteractionEnabled = isEditable
-        descriptionTextField.isUserInteractionEnabled = isEditable
-        editButton.setTitle(isEditable ? "Save" : "Edit", for: .normal)
-        
-        if !isEditable {
-            viewModel?.updateUser(name: nameTextField.text, bio: descriptionTextField.text)
-        }
+    func setupTapGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        self.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func handleTap() {
+        endEditing(true)
+    }
+}
+
+extension UserView: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let viewModel = viewModel else { return }
+        viewModel.updateUser(name: nameTextField.text, bio: descriptionTextField.text)
     }
 }
