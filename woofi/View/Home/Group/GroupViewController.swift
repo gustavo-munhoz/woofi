@@ -38,6 +38,8 @@ class GroupViewController: UIViewController, UICollectionViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         if let tabvc = tabBarController as? HomeViewController {
             tabvc.addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         }
