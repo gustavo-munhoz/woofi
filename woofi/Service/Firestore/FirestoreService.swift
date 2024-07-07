@@ -53,10 +53,9 @@ class FirestoreService: FirestoreServiceProtocol {
                 if let id = data[FirestoreKeys.Users.uid] as? String,
                    id != Session.shared.currentUser?.id,
                    let name = data[FirestoreKeys.Users.username] as? String,
-                   //                   let bio = data[FirestoreKeys.Users.bio] as? String,
+                   let bio = data[FirestoreKeys.Users.bio] as? String,
                    let groupID = data[FirestoreKeys.Users.groupID] as? String {
-                    //                    let user = User(id: id, username: name, bio: bio, groupID: groupID)
-                    let user = User(id: id, username: name, groupID: groupID)
+                    let user = User(id: id, username: name, bio: bio, groupID: groupID)
                     users.append(user)
                 }
             }
