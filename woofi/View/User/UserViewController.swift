@@ -41,7 +41,10 @@ class UserViewController: UIViewController, UICollectionViewDelegate {
     internal func setupCollectionView() {
         userView.statsCollectionView.delegate = self
         userView.statsCollectionView.dataSource = self
-        userView.statsCollectionView.register(StatsCollectionViewCell.self, forCellWithReuseIdentifier: StatsCollectionViewCell.reuseIdentifier)
+        userView.statsCollectionView.register(
+            StatsCollectionViewCell.self,
+            forCellWithReuseIdentifier: StatsCollectionViewCell.reuseIdentifier
+        )
     }
     
     internal func setupViewModel() {

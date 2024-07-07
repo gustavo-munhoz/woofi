@@ -12,7 +12,10 @@ import os
 class NotificationService {
     static let shared = NotificationService()
     
-    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: String(describing: NotificationService.self))
+    private let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: NotificationService.self)
+    )
     private let functions: Functions
     
     private init() {
@@ -22,7 +25,11 @@ class NotificationService {
     func sendTaskCompletedNotification(toGroupID groupID: String, byUserID userID: String, taskType: TaskType, petName: String) {
         logger.debug("Sending task notification...")
         let username = Session.shared.currentUser?.username ?? "Someone"
-        let message = NotificationFactory.createTaskCompletedMessage(username: username, taskType: taskType, petName: petName)
+        let message = NotificationFactory.createTaskCompletedMessage(
+            username: username,
+            taskType: taskType,
+            petName: petName
+        )
 
         let data: [String: Any] = [
             "groupID": groupID,

@@ -12,8 +12,7 @@ class UserViewModel: NSObject {
     
     init(user: User) {
         self.user = user
-    }
-        
+    }        
         
     func updateUser(name: String?, bio: String?) {
         guard let name = name, let bio = bio else { return }

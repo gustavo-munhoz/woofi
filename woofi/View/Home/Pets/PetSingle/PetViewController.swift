@@ -213,7 +213,10 @@ extension PetViewController: UIImagePickerControllerDelegate, UINavigationContro
                     guard let downloadURL = url else { return }
                     
                     
-                    FirestoreService.shared.updatePetData(petId: self.viewModel.pet.id, data: ["pictureURL": downloadURL.absoluteString]) { error in
+                    FirestoreService.shared.updatePetData(
+                        petId: self.viewModel.pet.id,
+                        data: ["pictureURL": downloadURL.absoluteString]
+                    ) { error in
                         if let error = error {
                             print("Error updating pet image URL: \(error.localizedDescription)")
                         }
