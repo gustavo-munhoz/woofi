@@ -75,13 +75,6 @@ class UserView: UIView {
         return textField
     }()
     
-    private(set) lazy var topSectionSeparator: UIView = {
-        let view = UIView()
-        view.backgroundColor = .primary
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private(set) lazy var statsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -114,7 +107,6 @@ class UserView: UIView {
         
         addSubview(nameTextField)
         addSubview(descriptionTextField)
-        addSubview(topSectionSeparator)
         addSubview(statsLabel)
         addSubview(statsCollectionView)
     }
@@ -130,17 +122,10 @@ class UserView: UIView {
             make.top.equalTo(nameTextField.snp.bottom).offset(12)
         }
         
-        topSectionSeparator.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.8)
-            make.height.equalTo(1)
-            make.top.equalTo(descriptionTextField.snp.bottom).offset(12)
-        }
-        
         statsLabel.snp.makeConstraints { make in
             make.left.equalTo(safeAreaLayoutGuide).offset(24)
             make.right.equalTo(safeAreaLayoutGuide).offset(-24)
-            make.top.equalTo(topSectionSeparator.snp.bottom).offset(24)
+            make.top.equalTo(descriptionTextField.snp.bottom).offset(24)
             make.height.equalTo(34)
         }
         
