@@ -62,7 +62,7 @@ class UserView: UIView {
         return textField
     }()
     
-    private(set) lazy var descriptionTextField: UILabel = {
+    private(set) lazy var bioTextField: UILabel = {
         let textField = UILabel()
         textField.translatesAutoresizingMaskIntoConstraints = false
        
@@ -78,7 +78,7 @@ class UserView: UIView {
         let view = UIStackView(
             arrangedSubviews: [
                 nameTextField,
-                descriptionTextField,
+                bioTextField,
                 SpacerView(axis: .vertical)
             ]
         )
@@ -115,7 +115,7 @@ class UserView: UIView {
     
     func setupData() {
         nameTextField.text = viewModel?.user.username
-        descriptionTextField.text = viewModel?.user.bio
+        bioTextField.text = viewModel?.user.bio
     }
     
     func addSubviews() {

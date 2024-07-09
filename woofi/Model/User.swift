@@ -19,6 +19,10 @@ class User: Hashable, Codable {
         didSet { savePersistedChanges() }
     }
     
+    var email: String? {
+        didSet { savePersistedChanges() }
+    }
+    
     var profilePicture: UIImage? {
         didSet { savePersistedChanges() }
     }
@@ -31,10 +35,11 @@ class User: Hashable, Codable {
         didSet { savePersistedChanges() }
     }
     
-    init(id: String, username: String, bio: String? = nil, groupID: String? = nil, profilePicture: UIImage? = nil) {
+    init(id: String, username: String, bio: String? = nil, email: String? = nil, groupID: String? = nil, profilePicture: UIImage? = nil) {
         self.id = id
         self.username = username
         self.bio = bio
+        self.email = email
         self.groupID = groupID
         self.profilePicture = profilePicture
         self.stats = UserTaskStat.createAllWithZeroValue()
@@ -52,6 +57,7 @@ class User: Hashable, Codable {
         case id
         case username
         case bio
+        case email
         case groupID
         case profilePicture
         case stats
@@ -62,6 +68,7 @@ class User: Hashable, Codable {
         id = try container.decode(String.self, forKey: .id)
         username = try container.decode(String.self, forKey: .username)
         bio = try container.decodeIfPresent(String.self, forKey: .bio)
+        email = try container.decodeIfPresent(String.self, forKey: .email)
         groupID = try container.decodeIfPresent(String.self, forKey: .groupID)
         if let profilePictureData = try container.decodeIfPresent(Data.self, forKey: .profilePicture) {
             profilePicture = UIImage(data: profilePictureData)
@@ -76,6 +83,7 @@ class User: Hashable, Codable {
         try container.encode(id, forKey: .id)
         try container.encode(username, forKey: .username)
         try container.encode(bio, forKey: .bio)
+        try container.encode(email, forKey: .email)
         try container.encode(groupID, forKey: .groupID)
         if let profilePicture = profilePicture {
             let profilePictureData = profilePicture.pngData()

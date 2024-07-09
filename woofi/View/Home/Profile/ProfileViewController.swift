@@ -5,20 +5,42 @@
 //  Created by Gustavo Munhoz Correa on 04/07/24.
 //
 
-import Foundation
+import Combine
 import UIKit
 
 class ProfileViewController: UserViewController {
+    // MARK: - Properties
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    override var viewModel: UserViewModel? {
+        didSet {
+            bindUser()
+        }
+    }
+    
+    // MARK: - Class Methods
         
     /// Creates a `ProfileViewController` based on `Session.shared.currentUser`.
     convenience init() {
         guard let user = Session.shared.currentUser else { fatalError("User is not authenticated.") }
         
         self.init(user: user)
-    }        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.prefersLargeTitles = false
-    }        
+    }
+    
+    func bindUser() {
+        viewModel!.userPublisher
+            .receive(on: RunLoop.main)
+            .sink {
+                print("Updated profile user.")
+                self.userView.nameTextField.text = $0.username
+                self.userView.bioTextField.text = $0.bio
+            }
+            .store(in: &cancellables)
+    }
 }

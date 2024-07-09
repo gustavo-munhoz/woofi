@@ -82,6 +82,8 @@
 		B3A7E8542BE74DFB009B6630 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B3A7E8532BE74DFB009B6630 /* Base */; };
 		B3B9805A2C3DB18400520A3F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B980592C3DB18400520A3F /* EditProfileView.swift */; };
 		B3B9805C2C3DB21A00520A3F /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9805B2C3DB21A00520A3F /* EditProfileViewController.swift */; };
+		B3B980602C3DD85200520A3F /* PaddedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9805F2C3DD85200520A3F /* PaddedTextView.swift */; };
+		B3B980632C3DD86100520A3F /* EditStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B980622C3DD86100520A3F /* EditStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -165,6 +167,8 @@
 		B3A7E8552BE74DFB009B6630 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3B980592C3DB18400520A3F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		B3B9805B2C3DB21A00520A3F /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		B3B9805F2C3DD85200520A3F /* PaddedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextView.swift; sourceTree = "<group>"; };
+		B3B980622C3DD86100520A3F /* EditStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -552,10 +556,20 @@
 		B3B9805D2C3DB21D00520A3F /* Editing */ = {
 			isa = PBXGroup;
 			children = (
+				B3B9805E2C3DD84600520A3F /* AuxiliaryViews */,
 				B3B980592C3DB18400520A3F /* EditProfileView.swift */,
 				B3B9805B2C3DB21A00520A3F /* EditProfileViewController.swift */,
 			);
 			path = Editing;
+			sourceTree = "<group>";
+		};
+		B3B9805E2C3DD84600520A3F /* AuxiliaryViews */ = {
+			isa = PBXGroup;
+			children = (
+				B3B9805F2C3DD85200520A3F /* PaddedTextView.swift */,
+				B3B980622C3DD86100520A3F /* EditStackView.swift */,
+			);
+			path = AuxiliaryViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -677,11 +691,13 @@
 				B35CC3712BFD366E007FBEFC /* DefaultPetTaskStructure.swift in Sources */,
 				B30622FF2BE83C14009441CB /* UITextField+Publisher.swift in Sources */,
 				B30622EB2BE81100009441CB /* RegisterView.swift in Sources */,
+				B3B980602C3DD85200520A3F /* PaddedTextView.swift in Sources */,
 				B30622F62BE82B91009441CB /* FirestoreServiceProtocol.swift in Sources */,
 				B30623182BEB06BE009441CB /* UserView.swift in Sources */,
 				B31D31E02BFD1A8500CE903A /* HeaderView.swift in Sources */,
 				B30623112BEAC949009441CB /* GroupViewModel.swift in Sources */,
 				B30622F82BE82BB6009441CB /* FirestoreKeys.swift in Sources */,
+				B3B980632C3DD86100520A3F /* EditStackView.swift in Sources */,
 				B31D30222BED148300CE903A /* TaskType.swift in Sources */,
 				B30622F02BE81475009441CB /* AuthenticationType.swift in Sources */,
 				B31D31DA2BF64E0100CE903A /* UIView+Spacer.swift in Sources */,

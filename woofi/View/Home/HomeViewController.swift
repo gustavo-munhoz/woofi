@@ -137,6 +137,13 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
     }
     
     @objc private func navigateToEditView() {
-        navigationController?.pushViewController(EditProfileViewController(), animated: true)
+        guard let vm = profileViewController.viewModel else { 
+            print("No UserViewModel in ProfileVC. Will not push EditProfileVC.")
+            return
+        }
+        
+        let vc = EditProfileViewController()
+        vc.setViewModel(vm)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

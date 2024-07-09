@@ -12,12 +12,14 @@ class EditProfileView: UIView {
     
     // MARK: - Properties
     
+    weak var viewModel: UserViewModel?
+    
     // MARK: - Subviews
     
     private(set) lazy var changePictureButton: UIButton = {
         var config = UIButton.Configuration.bordered()
         config.image = UIImage(systemName: "person.circle")
-        config.preferredSymbolConfigurationForImage = .init(pointSize: 40)
+        config.preferredSymbolConfigurationForImage = .init(pointSize: 50)
         config.imagePadding = 24
         config.title = "Change profile picture"
         config.baseForegroundColor = .primary
@@ -25,21 +27,44 @@ class EditProfileView: UIView {
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        return view
-    }()
-    
-    private(set) lazy var changeUsernameLabel: UILabel = {
-        let view = UILabel()
-        view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
     }()
     
-    private(set) lazy var changeUsernameTextField: UITextField = {
-        let view = UITextField()
-        view.translatesAutoresizingMaskIntoConstraints = false
+    private(set) lazy var pictureStackView: EditStackView = {
+        let view = EditStackView(title: "Profile Picture", editView: changePictureButton)
         
         return view
+    }()
+    
+    private(set) lazy var usernameTextView: PaddedTextView = {
+        let view = PaddedTextView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray5
+        view.layer.cornerRadius = 8
+        view.font = .preferredFont(forTextStyle: .title3)
+        view.delegate = self
+        
+        return view
+    }()
+    
+    private(set) lazy var usernameStackView: EditStackView = {
+        EditStackView(title: "Username", editView: usernameTextView)
+    }()
+    
+    private(set) lazy var biographyTextView: PaddedTextView = {
+        let view = PaddedTextView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGray5
+        view.layer.cornerRadius = 8
+        view.font = .preferredFont(forTextStyle: .title3)
+        view.delegate = self
+        
+        return view
+    }()
+    
+    private(set) lazy var biographyStackView: EditStackView = {
+        EditStackView(title: "Biography", editView: biographyTextView)
     }()
     
     // MARK: - Class Methods
@@ -50,6 +75,7 @@ class EditProfileView: UIView {
         
         addSubviews()
         setupConstraints()
+        setupTapGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
@@ -57,14 +83,58 @@ class EditProfileView: UIView {
     }
     
     private func addSubviews() {
-        addSubview(changePictureButton)
+        addSubview(pictureStackView)
+        addSubview(usernameStackView)
+        addSubview(biographyStackView)
     }
     
     private func setupConstraints() {
-        changePictureButton.snp.makeConstraints { make in
+        pictureStackView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).inset(16)
             make.left.right.equalToSuperview().inset(24)
-            make.height.equalTo(72)
+            make.height.equalTo(120)
         }
+        
+        usernameStackView.snp.makeConstraints { make in
+            make.top.equalTo(pictureStackView.snp.bottom).offset(16)
+            make.left.right.equalTo(pictureStackView)
+            make.height.equalTo(80)
+        }
+        
+        biographyStackView.snp.makeConstraints { make in
+            make.top.equalTo(usernameStackView.snp.bottom).offset(16)
+            make.left.right.equalTo(usernameStackView)
+            make.height.equalTo(130)
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @objc func handleTap() {
+        endEditing(true)
+    }
+    
+    func setupTapGestureRecognizer() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        self.addGestureRecognizer(tapGesture)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension EditProfileView: UITextViewDelegate {
+    func textViewDidEndEditing(_ textView: UITextView) {
+        viewModel?.updateUser(
+            username: usernameTextView.text,
+            bio: biographyTextView.text
+        )
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let characterLimit = textView == usernameTextView ? 20 : 75
+        let currentText: NSString = textView.text as NSString
+        let updatedText = currentText.replacingCharacters(in: range, with: text)
+        
+        return updatedText.count <= characterLimit
     }
 }
