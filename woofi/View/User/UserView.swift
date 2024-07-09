@@ -44,6 +44,16 @@ class UserView: UIView {
     
     // MARK: - Subviews
     
+    private(set) lazy var profileImageView: UIImageView = {
+        let view = UIImageView(image: UIImage(systemName: "person.fill")!)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.tintColor = .systemGray2
+        view.backgroundColor = .systemGray5
+        
+        return view
+    }()
+    
     private(set) lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -75,6 +85,22 @@ class UserView: UIView {
         return textField
     }()
     
+    private(set) lazy var textsStackView: UIStackView = {
+        let view = UIStackView(
+            arrangedSubviews: [
+                nameTextField,
+                descriptionTextField,
+                SpacerView(axis: .vertical)
+            ]
+        )
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.axis = .vertical
+        view.alignment = .leading
+        
+        return view
+    }()
+    
     private(set) lazy var statsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -104,28 +130,30 @@ class UserView: UIView {
     }
     
     func addSubviews() {
-        
-        addSubview(nameTextField)
-        addSubview(descriptionTextField)
+        addSubview(profileImageView)
+        addSubview(textsStackView)
         addSubview(statsLabel)
         addSubview(statsCollectionView)
     }
     
     func setupConstraints() {
-        nameTextField.snp.makeConstraints { make in
-            make.centerX.top.equalTo(safeAreaLayoutGuide)
-            make.width.equalToSuperview()
+        profileImageView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).offset(16)
+            make.left.equalToSuperview().offset(24)
+            make.width.height.equalTo(100)
         }
         
-        descriptionTextField.snp.makeConstraints { make in
-            make.centerX.width.equalTo(nameTextField)
-            make.top.equalTo(nameTextField.snp.bottom).offset(12)
+        textsStackView.snp.makeConstraints { make in
+            make.top.equalTo(profileImageView)
+            make.left.equalTo(profileImageView.snp.right).offset(16)
+            make.right.equalToSuperview().inset(24)
+            make.height.equalTo(profileImageView)
         }
         
         statsLabel.snp.makeConstraints { make in
             make.left.equalTo(safeAreaLayoutGuide).offset(24)
             make.right.equalTo(safeAreaLayoutGuide).offset(-24)
-            make.top.equalTo(descriptionTextField.snp.bottom).offset(24)
+            make.top.equalTo(profileImageView.snp.bottom).offset(24)
             make.height.equalTo(34)
         }
         
