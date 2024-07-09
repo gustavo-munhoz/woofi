@@ -71,7 +71,9 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
         super.viewWillAppear(animated)
         setupNavigationBar()
         
-        addButton.isHidden = false
+        if selectedIndex != 2 {
+            addButton.isHidden = false
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -97,11 +99,18 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         guard item.tag != 2 else {
+            let editButton = UIBarButtonItem(systemItem: .edit)
+            editButton.tintColor = .primary
+            editButton.target = self
+            editButton.action = #selector(navigateToEditView)
+            navigationItem.rightBarButtonItem = editButton
+            
             navigationItem.title = nil
             addButton.isHidden = true
             return
         }
         
+        navigationItem.rightBarButtonItem = nil
         addButton.isHidden = false
         if #available(iOS 17.0, *) {
             addButton.imageView?.addSymbolEffect(.bounce, options: .speed(4))
@@ -125,5 +134,9 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
                 ])
             }
         }
+    }
+    
+    @objc private func navigateToEditView() {
+        navigationController?.pushViewController(EditProfileViewController(), animated: true)
     }
 }

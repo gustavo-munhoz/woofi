@@ -15,11 +15,10 @@ class ProfileViewController: UserViewController {
         guard let user = Session.shared.currentUser else { fatalError("User is not authenticated.") }
         
         self.init(user: user)
-        userView.setIsEditable(true)
-    }
+    }        
     
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.prefersLargeTitles = false
-    }
+    }        
 }
