@@ -21,15 +21,19 @@ class EditProfileView: UIView {
         config.image = UIImage(systemName: "person.circle")
         config.preferredSymbolConfigurationForImage = .init(pointSize: 50)
         config.imagePadding = 24
-        config.title = "Change profile picture"
         config.baseForegroundColor = .primary
+        
+        config.attributedTitle = AttributedString("Change profile Picture", attributes: AttributeContainer([
+            .font: UIFont.preferredFont(forTextStyle: .title3)
+        ]))
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
-        
+        view.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
         return view
     }()
+
     
     private(set) lazy var pictureStackView: EditStackView = {
         let view = EditStackView(title: "Profile Picture", editView: changePictureButton)
@@ -90,15 +94,15 @@ class EditProfileView: UIView {
     
     private func setupConstraints() {
         pictureStackView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).inset(16)
+            make.top.equalTo(safeAreaLayoutGuide).offset(24)
             make.left.right.equalToSuperview().inset(24)
-            make.height.equalTo(120)
+
         }
         
         usernameStackView.snp.makeConstraints { make in
             make.top.equalTo(pictureStackView.snp.bottom).offset(16)
             make.left.right.equalTo(pictureStackView)
-            make.height.equalTo(80)
+            make.height.equalTo(90)
         }
         
         biographyStackView.snp.makeConstraints { make in
@@ -131,6 +135,8 @@ extension EditProfileView: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard text != "\n" else { return false }
+        
         let characterLimit = textView == usernameTextView ? 20 : 75
         let currentText: NSString = textView.text as NSString
         let updatedText = currentText.replacingCharacters(in: range, with: text)
