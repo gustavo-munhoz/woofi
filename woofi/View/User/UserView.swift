@@ -13,8 +13,6 @@ class UserView: UIView {
     
     // MARK: - Properties
     
-    var isEditable: Bool = false
-    
     weak var viewModel: UserViewModel? {
         didSet {
             setupData()
@@ -27,19 +25,12 @@ class UserView: UIView {
         super.init(frame: frame)
         addSubviews()
         setupConstraints()
-        setupTapGestureRecognizer()
         
         backgroundColor = .systemBackground
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setIsEditable(_ value: Bool) {
-        isEditable = value
-        nameTextField.isUserInteractionEnabled = isEditable
-        descriptionTextField.isUserInteractionEnabled = isEditable
     }
     
     // MARK: - Subviews
@@ -54,8 +45,8 @@ class UserView: UIView {
         return view
     }()
     
-    private(set) lazy var nameTextField: UITextField = {
-        let textField = UITextField()
+    private(set) lazy var nameTextField: UILabel = {
+        let textField = UILabel()
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title1)
@@ -67,20 +58,18 @@ class UserView: UIView {
         textField.textColor = .primary
         textField.textAlignment = .center
         textField.isUserInteractionEnabled = false
-        textField.delegate = self
         
         return textField
     }()
     
-    private(set) lazy var descriptionTextField: UITextField = {
-        let textField = UITextField()
+    private(set) lazy var descriptionTextField: UILabel = {
+        let textField = UILabel()
         textField.translatesAutoresizingMaskIntoConstraints = false
        
         textField.font = .preferredFont(forTextStyle: .subheadline)
         textField.textColor = .primary.withAlphaComponent(0.6)
         textField.textAlignment = .center
-        textField.isUserInteractionEnabled = false
-        textField.delegate = self
+        textField.isUserInteractionEnabled = false 
         
         return textField
     }()
@@ -162,23 +151,5 @@ class UserView: UIView {
             make.top.equalTo(statsLabel.snp.bottom).offset(16)
             make.height.equalToSuperview().dividedBy(3.13)
         }
-    }
-    
-    // MARK: - Actions
-    
-    func setupTapGestureRecognizer() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        self.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc func handleTap() {
-        endEditing(true)
-    }
-}
-
-extension UserView: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let viewModel = viewModel else { return }
-        viewModel.updateUser(name: nameTextField.text, bio: descriptionTextField.text)
     }
 }

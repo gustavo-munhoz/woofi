@@ -80,6 +80,8 @@
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
 		B3A7E8512BE74DFB009B6630 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A7E8502BE74DFB009B6630 /* Assets.xcassets */; };
 		B3A7E8542BE74DFB009B6630 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B3A7E8532BE74DFB009B6630 /* Base */; };
+		B3B9805A2C3DB18400520A3F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B980592C3DB18400520A3F /* EditProfileView.swift */; };
+		B3B9805C2C3DB21A00520A3F /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9805B2C3DB21A00520A3F /* EditProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -161,6 +163,8 @@
 		B3A7E8502BE74DFB009B6630 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3A7E8532BE74DFB009B6630 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B3A7E8552BE74DFB009B6630 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3B980592C3DB18400520A3F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		B3B9805B2C3DB21A00520A3F /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,6 +308,7 @@
 		B30623162BEB06B5009441CB /* User */ = {
 			isa = PBXGroup;
 			children = (
+				B3B9805D2C3DB21D00520A3F /* Editing */,
 				B30623172BEB06BE009441CB /* UserView.swift */,
 				B30623192BEB06D9009441CB /* UserViewController.swift */,
 				B31D301E2BED136D00CE903A /* StatsCollectionViewCell.swift */,
@@ -544,6 +549,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		B3B9805D2C3DB21D00520A3F /* Editing */ = {
+			isa = PBXGroup;
+			children = (
+				B3B980592C3DB18400520A3F /* EditProfileView.swift */,
+				B3B9805B2C3DB21A00520A3F /* EditProfileViewController.swift */,
+			);
+			path = Editing;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -642,6 +656,7 @@
 				B31D301B2BEC1C3C00CE903A /* HomeViewModel.swift in Sources */,
 				B31D31DE2BFC5CAF00CE903A /* PetTaskInstanceView.swift in Sources */,
 				B354B66D2C2B57AF00CEA618 /* Data+base36EncodedString.swift in Sources */,
+				B3B9805C2C3DB21A00520A3F /* EditProfileViewController.swift in Sources */,
 				B30623072BE8842F009441CB /* GroupView.swift in Sources */,
 				B31D31BD2BEEBB5600CE903A /* PetListViewModel.swift in Sources */,
 				B30622ED2BE8141D009441CB /* AuthenticationViewModel.swift in Sources */,
@@ -677,6 +692,7 @@
 				B31D31CB2BF3887F00CE903A /* PetTaskGroup.swift in Sources */,
 				B31D31B82BEEB78D00CE903A /* PetListViewController.swift in Sources */,
 				B30622FB2BE82C77009441CB /* AuthenticationServiceProtocol.swift in Sources */,
+				B3B9805A2C3DB18400520A3F /* EditProfileView.swift in Sources */,
 				B35CC3822C010EE9007FBEFC /* JoinGroupViewController.swift in Sources */,
 				B306230E2BEAC80C009441CB /* User.swift in Sources */,
 				B30622F32BE826FE009441CB /* FirestoreService.swift in Sources */,
