@@ -99,11 +99,11 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         guard item.tag != 2 else {
-            let editButton = UIBarButtonItem(systemItem: .edit)
-            editButton.tintColor = .primary
-            editButton.target = self
-            editButton.action = #selector(navigateToEditView)
-            navigationItem.rightBarButtonItem = editButton
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .edit,
+                target: self,
+                action: #selector(navigateToEditView)
+            )
             
             navigationItem.title = nil
             addButton.isHidden = true
