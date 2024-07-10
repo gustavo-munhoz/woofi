@@ -83,11 +83,11 @@ class FirestoreService: FirestoreServiceProtocol {
     }
     
     /// Saves user data to Firestore with a server-side timestamp
-    func saveUserData(userId: String, data: [String: Any], completion: @escaping (Error?) -> Void) {
+    func saveUserData(userId: String, data: [String: Any]) async throws {
         var userData = data
         userData[FirestoreKeys.Users.createdAt] = FieldValue.serverTimestamp()
         
-        db.collection(FirestoreKeys.Users.collectionTitle).document(userId).setData(userData, completion: completion)
+        try await db.collection(FirestoreKeys.Users.collectionTitle).document(userId).setData(userData)
     }
     
     /// Updates user data in Firestore

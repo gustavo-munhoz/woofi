@@ -8,7 +8,6 @@
 import Firebase
 import FirebaseAuth
 
-/// Service handling user authentication logic
 class AuthenticationService: AuthenticationServiceProtocol {
     
     /// Singleton instance for global access
@@ -17,36 +16,26 @@ class AuthenticationService: AuthenticationServiceProtocol {
     private init() {}
     
     /// Logs in a user using email and password
-    func loginUser(withEmail email: String, password: String, completion: @escaping (Result<AuthDataResult, Error>) -> Void) {
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                completion(.failure(error))
-                
-            } else if let authResult = authResult {
-                completion(.success(authResult))
-            }
+    func loginUser(withEmail email: String, password: String) async throws -> AuthDataResult {
+        do {
+            return try await Auth.auth().signIn(withEmail: email, password: password)
+        } catch {
+            throw error
         }
     }
     
-    func registerUser(withEmail email: String, password: String, additionalData: [String:Any], completion: @escaping (Result<AuthDataResult, Error>) -> Void) {
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                completion(.failure(error))
-                
-            } else if let user = authResult?.user {
-                var userData = additionalData
-                userData[FirestoreKeys.Users.uid] = user.uid
-                userData[FirestoreKeys.Users.email] = user.email
-                
-                FirestoreService.shared.saveUserData(userId: user.uid, data: userData) { error in
-                    if let error = error {
-                        completion(.failure(error))
-                        
-                    } else if let authResult = authResult {
-                        completion(.success(authResult))
-                    }
-                }
-            }
+    func registerUser(withEmail email: String, password: String, additionalData: [String: Any]) async throws -> AuthDataResult {
+        do {
+            let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
+            var userData = additionalData
+            userData[FirestoreKeys.Users.uid] = authResult.user.uid
+            userData[FirestoreKeys.Users.email] = authResult.user.email
+            
+            try await FirestoreService.shared.saveUserData(userId: authResult.user.uid, data: userData)
+            return authResult
+        } catch {
+            throw error
         }
     }
 }
+
