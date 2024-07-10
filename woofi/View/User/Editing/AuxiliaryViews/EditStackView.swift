@@ -26,10 +26,14 @@ class EditStackView: UIStackView {
             return view
         }()
         
+        titleView.setContentCompressionResistancePriority(.required, for: .vertical)
+        editView.setContentCompressionResistancePriority(.required, for: .vertical)
+        
         addArrangedSubview(titleView)
         addArrangedSubview(editView)
-        addArrangedSubview(SpacerView(axis: .vertical))
+//        addArrangedSubview(SpacerView(axis: .vertical))
         
+        distribution = .fill
         translatesAutoresizingMaskIntoConstraints = false
         axis = .vertical
         spacing = 8
