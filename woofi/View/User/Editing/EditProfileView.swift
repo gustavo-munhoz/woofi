@@ -21,7 +21,7 @@ class EditProfileView: UIView {
     private(set) lazy var changePictureButton: UIButton = {
         var config = UIButton.Configuration.bordered()
         config.image = UIImage(systemName: "person.circle")
-        config.preferredSymbolConfigurationForImage = .init(pointSize: 50)
+        config.preferredSymbolConfigurationForImage = .init(pointSize: 32)
         config.imagePadding = 24
         config.baseForegroundColor = .primary
         
@@ -100,7 +100,19 @@ class EditProfileView: UIView {
         pictureStackView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).offset(24)
             make.left.right.equalToSuperview().inset(24)
-
+            make.height.equalTo(150)
+        }
+        
+        changePictureButton.imageView?.snp.makeConstraints { make in
+            make.width.height.equalTo(65)
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().inset(14)
+        }
+        
+        changePictureButton.titleLabel?.snp.makeConstraints { make in
+            make.centerY.top.bottom.equalToSuperview()
+            make.left.equalTo(changePictureButton.imageView?.snp.right ?? changePictureButton).offset(24)
+            make.right.equalToSuperview().inset(12)
         }
         
         usernameStackView.snp.makeConstraints { make in
@@ -132,33 +144,16 @@ class EditProfileView: UIView {
     }
     
     func updateProfileImage(_ image: UIImage) {
-        let resizedImage = resizeImage(image: image, targetSize: CGSize(width: 50, height: 50))
+        let resizedImage = image.withRenderingMode(.alwaysOriginal)
         changePictureButton.setImage(resizedImage, for: .normal)
+        
+        if let imageView = changePictureButton.imageView {
+            imageView.contentMode = .scaleAspectFill
+            imageView.layer.cornerRadius = imageView.frame.width / 2
+            imageView.clipsToBounds = true
+        }
     }
 
-    private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
-        let size = image.size
-        
-        let widthRatio  = targetSize.width  / size.width
-        let heightRatio = targetSize.height / size.height
-        
-        var newSize: CGSize
-        if(widthRatio > heightRatio) {
-            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-        } else {
-            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
-        }
-        
-        let rect = CGRect(origin: .zero, size: newSize)
-        
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.draw(in: rect)
-        
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage!
-    }
 }
 
 // MARK: - UITextFieldDelegate
