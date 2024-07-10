@@ -39,8 +39,7 @@ class UserView: UIView {
         let view = UIImageView(image: UIImage(systemName: "person.circle")!)
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.tintColor = .systemGray2
-        view.backgroundColor = .systemGray5
+        view.tintColor = .primary        
         view.clipsToBounds = true
         
         return view
