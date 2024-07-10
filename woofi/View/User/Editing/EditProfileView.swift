@@ -14,6 +14,8 @@ class EditProfileView: UIView {
     
     weak var viewModel: UserViewModel?
     
+    var onPictureButtonTapped: (() -> Void)?
+    
     // MARK: - Subviews
     
     private(set) lazy var changePictureButton: UIButton = {
@@ -23,13 +25,15 @@ class EditProfileView: UIView {
         config.imagePadding = 24
         config.baseForegroundColor = .primary
         
-        config.attributedTitle = AttributedString("Change profile Picture", attributes: AttributeContainer([
+        config.attributedTitle = AttributedString("Change profile picture", attributes: AttributeContainer([
             .font: UIFont.preferredFont(forTextStyle: .title3)
         ]))
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        view.addTarget(self, action: #selector(handlePictureButtonTap), for: .touchUpInside)
+        view.contentHorizontalAlignment = .leading
         
         return view
     }()
@@ -114,6 +118,10 @@ class EditProfileView: UIView {
     
     // MARK: - Actions
     
+    @objc func handlePictureButtonTap() {
+        onPictureButtonTapped?()
+    }
+    
     @objc func handleTap() {
         endEditing(true)
     }
@@ -121,6 +129,35 @@ class EditProfileView: UIView {
     func setupTapGestureRecognizer() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         self.addGestureRecognizer(tapGesture)
+    }
+    
+    func updateProfileImage(_ image: UIImage) {
+        let resizedImage = resizeImage(image: image, targetSize: CGSize(width: 50, height: 50))
+        changePictureButton.setImage(resizedImage, for: .normal)
+    }
+
+    private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
+        }
+        
+        let rect = CGRect(origin: .zero, size: newSize)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
 }
 
