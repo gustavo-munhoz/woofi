@@ -23,7 +23,7 @@ class User: Hashable, Codable {
         didSet { savePersistedChanges() }
     }
     
-    var profilePicture: UIImage? {
+    var profilePicturePath: String? {
         didSet { savePersistedChanges() }
     }
     
@@ -35,13 +35,28 @@ class User: Hashable, Codable {
         didSet { savePersistedChanges() }
     }
     
-    init(id: String, username: String, bio: String? = nil, email: String? = nil, groupID: String? = nil, profilePicture: UIImage? = nil) {
+    var profilePicture: UIImage? {
+        get {
+            guard let path = profilePicturePath else { return nil }
+            return UIImage(contentsOfFile: path)
+        }
+        set {
+            if let image = newValue {
+                let path = saveImageToDisk(image)
+                profilePicturePath = path
+            } else {
+                profilePicturePath = nil
+            }
+        }
+    }
+    
+    init(id: String, username: String, bio: String? = nil, email: String? = nil, groupID: String? = nil, profilePicturePath: String? = nil) {
         self.id = id
         self.username = username
         self.bio = bio
         self.email = email
         self.groupID = groupID
-        self.profilePicture = profilePicture
+        self.profilePicturePath = profilePicturePath
         self.stats = UserTaskStat.createAllWithZeroValue()
     }
     
@@ -59,7 +74,7 @@ class User: Hashable, Codable {
         case bio
         case email
         case groupID
-        case profilePicture
+        case profilePicturePath
         case stats
     }
     
@@ -70,11 +85,7 @@ class User: Hashable, Codable {
         bio = try container.decodeIfPresent(String.self, forKey: .bio)
         email = try container.decodeIfPresent(String.self, forKey: .email)
         groupID = try container.decodeIfPresent(String.self, forKey: .groupID)
-        if let profilePictureData = try container.decodeIfPresent(Data.self, forKey: .profilePicture) {
-            profilePicture = UIImage(data: profilePictureData)
-        } else {
-            profilePicture = nil
-        }
+        profilePicturePath = try container.decodeIfPresent(String.self, forKey: .profilePicturePath)
         stats = try container.decode([UserTaskStat].self, forKey: .stats)
     }
     
@@ -85,15 +96,26 @@ class User: Hashable, Codable {
         try container.encode(bio, forKey: .bio)
         try container.encode(email, forKey: .email)
         try container.encode(groupID, forKey: .groupID)
-        if let profilePicture = profilePicture {
-            let profilePictureData = profilePicture.pngData()
-            try container.encode(profilePictureData, forKey: .profilePicture)
-        }
+        try container.encode(profilePicturePath, forKey: .profilePicturePath)
         try container.encode(stats, forKey: .stats)
     }
     
     func savePersistedChanges() {
+        guard self == Session.shared.currentUser else { return }
+        
         UserDefaults.standard.saveUser(self)
     }
+    
+    private func saveImageToDisk(_ image: UIImage) -> String? {
+        guard let data = image.pngData() else { return nil }
+        let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let path = directory.appendingPathComponent("\(id)_profile.png")
+        do {
+            try data.write(to: path)
+            return path.path
+        } catch {
+            print("Error saving image to disk: \(error)")
+            return nil
+        }
+    }
 }
-

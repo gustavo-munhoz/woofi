@@ -12,7 +12,7 @@ fileprivate enum Section {
     case main
 }
 
-class GroupViewController: UIViewController, UICollectionViewDelegate {
+class GroupViewController: UIViewController {
          
     private var groupView = GroupView()
     
@@ -50,6 +50,18 @@ class GroupViewController: UIViewController, UICollectionViewDelegate {
         
         if let tabvc = tabBarController as? HomeViewController {
             tabvc.addButton.removeTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+        }
+    }
+    
+    // mZMNzezWzygbWAMoEFI21JYl1y22
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        for cell in groupView.usersCollectionView.visibleCells {
+            if let userCell = cell as? UserCollectionViewCell {
+                userCell.profilePicture.layer.cornerRadius = userCell.profilePicture.frame.width / 2
+            }
         }
     }
     
@@ -151,7 +163,11 @@ class GroupViewController: UIViewController, UICollectionViewDelegate {
         snapshot.appendItems(users)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
-    
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension GroupViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let user = dataSource.itemIdentifier(for: indexPath) else { return }
         

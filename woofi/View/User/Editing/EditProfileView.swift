@@ -20,7 +20,7 @@ class EditProfileView: UIView {
     
     private(set) lazy var changePictureButton: UIButton = {
         var config = UIButton.Configuration.bordered()
-        config.image = UIImage(systemName: "person.circle")
+        config.image = UIImage(systemName: "person.crop.circle")
         config.preferredSymbolConfigurationForImage = .init(pointSize: 32)
         config.imagePadding = 24
         config.baseForegroundColor = .primary

@@ -17,7 +17,7 @@ extension UserDefaults {
         do {
             let data = try JSONEncoder().encode(user)
             set(data, forKey: Keys.currentUser)
-            print("User saved successfully in UserDefaults.")
+            print("User saved successfully in UserDefaults. Id: \(user.id)")
         } catch {
             print("Failed to save user: \(error)")
         }

@@ -48,17 +48,33 @@ class FirestoreService: FirestoreServiceProtocol {
                 .getDocuments()
             
             var users = [User]()
+            
             for document in querySnapshot.documents {
                 let data = document.data()
+                
                 if let id = data[FirestoreKeys.Users.uid] as? String,
                    id != Session.shared.currentUser?.id,
                    let name = data[FirestoreKeys.Users.username] as? String,
                    let bio = data[FirestoreKeys.Users.bio] as? String,
                    let groupID = data[FirestoreKeys.Users.groupID] as? String {
+                    
                     let user = User(id: id, username: name, bio: bio, groupID: groupID)
+                    
+                    if let profilePictureURL = data[FirestoreKeys.Users.profileImageUrl] as? String,
+                       let url = URL(string: profilePictureURL) {
+                        
+                        do {
+                            let image = try await fetchImage(from: url)
+                            user.profilePicture = image
+                        } catch {
+                            print("Error fetching profile picture: \(error.localizedDescription)")
+                        }
+                    }
+                    
                     users.append(user)
                 }
             }
+            
             return .success(users)
             
         } catch {
@@ -259,61 +275,48 @@ class FirestoreService: FirestoreServiceProtocol {
                 return
             }
             
-            var pets: [Pet] = []
-            let dispatchGroup = DispatchGroup()
-            
-            for document in documents {
-                var data = document.data()
-                
-                // Remove the createdAt field if it exists
-                data.removeValue(forKey: "createdAt")
-                
+            Task {
                 do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                    let pet = try JSONDecoder().decode(Pet.self, from: jsonData)
+                    var pets: [Pet] = []
                     
-                    // Fetch the picture if it exists
-                    if let pictureURLString = pet.pictureURL,
-                       let pictureURL = URL(string: pictureURLString) {
-                        dispatchGroup.enter()
-                        self.fetchImage(from: pictureURL) { result in
-                            switch result {
-                            case .success(let image):
+                    for document in documents {
+                        var data = document.data()
+                        
+                        // Remove the createdAt field if it exists
+                        data.removeValue(forKey: "createdAt")
+                        
+                        let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                        let pet = try JSONDecoder().decode(Pet.self, from: jsonData)
+                                                
+                        if let pictureURLString = pet.pictureURL,
+                           let pictureURL = URL(string: pictureURLString) {
+                            do {
+                                let image = try await self.fetchImage(from: pictureURL)
                                 pet.picture = image
-                            case .failure(let error):
+                            } catch {
                                 print("Failed to fetch image: \(error)")
                             }
-                            dispatchGroup.leave()
                         }
+                        
+                        pets.append(pet)
                     }
                     
-                    pets.append(pet)
+                    onUpdate(.success(pets))
                 } catch {
                     onUpdate(.failure(error))
-                    return
                 }
-            }
-            
-            dispatchGroup.notify(queue: .main) {
-                onUpdate(.success(pets))
             }
         }
         
         petListeners.append(listener)
     }
 
-    func fetchImage(from url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        let storageRef = Storage.storage().reference(forURL: url.absoluteString)
-        storageRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            if let data = data, let image = UIImage(data: data) {
-                completion(.success(image))
-            } else {
-                completion(.failure(NSError(domain: "ImageErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert data to image."])))
-            }
+    private func fetchImage(from url: URL) async throws -> UIImage {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        if let image = UIImage(data: data) {
+            return image
+        } else {
+            throw NSError(domain: "ImageErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unable to create image from data."])
         }
     }
     

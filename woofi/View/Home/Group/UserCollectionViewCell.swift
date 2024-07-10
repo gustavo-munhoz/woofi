@@ -34,6 +34,8 @@ class UserCollectionViewCell: UICollectionViewCell {
             )?.withTintColor(.primary, renderingMode: .alwaysOriginal)
         )
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFill
         
         return view
     }()
@@ -56,7 +58,7 @@ class UserCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
-    }()
+    }()    
     
     func setup(with user: User) {
         self.image = user.profilePicture
@@ -68,13 +70,9 @@ class UserCollectionViewCell: UICollectionViewCell {
     }
     
     func addSubviews() {
-        [
-            profilePicture,
-            titleLabel,
-            descriptionLabel
-        ].forEach { v in
-            addSubview(v)
-        }
+            addSubview(profilePicture)
+            addSubview(titleLabel)
+            addSubview(descriptionLabel)
     }
     
     func setupConstraints() {

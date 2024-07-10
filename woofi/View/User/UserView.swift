@@ -36,10 +36,10 @@ class UserView: UIView {
     // MARK: - Subviews
     
     private(set) lazy var profileImageView: UIImageView = {
-        let view = UIImageView(image: UIImage(systemName: "person.circle")!)
+        let view = UIImageView(image: UIImage(systemName: "person.crop.circle")!)
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.tintColor = .primary        
+        view.tintColor = .primary
         view.clipsToBounds = true
         
         return view
@@ -114,6 +114,10 @@ class UserView: UIView {
     // MARK: - Setup methods
     
     func setupData() {
+        if let profilePicture = viewModel?.user.profilePicture {
+            profileImageView.image = profilePicture
+        }
+        
         nameTextField.text = viewModel?.user.username
         bioTextField.text = viewModel?.user.bio
     }

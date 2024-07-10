@@ -31,7 +31,7 @@ class UserViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
 
         setupViewModel()
-        setupCollectionView()
+        setupCollectionView()                
     }
     
     override func viewWillAppear(_ animated: Bool) {

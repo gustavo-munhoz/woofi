@@ -100,23 +100,8 @@ extension EditProfileViewController: PHPickerViewControllerDelegate {
         result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (object, error) in
             DispatchQueue.main.async {
                 if let image = object as? UIImage {
-                    // TODO: Fix image size.
                     self?.editProfileView.updateProfileImage(image)
-                    self?.viewModel?.user.profilePicture = image
-                    
-                    Task {
-                        do {
-                            if let userID = self?.viewModel?.user.id {
-                                let profileImageUrl = try await FirestoreService.shared.saveProfileImage(
-                                    userID: userID,
-                                    image: image
-                                )
-                                print("User profile image URL updated successfully: \(profileImageUrl)")
-                            }
-                        } catch (let error) {
-                            print("Error updating image URL: \(error.localizedDescription)")
-                        }
-                    }
+                    self?.viewModel?.updateUserProfileImage(image)
                 }
             }
         }

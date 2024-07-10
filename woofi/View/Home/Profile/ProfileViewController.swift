@@ -37,9 +37,10 @@ class ProfileViewController: UserViewController {
         viewModel!.userPublisher
             .receive(on: RunLoop.main)
             .sink {
-                print("Updated profile user.")
+                self.userView.profileImageView.image = $0.profilePicture
                 self.userView.nameTextField.text = $0.username
                 self.userView.bioTextField.text = $0.bio
+                print("Updated profile user.")
             }
             .store(in: &cancellables)
     }

@@ -5,7 +5,7 @@
 //  Created by Gustavo Munhoz Correa on 07/05/24.
 //
 
-import Foundation
+import UIKit
 import Combine
 
 class UserViewModel: NSObject {
@@ -34,6 +34,22 @@ class UserViewModel: NSObject {
                 
             } catch (let error) {
                 print("Error Updating User on Firestore: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func updateUserProfileImage(_ image: UIImage) {
+        user.profilePicture = image
+        Task {
+            do {
+                let profileImageUrl = try await FirestoreService.shared.saveProfileImage(
+                    userID: user.id,
+                    image: image
+                )
+                userPublisher.send(user)
+                print("User profile image URL updated successfully: \(profileImageUrl)")
+            } catch (let error) {
+                print("Error updating image URL: \(error.localizedDescription)")
             }
         }
     }
