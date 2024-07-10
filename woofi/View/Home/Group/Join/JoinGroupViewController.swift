@@ -43,44 +43,42 @@ class JoinGroupViewController: UIViewController {
         Task {
             let result = await FirestoreService.shared.fetchGroupID(forInviteCode: inviteCode)
             switch result {
-                case .success(let groupID):
-                    if let currentUser = Session.shared.currentUser {
-                        currentUser.groupID = groupID
-                        FirestoreService.shared.updateUserData(userId: currentUser.id, data: ["groupID": groupID]) { error in
-                            if let error = error {
-                                print("Failed to update groupID: \(error)")
-                                
-                            } else {
-                                print("Successfully updated groupID")
-                                Task {
-                                    let res = await FirestoreService.shared.fetchUsersInSameGroup(groupID: currentUser.groupID!)
-                                    switch res {
-                                        case .success(let users):
-                                            print("Users fetched: \(users.map { $0.id })")
-                                            Session.shared.cachedUsers.value = users
-                                            self.groupViewModel?.users.value = users
-                                            
-                                        case .failure(let error):
-                                            print("Error fetching users: \(error.localizedDescription)")
-                                    }
-                                }
-                            }
+            case .success(let groupID):
+                if let currentUser = Session.shared.currentUser {
+                    currentUser.groupID = groupID
+                    do {
+                        try await FirestoreService.shared.updateUserData(userId: currentUser.id, data: ["groupID": groupID])
+                        print("Successfully updated groupID")
+
+                        let res = await FirestoreService.shared.fetchUsersInSameGroup(groupID: currentUser.groupID!)
+                        switch res {
+                        case .success(let users):
+                            print("Users fetched: \(users.map { $0.id })")
+                            Session.shared.cachedUsers.value = users
+                            self.groupViewModel?.users.value = users
+
+                        case .failure(let error):
+                            print("Error fetching users: \(error.localizedDescription)")
                         }
+                    } catch {
+                        print("Error updating groupID: \(error.localizedDescription)")
                     }
+                }
+                DispatchQueue.main.async {
                     self.dismiss(animated: true, completion: nil)
-                    
-                case .failure(let error):
-                    print("Error fetching group ID: \(error.localizedDescription)")
-                    let alert = UIAlertController(
-                        title: "Invalid Code",
-                        message: "The code you entered is invalid. Please try again.",
-                        preferredStyle: .alert
-                    )
-                    
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    DispatchQueue.main.async {
-                        self.present(alert, animated: true, completion: nil)
-                    }
+                }
+
+            case .failure(let error):
+                print("Error fetching group ID: \(error.localizedDescription)")
+                let alert = UIAlertController(
+                    title: "Invalid Code",
+                    message: "The code you entered is invalid. Please try again.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }
