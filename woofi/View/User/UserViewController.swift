@@ -38,6 +38,10 @@ class UserViewController: UIViewController, UICollectionViewDelegate {
         navigationItem.largeTitleDisplayMode = .never
     }
     
+    override func viewWillLayoutSubviews() {
+        userView.profileImageView.layer.cornerRadius = userView.profileImageView.frame.width/2
+    }
+    
     internal func setupCollectionView() {
         userView.statsCollectionView.delegate = self
         userView.statsCollectionView.dataSource = self

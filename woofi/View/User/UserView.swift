@@ -36,11 +36,12 @@ class UserView: UIView {
     // MARK: - Subviews
     
     private(set) lazy var profileImageView: UIImageView = {
-        let view = UIImageView(image: UIImage(systemName: "person.fill")!)
+        let view = UIImageView(image: UIImage(systemName: "person.circle")!)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         view.tintColor = .systemGray2
         view.backgroundColor = .systemGray5
+        view.clipsToBounds = true
         
         return view
     }()
@@ -130,7 +131,7 @@ class UserView: UIView {
             make.top.equalTo(safeAreaLayoutGuide).offset(16)
             make.left.equalToSuperview().offset(24)
             make.width.height.equalTo(100)
-        }
+        }                
         
         textsStackView.snp.makeConstraints { make in
             make.top.equalTo(profileImageView)
