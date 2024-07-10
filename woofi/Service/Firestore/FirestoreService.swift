@@ -75,13 +75,36 @@ class FirestoreService: FirestoreServiceProtocol {
     }
     
     /// Updates user data in Firestore
-    func updateUserData(userId: String, data: [String: Any], completion: @escaping (Error?) -> Void) {
-        db.collection(FirestoreKeys.Users.collectionTitle).document(userId).updateData(data, completion: completion)
+    func updateUserData(userId: String, data: [String: Any]) async throws {
+        let documentRef = db.collection(FirestoreKeys.Users.collectionTitle).document(userId)
+        try await documentRef.updateData(data)
     }
     
     /// Removes a user from Firestore
     func removeUser(userId: String, completion: @escaping (Error?) -> Void) {
         db.collection(FirestoreKeys.Users.collectionTitle).document(userId).delete(completion: completion)
+    }
+    
+    func saveProfileImage(userID: String, image: UIImage) async throws -> String {
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else {
+            throw NSError(
+                domain: "ImageError",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to convert image to data."]
+            )
+        }
+        
+        let storageRef = Storage.storage().reference().child("profile_images/\(userID).jpg")
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        let _ = try await storageRef.putDataAsync(imageData, metadata: metadata)
+        let downloadURL = try await storageRef.downloadURL()
+        
+        let profileImageUrl = downloadURL.absoluteString
+        try await FirestoreService.shared.updateUserData(userId: userID, data: ["profileImageUrl": profileImageUrl])
+        
+        return profileImageUrl
     }
     
     /// Fetches all pets related to the group
