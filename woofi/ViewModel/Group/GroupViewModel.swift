@@ -48,7 +48,6 @@ class GroupViewModel: NSObject {
     }
     
     private func setupSubscriptions() {
-        // TODO: Verificar se isso funciona
         Session.shared.cachedUsers
             .sink { [weak self] users in
                 guard !users.isEmpty else { return }

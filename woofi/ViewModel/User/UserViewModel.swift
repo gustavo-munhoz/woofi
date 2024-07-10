@@ -22,16 +22,18 @@ class UserViewModel: NSObject {
         
         user.username = name
         user.bio = bio
-        userPublisher.send(user)
         
-        FirestoreService.shared.updateUserData(userId: user.id, data: [
-            FirestoreKeys.Users.username: name,
-            FirestoreKeys.Users.bio: bio
-        ]) { error in
-            if let error = error {
-                print("Error updating user: \(error.localizedDescription)")
-            } else {
-                print("User updated successfully")
+        Task {
+            do {
+                try await FirestoreService.shared.updateUserData(userId: user.id, data: [
+                    FirestoreKeys.Users.username: name,
+                    FirestoreKeys.Users.bio: bio
+                ])
+                print("User data updated successfully on Firestore.")
+                userPublisher.send(user)
+                
+            } catch (let error) {
+                print("Error Updating User on Firestore: \(error.localizedDescription)")
             }
         }
     }
