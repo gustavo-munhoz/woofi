@@ -7,8 +7,8 @@
 
 import Foundation
 import FirebaseFirestore
-import os
 import FirebaseStorage
+import os
 
 /// Shared singleton to handle Firestore logic, conforming to FirestoreServiceProtocol.
 class FirestoreService: FirestoreServiceProtocol {

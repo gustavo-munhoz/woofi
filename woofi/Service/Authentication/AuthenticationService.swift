@@ -86,4 +86,3 @@ class AuthenticationService: AuthenticationServiceProtocol {
         }
     }
 }
-
