@@ -5,4 +5,14 @@
 //  Created by Gustavo Munhoz Correa on 10/07/24.
 //
 
-import Foundation
+import UIKit
+
+extension UIImage {
+    enum IconKeys: String {
+        case google = "google-si-icon"
+    }
+    
+    convenience init(iconKey: IconKeys) {
+        self.init(named: iconKey.rawValue)!
+    }
+}
