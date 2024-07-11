@@ -37,6 +37,7 @@ class ProfileSetupView: UIView {
         view.heightAnchor.constraint(equalToConstant: 90).isActive = true
         view.addTarget(self, action: #selector(handlePictureButtonTap), for: .touchUpInside)
         view.contentHorizontalAlignment = .leading
+        view.imageView?.contentMode = .scaleAspectFill
         
         return view
     }()
