@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 class AuthenticationViewModel: NSObject {
     
@@ -14,7 +15,12 @@ class AuthenticationViewModel: NSObject {
     var currentAuthType = CurrentValueSubject<AuthenticationType, Never>(.login)
     
     func toggleCurrentAuthType() {
-        currentAuthType.value = currentAuthType.value == .login ? .register : .login
+        if currentAuthType.value != .register {
+            currentAuthType.value = .login
+            
+        } else {
+            currentAuthType.value = .register
+        }
     }
     
     // MARK: - Authentication
@@ -27,27 +33,48 @@ class AuthenticationViewModel: NSObject {
     
     /// Tries to perform authentication depending on the current selected authentication type (register or login).
     /// Will try to create an account if user is trying to register, and will try to login if user is on login view.
-    func performAuthentication() {
-        switch currentAuthType.value {
-            case .login:
-                loginUser()
-                
-            case .register:
-                registerUser()
+    func performAuthentication(type: AuthenticationType, viewController: UIViewController? = nil) {
+        switch type {
+        case .login:
+            loginUserWithEmailAndPassword()
+            
+        case .googleLogin:
+            guard let vc = viewController else { return }
+            loginWithGoogle(withVC: vc)
+            
+        case .register:
+            registerUser()
         }
     }
     
     
     // MARK: - Login logic
     
-    private func loginUser() {
-        AuthenticationService.shared.loginUser(withEmail: email.value, password: password.value) { [weak self] result in
-            switch result {
-                case .success(let authResult):
-                    self?.onAuthenticationSuccess?(authResult.user.uid)
-                    
-                case .failure(let error):
-                    self?.onAuthenticationFailure?(error)
+    private func loginUserWithEmailAndPassword() {
+        Task {
+            do {
+                let authResult = try await AuthenticationService.shared.loginUser(
+                    withEmail: email.value,
+                    password: password.value
+                )
+                onAuthenticationSuccess?(authResult.user.uid)
+                
+            } catch {
+                onAuthenticationFailure?(error)
+            }
+        }
+    }
+    
+    private func loginWithGoogle(withVC vc: UIViewController) {
+        Task {
+            do {
+                let authResult = try await AuthenticationService.shared.loginUser(withGoogleForm: vc)
+                print("User signed in with Google: \(authResult.user.uid)")
+                onAuthenticationSuccess?(authResult.user.uid)
+                
+            } catch {
+                print("Error signing in with Google: \(error.localizedDescription)")
+                onAuthenticationFailure?(error)
             }
         }
     }
@@ -60,13 +87,17 @@ class AuthenticationViewModel: NSObject {
             FirestoreKeys.Users.bio: "Biography"
         ]
         
-        AuthenticationService.shared.registerUser(withEmail: email.value, password: password.value, additionalData: additionalData) { [weak self] result in
-            switch result {
-                case .success(let authResult):
-                    self?.onAuthenticationSuccess?(authResult.user.uid)
-                    
-                case .failure(let error):
-                    self?.onAuthenticationFailure?(error)
+        Task {
+            do {
+                let authResult = try await AuthenticationService.shared.registerUser(
+                    withEmail: email.value,
+                    password: password.value,
+                    additionalData: additionalData
+                )
+                onAuthenticationSuccess?(authResult.user.uid)
+                
+            } catch {
+                onAuthenticationFailure?(error)
             }
         }
     }

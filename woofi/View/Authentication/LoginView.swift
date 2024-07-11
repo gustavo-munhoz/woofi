@@ -19,13 +19,15 @@ class LoginView: UIView {
         }
     }
     
+    var onGoogleButtonTap: (() -> Void)?
+    
     // MARK: - Views
     
     private(set) lazy var appLogo: UIImageView = {
         let view = UIImageView(image: UIImage(systemName: "dog.circle.fill"))
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.tintColor = .white
+        view.tintColor = .primary
         view.contentMode = .scaleAspectFit
         
         return view
@@ -79,7 +81,7 @@ class LoginView: UIView {
             LocalizedString.LoginAndRegister.registerButton,
             attributes: AttributeContainer([
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .regular),
-                NSAttributedString.Key.foregroundColor: UIColor.white
+                NSAttributedString.Key.foregroundColor: UIColor.primary
             ])
         )
         
@@ -90,14 +92,28 @@ class LoginView: UIView {
         return view
     }()
     
+    private(set) lazy var googleSignInButton: UIButton = {
+        let view = UIButton()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.setImage(UIImage(iconKey: .google), for: .normal)
+        view.addTarget(self, action: #selector(googleButtonPress), for: .touchUpInside)
+        
+        return view
+    }()
+    
     // MARK: - Actions
     
     @objc func loginButtonPress() {
-        viewModel?.performAuthentication()
+        viewModel?.performAuthentication(type: .login)
     }
     
     @objc func registerButtonPress() {
         viewModel?.toggleCurrentAuthType()
+    }
+    
+    @objc func googleButtonPress() {
+        onGoogleButtonTap?()
     }
     
     private func bindViewModel() {
@@ -116,7 +132,7 @@ class LoginView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .black
+        backgroundColor = .systemBackground
         
         addSubviews()
         setupConstraints()
@@ -129,7 +145,7 @@ class LoginView: UIView {
     func addSubviews() {
         let subviews = [
             appLogo, emailTextField, passwordTextField,
-            loginButton, registerButton
+            loginButton, registerButton, googleSignInButton
         ]
         
         for view in subviews {
@@ -168,6 +184,12 @@ class LoginView: UIView {
             make.top.equalTo(loginButton.snp.bottom).offset(25)
             make.height.equalTo(loginButton.snp.height)
             make.left.right.equalTo(loginButton)
+        }
+        
+        googleSignInButton.snp.makeConstraints { make in
+            make.top.equalTo(registerButton.snp.bottom).offset(32)
+            make.left.equalTo(registerButton)
+            make.width.height.equalTo(44)
         }
     }
 }

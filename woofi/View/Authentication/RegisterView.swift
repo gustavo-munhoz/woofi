@@ -104,7 +104,7 @@ class RegisterView: UIView {
     // MARK: - Actions
     
     @objc func registerButtonPress() {
-        viewModel?.performAuthentication()
+        viewModel?.performAuthentication(type: .register)
     }
     
     @objc func loginButtonPress() {

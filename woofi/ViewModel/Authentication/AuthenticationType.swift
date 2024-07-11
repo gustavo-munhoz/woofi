@@ -9,5 +9,6 @@ import Foundation
 
 enum AuthenticationType {
     case login
+    case googleLogin
     case register
 }

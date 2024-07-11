@@ -50,8 +50,6 @@ class AuthenticationViewController: UIViewController {
                     
                     Session.shared.currentUser = user
                     
-                    
-                    
                     print("Authentication successful")
                     DispatchQueue.main.async {
                         self.navigationController?.pushViewController(HomeViewController(), animated: true)
@@ -74,11 +72,11 @@ class AuthenticationViewController: UIViewController {
         guard isViewLoaded, let viewModel = viewModel else { return }
         
         switch viewModel.currentAuthType.value {
-            case .login:
-                showLoginView()
+        case .login, .googleLogin:
+            showLoginView()
                 
-            case .register:
-                showRegisterView()
+        case .register:
+            showRegisterView()
         }
     }
     
@@ -86,6 +84,7 @@ class AuthenticationViewController: UIViewController {
         if loginView == nil {
             loginView = LoginView()
             loginView?.viewModel = viewModel
+            loginView?.onGoogleButtonTap = loginWithGoogle
         }
 
         guard let loginView = loginView else { return }
@@ -123,12 +122,21 @@ class AuthenticationViewController: UIViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] authType in
             switch authType {
-                case .login:
-                    self?.showLoginView()
+            case .login, .googleLogin:
+                self?.showLoginView()
                     
-                case .register:
-                    self?.showRegisterView()
+            case .register:
+                self?.showRegisterView()
             }
         }).store(in: &cancellables)
+    }
+    
+    // MARK: - Actions
+    
+    func loginWithGoogle() {
+        viewModel?.performAuthentication(
+            type: .googleLogin,
+            viewController: self
+        )
     }
 }

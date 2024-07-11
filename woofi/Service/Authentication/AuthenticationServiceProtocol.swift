@@ -9,16 +9,6 @@ import FirebaseAuth
 
 /// Protocol that defines authentication methods
 protocol AuthenticationServiceProtocol {
-    func loginUser(
-        withEmail email: String,
-        password: String,
-        completion: @escaping (Result<AuthDataResult, Error>) -> Void
-    )
-    
-    func registerUser(
-        withEmail email: String,
-        password: String,
-        additionalData: [String:Any],
-        completion: @escaping (Result<AuthDataResult, Error>) -> Void
-    )
+    func loginUser(withEmail email: String, password: String) async throws -> AuthDataResult
+    func registerUser(withEmail email: String, password: String, additionalData: [String:Any]) async throws -> AuthDataResult
 }

@@ -7,6 +7,8 @@
 
 import Firebase
 import FirebaseAuth
+import GoogleSignIn
+import UIKit
 
 class AuthenticationService: AuthenticationServiceProtocol {
     
@@ -21,6 +23,52 @@ class AuthenticationService: AuthenticationServiceProtocol {
             return try await Auth.auth().signIn(withEmail: email, password: password)
         } catch {
             throw error
+        }
+    }
+    
+    /// Logs in a user with Google Auth.
+    func loginUser(withGoogleForm viewController: UIViewController) async throws -> AuthDataResult {
+        return try await withCheckedThrowingContinuation { continuation in
+            DispatchQueue.main.async {
+                GIDSignIn.sharedInstance.signIn(withPresenting: viewController) { signInResult, error in
+                    if let error = error {
+                        continuation.resume(throwing: error)
+                        return
+                    }
+                    
+                    guard let signInResult = signInResult else {
+                        continuation.resume(throwing: NSError(
+                            domain: "dev.mnhz.woofy",
+                            code: -1,
+                            userInfo: [NSLocalizedDescriptionKey: "Google Sign-In failed."]
+                        ))
+                        return
+                    }
+                    
+                    guard let idToken = signInResult.user.idToken?.tokenString else {
+                        continuation.resume(throwing: NSError(
+                            domain: "dev.mnhz.woofy",
+                            code: -1,
+                            userInfo: [NSLocalizedDescriptionKey: "Google Sign-In authentication failed"]
+                        ))
+                        return
+                    }
+                    
+                    let credential = GoogleAuthProvider.credential(
+                        withIDToken: idToken,
+                        accessToken: signInResult.user.accessToken.tokenString
+                    )
+                    
+                    Auth.auth().signIn(with: credential) { authResult, error in
+                        if let error = error {
+                            continuation.resume(throwing: error)
+                            
+                        } else if let authResult = authResult {
+                            continuation.resume(returning: authResult)
+                        }
+                    }
+                }
+            }
         }
     }
     
