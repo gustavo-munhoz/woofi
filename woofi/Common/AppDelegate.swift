@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseMessaging
 import UserNotifications
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
-
+        
         UNUserNotificationCenter.current().delegate = self
         
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -40,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         Messaging.messaging().delegate = self
+        
+        setupGIDClientID()
 
         return true
     }
@@ -51,6 +54,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Configure Firebase with APNs token
         Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance.handle(url)
+    }
+    
+    func setupGIDClientID() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
     }
 }
 
