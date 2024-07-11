@@ -37,10 +37,10 @@ class AuthenticationViewController: UIViewController {
                 do {
                     if self?.viewModel?.currentAuthType.value == .googleLogin {
                         DispatchQueue.main.async {
-                            self?.navigationController?.pushViewController(
-                                ProfileSetupViewController(),
-                                animated: true
-                            )
+                            let vc = ProfileSetupViewController()
+                            vc.profileSetupView.userBuilder.setId(userId)
+                            
+                            self?.navigationController?.pushViewController(vc, animated: true)
                         }
                         return
                     }
@@ -55,7 +55,7 @@ class AuthenticationViewController: UIViewController {
                         id: userId,
                         username: username,
                         bio: userData[FirestoreKeys.Users.bio] as? String,
-                        groupID: userData[FirestoreKeys.Users.groupID] as? String
+                        groupID: userData[FirestoreKeys.Users.groupID] as! String
                     )
                     
                     Session.shared.currentUser = user

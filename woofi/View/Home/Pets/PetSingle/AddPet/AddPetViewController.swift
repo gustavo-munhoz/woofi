@@ -32,12 +32,12 @@ class AddPetViewController: UIViewController {
         }
         
         let petID = UUID().uuidString
-        guard let currentUser = Session.shared.currentUser, let groupID = currentUser.groupID else {
+        guard let currentUser = Session.shared.currentUser else {
             print("Current user or group ID not found")
             return
         }
         
-        let pet = Pet(id: petID, name: name, breed: breed, age: age, groupID: groupID)
+        let pet = Pet(id: petID, name: name, breed: breed, age: age, groupID: currentUser.groupID)
         
         FirestoreService.shared.savePet(pet) { [weak self] error in
             if let error = error {

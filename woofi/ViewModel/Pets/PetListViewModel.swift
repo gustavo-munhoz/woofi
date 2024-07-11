@@ -26,11 +26,11 @@ class PetListViewModel: NSObject {
     }
 
     @objc private func addPetsListener() {
-        guard let currentUser = Session.shared.currentUser, let groupID = currentUser.groupID else {
+        guard let currentUser = Session.shared.currentUser else {
             return
         }
         
-        FirestoreService.shared.addPetsListener(groupID: groupID) { [weak self] result in
+        FirestoreService.shared.addPetsListener(groupID: currentUser.groupID) { [weak self] result in
             switch result {
                 case .success(let pets):
                     self?.pets.value = pets

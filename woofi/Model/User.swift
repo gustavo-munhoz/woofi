@@ -27,7 +27,7 @@ class User: Hashable, Codable {
         didSet { savePersistedChanges() }
     }
     
-    var groupID: String? {
+    var groupID: String {
         didSet { savePersistedChanges() }
     }
         
@@ -50,7 +50,7 @@ class User: Hashable, Codable {
         }
     }
     
-    init(id: String, username: String, bio: String? = nil, email: String? = nil, groupID: String? = nil, profilePicturePath: String? = nil) {
+    init(id: String, username: String, bio: String? = nil, email: String? = nil, groupID: String = UUID().uuidString, profilePicturePath: String? = nil) {
         self.id = id
         self.username = username
         self.bio = bio
@@ -58,6 +58,10 @@ class User: Hashable, Codable {
         self.groupID = groupID
         self.profilePicturePath = profilePicturePath
         self.stats = UserTaskStat.createAllWithZeroValue()
+    }
+    
+    func setProfilePicture(_ image: UIImage) {
+        self.profilePicture = image
     }
     
     static func ==(_ lhs: User, _ rhs: User) -> Bool {
@@ -84,7 +88,7 @@ class User: Hashable, Codable {
         username = try container.decode(String.self, forKey: .username)
         bio = try container.decodeIfPresent(String.self, forKey: .bio)
         email = try container.decodeIfPresent(String.self, forKey: .email)
-        groupID = try container.decodeIfPresent(String.self, forKey: .groupID)
+        groupID = try container.decodeIfPresent(String.self, forKey: .groupID) ?? UUID().uuidString
         profilePicturePath = try container.decodeIfPresent(String.self, forKey: .profilePicturePath)
         stats = try container.decode([UserTaskStat].self, forKey: .stats)
     }

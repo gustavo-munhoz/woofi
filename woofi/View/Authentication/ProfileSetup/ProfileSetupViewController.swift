@@ -10,7 +10,7 @@ import PhotosUI
 
 class ProfileSetupViewController: UIViewController {
     
-    private var profileSetupView = ProfileSetupView()
+    private(set) var profileSetupView = ProfileSetupView()
     
     override func loadView() {
         view = profileSetupView
@@ -23,6 +23,7 @@ class ProfileSetupViewController: UIViewController {
         navigationItem.title = "Almost done!"
         
         profileSetupView.onPictureButtonTapped = presentImagePicker
+        profileSetupView.onContinueButtonTapped = buildAndSetUser
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +31,8 @@ class ProfileSetupViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
     }
+    
+    // MARK: - Actions
     
     private func presentImagePicker() {
         PHPhotoLibrary.requestAuthorization { status in
@@ -58,6 +61,35 @@ class ProfileSetupViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    private func buildAndSetUser() {
+        do {
+            let user = try profileSetupView.userBuilder.build()
+            Session.shared.currentUser = user
+            
+            Task {
+                try await FirestoreService.shared.saveUserData(
+                    userId: user.id,
+                    data: [
+                        FirestoreKeys.Users.username: user.username,
+                        FirestoreKeys.Users.bio: user.bio ?? "",
+                        FirestoreKeys.Users.email: user.email ?? "",
+                        FirestoreKeys.Users.groupID: user.groupID,
+                        FirestoreKeys.Users.profileImageUrl: user.profilePicturePath ?? "",
+                    ]
+                )
+            }
+            
+            navigateToHome()
+            
+        } catch {
+            fatalError("Error building user: \(error.localizedDescription)")
+        }
+    }
+    
+    private func navigateToHome() {
+        navigationController?.pushViewController(HomeViewController(), animated: true)
     }
 }
 

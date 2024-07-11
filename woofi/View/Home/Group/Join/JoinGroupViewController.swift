@@ -50,7 +50,7 @@ class JoinGroupViewController: UIViewController {
                         try await FirestoreService.shared.updateUserData(userId: currentUser.id, data: ["groupID": groupID])
                         print("Successfully updated groupID")
 
-                        let res = await FirestoreService.shared.fetchUsersInSameGroup(groupID: currentUser.groupID!)
+                        let res = await FirestoreService.shared.fetchUsersInSameGroup(groupID: currentUser.groupID)
                         switch res {
                         case .success(let users):
                             print("Users fetched: \(users.map { $0.id })")

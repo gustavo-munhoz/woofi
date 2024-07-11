@@ -23,7 +23,7 @@ class InviteViewController: UIViewController {
         inviteView.sendButton.addTarget(self, action: #selector(sendInvite), for: .touchUpInside)
         
         guard let currentUser = Session.shared.currentUser else { return }
-        let groupID = currentUser.groupID ?? "0"
+        let groupID = currentUser.groupID
         
         Task {
             let result = await FirestoreService.shared.generateInviteCode(forGroupID: groupID)

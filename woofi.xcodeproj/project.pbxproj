@@ -89,6 +89,7 @@
 		B3B9806A2C3F5DEE00520A3F /* UIImage+IconKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B980692C3F5DEE00520A3F /* UIImage+IconKeys.swift */; };
 		B3B9806C2C3F73B600520A3F /* ProfileSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9806B2C3F73B600520A3F /* ProfileSetupView.swift */; };
 		B3B9806F2C3F73CB00520A3F /* ProfileSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9806E2C3F73CB00520A3F /* ProfileSetupViewController.swift */; };
+		B3B980752C409C2200520A3F /* UserBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B980742C409C2200520A3F /* UserBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -177,6 +178,7 @@
 		B3B980692C3F5DEE00520A3F /* UIImage+IconKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+IconKeys.swift"; sourceTree = "<group>"; };
 		B3B9806B2C3F73B600520A3F /* ProfileSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupView.swift; sourceTree = "<group>"; };
 		B3B9806E2C3F73CB00520A3F /* ProfileSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupViewController.swift; sourceTree = "<group>"; };
+		B3B980742C409C2200520A3F /* UserBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,7 +226,7 @@
 		B30622DF2BE80706009441CB /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				B3B9806D2C3F73BA00520A3F /* ProfileView */,
+				B3B9806D2C3F73BA00520A3F /* ProfileSetup */,
 				B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */,
 				B30622DD2BE80705009441CB /* LoginView.swift */,
 				B30622EA2BE81100009441CB /* RegisterView.swift */,
@@ -520,6 +522,7 @@
 				B35CC3862C054872007FBEFC /* +ext */,
 				B35CC37D2C00E141007FBEFC /* woofi.entitlements */,
 				B31D31E12BFD284300CE903A /* Shared */,
+				B3B980732C409C1600520A3F /* Builder */,
 				B30622DB2BE80629009441CB /* Common */,
 				B3A7E8652BE7FB0D009B6630 /* Model */,
 				B3A7E8672BE7FB16009B6630 /* View */,
@@ -584,13 +587,21 @@
 			path = AuxiliaryViews;
 			sourceTree = "<group>";
 		};
-		B3B9806D2C3F73BA00520A3F /* ProfileView */ = {
+		B3B9806D2C3F73BA00520A3F /* ProfileSetup */ = {
 			isa = PBXGroup;
 			children = (
 				B3B9806B2C3F73B600520A3F /* ProfileSetupView.swift */,
 				B3B9806E2C3F73CB00520A3F /* ProfileSetupViewController.swift */,
 			);
-			path = ProfileView;
+			path = ProfileSetup;
+			sourceTree = "<group>";
+		};
+		B3B980732C409C1600520A3F /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				B3B980742C409C2200520A3F /* UserBuilder.swift */,
+			);
+			path = Builder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -742,6 +753,7 @@
 				B37059562C32674300FDD70B /* NotificationService.swift in Sources */,
 				B30622FD2BE82C8C009441CB /* AuthenticationService.swift in Sources */,
 				B31D31C52BF303F600CE903A /* PetView.swift in Sources */,
+				B3B980752C409C2200520A3F /* UserBuilder.swift in Sources */,
 				B31D31C72BF3043400CE903A /* PetViewModel.swift in Sources */,
 				B35CC3762BFFC77D007FBEFC /* InviteViewController.swift in Sources */,
 				B306231A2BEB06D9009441CB /* UserViewController.swift in Sources */,

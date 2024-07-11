@@ -8,16 +8,14 @@
 import UIKit
 import SnapKit
 
-// TODO: SETUP THIS VIEW. THIS WILL BE PRESENTED AFTER OAUTH LOGINS.
 class ProfileSetupView: UIView {
     
     // MARK: - Properties
     
-    var userId: String?
-    var username: String = "Username"
-    var biography: String = "Bio"
-    var profilePicture: UIImage = UIImage(systemName: "person.crop.circle")!
+    let userBuilder = UserBuilder()
+    
     var onPictureButtonTapped: (() -> Void)?
+    var onContinueButtonTapped: (() -> Void)?
     
     // MARK: - Subviews
     
@@ -86,6 +84,7 @@ class ProfileSetupView: UIView {
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isEnabled = false
+        view.addTarget(self, action: #selector(handleContinueButtonTap), for: .touchUpInside)
         
         return view
     }()
@@ -151,6 +150,9 @@ class ProfileSetupView: UIView {
     }
     
     // MARK: - Actions
+    @objc func handleContinueButtonTap() {
+        onContinueButtonTapped?()
+    }
     
     @objc func handlePictureButtonTap() {
         onPictureButtonTapped?()
@@ -168,7 +170,7 @@ class ProfileSetupView: UIView {
     func updateProfileImage(_ image: UIImage) {
         let resizedImage = image.withRenderingMode(.alwaysOriginal)
         changePictureButton.setImage(resizedImage, for: .normal)
-        profilePicture = resizedImage
+        userBuilder.setProfilePicture(resizedImage)
         
         if let imageView = changePictureButton.imageView {
             imageView.contentMode = .scaleAspectFill
@@ -189,8 +191,8 @@ extension ProfileSetupView: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        self.username = usernameTextView.text
-        self.biography = biographyTextView.text
+        userBuilder.setUsername(usernameTextView.text)
+        userBuilder.setBiography(biographyTextView.text)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
