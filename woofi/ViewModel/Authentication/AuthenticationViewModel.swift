@@ -74,7 +74,7 @@ class AuthenticationViewModel: NSObject {
                 
             } catch {
                 print("Error signing in with Google: \(error.localizedDescription)")
-                onAuthenticationFailure?(error)
+                onAuthenticationFailure?(error)                
             }
         }
     }

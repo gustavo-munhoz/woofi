@@ -43,7 +43,7 @@ class ProfileSetupView: UIView {
 
     
     private(set) lazy var pictureStackView: EditStackView = {
-        let view = EditStackView(title: "Set your Profile Picture", editView: changePictureButton)
+        let view = EditStackView(title: "Set your profile picture", editView: changePictureButton)
         
         return view
     }()
@@ -60,7 +60,7 @@ class ProfileSetupView: UIView {
     }()
     
     private(set) lazy var usernameStackView: EditStackView = {
-        EditStackView(title: "Enter your Username", editView: usernameTextView)
+        EditStackView(title: "Enter your username", editView: usernameTextView)
     }()
     
     private(set) lazy var biographyTextView: PaddedTextView = {
@@ -75,14 +75,16 @@ class ProfileSetupView: UIView {
     }()
     
     private(set) lazy var biographyStackView: EditStackView = {
-        EditStackView(title: "Enter your Biography", editView: biographyTextView)
+        EditStackView(title: "Enter your biography", editView: biographyTextView)
     }()
     
     private(set) lazy var continueButton: UIButton = {
-        let view = UIButton()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        var config = UIButton.Configuration.filled()
+        config.title = "Continue"
         
-        view.setTitle("Continue", for: .normal)
+        let view = UIButton(configuration: config)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isEnabled = false
         
         return view
     }()
@@ -143,7 +145,7 @@ class ProfileSetupView: UIView {
         continueButton.snp.makeConstraints { make in
             make.left.right.equalTo(pictureStackView)
             make.height.equalTo(44)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.top).inset(12)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(12)
         }
     }
     
@@ -175,7 +177,7 @@ class ProfileSetupView: UIView {
     }
 }
 
-// MARK: - UITextFieldDelegate
+// MARK: - UITextViewDelegate
 
 extension ProfileSetupView: UITextViewDelegate {
     @objc private func textFieldDidChange() {
@@ -196,6 +198,12 @@ extension ProfileSetupView: UITextViewDelegate {
         let characterLimit = textView == usernameTextView ? 20 : 75
         let currentText: NSString = textView.text as NSString
         let updatedText = currentText.replacingCharacters(in: range, with: text)
+        
+        let isFormValid = !updatedText.filter({ $0 != " "}).isEmpty
+        
+        if textView == usernameTextView {
+            continueButton.isEnabled = isFormValid ? true : false
+        }
         
         return updatedText.count <= characterLimit
     }

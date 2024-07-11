@@ -32,9 +32,19 @@ class AuthenticationViewController: UIViewController {
     private func setupViewModel() {
         viewModel = AuthenticationViewModel()
         
-        viewModel?.onAuthenticationSuccess = { userId in
+        viewModel?.onAuthenticationSuccess = { [weak self] userId in
             Task {
                 do {
+                    if self?.viewModel?.currentAuthType.value == .googleLogin {
+                        DispatchQueue.main.async {
+                            self?.navigationController?.pushViewController(
+                                ProfileSetupViewController(),
+                                animated: true
+                            )
+                        }
+                        return
+                    }
+                    
                     let userData = try await FirestoreService.shared.fetchUserData(userId: userId)
                     
                     guard let username = userData[FirestoreKeys.Users.username] as? String else {
@@ -52,7 +62,7 @@ class AuthenticationViewController: UIViewController {
                     
                     print("Authentication successful")
                     DispatchQueue.main.async {
-                        self.navigationController?.pushViewController(HomeViewController(), animated: true)
+                        self?.navigationController?.pushViewController(HomeViewController(), animated: true)
                     }
                 }
                 catch {
@@ -61,7 +71,8 @@ class AuthenticationViewController: UIViewController {
             }
         }
         
-        viewModel?.onAuthenticationFailure = { error in
+        viewModel?.onAuthenticationFailure = { [weak self] error in
+            self?.viewModel?.currentAuthType.value = .login
             print("Authentication failed:", error.localizedDescription)
         }
     }
@@ -122,11 +133,14 @@ class AuthenticationViewController: UIViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] authType in
             switch authType {
-            case .login, .googleLogin:
+            case .login:
                 self?.showLoginView()
                     
             case .register:
                 self?.showRegisterView()
+                
+            default:
+                break
             }
         }).store(in: &cancellables)
     }
@@ -134,6 +148,7 @@ class AuthenticationViewController: UIViewController {
     // MARK: - Actions
     
     func loginWithGoogle() {
+        viewModel?.currentAuthType.value = .googleLogin
         viewModel?.performAuthentication(
             type: .googleLogin,
             viewController: self
