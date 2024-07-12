@@ -35,7 +35,9 @@ class AuthenticationViewController: UIViewController {
         viewModel?.onAuthenticationSuccess = { [weak self] userId in
             Task {
                 do {
-                    if self?.viewModel?.currentAuthType.value == .googleLogin {
+                    let userExists = try await FirestoreService.shared.checkIfUserExists(id: userId)
+                    
+                    if self?.viewModel?.currentAuthType.value == .googleLogin, !userExists {
                         DispatchQueue.main.async {
                             let vc = ProfileSetupViewController()
                             vc.profileSetupView.userBuilder.setId(userId)

@@ -72,6 +72,7 @@ class ProfileSetupViewController: UIViewController {
                 try await FirestoreService.shared.saveUserData(
                     userId: user.id,
                     data: [
+                        FirestoreKeys.Users.uid: user.id,
                         FirestoreKeys.Users.username: user.username,
                         FirestoreKeys.Users.bio: user.bio ?? "",
                         FirestoreKeys.Users.email: user.email ?? "",

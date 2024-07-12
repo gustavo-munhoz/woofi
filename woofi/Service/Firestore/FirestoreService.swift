@@ -22,6 +22,14 @@ class FirestoreService: FirestoreServiceProtocol {
     /// Private constructor to enforce singleton usage
     private init() {}
     
+    func checkIfUserExists(id: String) async throws -> Bool {
+        let snapshot = try await db.collection(FirestoreKeys.Users.collectionTitle)
+            .whereField(FirestoreKeys.Users.uid, isEqualTo: id)
+            .getDocuments()
+        
+        return !snapshot.isEmpty
+    }
+    
     /// Fetches user data from Firestore
     func fetchUserData(userId: String) async throws -> [String: Any] {
         return try await withCheckedThrowingContinuation { continuation in
