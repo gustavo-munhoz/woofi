@@ -10,6 +10,7 @@ import UIKit
 extension UIImage {
     enum IconKeys: String {
         case google = "google-si-icon"
+        case apple = "apple-si-icon"
     }
     
     convenience init(iconKey: IconKeys) {

@@ -20,6 +20,7 @@ class LoginView: UIView {
     }
     
     var onGoogleButtonTap: (() -> Void)?
+    var onAppleButtonTap: (() -> Void)?
     
     // MARK: - Views
     
@@ -102,6 +103,19 @@ class LoginView: UIView {
         return view
     }()
     
+    private(set) lazy var appleSignInButton: UIButton = {
+        let view = UIButton()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.setImage(UIImage(iconKey: .apple), for: .normal)
+        view.addTarget(self, action: #selector(appleButtonPress), for: .touchUpInside)
+        
+        view.layer.cornerRadius = 4
+        view.clipsToBounds = true
+        
+        return view
+    }()
+    
     // MARK: - Actions
     
     @objc func loginButtonPress() {
@@ -114,6 +128,10 @@ class LoginView: UIView {
     
     @objc func googleButtonPress() {
         onGoogleButtonTap?()
+    }
+    
+    @objc func appleButtonPress() {
+        onAppleButtonTap?()
     }
     
     private func bindViewModel() {
@@ -145,7 +163,8 @@ class LoginView: UIView {
     func addSubviews() {
         let subviews = [
             appLogo, emailTextField, passwordTextField,
-            loginButton, registerButton, googleSignInButton
+            loginButton, registerButton, 
+            googleSignInButton, appleSignInButton
         ]
         
         for view in subviews {
@@ -189,6 +208,12 @@ class LoginView: UIView {
         googleSignInButton.snp.makeConstraints { make in
             make.top.equalTo(registerButton.snp.bottom).offset(32)
             make.left.equalTo(registerButton)
+            make.width.height.equalTo(44)
+        }
+        
+        appleSignInButton.snp.makeConstraints { make in
+            make.top.equalTo(googleSignInButton)
+            make.left.equalTo(googleSignInButton.snp.right).offset(16)
             make.width.height.equalTo(44)
         }
     }
