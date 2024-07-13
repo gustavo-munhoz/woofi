@@ -98,6 +98,7 @@ class AuthenticationViewController: UIViewController {
             loginView = LoginView()
             loginView?.viewModel = viewModel
             loginView?.onGoogleButtonTap = loginWithGoogle
+            loginView?.onAppleButtonTap = loginWithApple
         }
 
         guard let loginView = loginView else { return }
@@ -155,5 +156,9 @@ class AuthenticationViewController: UIViewController {
             type: .googleLogin,
             viewController: self
         )
+    }
+    
+    func loginWithApple() {
+        
     }
 }

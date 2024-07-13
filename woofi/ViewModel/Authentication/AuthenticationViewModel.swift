@@ -79,6 +79,10 @@ class AuthenticationViewModel: NSObject {
         }
     }
     
+    private func loginWithApple() {
+        
+    }
+    
     // MARK: - Register logic
     private func registerUser() {
         let additionalData: [String:Any] = [
