@@ -83,7 +83,17 @@ class AuthenticationViewModel: NSObject {
     }
     
     private func loginWithApple() {
-        AuthenticationService.shared.signInWithApple()
+        AuthenticationService.shared.signInWithApple() { result in
+            switch result {
+            case .success(let userId):
+                print("User signed in with Apple: \(userId)")
+                self.onAuthenticationSuccess?(userId)
+                
+            case .failure(let failure):
+                print("Error signing in with Apple: \(failure.localizedDescription)")
+                self.onAuthenticationFailure?(failure)
+            }
+        }
     }
     
     // MARK: - Register logic

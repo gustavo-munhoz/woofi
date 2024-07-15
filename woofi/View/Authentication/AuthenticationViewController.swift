@@ -12,6 +12,8 @@ class AuthenticationViewController: UIViewController {
     
     private var cancellables = Set<AnyCancellable>()
     
+    private var registerableProviders: [AuthenticationType] = [.googleLogin, .appleSignIn]
+    
     var loginView: LoginView?
     var registerView: RegisterView?
     
@@ -35,14 +37,16 @@ class AuthenticationViewController: UIViewController {
         viewModel?.onAuthenticationSuccess = { [weak self] userId in
             Task {
                 do {
+                    guard let self = self else { return }
+                    
                     let userExists = try await FirestoreService.shared.checkIfUserExists(id: userId)
                     
-                    if self?.viewModel?.currentAuthType.value == .googleLogin, !userExists {
+                    if let authType = self.viewModel?.currentAuthType.value, self.registerableProviders.contains(authType), !userExists {
                         DispatchQueue.main.async {
                             let vc = ProfileSetupViewController()
                             vc.profileSetupView.userBuilder.setId(userId)
                             
-                            self?.navigationController?.pushViewController(vc, animated: true)
+                            self.navigationController?.pushViewController(vc, animated: true)
                         }
                         return
                     }
@@ -64,7 +68,7 @@ class AuthenticationViewController: UIViewController {
                     
                     print("Authentication successful")
                     DispatchQueue.main.async {
-                        self?.navigationController?.pushViewController(HomeViewController(), animated: true)
+                        self.navigationController?.pushViewController(HomeViewController(), animated: true)
                     }
                 }
                 catch {

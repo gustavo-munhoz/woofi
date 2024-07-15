@@ -18,6 +18,7 @@ class AuthenticationService: NSObject, AuthenticationServiceProtocol {
     static let shared = AuthenticationService()
     
     private var currentNonce: String?
+    private var appleSignInCompletion: ((Result<String, Error>) -> Void)?
     
     private override init() {}
     
@@ -90,7 +91,7 @@ class AuthenticationService: NSObject, AuthenticationServiceProtocol {
         }
     }
     
-    func signInWithApple() {
+    func signInWithApple(completion: @escaping (Result<String, Error>) -> Void) {
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
         
@@ -103,6 +104,8 @@ class AuthenticationService: NSObject, AuthenticationServiceProtocol {
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
+        
+        appleSignInCompletion = completion
     }
     
     // MARK: - Helper Functions
@@ -175,17 +178,17 @@ extension AuthenticationService: ASAuthorizationControllerDelegate, ASAuthorizat
             // Sign in with Firebase.
             Auth.auth().signIn(with: credential) { (authResult, error) in
                 if let error = error {
-                    print("Error authenticating: \(error.localizedDescription)")
+                    self.appleSignInCompletion?(.failure(error))
                     return
                 }
                 // User is signed in to Firebase with Apple.
-                print("User signed in with Apple: \(String(describing: authResult?.user))")
+                self.appleSignInCompletion?(.success(authResult?.user.uid ?? "null-id"))
             }
         }
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("Sign in with Apple errored: \(error)")
+        self.appleSignInCompletion?(.failure(error))
     }
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
