@@ -44,6 +44,9 @@ class AuthenticationViewModel: NSObject {
             
         case .register:
             registerUser()
+            
+        case .appleSignIn:
+            loginWithApple()
         }
     }
     
@@ -80,7 +83,7 @@ class AuthenticationViewModel: NSObject {
     }
     
     private func loginWithApple() {
-        
+        AuthenticationService.shared.signInWithApple()
     }
     
     // MARK: - Register logic

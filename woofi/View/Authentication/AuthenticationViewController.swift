@@ -85,7 +85,7 @@ class AuthenticationViewController: UIViewController {
         guard isViewLoaded, let viewModel = viewModel else { return }
         
         switch viewModel.currentAuthType.value {
-        case .login, .googleLogin:
+        case .login, .googleLogin, .appleSignIn:
             showLoginView()
                 
         case .register:
@@ -159,6 +159,7 @@ class AuthenticationViewController: UIViewController {
     }
     
     func loginWithApple() {
-        
+        viewModel?.currentAuthType.value = .appleSignIn
+        viewModel?.performAuthentication(type: .appleSignIn)
     }
 }
