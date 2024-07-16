@@ -53,8 +53,6 @@ class GroupViewController: UIViewController {
         }
     }
     
-    // mZMNzezWzygbWAMoEFI21JYl1y22
-    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -126,10 +124,15 @@ class GroupViewController: UIViewController {
             self.presentJoinGroupViewController()
         }
         
+        let leaveAction = UIAlertAction(title: "Leave group", style: .destructive) { _ in
+            self.showLeaveWarning()
+        }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alertController.addAction(inviteAction)
         alertController.addAction(joinAction)
+        alertController.addAction(leaveAction)
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
@@ -156,6 +159,24 @@ class GroupViewController: UIViewController {
         present(joinGroupVC, animated: true)
     }
 
+    private func showLeaveWarning() {
+        let alertController = UIAlertController(
+            title: "Leave Group",
+            message: "Are you sure you want to leave the group?",
+            preferredStyle: .alert
+        )
+        
+        let leaveAction = UIAlertAction(title: "Leave", style: .destructive) { [weak self] _ in
+            self?.viewModel?.leaveGroup()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alertController.addAction(leaveAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+    }
     
     private func applySnapshot(users: [User]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, User>()

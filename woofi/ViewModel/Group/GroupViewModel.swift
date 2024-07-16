@@ -47,6 +47,24 @@ class GroupViewModel: NSObject {
         navigateToUserPublisher.send(user)
     }
     
+    func leaveGroup() {
+        guard let currentUser = Session.shared.currentUser else { return }
+        currentUser.groupID = UUID().uuidString
+        
+        Task {
+            do {
+                try await FirestoreService.shared.updateUserData(
+                    userId: currentUser.id,
+                    data: [FirestoreKeys.Users.groupID: currentUser.groupID]
+                )
+                users.value = []
+                
+            } catch {
+                print("Error leaving group: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     private func setupSubscriptions() {
         Session.shared.cachedUsers
             .sink { [weak self] users in

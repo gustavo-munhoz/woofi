@@ -143,7 +143,7 @@ class JoinGroupView: UIView, UITextFieldDelegate {
         }
         
         if !string.isEmpty {
-            textField.text = string
+            textField.text = string.uppercased()
             
             if let nextField = textFields.first(where: { $0.text?.isEmpty ?? true }) {
                 nextField.becomeFirstResponder()
