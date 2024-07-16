@@ -65,9 +65,9 @@ class PetListView: UIView {
     
     private func setupConstraints() {
         petsCollectionView.snp.makeConstraints { make in
-            make.top.left.equalTo(safeAreaLayoutGuide).offset(24)
+            make.top.equalTo(safeAreaLayoutGuide).offset(24)
             make.bottom.equalTo(safeAreaLayoutGuide)
-            make.right.equalToSuperview().offset(-24)
+            make.right.left.equalToSuperview().inset(24)
         }
     }
     

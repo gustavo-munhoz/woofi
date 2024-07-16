@@ -86,6 +86,9 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
                     isTall: self.viewModel?.pets.value.count ?? 1 <= 2
                 )
                 
+                let interaction = UIContextMenuInteraction(delegate: self)
+                cell?.addInteraction(interaction)                
+                
                 return cell
             }
         )
@@ -166,3 +169,18 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
     }
 }
 
+extension PetListViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(actionProvider: { suggestedActions in
+            let editAction = UIAction(title: "Edit pet", image: UIImage(systemName: "square.and.pencil")) { action in
+                print("Action 1 selected")
+            }
+            
+            let deleteAction = UIAction(title: "Delete pet", image: UIImage(systemName: "trash"), attributes: [.destructive]) { action in
+                print("Action 2 selected")
+            }
+            
+            return UIMenu(title: "", children: [editAction, deleteAction])
+        })
+    }
+}
