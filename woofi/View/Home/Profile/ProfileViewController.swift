@@ -26,6 +26,7 @@ class ProfileViewController: UserViewController {
         guard let user = Session.shared.currentUser else { fatalError("User is not authenticated.") }
         setupViewModel(with: user)
         viewModel?.listenToUserUpdates()
+        viewModel?.loadProfilePicture()
     }
     
     override func viewWillAppear(_ animated: Bool) {

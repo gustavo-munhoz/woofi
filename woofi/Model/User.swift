@@ -99,7 +99,7 @@ class User: Hashable, Codable {
         groupID = try container.decodeIfPresent(String.self, forKey: .groupID) ?? UUID().uuidString
         localProfilePicturePath = try container.decodeIfPresent(String.self, forKey: .localProfilePicturePath)
         remoteProfilePicturePath = try container.decodeIfPresent(String.self, forKey: .remoteProfilePicturePath)
-        stats = UserTaskStat.createAllWithZeroValue() //try container.decode([UserTaskStat].self, forKey: .stats)
+        stats = try container.decode([UserTaskStat].self, forKey: .stats)
     }
     
     func encode(to encoder: Encoder) throws {

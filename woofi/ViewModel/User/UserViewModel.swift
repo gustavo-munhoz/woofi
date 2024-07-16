@@ -68,4 +68,22 @@ class UserViewModel: NSObject {
             }
         }
     }
+    
+    func loadProfilePicture() {
+        Task {
+            guard let path = user.remoteProfilePicturePath,
+                  let url = URL(string: path) else {
+                print("Could not generate URL from user remote path.")
+                return
+            }
+            do {
+                let picture = try await FirestoreService.shared.fetchImage(from: url)
+                user.setProfilePicture(picture)
+                userPublisher.send(user)
+                
+            } catch {
+                print("Error fetching profile picture: \(error.localizedDescription)")
+            }
+        }
+    }
 }
