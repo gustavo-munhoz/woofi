@@ -124,15 +124,18 @@ class GroupViewController: UIViewController {
             self.presentJoinGroupViewController()
         }
         
-        let leaveAction = UIAlertAction(title: "Leave group", style: .destructive) { _ in
-            self.showLeaveWarning()
-        }
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alertController.addAction(inviteAction)
         alertController.addAction(joinAction)
-        alertController.addAction(leaveAction)
+        
+        if let vm = viewModel, !vm.users.value.isEmpty {
+            let leaveAction = UIAlertAction(title: "Leave group", style: .destructive) { _ in
+                self.showLeaveWarning()
+            }
+            alertController.addAction(leaveAction)
+        }
+        
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
