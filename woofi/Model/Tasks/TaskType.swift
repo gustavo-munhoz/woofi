@@ -11,10 +11,9 @@ import Foundation
 enum TaskType: String, CaseIterable, Codable {
     case walk
     case feed
-    case bath
     case brush
+    case bath
     case vet
-       
     
     var localizedDescription: String {
         switch self {

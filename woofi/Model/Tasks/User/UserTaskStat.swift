@@ -50,12 +50,29 @@ class UserTaskStat: Hashable, Codable {
     static func createFromDictionary(_ dict: [String: Int]) -> [UserTaskStat] {
         var stats = [UserTaskStat]()
         
-//        for (key, value) in dict {
-//            if let taskType = TaskType(rawValue: key) {
-//                stats.append(UserTaskStat(task: taskType, value: value))
-//            }
-//        }
+        for (key, value) in dict {
+            if let taskType = TaskType(rawValue: key) {
+                stats.append(UserTaskStat(task: taskType, value: value))
+            }
+        }
         
-        return stats
+        return stats.sortedByDefinedOrder()
+    }
+}
+
+extension Array where Element: UserTaskStat {
+    func sortedByDefinedOrder() -> [UserTaskStat] {
+        let definedOrder: [TaskType] = TaskType.allCases
+        let orderDict = definedOrder.enumerated().reduce(into: [TaskType: Int]()) { result, tuple in
+            result[tuple.element] = tuple.offset
+        }
+        
+        return self.sorted {
+            guard let firstOrder = orderDict[$0.task],
+                  let secondOrder = orderDict[$1.task] else {
+                return false
+            }
+            return firstOrder < secondOrder
+        }
     }
 }
