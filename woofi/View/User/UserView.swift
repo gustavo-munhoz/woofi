@@ -41,6 +41,7 @@ class UserView: UIView {
         
         view.tintColor = .primary
         view.clipsToBounds = true
+        view.contentMode = .scaleAspectFill
         
         return view
     }()

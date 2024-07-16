@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 class Session {
     private var cancellables = Set<AnyCancellable>()
@@ -16,6 +17,18 @@ class Session {
     private init() {
         if let user = UserDefaults.standard.loadUser() {
             self.currentUser = user
+            
+            if let path = currentUser?.remoteProfilePicturePath,
+               let url = URL(string: path) {
+                Task {
+                    do {
+                        let image = try await FirestoreService.shared.fetchImage(from: url)
+                        currentUser?.profilePicture = image
+                    } catch {
+                        print("Error fetching profile picture: \(error.localizedDescription)")
+                    }
+                }
+            }
         }
     }
     

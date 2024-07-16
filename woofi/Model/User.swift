@@ -23,7 +23,11 @@ class User: Hashable, Codable {
         didSet { savePersistedChanges() }
     }
     
-    var profilePicturePath: String? {
+    var localProfilePicturePath: String? {
+        didSet { savePersistedChanges() }
+    }
+    
+    var remoteProfilePicturePath: String? {
         didSet { savePersistedChanges() }
     }
     
@@ -37,26 +41,27 @@ class User: Hashable, Codable {
     
     var profilePicture: UIImage? {
         get {
-            guard let path = profilePicturePath else { return nil }
+            guard let path = localProfilePicturePath else { return nil }
             return UIImage(contentsOfFile: path)
         }
         set {
             if let image = newValue {
                 let path = saveImageToDisk(image)
-                profilePicturePath = path
+                localProfilePicturePath = path
+                print("Local path updated: \(String(describing: path))")
             } else {
-                profilePicturePath = nil
+                localProfilePicturePath = nil
             }
         }
     }
     
-    init(id: String, username: String, bio: String? = nil, email: String? = nil, groupID: String = UUID().uuidString, profilePicturePath: String? = nil) {
+    init(id: String, username: String, bio: String? = nil, email: String? = nil, groupID: String = UUID().uuidString, localProfilePicturePath: String? = nil) {
         self.id = id
         self.username = username
         self.bio = bio
         self.email = email
         self.groupID = groupID
-        self.profilePicturePath = profilePicturePath
+        self.localProfilePicturePath = localProfilePicturePath
         self.stats = UserTaskStat.createAllWithZeroValue()
     }
     
@@ -78,7 +83,8 @@ class User: Hashable, Codable {
         case bio
         case email
         case groupID
-        case profilePicturePath
+        case localProfilePicturePath
+        case remoteProfilePicturePath
         case stats
     }
     
@@ -89,7 +95,8 @@ class User: Hashable, Codable {
         bio = try container.decodeIfPresent(String.self, forKey: .bio)
         email = try container.decodeIfPresent(String.self, forKey: .email)
         groupID = try container.decodeIfPresent(String.self, forKey: .groupID) ?? UUID().uuidString
-        profilePicturePath = try container.decodeIfPresent(String.self, forKey: .profilePicturePath)
+        localProfilePicturePath = try container.decodeIfPresent(String.self, forKey: .localProfilePicturePath)
+        remoteProfilePicturePath = try container.decodeIfPresent(String.self, forKey: .remoteProfilePicturePath)
         stats = try container.decode([UserTaskStat].self, forKey: .stats)
     }
     
@@ -100,7 +107,8 @@ class User: Hashable, Codable {
         try container.encode(bio, forKey: .bio)
         try container.encode(email, forKey: .email)
         try container.encode(groupID, forKey: .groupID)
-        try container.encode(profilePicturePath, forKey: .profilePicturePath)
+        try container.encode(localProfilePicturePath, forKey: .localProfilePicturePath)
+        try container.encode(remoteProfilePicturePath, forKey: .remoteProfilePicturePath)
         try container.encode(stats, forKey: .stats)
     }
     

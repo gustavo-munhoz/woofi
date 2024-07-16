@@ -76,10 +76,14 @@ class ProfileSetupViewController: UIViewController {
                         FirestoreKeys.Users.username: user.username,
                         FirestoreKeys.Users.bio: user.bio ?? "",
                         FirestoreKeys.Users.email: user.email ?? "",
-                        FirestoreKeys.Users.groupID: user.groupID,
-                        FirestoreKeys.Users.profileImageUrl: user.profilePicturePath ?? "",
+                        FirestoreKeys.Users.groupID: user.groupID
                     ]
                 )
+                
+                if let picture = user.profilePicture {
+                    let path = try await FirestoreService.shared.saveProfileImage(userID: user.id, image: picture)
+                    user.remoteProfilePicturePath = path
+                }
             }
             
             navigateToHome()

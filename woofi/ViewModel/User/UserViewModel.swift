@@ -46,6 +46,7 @@ class UserViewModel: NSObject {
                     userID: user.id,
                     image: image
                 )
+                user.remoteProfilePicturePath = profileImageUrl
                 userPublisher.send(user)
                 print("User profile image URL updated successfully: \(profileImageUrl)")
             } catch (let error) {

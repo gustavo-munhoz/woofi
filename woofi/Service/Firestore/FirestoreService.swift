@@ -75,7 +75,7 @@ class FirestoreService: FirestoreServiceProtocol {
                             let image = try await fetchImage(from: url)
                             user.profilePicture = image
                         } catch {
-                            print("Error fetching profile picture: \(error.localizedDescription)")
+                            print("Error fetching profile picture for user \(id): \(error.localizedDescription)")
                         }
                     }
                     
@@ -319,7 +319,7 @@ class FirestoreService: FirestoreServiceProtocol {
         petListeners.append(listener)
     }
 
-    private func fetchImage(from url: URL) async throws -> UIImage {
+    func fetchImage(from url: URL) async throws -> UIImage {
         let (data, _) = try await URLSession.shared.data(from: url)
         if let image = UIImage(data: data) {
             return image

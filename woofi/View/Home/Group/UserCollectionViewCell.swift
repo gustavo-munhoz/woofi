@@ -70,9 +70,9 @@ class UserCollectionViewCell: UICollectionViewCell {
     }
     
     func addSubviews() {
-            addSubview(profilePicture)
-            addSubview(titleLabel)
-            addSubview(descriptionLabel)
+        addSubview(profilePicture)
+        addSubview(titleLabel)
+        addSubview(descriptionLabel)
     }
     
     func setupConstraints() {
