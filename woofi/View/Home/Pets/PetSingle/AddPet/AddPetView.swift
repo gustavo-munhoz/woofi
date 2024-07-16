@@ -80,6 +80,8 @@ class AddPetView: UIView {
         addSubviews()
         setupConstraints()
         setupTextFieldObservers()
+        setupTapGesture()
+        setupKeyboardObservers()
     }
     
     required init?(coder: NSCoder) {
@@ -92,21 +94,6 @@ class AddPetView: UIView {
         addSubview(breedTextField)
         addSubview(ageTextField)
         addSubview(createPetButton)
-    }
-    
-    private func setupTextFieldObservers() {
-        nameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        breedTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        ageTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-    }
-    
-    @objc private func textFieldDidChange() {
-        let isFormValid = !(nameTextField.text?.isEmpty ?? true) &&
-        !(breedTextField.text?.isEmpty ?? true) &&
-        !(ageTextField.text?.isEmpty ?? true)
-        
-        createPetButton.isEnabled = isFormValid
-        createPetButton.backgroundColor = isFormValid ? .systemBlue : .systemGray
     }
     
     private func setupConstraints() {
@@ -134,9 +121,81 @@ class AddPetView: UIView {
         }
         
         createPetButton.snp.makeConstraints { make in
-            make.bottom.equalTo(safeAreaLayoutGuide).offset(-30)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(30)
             make.left.right.equalTo(nameTextField)
             make.height.equalTo(50)
         }
+    }
+    
+    private func setupTextFieldObservers() {
+        nameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        breedTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        ageTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+    
+    @objc private func textFieldDidChange() {
+        let isFormValid = !(nameTextField.text?.isEmpty ?? true) &&
+        !(breedTextField.text?.isEmpty ?? true) &&
+        !(ageTextField.text?.isEmpty ?? true)
+        
+        createPetButton.isEnabled = isFormValid
+        createPetButton.backgroundColor = isFormValid ? .systemBlue : .systemGray
+    }
+    
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        self.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleTap() {
+        endEditing(true)
+    }
+    
+    private func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(notification:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(notification:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo,
+           let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let keyboardHeight = keyboardFrame.height
+            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.25
+            
+            UIView.animate(withDuration: duration) {
+                self.createPetButton.snp.updateConstraints { make in
+                    make.bottom.equalTo(self.safeAreaLayoutGuide).inset(keyboardHeight + 10)
+                }
+                self.layoutIfNeeded()
+            }
+        }
+    }
+
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.25
+            
+            UIView.animate(withDuration: duration) {
+                self.createPetButton.snp.updateConstraints { make in
+                    make.bottom.equalTo(self.safeAreaLayoutGuide).inset(30)
+                }
+                self.layoutIfNeeded()
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
