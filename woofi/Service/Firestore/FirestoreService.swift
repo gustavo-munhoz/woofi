@@ -79,6 +79,10 @@ class FirestoreService: FirestoreServiceProtocol {
                         }
                     }
                     
+                    if let statsData = data[FirestoreKeys.Users.Stats.title] as? [String: Int] {
+                        user.stats = UserTaskStat.createFromDictionary(statsData)
+                    }
+                    
                     users.append(user)
                 }
             }
@@ -102,6 +106,41 @@ class FirestoreService: FirestoreServiceProtocol {
     func updateUserData(userId: String, data: [String: Any]) async throws {
         let documentRef = db.collection(FirestoreKeys.Users.collectionTitle).document(userId)
         try await documentRef.updateData(data)
+    }
+    
+    func updateUserStats(for user: User) async throws {
+        var data: [String: Any] = [:]
+        
+        let tasks: [TaskType] = [.walk, .feed, .brush, .bath, .vet]
+        
+        for task in tasks {
+            if let stat = user.stats.first(where: { $0.task == task }) {
+                switch task {
+                case .walk:
+                    data[FirestoreKeys.Users.Stats.walk] = stat.value
+                case .feed:
+                    data[FirestoreKeys.Users.Stats.feed] = stat.value
+                case .brush:
+                    data[FirestoreKeys.Users.Stats.brush] = stat.value
+                case .bath:
+                    data[FirestoreKeys.Users.Stats.bath] = stat.value
+                case .vet:
+                    data[FirestoreKeys.Users.Stats.vet] = stat.value
+                }
+            }
+        }
+        
+        let dataWrapper = [FirestoreKeys.Users.Stats.title: data]
+        
+        if !data.isEmpty {
+            try await self.updateUserData(userId: user.id, data: dataWrapper)
+        } else {
+            throw NSError(
+                domain: "UpdateUserStatsError",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "No stats available to update."]
+            )
+        }
     }
     
     /// Removes a user from Firestore
@@ -196,7 +235,7 @@ class FirestoreService: FirestoreServiceProtocol {
         db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).delete(completion: completion)
     }
     
-    func updateTaskInstance(petID: String, frequency: TaskFrequency, taskGroupID: UUID, taskInstance: PetTaskInstance, completion: @escaping (Error?) -> Void) {
+    func updateTaskInstance(petID: String, frequency: TaskFrequency, petTaskGroup: PetTaskGroup, taskInstance: PetTaskInstance, completion: @escaping (Error?) -> Void) {
         let petRef = db.collection(FirestoreKeys.Pets.collectionTitle).document(petID)
         
         let taskGroupField: String
@@ -219,7 +258,7 @@ class FirestoreService: FirestoreServiceProtocol {
             
             var taskGroups = petData[taskGroupField] as? [[String: Any]] ?? []
             
-            if let taskGroupIndex = taskGroups.firstIndex(where: { ($0["id"] as? String) == taskGroupID.uuidString }) {
+            if let taskGroupIndex = taskGroups.firstIndex(where: { ($0["id"] as? String) == petTaskGroup.id.uuidString }) {
                 var taskGroup = taskGroups[taskGroupIndex]
                 
                 var instances = taskGroup["instances"] as? [[String: Any]] ?? []
@@ -227,7 +266,9 @@ class FirestoreService: FirestoreServiceProtocol {
                 if let taskInstanceIndex = instances.firstIndex(where: { ($0["id"] as? String) == taskInstance.id.uuidString }) {
                     do {
                         let jsonData = try JSONEncoder().encode(taskInstance)
-                        if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                        if var jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                            jsonObject["frequency"] = frequency.rawValue
+                            jsonObject["task"] = petTaskGroup.task.rawValue
                             instances[taskInstanceIndex] = jsonObject
                         }
                     } catch {
@@ -237,7 +278,9 @@ class FirestoreService: FirestoreServiceProtocol {
                 } else {
                     do {
                         let jsonData = try JSONEncoder().encode(taskInstance)
-                        if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                        if var jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                            jsonObject["frequency"] = frequency.rawValue
+                            jsonObject["task"] = petTaskGroup.task.rawValue
                             instances.append(jsonObject)
                         }
                     } catch {
@@ -249,10 +292,12 @@ class FirestoreService: FirestoreServiceProtocol {
                 taskGroup["instances"] = instances
                 taskGroups[taskGroupIndex] = taskGroup
             } else {
-                var newTaskGroup: [String: Any] = ["id": taskGroupID.uuidString, "frequency": frequency]
+                var newTaskGroup: [String: Any] = ["id": petTaskGroup.id.uuidString, "frequency": frequency]
                 do {
                     let jsonData = try JSONEncoder().encode(taskInstance)
-                    if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                    if var jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                        jsonObject["frequency"] = frequency.rawValue
+                        jsonObject["task"] = petTaskGroup.task.rawValue
                         newTaskGroup["instances"] = [jsonObject]
                     }
                 } catch {
@@ -295,7 +340,7 @@ class FirestoreService: FirestoreServiceProtocol {
                         
                         let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                         let pet = try JSONDecoder().decode(Pet.self, from: jsonData)
-                                                
+                        
                         if let pictureURLString = pet.pictureURL,
                            let pictureURL = URL(string: pictureURLString) {
                             do {

@@ -25,6 +25,7 @@ class ProfileViewController: UserViewController {
         
         guard let user = Session.shared.currentUser else { fatalError("User is not authenticated.") }
         setupViewModel(with: user)
+        viewModel?.listenToUserUpdates()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +40,7 @@ class ProfileViewController: UserViewController {
                 self.userView.profileImageView.image = $0.profilePicture
                 self.userView.nameTextField.text = $0.username
                 self.userView.bioTextField.text = $0.bio
+                self.userView.statsCollectionView.reloadData()
                 print("Updated profile user.")
             }
             .store(in: &cancellables)

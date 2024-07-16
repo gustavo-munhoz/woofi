@@ -17,6 +17,23 @@ class UserTaskStat: Hashable, Codable {
         self.value = value
     }
     
+    enum CodingKeys: String, CodingKey {
+        case task
+        case value
+    }
+    
+    required init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.task = try container.decode(TaskType.self, forKey: .task)
+        self.value = try container.decode(Int.self, forKey: .value)
+    }
+    
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.task, forKey: .task)
+        try container.encode(self.value, forKey: .value)
+    }
+    
     static func == (lhs: UserTaskStat, rhs: UserTaskStat) -> Bool {
         return lhs.task == rhs.task && lhs.value == rhs.value
     }
@@ -27,23 +44,18 @@ class UserTaskStat: Hashable, Codable {
     }
     
     static func createAllWithZeroValue() -> [UserTaskStat] {
-        [
-            .init(
-                task: .walk,
-                value: 0
-            ),
-            .init(
-                task: .feed,
-                value: 0
-            ),
-            .init(
-                task: .bath,
-                value: 0
-            ),
-            .init(
-                task: .vet,
-                value: 0
-            )
-        ]
+        return TaskType.allCases.compactMap { UserTaskStat(task: $0, value: 0) }
+    }
+    
+    static func createFromDictionary(_ dict: [String: Int]) -> [UserTaskStat] {
+        var stats = [UserTaskStat]()
+        
+//        for (key, value) in dict {
+//            if let taskType = TaskType(rawValue: key) {
+//                stats.append(UserTaskStat(task: taskType, value: value))
+//            }
+//        }
+        
+        return stats
     }
 }

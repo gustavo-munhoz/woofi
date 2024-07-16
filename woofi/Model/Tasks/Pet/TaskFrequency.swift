@@ -8,7 +8,7 @@
 import Foundation
 
 /// Defines how often a task can be completed.
-enum TaskFrequency: Codable {
+enum TaskFrequency: String, Codable {
     case daily
     case weekly
     case monthly

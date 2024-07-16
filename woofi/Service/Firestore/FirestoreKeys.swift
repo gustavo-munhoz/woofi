@@ -21,6 +21,15 @@ struct FirestoreKeys {
         static let username = "username"
         static let groupID = "groupID"
         static let profileImageUrl = "profileImageUrl"
+        
+        struct Stats {
+            static let title = "stats"
+            static let walk = "walk"
+            static let feed = "feed"
+            static let brush = "brush"
+            static let bath = "bath"
+            static let vet = "vet"
+        }
     }
     
     struct Pets {

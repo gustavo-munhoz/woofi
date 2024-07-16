@@ -194,13 +194,13 @@ class PetTaskInstanceView: UIView {
     private func updateTaskInstanceInFirestore() {
         guard let petID = pet?.id,
               let frequency = frequency,
-              let taskGroupID = taskGroup?.id,
+              let taskGroup = taskGroup,
               let taskInstance = taskInstance else { return }
         
         FirestoreService.shared.updateTaskInstance(
             petID: petID,
             frequency: frequency,
-            taskGroupID: taskGroupID,
+            petTaskGroup: taskGroup,
             taskInstance: taskInstance
         ) { error in
             if let error = error {
@@ -215,10 +215,12 @@ class PetTaskInstanceView: UIView {
         guard let taskInstance = taskInstance,
               taskInstance.completed,
               let taskType = taskGroup?.task,
-              let petName = pet?.name else { return }
+              let petName = pet?.name,
+              let user = Session.shared.currentUser
+        else { return }
         
-        let userID = Session.shared.currentUser?.id ?? ""
-        let groupID = Session.shared.currentUser?.groupID ?? ""
+        let userID = user.id
+        let groupID = user.groupID
         
         print("Requesting notification for: \n-groupID: \(groupID)\n-userID: \(userID)\n-taskType: \(taskType)\n-petName: \(petName)")
         
@@ -228,5 +230,27 @@ class PetTaskInstanceView: UIView {
             taskType: taskType,
             petName: petName
         )
+        
+        increaseUserStat(for: taskType)
+    }
+    
+    private func increaseUserStat(for taskType: TaskType) {
+        guard let user = Session.shared.currentUser else { return }
+        
+        user.stats = user.stats.map { stat in
+            if stat.task == taskType {
+                stat.value += 1
+            }
+            return stat
+        }
+        user.publishSelf()
+        
+        Task {
+            do {
+                try await FirestoreService.shared.updateUserStats(for: user)
+            } catch {
+                print("Error updating user stats: \(error.localizedDescription)")
+            }
+        }
     }
 }

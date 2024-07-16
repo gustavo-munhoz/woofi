@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 class UserViewController: UIViewController, UICollectionViewDelegate {
     
+    private var cancellables = Set<AnyCancellable>()
     internal var userView = UserView()
     var viewModel: UserViewModel?
     
@@ -69,7 +71,6 @@ extension UserViewController: UICollectionViewDataSource {
         }
         
         cell.setup(with: viewModel.user.stats[indexPath.item])
-        print("Set up cell \(indexPath.item) for task \(cell.statDescriptionLabel.text!)")
         
         return cell
     }

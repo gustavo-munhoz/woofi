@@ -27,6 +27,7 @@ class UserView: UIView {
         setupConstraints()
         
         backgroundColor = .systemBackground
+        
     }
     
     required init?(coder: NSCoder) {
@@ -106,9 +107,11 @@ class UserView: UIView {
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
         
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isScrollEnabled = false
+        
         return collectionView
     }()
     
@@ -154,7 +157,7 @@ class UserView: UIView {
         statsCollectionView.snp.makeConstraints { make in
             make.centerX.left.right.equalTo(statsLabel)
             make.top.equalTo(statsLabel.snp.bottom).offset(16)
-            make.height.equalToSuperview().dividedBy(3.13)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(12)
         }
     }
 }

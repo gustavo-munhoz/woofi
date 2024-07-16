@@ -8,14 +8,15 @@
 import Foundation
 
 /// Defines the types of Tasks that users can add to their pets.
-enum TaskType: Codable {
+enum TaskType: String, CaseIterable, Codable {
     case walk
     case feed
     case bath
     case brush
     case vet
+       
     
-    var description: String {
+    var localizedDescription: String {
         switch self {
         case .walk:
             return LocalizedString.Tasks.walk

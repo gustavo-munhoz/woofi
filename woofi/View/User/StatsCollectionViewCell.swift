@@ -52,12 +52,8 @@ class StatsCollectionViewCell: UICollectionViewCell {
     }
     
     func addSubviews() {
-        [
-            statValueLabel,
-            statDescriptionLabel
-        ].forEach { v in
-            addSubview(v)
-        }
+        addSubview(statValueLabel)
+        addSubview(statDescriptionLabel)
     }
     
     func setupConstraints() {
@@ -76,7 +72,7 @@ class StatsCollectionViewCell: UICollectionViewCell {
     
     func setup(with stat: UserTaskStat) {
         statValueLabel.text = "\(stat.value)"
-        statDescriptionLabel.text = stat.task.description
+        statDescriptionLabel.text = stat.task.localizedDescription
         
         addSubviews()
         setupConstraints()

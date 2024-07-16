@@ -9,14 +9,28 @@ import UIKit
 import Combine
 
 class UserViewModel: NSObject {
-    var user: User
+    
+    var user: User        
+    
+    private var cancellables = Set<AnyCancellable>()
     
     private(set) var userPublisher = PassthroughSubject<User, Never>()
     
     init(user: User) {
         self.user = user
     }
-        
+    
+    func listenToUserUpdates() {
+        print("Listening to user updates on UserViewModel.")
+        user.updatePublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] updatedUser in
+                self?.user = updatedUser
+                self?.userPublisher.send(updatedUser)
+            }
+            .store(in: &cancellables)
+    }
+    
     func updateUser(username: String?, bio: String?) {
         guard let name = username, let bio = bio else { return }
         

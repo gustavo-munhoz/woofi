@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 class User: Hashable, Codable {
+    
+    private(set) var updatePublisher = PassthroughSubject<User, Never>()
     
     let id: String
     
@@ -48,7 +51,6 @@ class User: Hashable, Codable {
             if let image = newValue {
                 let path = saveImageToDisk(image)
                 localProfilePicturePath = path
-                print("Local path updated: \(String(describing: path))")
             } else {
                 localProfilePicturePath = nil
             }
@@ -97,7 +99,7 @@ class User: Hashable, Codable {
         groupID = try container.decodeIfPresent(String.self, forKey: .groupID) ?? UUID().uuidString
         localProfilePicturePath = try container.decodeIfPresent(String.self, forKey: .localProfilePicturePath)
         remoteProfilePicturePath = try container.decodeIfPresent(String.self, forKey: .remoteProfilePicturePath)
-        stats = try container.decode([UserTaskStat].self, forKey: .stats)
+        stats = UserTaskStat.createAllWithZeroValue() //try container.decode([UserTaskStat].self, forKey: .stats)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -129,5 +131,10 @@ class User: Hashable, Codable {
             print("Error saving image to disk: \(error)")
             return nil
         }
+    }
+    
+    func publishSelf() {
+        print("Sending user update.")
+        updatePublisher.send(self)
     }
 }
