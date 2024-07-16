@@ -20,12 +20,11 @@ class ProfileViewController: UserViewController {
     }
     
     // MARK: - Class Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-    /// Creates a `ProfileViewController` based on `Session.shared.currentUser`.
-    convenience init() {
         guard let user = Session.shared.currentUser else { fatalError("User is not authenticated.") }
-        
-        self.init(user: user)
+        setupViewModel(with: user)
     }
     
     override func viewWillAppear(_ animated: Bool) {

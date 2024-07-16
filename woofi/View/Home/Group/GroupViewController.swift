@@ -103,7 +103,10 @@ class GroupViewController: UIViewController {
         viewModel?.navigateToUserPublisher
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] user in
-                self?.navigationController?.pushViewController(UserViewController(user: user), animated: true)
+                let vc = UserViewController()
+                vc.setupViewModel(with: user)
+                
+                self?.navigationController?.pushViewController(vc, animated: true)
             })
             .store(in: &cancellables)
     }
