@@ -30,7 +30,7 @@ class PetView: UIView {
         view.clipsToBounds = true
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor.primary.cgColor
-        view.contentMode = .scaleToFill
+        view.contentMode = .scaleAspectFill
         
         return view
     }()
