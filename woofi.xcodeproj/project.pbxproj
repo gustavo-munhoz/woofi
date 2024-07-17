@@ -90,6 +90,8 @@
 		B3B9806C2C3F73B600520A3F /* ProfileSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9806B2C3F73B600520A3F /* ProfileSetupView.swift */; };
 		B3B9806F2C3F73CB00520A3F /* ProfileSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9806E2C3F73CB00520A3F /* ProfileSetupViewController.swift */; };
 		B3B980752C409C2200520A3F /* UserBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B980742C409C2200520A3F /* UserBuilder.swift */; };
+		B3FC79852C47D5B700CBC03D /* EditPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79842C47D5B700CBC03D /* EditPetView.swift */; };
+		B3FC79872C47D70100CBC03D /* EditPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79862C47D70100CBC03D /* EditPetViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -179,6 +181,8 @@
 		B3B9806B2C3F73B600520A3F /* ProfileSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupView.swift; sourceTree = "<group>"; };
 		B3B9806E2C3F73CB00520A3F /* ProfileSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupViewController.swift; sourceTree = "<group>"; };
 		B3B980742C409C2200520A3F /* UserBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBuilder.swift; sourceTree = "<group>"; };
+		B3FC79842C47D5B700CBC03D /* EditPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPetView.swift; sourceTree = "<group>"; };
+		B3FC79862C47D70100CBC03D /* EditPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPetViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,6 +387,7 @@
 		B31D31C32BF303EA00CE903A /* PetSingle */ = {
 			isa = PBXGroup;
 			children = (
+				B3FC79832C47D5AB00CBC03D /* Editing */,
 				B35CC3892C07F305007FBEFC /* AddPet */,
 				B35CC36F2BFD3661007FBEFC /* Helper */,
 				B35CC36E2BFD3653007FBEFC /* Collection */,
@@ -604,6 +609,15 @@
 			path = Builder;
 			sourceTree = "<group>";
 		};
+		B3FC79832C47D5AB00CBC03D /* Editing */ = {
+			isa = PBXGroup;
+			children = (
+				B3FC79842C47D5B700CBC03D /* EditPetView.swift */,
+				B3FC79862C47D70100CBC03D /* EditPetViewController.swift */,
+			);
+			path = Editing;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -705,6 +719,7 @@
 				B31D301B2BEC1C3C00CE903A /* HomeViewModel.swift in Sources */,
 				B31D31DE2BFC5CAF00CE903A /* PetTaskInstanceView.swift in Sources */,
 				B354B66D2C2B57AF00CEA618 /* Data+base36EncodedString.swift in Sources */,
+				B3FC79872C47D70100CBC03D /* EditPetViewController.swift in Sources */,
 				B3B9806F2C3F73CB00520A3F /* ProfileSetupViewController.swift in Sources */,
 				B3B9805C2C3DB21A00520A3F /* EditProfileViewController.swift in Sources */,
 				B30623072BE8842F009441CB /* GroupView.swift in Sources */,
@@ -760,6 +775,7 @@
 				B31D31E32BFD284900CE903A /* Session.swift in Sources */,
 				B35CC38B2C07F32E007FBEFC /* AddPetView.swift in Sources */,
 				B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */,
+				B3FC79852C47D5B700CBC03D /* EditPetView.swift in Sources */,
 				B30623152BEAFA1B009441CB /* UIColor+Primary.swift in Sources */,
 				B31D31DC2BFC57F100CE903A /* PetTaskGroupView.swift in Sources */,
 				B354B66F2C2B740F00CEA618 /* Notification+groupIDDidChange.swift in Sources */,
