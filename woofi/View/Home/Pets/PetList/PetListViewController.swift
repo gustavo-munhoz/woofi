@@ -171,16 +171,31 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
 
 extension PetListViewController: UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        return UIContextMenuConfiguration(actionProvider: { suggestedActions in
-            let editAction = UIAction(title: "Edit pet", image: UIImage(systemName: "square.and.pencil")) { action in
-                print("Action 1 selected")
+        guard let indexPath = petListView.petsCollectionView.indexPathForItem(at: location),
+              let viewModel = viewModel,
+              indexPath.row < viewModel.pets.value.count else {
+            return nil
+        }
+        
+        let pet = viewModel.pets.value[indexPath.row]
+        
+        return UIContextMenuConfiguration(actionProvider: { [weak self] suggestedActions in
+            let editAction = UIAction(title: "Edit pet", image: UIImage(systemName: "square.and.pencil")) { _ in
+                self?.presentPetEditView(for: pet)
             }
             
-            let deleteAction = UIAction(title: "Delete pet", image: UIImage(systemName: "trash"), attributes: [.destructive]) { action in
+            let deleteAction = UIAction(title: "Delete pet", image: UIImage(systemName: "trash"), attributes: [.destructive]) { _ in
                 print("Action 2 selected")
             }
             
             return UIMenu(title: "", children: [editAction, deleteAction])
         })
+    }
+    
+    func presentPetEditView(for pet: Pet) {
+        let vc = EditPetViewController()
+        vc.setViewModel(PetViewModel(pet: pet))
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
