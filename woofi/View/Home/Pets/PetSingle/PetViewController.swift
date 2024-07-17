@@ -193,36 +193,8 @@ extension PetViewController: UIImagePickerControllerDelegate, UINavigationContro
         picker.dismiss(animated: true, completion: nil)
         if let selectedImage = info[.originalImage] as? UIImage {
             petView.petPicture.image = selectedImage
-            viewModel.pet.picture = selectedImage
-                        
-            guard let imageData = selectedImage.jpegData(compressionQuality: 0.8) else { return }
-            let storageRef = Storage.storage().reference().child("pet_images").child("\(viewModel.pet.id).jpg")
-            
-            storageRef.putData(imageData, metadata: nil) { (metadata, error) in
-                if let error = error {
-                    print("Error uploading image: \(error.localizedDescription)")
-                    return
-                }
-                
-                storageRef.downloadURL { (url, error) in
-                    if let error = error {
-                        print("Error getting download URL: \(error.localizedDescription)")
-                        return
-                    }
-                    
-                    guard let downloadURL = url else { return }
-                    
-                    
-                    FirestoreService.shared.updatePetData(
-                        petId: self.viewModel.pet.id,
-                        data: ["pictureURL": downloadURL.absoluteString]
-                    ) { error in
-                        if let error = error {
-                            print("Error updating pet image URL: \(error.localizedDescription)")
-                        }
-                    }
-                }
-            }
+    
+            viewModel.updatePetPicture(selectedImage)
         }
     }
 
