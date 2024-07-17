@@ -15,12 +15,13 @@ class EditPetView: UIView {
     weak var viewModel: PetViewModel?
     
     var onPictureButtonTapped: (() -> Void)?
+    var onDeleteButtonTapped: (() -> Void)?
     
     // MARK: - Subviews
     
     private(set) lazy var changePictureButton: UIButton = {
         var config = UIButton.Configuration.bordered()
-        config.image = UIImage(systemName: "person.crop.circle")
+        config.image = UIImage(systemName: "dog.circle")
         config.preferredSymbolConfigurationForImage = .init(pointSize: 32)
         config.imagePadding = 24
         config.baseForegroundColor = .primary
@@ -90,6 +91,20 @@ class EditPetView: UIView {
         EditStackView(title: "Pet Age", editView: petAgeTextView)
     }()
     
+    private(set) lazy var deleteButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        config.baseForegroundColor = .systemRed
+        config.attributedTitle = AttributedString("Delete pet", attributes: AttributeContainer([
+            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body)
+        ]))
+        
+        let view = UIButton(configuration: config)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addTarget(self, action: #selector(handleDeleteButtonTap), for: .touchUpInside)
+        
+        return view
+    }()
+    
     // MARK: - Class Methods
     
     override init(frame: CGRect) {
@@ -110,11 +125,12 @@ class EditPetView: UIView {
         addSubview(petNameStackView)
         addSubview(petBreedStackView)
         addSubview(petAgeStackView)
+        addSubview(deleteButton)
     }
     
     private func setupConstraints() {
         pictureStackView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(24)
+            make.top.equalTo(safeAreaLayoutGuide)
             make.left.right.equalToSuperview().inset(24)
             make.height.equalTo(150)
         }
@@ -134,23 +150,32 @@ class EditPetView: UIView {
         petNameStackView.snp.makeConstraints { make in
             make.top.equalTo(pictureStackView.snp.bottom).offset(16)
             make.left.right.equalTo(pictureStackView)
-            make.height.equalTo(90)
+            make.height.equalTo(80)
         }
         
         petBreedStackView.snp.makeConstraints { make in
             make.top.equalTo(petNameStackView.snp.bottom).offset(16)
             make.left.right.equalTo(petNameStackView)
-            make.height.equalTo(90)
+            make.height.equalTo(80)
         }
         
         petAgeStackView.snp.makeConstraints { make in
             make.top.equalTo(petBreedStackView.snp.bottom).offset(16)
             make.left.right.equalTo(petNameStackView)
-            make.height.equalTo(90)
+            make.height.equalTo(80)
+        }
+        
+        deleteButton.snp.makeConstraints { make in
+            make.bottom.left.right.equalTo(safeAreaLayoutGuide).inset(24)
+            make.height.equalTo(44)
         }
     }
     
     // MARK: - Actions
+    
+    @objc func handleDeleteButtonTap() {
+        onDeleteButtonTapped?()
+    }
     
     @objc func handlePictureButtonTap() {
         onPictureButtonTapped?()

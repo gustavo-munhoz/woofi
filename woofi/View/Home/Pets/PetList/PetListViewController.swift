@@ -109,7 +109,7 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
                     }
                 }
             })
-            .store(in: &cancellables)                
+            .store(in: &cancellables)
         
         viewModel?.navigateToPetPublisher
             .receive(on: RunLoop.main)
@@ -178,7 +178,7 @@ extension PetListViewController: UIContextMenuInteractionDelegate {
             }
             
             let deleteAction = UIAction(title: "Delete pet", image: UIImage(systemName: "trash"), attributes: [.destructive]) { _ in
-                print("Action 2 selected")
+                self?.alertPetDeletion(for: pet)
             }
             
             return UIMenu(title: "", children: [editAction, deleteAction])
@@ -190,5 +190,24 @@ extension PetListViewController: UIContextMenuInteractionDelegate {
         vc.setViewModel(PetViewModel(pet: pet))
         
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func alertPetDeletion(for pet: Pet) {
+        let alert = UIAlertController(
+            title: "Delete \(pet.name)",
+            message: "Are you sure you want to delete \(pet.name)? This will delete \(pet.name) for everyone in your group.",
+            preferredStyle: .alert
+        )
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            self?.viewModel?.deletePet(pet)
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(delete)
+        
+        present(alert, animated: true)
     }
 }

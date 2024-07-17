@@ -73,6 +73,11 @@ class PetViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.largeTitleDisplayMode = .never
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .edit,
+            target: self,
+            action: #selector(navigateToEdit)
+        )
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -95,6 +100,13 @@ class PetViewController: UIViewController {
                 
             }
             .store(in: &cancellables)
+    }
+    
+    @objc private func navigateToEdit() {
+        let vc = EditPetViewController()
+        vc.setViewModel(viewModel)
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func configureDataSource() {

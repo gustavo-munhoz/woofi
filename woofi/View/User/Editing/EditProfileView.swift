@@ -118,7 +118,7 @@ class EditProfileView: UIView {
         usernameStackView.snp.makeConstraints { make in
             make.top.equalTo(pictureStackView.snp.bottom).offset(16)
             make.left.right.equalTo(pictureStackView)
-            make.height.equalTo(90)
+            make.height.equalTo(80)
         }
         
         biographyStackView.snp.makeConstraints { make in

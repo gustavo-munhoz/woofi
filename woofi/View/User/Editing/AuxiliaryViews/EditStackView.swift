@@ -9,7 +9,7 @@ import UIKit
 
 class EditStackView: UIStackView {
     init(title: String, editView: UIView) {
-        super.init(frame: .zero)
+        super.init(frame: .init(origin: .zero, size: .init(width: 1, height: 1)))
         
         let titleView: UILabel = {
             let view = UILabel()

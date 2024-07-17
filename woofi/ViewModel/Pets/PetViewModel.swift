@@ -64,5 +64,19 @@ class PetViewModel {
             }
         }
     }
+    
+    func deletePet(_ pet: Pet, _ completion: @escaping () -> Void = {}) {
+        Task {
+            do {
+                try await FirestoreService.shared.removePet(petId: pet.id)
+                
+                print("Deleted pet with id: \(pet.id)")
+                completion()
+                
+            } catch {
+                print("Error deleting pet: \(error.localizedDescription)")
+            }
+        }
+    }
 }
  

@@ -35,6 +35,7 @@ class EditPetViewController: UIViewController {
         super.viewDidLoad()
         
         editPetView.onPictureButtonTapped = presentImagePicker
+        editPetView.onDeleteButtonTapped = alertPetDeletion
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,7 +57,7 @@ class EditPetViewController: UIViewController {
     
     private func fillUI() {
         editPetView.changePictureButton.setImage(
-            viewModel?.pet.picture ?? UIImage(systemName: "person.circle"),
+            viewModel?.pet.picture ?? UIImage(systemName: "dog.circle"),
             for: .normal
         )
         
@@ -66,6 +67,32 @@ class EditPetViewController: UIViewController {
     }
     
     // MARK: - Actions
+    
+    func alertPetDeletion() {
+        guard let pet = viewModel?.pet else { return }
+        
+        let alert = UIAlertController(
+            title: "Delete \(pet.name)",
+            message: "Are you sure you want to delete \(pet.name)? This will delete \(pet.name) for everyone in your group.",
+            preferredStyle: .alert
+        )
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            self?.viewModel?.deletePet(pet) {
+                DispatchQueue.main.async {
+                    self?.navigationController?.popViewController(animated: true)
+                    pet.publishDeleteSignal()
+                }
+            }
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(delete)
+        
+        present(alert, animated: true)
+    }
     
     private func presentImagePicker() {
         PHPhotoLibrary.requestAuthorization { status in

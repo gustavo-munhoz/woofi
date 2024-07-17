@@ -52,6 +52,20 @@ class PetListViewModel: NSObject {
         navigateToPetPublisher.send(pet)
     }
     
+    func deletePet(_ pet: Pet) {
+        Task {
+            do {
+                try await FirestoreService.shared.removePet(petId: pet.id)
+                self.pets.value.removeAll(where: { pet == $0 })
+                
+                print("Deleted pet with id: \(pet.id)")
+                
+            } catch {
+                print("Error deleting pet: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     private func setupSubscriptions() {
         pets.value.forEach { pet in
             pet.updatePublisher
@@ -59,6 +73,15 @@ class PetListViewModel: NSObject {
                 .sink { [weak self] pet in
                     guard let index = self?.pets.value.firstIndex(where: { $0 == pet }) else { return }
                     self?.pets.value[index] = pet
+                }
+                .store(in: &cancellables)
+            
+            pet.deletionPublisher
+                .receive(on: RunLoop.main)
+                .sink { [weak self] shouldDelete in
+                    if shouldDelete {
+                        self?.pets.value.removeAll(where: { $0 == pet })
+                    }
                 }
                 .store(in: &cancellables)
         }

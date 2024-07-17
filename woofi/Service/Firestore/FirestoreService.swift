@@ -231,8 +231,8 @@ class FirestoreService: FirestoreServiceProtocol {
     }
     
     /// Removes a pet from Firestore
-    func removePet(petId: String, completion: @escaping (Error?) -> Void) {
-        db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).delete(completion: completion)
+    func removePet(petId: String) async throws {
+        try await db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).delete()
     }
     
     func updateTaskInstance(petID: String, frequency: TaskFrequency, petTaskGroup: PetTaskGroup, taskInstance: PetTaskInstance, completion: @escaping (Error?) -> Void) {
