@@ -17,7 +17,7 @@ class EditPetViewController: UIViewController {
     var viewModel: PetViewModel? {
         didSet {
             fillUI()
-            
+            editPetView.viewModel = viewModel
         }
     }
     

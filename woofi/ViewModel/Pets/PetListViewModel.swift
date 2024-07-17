@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 class PetListViewModel: NSObject {
+    
+    private var cancellables = Set<AnyCancellable>()
 
     /// The current list of pets in the user's group.
     var pets = CurrentValueSubject<[Pet], Never>.init([])
@@ -23,6 +25,7 @@ class PetListViewModel: NSObject {
         super.init()
         addPetsListener()
         observeGroupIDChanges()
+        setupSubscriptions()
     }
 
     @objc private func addPetsListener() {
@@ -48,10 +51,17 @@ class PetListViewModel: NSObject {
     func navigateToPet(_ pet: Pet) {
         navigateToPetPublisher.send(pet)
     }
-
-    func updatePet(_ pet: Pet) {
-        // may need to implement later, but maybe not
-        return
+    
+    private func setupSubscriptions() {
+        pets.value.forEach { pet in
+            pet.updatePublisher
+                .receive(on: RunLoop.main)
+                .sink { [weak self] pet in
+                    guard let index = self?.pets.value.firstIndex(where: { $0 == pet }) else { return }
+                    self?.pets.value[index] = pet
+                }
+                .store(in: &cancellables)
+        }
     }
     
     private func observeGroupIDChanges() {

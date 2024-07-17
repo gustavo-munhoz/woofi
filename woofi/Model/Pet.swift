@@ -22,6 +22,8 @@ class Pet: Hashable, Codable {
     var weeklyTasks: CurrentValueSubject<[PetTaskGroup], Never>
     var monthlyTasks: CurrentValueSubject<[PetTaskGroup], Never>
     
+    private(set) var updatePublisher = PassthroughSubject<Pet, Never>()
+    
     init(
         id: String,
         name: String,
@@ -44,6 +46,10 @@ class Pet: Hashable, Codable {
     
     static func == (_ lhs: Pet, _ rhs: Pet) -> Bool {
         lhs.id == rhs.id
+    }
+    
+    func publishUpdates() {
+        updatePublisher.send(self)
     }
     
     func hash(into hasher: inout Hasher) {

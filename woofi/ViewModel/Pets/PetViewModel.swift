@@ -36,8 +36,8 @@ class PetViewModel {
                 ])
                 
                 print("Pet data updated successfully on Firestore.")
+                pet.publishUpdates()
                 changePublisher.send(pet)
-                
             } catch {
                 print("Error updating Pet on Firestore: \(error.localizedDescription)")
             }
@@ -55,6 +55,7 @@ class PetViewModel {
                 )
                 
                 pet.pictureURL = petImageUrl
+                pet.publishUpdates()
                 changePublisher.send(pet)
                 print("Pet picture and URL updated successfully: \(petImageUrl)")
                 

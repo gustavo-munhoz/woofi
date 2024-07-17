@@ -103,20 +103,13 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
                 guard let currentPet = self?.currentPet else { return }
                 
                 for p in pets {
-                    if p.id == currentPet.id {
+                    if p == currentPet {
                         self?.currentPet = p
                         self?.viewModel?.publishPetChange(p)
                     }
                 }
             })
-            .store(in: &cancellables)
-        
-        viewModel?.updatePetPublisher
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] pet in
-                self?.viewModel?.updatePet(pet)
-            })
-            .store(in: &cancellables)
+            .store(in: &cancellables)                
         
         viewModel?.navigateToPetPublisher
             .receive(on: RunLoop.main)

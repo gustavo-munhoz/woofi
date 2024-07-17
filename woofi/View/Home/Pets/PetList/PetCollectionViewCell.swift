@@ -23,9 +23,24 @@ class PetCollectionViewCell: UICollectionViewCell {
             petImageView.image = image
         }
     }
-    private var name: String?
-    private var breed: String?
-    private var age: String?
+    
+    private var name: String? {
+        didSet {
+            nameLabel.text = name
+        }
+    }
+    
+    private var breed: String? {
+        didSet {
+            breedLabel.text = breed
+        }
+    }
+    
+    private var age: String? {
+        didSet {
+            ageLabel.text = age
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
