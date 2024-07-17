@@ -80,31 +80,27 @@ class PetView: UIView {
     }
     
     private func addSubviews() {
-        [
-            petPicture,
-            largeTitleLabel,
-            tasksCollectionView
-        ].forEach { v in
-            addSubview(v)
-        }
+//        addSubview(petPicture)
+        addSubview(largeTitleLabel)
+        addSubview(tasksCollectionView)
     }
     
     private func setupConstraints() {
-        petPicture.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).inset(24)
-            make.centerX.equalToSuperview()
-            make.width.height.equalTo(175)
-        }
+//        petPicture.snp.makeConstraints { make in
+//            make.top.equalTo(safeAreaLayoutGuide).inset(24)
+//            make.centerX.equalToSuperview()
+//            make.width.height.equalTo(175)
+//        }
         
         largeTitleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(24)
             make.right.equalToSuperview().offset(-24)
-            make.top.equalTo(petPicture.snp.bottom).offset(24)
+            make.top.equalTo(safeAreaLayoutGuide).offset(24)
             make.height.equalTo(42)
         }
         
         tasksCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(largeTitleLabel.snp.bottom)
+            make.top.equalTo(largeTitleLabel.snp.bottom).offset(12)
             make.left.right.equalTo(largeTitleLabel)
             make.bottom.equalTo(safeAreaLayoutGuide)
         }
