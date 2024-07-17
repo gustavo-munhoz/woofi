@@ -11,9 +11,9 @@ import Combine
 
 class Pet: Hashable, Codable {
     let id: String
-    let name: String
-    let breed: String
-    let age: String
+    var name: String
+    var breed: String
+    var age: String
     var pictureURL: String?
     var picture: UIImage?
     var groupID: String?
