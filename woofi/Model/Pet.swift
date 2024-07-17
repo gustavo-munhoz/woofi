@@ -24,6 +24,8 @@ class Pet: Hashable, Codable {
     
     private(set) var updatePublisher = PassthroughSubject<Pet, Never>()
     
+    private(set) var deletionPublisher = PassthroughSubject<Bool, Never>()
+    
     init(
         id: String,
         name: String,
@@ -50,6 +52,10 @@ class Pet: Hashable, Codable {
     
     func publishUpdates() {
         updatePublisher.send(self)
+    }
+    
+    func publishDeleteSignal() {
+        deletionPublisher.send(true)
     }
     
     func hash(into hasher: inout Hasher) {
