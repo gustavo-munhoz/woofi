@@ -31,16 +31,14 @@ class UserViewModel: NSObject {
             .store(in: &cancellables)
     }
     
-    func updateUser(username: String?, bio: String?) {
-        guard let name = username, let bio = bio else { return }
-        
-        user.username = name
+    func updateUser(username: String, bio: String) {
+        user.username = username
         user.bio = bio
         
         Task {
             do {
                 try await FirestoreService.shared.updateUserData(userId: user.id, data: [
-                    FirestoreKeys.Users.username: name,
+                    FirestoreKeys.Users.username: username,
                     FirestoreKeys.Users.bio: bio
                 ])
                 print("User data updated successfully on Firestore.")
@@ -62,9 +60,9 @@ class UserViewModel: NSObject {
                 )
                 user.remoteProfilePicturePath = profileImageUrl
                 userPublisher.send(user)
-                print("User profile image URL updated successfully: \(profileImageUrl)")
+                print("User profile image and URL updated successfully: \(profileImageUrl)")
             } catch (let error) {
-                print("Error updating image URL: \(error.localizedDescription)")
+                print("Error updating user image or URL: \(error.localizedDescription)")
             }
         }
     }
