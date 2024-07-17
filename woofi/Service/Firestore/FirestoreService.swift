@@ -226,8 +226,8 @@ class FirestoreService: FirestoreServiceProtocol {
     }
     
     /// Updates pet data in Firestore
-    func updatePetData(petId: String, data: [String: Any], completion: @escaping (Error?) -> Void) {
-        db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).updateData(data, completion: completion)
+    func updatePetData(petId: String, data: [String: Any]) async throws {
+        try await db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).updateData(data)
     }
     
     /// Removes a pet from Firestore
@@ -364,6 +364,31 @@ class FirestoreService: FirestoreServiceProtocol {
         petListeners.append(listener)
     }
 
+    func savePetImage(petId: String, image: UIImage) async throws -> String {
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else {
+            throw NSError(
+                domain: "ImageError",
+                code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to convert image to data."]
+            )
+        }
+        
+        let storageRef = Storage.storage().reference().child("pet_images/\(petId).jpg")
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        let _ = try await storageRef.putDataAsync(imageData, metadata: metadata)
+        let downloadURL = try await storageRef.downloadURL()
+        
+        let petImageUrl = downloadURL.absoluteString
+        
+        try await updatePetData(petId: petId, data: [
+            FirestoreKeys.Pets.pictureURL: petImageUrl
+        ])
+        
+        return petImageUrl
+    }
+    
     func fetchImage(from url: URL) async throws -> UIImage {
         let (data, _) = try await URLSession.shared.data(from: url)
         if let image = UIImage(data: data) {

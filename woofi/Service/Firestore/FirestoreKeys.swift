@@ -36,7 +36,11 @@ struct FirestoreKeys {
         private init() {}
         
         static let collectionTitle = "pets"
+        static let name = "name"
+        static let breed = "breed"
+        static let age = "age"
         static let createdAt = "createdAt"
+        static let pictureURL = "pictureURL"
         static let groupID = "groupID"
     }
 }
