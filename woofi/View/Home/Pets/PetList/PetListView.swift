@@ -27,6 +27,7 @@ class PetListView: UIView {
         view.alwaysBounceVertical = true
         view.showsVerticalScrollIndicator = false
         view.refreshControl = refreshControl
+        view.clipsToBounds = false
         
         return view
     }()
@@ -80,7 +81,8 @@ class PetListView: UIView {
         petsCollectionView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).offset(24)
             make.bottom.equalTo(safeAreaLayoutGuide)
-            make.right.left.equalToSuperview().inset(24)
+            make.right.left.equalToSuperview().inset(24).priority(.high)
+            make.right.left.greaterThanOrEqualToSuperview().inset(24).priority(.required)
         }
     }
     

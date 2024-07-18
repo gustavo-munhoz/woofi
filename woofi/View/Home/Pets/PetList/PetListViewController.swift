@@ -146,7 +146,7 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
     private func applySnapshot(pets: [Pet]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Pet>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(pets)
+        snapshot.appendItems(pets, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     

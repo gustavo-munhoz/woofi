@@ -92,6 +92,8 @@ class PetViewController: UIViewController {
         viewModel.changePublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] pet in
+                self?.navigationItem.title = pet.name
+                
                 self?.applySnapshot(
                     dailyTasks: pet.dailyTasks.value,
                     weeklyTasks: pet.weeklyTasks.value,

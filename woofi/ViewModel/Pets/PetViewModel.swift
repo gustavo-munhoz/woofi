@@ -10,11 +10,7 @@ import Combine
 import UIKit
 
 class PetViewModel {
-    var pet: Pet {
-        didSet {
-            changePublisher.send(pet)
-        }
-    }
+    var pet: Pet
     
     var changePublisher = PassthroughSubject<Pet, Never>()
     
