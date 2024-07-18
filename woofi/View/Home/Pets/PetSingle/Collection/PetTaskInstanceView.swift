@@ -111,13 +111,9 @@ class PetTaskInstanceView: UIView {
         taskInstance.completed.toggle()
         taskInstance.completedByUserWithID = taskInstance.completed ? Session.shared.currentUser?.id : nil
         
-        UIView.transition(with: self,
-                          duration: 0.3,
-                          options: .transitionCrossDissolve,
-                          animations: {
+        UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: {
             self.updateCompletionImage()
-        },
-                          completion: { _ in
+        }, completion: { _ in
             self.updateTaskInstanceInFirestore()
             
             self.notificationTimer?.invalidate()

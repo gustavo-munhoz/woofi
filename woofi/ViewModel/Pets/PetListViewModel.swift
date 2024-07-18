@@ -11,7 +11,7 @@ import Combine
 class PetListViewModel: NSObject {
     
     private var cancellables = Set<AnyCancellable>()
-
+    
     /// The current list of pets in the user's group.
     var pets = CurrentValueSubject<[Pet], Never>.init([])
     
@@ -20,14 +20,14 @@ class PetListViewModel: NSObject {
     
     /// Used to update pet after listener updates.
     var updatePetPublisher = PassthroughSubject<Pet, Never>()
-
+    
     override init() {
         super.init()
         addPetsListener()
         observeGroupIDChanges()
         setupSubscriptions()
     }
-
+    
     @objc private func addPetsListener() {
         guard let currentUser = Session.shared.currentUser else {
             return
@@ -35,15 +35,28 @@ class PetListViewModel: NSObject {
         
         FirestoreService.shared.addPetsListener(groupID: currentUser.groupID) { [weak self] result in
             switch result {
-                case .success(let pets):
-                    self?.pets.value = pets
+            case .success(let changesDict):
+                var updatedPets = self?.pets.value ?? []
+                                                
+                for (userId, pet) in changesDict {                    
+                    if let index = updatedPets.firstIndex(where: { $0 == pet }) {
+                        guard currentUser.id != userId else { continue }
+                        updatedPets[index] = pet
+                        print("Updated pet: \(pet.name)")
+                    } else {
+                        updatedPets.append(pet)
+                        print("Appended pet: \(pet.name)")
+                    }
+                }
                 
-                case .failure(let error):
-                    print("Error fetching pets: \(error.localizedDescription)")
+                self?.pets.value = updatedPets
+                
+            case .failure(let error):
+                print("Error fetching pets: \(error.localizedDescription)")
             }
         }
     }
-
+    
     func publishPetChange(_ pet: Pet) {
         updatePetPublisher.send(pet)
     }

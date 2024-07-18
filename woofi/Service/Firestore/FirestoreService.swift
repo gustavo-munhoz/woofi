@@ -170,46 +170,13 @@ class FirestoreService: FirestoreServiceProtocol {
         return profileImageUrl
     }
     
-    /// Fetches all pets related to the group
-    func fetchPetsInSameGroup(groupID: String) async -> Result<[Pet], Error> {
-        do {
-            logger.debug("Fetching pets for group id: \(groupID)")
-            
-            let querySnapshot = try await db.collection(FirestoreKeys.Pets.collectionTitle)
-                .whereField(FirestoreKeys.Pets.groupID, isEqualTo: groupID)
-                .getDocuments()
-            
-            var pets = [Pet]()
-            for document in querySnapshot.documents {
-                var data = document.data()
-                
-                // Remove the createdAt field if it exists
-                data.removeValue(forKey: "createdAt")
-                
-                do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                    let pet = try JSONDecoder().decode(Pet.self, from: jsonData)
-                    pets.append(pet)
-                } catch {
-                    logger.error("Error decoding pet data: \(error.localizedDescription)")
-                    logger.error("Pet data: \(data)")
-                    return .failure(error)
-                }
-            }
-            return .success(pets)
-            
-        } catch {
-            logger.error("Error fetching pets for group id \(groupID): \(error.localizedDescription)")
-            return .failure(error)
-        }
-    }
-    
     /// Saves pet data to firestore with a server-side timestamp.
     func savePetData(petId: String, data: [String: Any], completion: @escaping (Error?) -> Void) {
         logger.log("Saving pet data for id: \(petId)")
         
         var petData = data
         petData[FirestoreKeys.Pets.createdAt] = FieldValue.serverTimestamp()
+        petData["lastUpdatedByUserId"] = Session.shared.currentUser?.id
         
         db.collection(FirestoreKeys.Pets.collectionTitle).document(petId).setData(petData, completion: completion)
     }
@@ -255,6 +222,7 @@ class FirestoreService: FirestoreServiceProtocol {
             }
             
             var petData = document.data() ?? [:]
+            petData["lastUpdatedByUserId"] = Session.shared.currentUser?.id
             
             var taskGroups = petData[taskGroupField] as? [[String: Any]] ?? []
             
@@ -292,7 +260,10 @@ class FirestoreService: FirestoreServiceProtocol {
                 taskGroup["instances"] = instances
                 taskGroups[taskGroupIndex] = taskGroup
             } else {
-                var newTaskGroup: [String: Any] = ["id": petTaskGroup.id.uuidString, "frequency": frequency]
+                var newTaskGroup: [String: Any] = [
+                    "id": petTaskGroup.id.uuidString,
+                    "frequency": frequency
+                ]
                 do {
                     let jsonData = try JSONEncoder().encode(taskInstance)
                     if var jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
@@ -314,7 +285,8 @@ class FirestoreService: FirestoreServiceProtocol {
         }
     }
 
-    func addPetsListener(groupID: String, onUpdate: @escaping (Result<[Pet], Error>) -> Void) {
+    /// Add listeners to pet. Returns a
+    func addPetsListener(groupID: String, onUpdate: @escaping (Result<[String: Pet], Error>) -> Void) {
         let petsRef = db.collection(FirestoreKeys.Pets.collectionTitle).whereField("groupID", isEqualTo: groupID)
         
         let listener = petsRef.addSnapshotListener { (snapshot, error) in
@@ -324,16 +296,24 @@ class FirestoreService: FirestoreServiceProtocol {
             }
             
             guard let documents = snapshot?.documents else {
-                onUpdate(.success([]))
+                onUpdate(.success([:]))
                 return
             }
             
             Task {
                 do {
-                    var pets: [Pet] = []
+                    var petsAndUserResponsible: [String: Pet] = [:]
                     
                     for document in documents {
                         var data = document.data()
+                        
+                        guard let updateId = data["lastUpdatedByUserId"] as? String else { 
+                            print("Skipping pet since no lastUpdatedByUserId.")
+                            continue
+                        }
+                        
+                        // will cause pet not being correctly decoded
+                        data.removeValue(forKey: "lastUpdatedByUserId")
                         
                         // Remove the createdAt field if it exists
                         data.removeValue(forKey: "createdAt")
@@ -351,10 +331,10 @@ class FirestoreService: FirestoreServiceProtocol {
                             }
                         }
                         
-                        pets.append(pet)
+                        petsAndUserResponsible[updateId] = pet
                     }
                     
-                    onUpdate(.success(pets))
+                    onUpdate(.success(petsAndUserResponsible))
                 } catch {
                     onUpdate(.failure(error))
                 }
