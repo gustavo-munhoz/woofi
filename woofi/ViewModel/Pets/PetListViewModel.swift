@@ -28,6 +28,10 @@ class PetListViewModel: NSObject {
         setupSubscriptions()
     }
     
+    func refreshPets() {
+        addPetsListener()
+    }
+    
     @objc private func addPetsListener() {
         guard let currentUser = Session.shared.currentUser else {
             return
@@ -38,7 +42,7 @@ class PetListViewModel: NSObject {
             case .success(let changesDict):
                 var updatedPets = self?.pets.value ?? []
                                                 
-                for (userId, pet) in changesDict {                    
+                for (userId, pet) in changesDict {
                     if let index = updatedPets.firstIndex(where: { $0 == pet }) {
                         guard currentUser.id != userId else { continue }
                         updatedPets[index] = pet
@@ -50,6 +54,7 @@ class PetListViewModel: NSObject {
                 }
                 
                 self?.pets.value = updatedPets
+                self?.setupSubscriptions()
                 
             case .failure(let error):
                 print("Error fetching pets: \(error.localizedDescription)")
@@ -81,13 +86,15 @@ class PetListViewModel: NSObject {
     
     private func setupSubscriptions() {
         pets.value.forEach { pet in
+            guard pet.cancellables.isEmpty else { return }
+            
             pet.updatePublisher
                 .receive(on: RunLoop.main)
                 .sink { [weak self] pet in
                     guard let index = self?.pets.value.firstIndex(where: { $0 == pet }) else { return }
                     self?.pets.value[index] = pet
                 }
-                .store(in: &cancellables)
+                .store(in: &pet.cancellables)
             
             pet.deletionPublisher
                 .receive(on: RunLoop.main)
@@ -96,7 +103,7 @@ class PetListViewModel: NSObject {
                         self?.pets.value.removeAll(where: { $0 == pet })
                     }
                 }
-                .store(in: &cancellables)
+                .store(in: &pet.cancellables)
         }
     }
     

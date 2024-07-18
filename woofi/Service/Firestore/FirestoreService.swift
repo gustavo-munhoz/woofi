@@ -287,6 +287,11 @@ class FirestoreService: FirestoreServiceProtocol {
 
     /// Add listeners to pet. Returns a
     func addPetsListener(groupID: String, onUpdate: @escaping (Result<[String: Pet], Error>) -> Void) {
+        petListeners.forEach { listener in
+            listener.remove()
+        }
+        petListeners.removeAll()
+        
         let petsRef = db.collection(FirestoreKeys.Pets.collectionTitle).whereField("groupID", isEqualTo: groupID)
         
         let listener = petsRef.addSnapshotListener { (snapshot, error) in

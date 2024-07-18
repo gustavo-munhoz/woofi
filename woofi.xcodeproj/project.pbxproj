@@ -92,6 +92,7 @@
 		B3B980752C409C2200520A3F /* UserBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B980742C409C2200520A3F /* UserBuilder.swift */; };
 		B3FC79852C47D5B700CBC03D /* EditPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79842C47D5B700CBC03D /* EditPetView.swift */; };
 		B3FC79872C47D70100CBC03D /* EditPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79862C47D70100CBC03D /* EditPetViewController.swift */; };
+		B3FC798B2C489CD800CBC03D /* DebugOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC798A2C489CD800CBC03D /* DebugOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -183,6 +184,7 @@
 		B3B980742C409C2200520A3F /* UserBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBuilder.swift; sourceTree = "<group>"; };
 		B3FC79842C47D5B700CBC03D /* EditPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPetView.swift; sourceTree = "<group>"; };
 		B3FC79862C47D70100CBC03D /* EditPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPetViewController.swift; sourceTree = "<group>"; };
+		B3FC798A2C489CD800CBC03D /* DebugOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -473,6 +475,7 @@
 				B354B66A2C2B579900CEA618 /* String+sha256.swift */,
 				B354B66C2C2B57AF00CEA618 /* Data+base36EncodedString.swift */,
 				B354B66E2C2B740F00CEA618 /* Notification+groupIDDidChange.swift */,
+				B3FC798A2C489CD800CBC03D /* DebugOptions.swift */,
 			);
 			path = "+ext";
 			sourceTree = "<group>";
@@ -723,6 +726,7 @@
 				B3B9806F2C3F73CB00520A3F /* ProfileSetupViewController.swift in Sources */,
 				B3B9805C2C3DB21A00520A3F /* EditProfileViewController.swift in Sources */,
 				B30623072BE8842F009441CB /* GroupView.swift in Sources */,
+				B3FC798B2C489CD800CBC03D /* DebugOptions.swift in Sources */,
 				B31D31BD2BEEBB5600CE903A /* PetListViewModel.swift in Sources */,
 				B30622ED2BE8141D009441CB /* AuthenticationViewModel.swift in Sources */,
 				B354B66B2C2B579900CEA618 /* String+sha256.swift in Sources */,

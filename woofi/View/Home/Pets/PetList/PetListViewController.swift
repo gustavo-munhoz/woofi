@@ -34,7 +34,9 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
         configureDataSource()
         configureCollectionView()
         setupSubscriptions()
-                
+        petListView.refreshAction = { [weak self] in
+            self?.refreshPets()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +69,11 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
             cellClass: PetCollectionViewCell.self,
             reuseIdentifier: PetCollectionViewCell.reuseIdentifier
         )
+    }
+    
+    private func refreshPets() {
+        viewModel?.refreshPets()
+        petListView.petsCollectionView.refreshControl?.endRefreshing()
     }
     
     private func configureDataSource() {

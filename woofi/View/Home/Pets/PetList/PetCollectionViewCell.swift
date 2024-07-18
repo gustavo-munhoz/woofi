@@ -18,27 +18,9 @@ class PetCollectionViewCell: UICollectionViewCell {
     
     private var type: CellType = .tall
     
-    private var image: UIImage? {
+    private var pet: Pet? {
         didSet {
-            petImageView.image = image
-        }
-    }
-    
-    private var name: String? {
-        didSet {
-            nameLabel.text = name
-        }
-    }
-    
-    private var breed: String? {
-        didSet {
-            breedLabel.text = breed
-        }
-    }
-    
-    private var age: String? {
-        didSet {
-            ageLabel.text = age
+            configureCell()
         }
     }
     
@@ -56,13 +38,13 @@ class PetCollectionViewCell: UICollectionViewCell {
     
     private(set) lazy var petImageView: UIImageView = {
         let view = UIImageView(
-            image: image ?? UIImage(
+            image: pet?.picture ?? UIImage(
                 systemName: "dog.fill"
             )?.withTintColor(.primary, renderingMode: .alwaysOriginal)
         )
         
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFill        
+        view.contentMode = .scaleAspectFill
         view.clipsToBounds = true
         
         return view
@@ -71,7 +53,7 @@ class PetCollectionViewCell: UICollectionViewCell {
     private(set) lazy var nameLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = name
+        view.text = pet?.name
         view.textColor = .primary
         view.adjustsFontSizeToFitWidth = true
         view.numberOfLines = 2
@@ -92,7 +74,7 @@ class PetCollectionViewCell: UICollectionViewCell {
     private(set) lazy var breedLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = type == .tall ? "\(breed ?? "-")," : breed
+        view.text = type == .tall ? "\(pet?.breed ?? "-")," : pet?.breed
         view.textColor = .primary.withAlphaComponent(0.6)
         
         view.adjustsFontSizeToFitWidth = true
@@ -108,7 +90,7 @@ class PetCollectionViewCell: UICollectionViewCell {
     private(set) lazy var ageLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.text = age
+        view.text = pet?.age
         view.textColor = .primary.withAlphaComponent(0.6)
         
         view.font = .preferredFont(forTextStyle: .title2)
@@ -137,12 +119,15 @@ class PetCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    private func configureCell() {
+        petImageView.image = pet?.picture ?? UIImage(systemName: "dog.fill")?.withTintColor(.primary, renderingMode: .alwaysOriginal)
+        nameLabel.text = pet?.name
+        breedLabel.text = pet?.breed
+        ageLabel.text = pet?.age
+    }
+    
     func setup(with pet: Pet, isTall: Bool = true) {
-        self.image = pet.picture
-        self.name = pet.name
-        self.breed = pet.breed
-        self.age = pet.age
-        
+        self.pet = pet
         if !isTall { self.type = .wide }
         
         addSubviews()

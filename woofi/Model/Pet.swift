@@ -23,8 +23,8 @@ class Pet: Hashable, Codable {
     var monthlyTasks: CurrentValueSubject<[PetTaskGroup], Never>
     
     private(set) var updatePublisher = PassthroughSubject<Pet, Never>()
-    
     private(set) var deletionPublisher = PassthroughSubject<Bool, Never>()
+    var cancellables = Set<AnyCancellable>()
     
     init(
         id: String,

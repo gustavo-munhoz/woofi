@@ -16,6 +16,8 @@ class PetListView: UIView {
         }
     }
     
+    var refreshAction: (() -> Void)?
+    
     private(set) lazy var petsCollectionView: UICollectionView = {
         let layout = createCollectionViewLayout(for: viewModel?.pets.value.count ?? 1)
         
@@ -24,8 +26,15 @@ class PetListView: UIView {
         view.backgroundColor = .systemBackground
         view.alwaysBounceVertical = true
         view.showsVerticalScrollIndicator = false
+        view.refreshControl = refreshControl
         
         return view
+    }()
+    
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        return refreshControl
     }()
     
     override init(frame: CGRect) {
@@ -37,6 +46,10 @@ class PetListView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func handleRefresh() {
+        refreshAction?()
     }
     
     private func createCollectionViewLayout(for petCount: Int) -> UICollectionViewFlowLayout {
