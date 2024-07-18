@@ -118,6 +118,15 @@ class LoginView: UIView {
     
     // MARK: - Actions
     
+    private func setupTapGesture() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        self.addGestureRecognizer(gesture)
+    }
+    
+    @objc private func handleTap() {
+        endEditing(true)
+    }
+    
     @objc func loginButtonPress() {
         viewModel?.performAuthentication(type: .login)
     }
@@ -154,6 +163,7 @@ class LoginView: UIView {
         
         addSubviews()
         setupConstraints()
+        setupTapGesture()
     }
     
     required init?(coder: NSCoder) {

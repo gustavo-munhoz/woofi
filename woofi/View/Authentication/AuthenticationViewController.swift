@@ -29,7 +29,7 @@ class AuthenticationViewController: UIViewController {
         setupViewModel()
         setupSubscriptions()
         fillUI()
-    }
+    }        
     
     private func setupViewModel() {
         viewModel = AuthenticationViewModel()

@@ -103,6 +103,15 @@ class RegisterView: UIView {
     
     // MARK: - Actions
     
+    private func setupTapGesture() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        self.addGestureRecognizer(gesture)
+    }
+    
+    @objc private func handleTap() {
+        endEditing(true)
+    }
+    
     @objc func registerButtonPress() {
         viewModel?.performAuthentication(type: .register)
     }
@@ -135,6 +144,7 @@ class RegisterView: UIView {
         
         addSubviews()
         setupConstraints()
+        setupTapGesture()
     }
     
     required init?(coder: NSCoder) {
