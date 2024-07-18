@@ -74,4 +74,8 @@ class GroupViewModel: NSObject {
             }
             .store(in: &cancellables)
     }
+    
+    func refreshGroup() async {
+        await loadUsers()
+    }
 }

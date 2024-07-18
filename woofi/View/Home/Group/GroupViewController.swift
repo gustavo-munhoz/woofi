@@ -33,6 +33,8 @@ class GroupViewController: UIViewController {
         configureDataSource()
         configureCollectionView()
         setupSubscriptions()
+        
+        groupView.refreshAction = refreshGroup
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,6 +114,15 @@ class GroupViewController: UIViewController {
     }
     
     // MARK: - Runtime methods
+    private func refreshGroup() {
+        Task {
+            await viewModel?.refreshGroup()
+        }
+        
+        self.groupView.usersCollectionView.refreshControl?.endRefreshing()
+    }
+
+    
     @objc private func didTapAddButton() {
         let alertController = UIAlertController(
             title: "Invite Options",

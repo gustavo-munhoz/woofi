@@ -10,6 +10,8 @@ import SnapKit
 
 class GroupView: UIView {
     
+    var refreshAction: (() -> Void)?
+    
     private(set) lazy var usersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -21,8 +23,16 @@ class GroupView: UIView {
 
         view.alwaysBounceVertical = true
         view.backgroundColor = .systemBackground
+        view.refreshControl = refreshControl
         
         return view
+    }()
+    
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        
+        return refreshControl
     }()
     
     override init(frame: CGRect) {
@@ -58,6 +68,10 @@ class GroupView: UIView {
         usersCollectionView.delegate = delegate
         usersCollectionView.dataSource = dataSource
         usersCollectionView.register(cellClass.self, forCellWithReuseIdentifier: reuseIdentifier)
+    }
+    
+    @objc func handleRefresh() {
+        refreshAction?()
     }
 }
 
