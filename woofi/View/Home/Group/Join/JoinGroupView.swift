@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class JoinGroupView: UIView, UITextFieldDelegate {
+class JoinGroupView: UIView {
 
     // TODO: Localize texts
     
@@ -60,12 +60,14 @@ class JoinGroupView: UIView, UITextFieldDelegate {
         super.init(frame: frame)
         setupViews()
         setupTextFields()
+        setupKeyboardObservers()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupViews()
         setupTextFields()
+        
     }
     
     private func setupViews() {
@@ -99,6 +101,57 @@ class JoinGroupView: UIView, UITextFieldDelegate {
         }
     }
     
+    private func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(notification:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(notification:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+    
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo,
+           let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let keyboardHeight = keyboardFrame.height
+            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.25
+            
+            UIView.animate(withDuration: duration) {
+                self.joinButton.snp.updateConstraints { make in
+                    make.bottom.equalTo(self.safeAreaLayoutGuide).inset(keyboardHeight + 10)
+                }
+                self.layoutIfNeeded()
+            }
+        }
+    }
+
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0.25
+            
+            UIView.animate(withDuration: duration) {
+                self.joinButton.snp.updateConstraints { make in
+                    make.bottom.equalTo(self.safeAreaLayoutGuide).inset(30)
+                }
+                self.layoutIfNeeded()
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+}
+
+extension JoinGroupView: UITextFieldDelegate {
     private func setupTextFields() {
         for _ in 0..<6 {
             let textField = UITextField()
