@@ -57,6 +57,8 @@ class GroupViewModel: NSObject {
                     userId: currentUser.id,
                     data: [FirestoreKeys.Users.groupID: currentUser.groupID]
                 )
+                
+                Session.shared.currentUser?.publishLeavingGroup()
                 users.value = []
                 
             } catch {

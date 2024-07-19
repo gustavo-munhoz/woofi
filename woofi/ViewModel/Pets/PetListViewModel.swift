@@ -105,6 +105,15 @@ class PetListViewModel: NSObject {
                 }
                 .store(in: &pet.cancellables)
         }
+        
+        Session.shared.currentUser?.leaveGroupPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] didLeave in
+                if didLeave {
+                    self?.pets.value.removeAll()
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private func observeGroupIDChanges() {

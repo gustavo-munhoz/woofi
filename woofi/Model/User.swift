@@ -11,6 +11,7 @@ import Combine
 class User: Hashable, Codable {
     
     private(set) var updatePublisher = PassthroughSubject<User, Never>()
+    private(set) var leaveGroupPublisher = PassthroughSubject<Bool, Never>()
     
     let id: String
     
@@ -136,5 +137,9 @@ class User: Hashable, Codable {
     func publishSelf() {
         print("Sending user update.")
         updatePublisher.send(self)
+    }
+    
+    func publishLeavingGroup() {
+        leaveGroupPublisher.send(true)
     }
 }
