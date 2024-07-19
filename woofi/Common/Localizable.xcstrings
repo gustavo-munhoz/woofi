@@ -73,7 +73,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Login"
+            "value" : "Sign in"
           }
         }
       }
@@ -286,12 +286,6 @@
           }
         }
       }
-    },
-    "emailInput" : {
-
-    },
-    "group" : {
-
     },
     "groupVCAlertMessage" : {
       "extractionState" : "manual",
@@ -513,11 +507,49 @@
         }
       }
     },
-    "largeTitleTasks" : {
-
+    "loginViewRegisterButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up now"
+          }
+        }
+      }
     },
-    "loginButton" : {
-
+    "loginViewRegisterLabel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't have an account?"
+          }
+        }
+      }
+    },
+    "loginViewSeparator" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "or..."
+          }
+        }
+      }
+    },
+    "loginViewWelcomeBack" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome back!"
+          }
+        }
+      }
     },
     "ok" : {
       "extractionState" : "manual",
@@ -529,12 +561,6 @@
           }
         }
       }
-    },
-    "passwordInput" : {
-
-    },
-    "petList" : {
-
     },
     "petListVCContextMenuDelete" : {
       "extractionState" : "manual",
@@ -701,24 +727,6 @@
         }
       }
     },
-    "registerButton" : {
-
-    },
-    "taskBath" : {
-
-    },
-    "taskBathFirst" : {
-
-    },
-    "taskBathSecond" : {
-
-    },
-    "taskBrush" : {
-
-    },
-    "taskBrushWeekly" : {
-
-    },
     "taskDailyAfternoonWalk" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -774,15 +782,6 @@
         }
       }
     },
-    "taskFeed" : {
-
-    },
-    "taskFeedMorning" : {
-
-    },
-    "taskFeedNight" : {
-
-    },
     "taskMonthlyBathFirst" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -815,18 +814,6 @@
           }
         }
       }
-    },
-    "taskSectionTitleDaily" : {
-
-    },
-    "taskSectionTitleMonthly" : {
-
-    },
-    "taskSectionTitleWeekly" : {
-
-    },
-    "tasksTitle" : {
-
     },
     "taskTypeBath" : {
       "extractionState" : "manual",
@@ -883,24 +870,6 @@
         }
       }
     },
-    "taskVet" : {
-
-    },
-    "taskVeterinaryFirst" : {
-
-    },
-    "taskWalk" : {
-
-    },
-    "taskWalkAfternoon" : {
-
-    },
-    "taskWalkMorning" : {
-
-    },
-    "taskWalkNight" : {
-
-    },
     "taskWeeklyBrush" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -911,9 +880,6 @@
           }
         }
       }
-    },
-    "usernameInput" : {
-
     },
     "userViewStatsLabel" : {
       "extractionState" : "manual",

@@ -16,7 +16,6 @@
 		B30622DE2BE80705009441CB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622DD2BE80705009441CB /* LoginView.swift */; };
 		B30622E12BE8073D009441CB /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = B30622E02BE8073D009441CB /* Localizable.xcstrings */; };
 		B30622E42BE80863009441CB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B30622E32BE80863009441CB /* SnapKit */; };
-		B30622E92BE80A71009441CB /* LocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622E82BE80A71009441CB /* LocalizedString.swift */; };
 		B30622EB2BE81100009441CB /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622EA2BE81100009441CB /* RegisterView.swift */; };
 		B30622ED2BE8141D009441CB /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622EC2BE8141D009441CB /* AuthenticationViewModel.swift */; };
 		B30622F02BE81475009441CB /* AuthenticationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30622EF2BE81475009441CB /* AuthenticationType.swift */; };
@@ -94,6 +93,8 @@
 		B3FC79872C47D70100CBC03D /* EditPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79862C47D70100CBC03D /* EditPetViewController.swift */; };
 		B3FC798B2C489CD800CBC03D /* DebugOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC798A2C489CD800CBC03D /* DebugOptions.swift */; };
 		B3FC798D2C4A864200CBC03D /* String+LocalizedKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC798C2C4A864200CBC03D /* String+LocalizedKey.swift */; };
+		B3FC79902C4B0E8000CBC03D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B3FC798F2C4B0E8000CBC03D /* Lottie */; };
+		B3FC79932C4B0F2A00CBC03D /* walking-dog-login.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FC79922C4B0F2A00CBC03D /* walking-dog-login.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -112,7 +113,6 @@
 /* Begin PBXFileReference section */
 		B30622DD2BE80705009441CB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		B30622E02BE8073D009441CB /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		B30622E82BE80A71009441CB /* LocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedString.swift; sourceTree = "<group>"; };
 		B30622EA2BE81100009441CB /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B30622EC2BE8141D009441CB /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		B30622EF2BE81475009441CB /* AuthenticationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationType.swift; sourceTree = "<group>"; };
@@ -187,6 +187,7 @@
 		B3FC79862C47D70100CBC03D /* EditPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPetViewController.swift; sourceTree = "<group>"; };
 		B3FC798A2C489CD800CBC03D /* DebugOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOptions.swift; sourceTree = "<group>"; };
 		B3FC798C2C4A864200CBC03D /* String+LocalizedKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedKey.swift"; sourceTree = "<group>"; };
+		B3FC79922C4B0F2A00CBC03D /* walking-dog-login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "walking-dog-login.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B30622D22BE80621009441CB /* FirebaseAnalyticsSwift in Frameworks */,
+				B3FC79902C4B0E8000CBC03D /* Lottie in Frameworks */,
 				B30622D62BE80621009441CB /* FirebaseCrashlytics in Frameworks */,
 				B37059532C3266AC00FDD70B /* FirebaseMessaging in Frameworks */,
 				B37059512C2F6A2100FDD70B /* FirebaseStorage in Frameworks */,
@@ -216,7 +218,7 @@
 		B30622DB2BE80629009441CB /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B30622E72BE80A5A009441CB /* Localization */,
+				B30622E02BE8073D009441CB /* Localizable.xcstrings */,
 				B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */,
 				B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */,
 			);
@@ -240,15 +242,6 @@
 				B30622EA2BE81100009441CB /* RegisterView.swift */,
 			);
 			path = Authentication;
-			sourceTree = "<group>";
-		};
-		B30622E72BE80A5A009441CB /* Localization */ = {
-			isa = PBXGroup;
-			children = (
-				B30622E02BE8073D009441CB /* Localizable.xcstrings */,
-				B30622E82BE80A71009441CB /* LocalizedString.swift */,
-			);
-			path = Localization;
 			sourceTree = "<group>";
 		};
 		B30622EE2BE8144E009441CB /* Authentication */ = {
@@ -529,17 +522,18 @@
 		B3A7E8462BE74DF9009B6630 /* woofi */ = {
 			isa = PBXGroup;
 			children = (
-				B37059642C35186F00FDD70B /* GoogleService-Info.plist */,
 				B35CC3862C054872007FBEFC /* +ext */,
-				B35CC37D2C00E141007FBEFC /* woofi.entitlements */,
-				B31D31E12BFD284300CE903A /* Shared */,
 				B3B980732C409C1600520A3F /* Builder */,
 				B30622DB2BE80629009441CB /* Common */,
+				B3FC79912C4B0F0700CBC03D /* Lottie */,
 				B3A7E8652BE7FB0D009B6630 /* Model */,
 				B3A7E8672BE7FB16009B6630 /* View */,
 				B3A7E8692BE7FB1B009B6630 /* ViewModel */,
 				B30622F12BE826ED009441CB /* Service */,
+				B31D31E12BFD284300CE903A /* Shared */,
 				B3A7E8502BE74DFB009B6630 /* Assets.xcassets */,
+				B37059642C35186F00FDD70B /* GoogleService-Info.plist */,
+				B35CC37D2C00E141007FBEFC /* woofi.entitlements */,
 				B3A7E8552BE74DFB009B6630 /* Info.plist */,
 			);
 			path = woofi;
@@ -624,6 +618,14 @@
 			path = Editing;
 			sourceTree = "<group>";
 		};
+		B3FC79912C4B0F0700CBC03D /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				B3FC79922C4B0F2A00CBC03D /* walking-dog-login.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -655,6 +657,7 @@
 				B37059572C32675A00FDD70B /* FirebaseFunctions */,
 				B3B980652C3F53BE00520A3F /* GoogleSignIn */,
 				B3B980672C3F53BE00520A3F /* GoogleSignInSwift */,
+				B3FC798F2C4B0E8000CBC03D /* Lottie */,
 			);
 			productName = woofi;
 			productReference = B3A7E8442BE74DF9009B6630 /* woofi.app */;
@@ -688,6 +691,7 @@
 				B30622CE2BE80621009441CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				B30622E22BE80863009441CB /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B3B980642C3F53BE00520A3F /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				B3FC798E2C4B0E8000CBC03D /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = B3A7E8452BE74DF9009B6630 /* Products */;
 			projectDirPath = "";
@@ -706,6 +710,7 @@
 				B3A7E8512BE74DFB009B6630 /* Assets.xcassets in Resources */,
 				B37059652C35186F00FDD70B /* GoogleService-Info.plist in Resources */,
 				B3A7E8542BE74DFB009B6630 /* Base in Resources */,
+				B3FC79932C4B0F2A00CBC03D /* walking-dog-login.json in Resources */,
 				B30622E12BE8073D009441CB /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -717,7 +722,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B30622E92BE80A71009441CB /* LocalizedString.swift in Sources */,
 				B35CC3742BFFC776007FBEFC /* InviteView.swift in Sources */,
 				B370595A2C33495A00FDD70B /* NotificationFactory.swift in Sources */,
 				B306231D2BEB0715009441CB /* UserViewModel.swift in Sources */,
@@ -1035,6 +1039,14 @@
 				minimumVersion = 7.1.0;
 			};
 		};
+		B3FC798E2C4B0E8000CBC03D /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1102,6 +1114,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B3B980642C3F53BE00520A3F /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		B3FC798F2C4B0E8000CBC03D /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3FC798E2C4B0E8000CBC03D /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

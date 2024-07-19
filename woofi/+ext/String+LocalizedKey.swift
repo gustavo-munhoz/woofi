@@ -157,6 +157,10 @@ extension String {
         case userViewStatsLabel
         
         // MARK: - LoginView/RegisterView
+        case loginViewWelcomeBack
+        case loginViewSeparator
+        case loginViewRegisterLabel
+        case loginViewRegisterButton
         case authEmailInputLabel
         case authPasswordInputLabel
         case authUsernameInputLabel

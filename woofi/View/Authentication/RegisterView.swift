@@ -113,6 +113,7 @@ class RegisterView: UIView {
     }
     
     @objc func registerButtonPress() {
+//        guard let 
         viewModel?.performAuthentication(type: .register)
     }
     

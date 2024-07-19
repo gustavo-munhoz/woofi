@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().delegate = self
         
         setupGIDClientID()
-
+        
         return true
     }
 

@@ -12,14 +12,18 @@ import UIKit
 class AuthenticationViewModel: NSObject {
     
     // MARK: - Controlling login/register
+    @Published var isSigningIn = false
+    
     var currentAuthType = CurrentValueSubject<AuthenticationType, Never>(.login)
     
     func toggleCurrentAuthType() {
-        if currentAuthType.value != .register {
-            currentAuthType.value = .login
+        let loginTypes: [AuthenticationType] = [.login, .googleLogin, .appleSignIn]
+        
+        if loginTypes.contains(currentAuthType.value) {
+            currentAuthType.value = .register
             
         } else {
-            currentAuthType.value = .register
+            currentAuthType.value = .login
         }
     }
     
