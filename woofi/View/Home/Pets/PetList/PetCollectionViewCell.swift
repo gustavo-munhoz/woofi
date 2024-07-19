@@ -122,7 +122,7 @@ class PetCollectionViewCell: UICollectionViewCell {
     private func configureCell() {
         petImageView.image = pet?.picture ?? UIImage(systemName: "dog.fill")?.withTintColor(.primary, renderingMode: .alwaysOriginal)
         nameLabel.text = pet?.name
-        breedLabel.text = pet?.breed
+        breedLabel.text = { if let pet = pet {"\(pet.breed),"} else {nil} }()
         ageLabel.text = pet?.age
     }
     
