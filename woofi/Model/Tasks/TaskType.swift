@@ -18,15 +18,15 @@ enum TaskType: String, CaseIterable, Codable {
     var localizedDescription: String {
         switch self {
         case .walk:
-            return LocalizedString.Tasks.walk
+            return String.localized(for: .taskTypeFeed)
         case .feed:
-            return LocalizedString.Tasks.feed
-        case .bath:
-            return LocalizedString.Tasks.bath
+            return String.localized(for: .taskTypeFeed)
         case .brush:
-            return LocalizedString.Tasks.brush
+            return String.localized(for: .taskTypeBrush)
+        case .bath:
+            return String.localized(for: .taskTypeBath)
         case .vet:
-            return LocalizedString.Tasks.vet
+            return String.localized(for: .taskTypeVet)
         }
     }
 }

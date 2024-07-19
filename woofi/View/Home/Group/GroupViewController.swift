@@ -125,26 +125,39 @@ class GroupViewController: UIViewController {
     
     @objc private func didTapAddButton() {
         let alertController = UIAlertController(
-            title: "Invite Options",
-            message: "Please choose an option",
+            title: .localized(for: .groupVCAlertTitle),
+            message: .localized(for: .groupVCAlertMessage),
             preferredStyle: .actionSheet
         )
         
-        let inviteAction = UIAlertAction(title: "Invite", style: .default) { _ in
+        let inviteAction = UIAlertAction(
+            title: .localized(for: .groupVCInviteActionTitle),
+            style: .default
+        ) { _ in
             self.presentInviteViewController()
         }
         
-        let joinAction = UIAlertAction(title: "Join Group", style: .default) { _ in
+        let joinAction = UIAlertAction(
+            title: .localized(for: .groupVCJoinActionTitle),
+            style: .default
+        ) { _ in
             self.presentJoinGroupViewController()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(
+            title: .localized(for: .cancel),
+            style: .cancel,
+            handler: nil
+        )
         
         alertController.addAction(inviteAction)
         alertController.addAction(joinAction)
         
         if let vm = viewModel, !vm.users.value.isEmpty {
-            let leaveAction = UIAlertAction(title: "Leave group", style: .destructive) { _ in
+            let leaveAction = UIAlertAction(
+                title: .localized(for: .groupVCLeaveActionTitle),
+                style: .destructive
+            ) { _ in
                 self.showLeaveWarning()
             }
             alertController.addAction(leaveAction)
@@ -178,16 +191,22 @@ class GroupViewController: UIViewController {
 
     private func showLeaveWarning() {
         let alertController = UIAlertController(
-            title: "Leave Group",
-            message: "Are you sure you want to leave the group?",
+            title: .localized(for: .groupVCLeaveWarningTitle),
+            message: .localized(for: .groupVCLeaveWarningMessage),
             preferredStyle: .alert
         )
         
-        let leaveAction = UIAlertAction(title: "Leave", style: .destructive) { [weak self] _ in
+        let leaveAction = UIAlertAction(
+            title: .localized(for: .groupVCLeaveWarningConfirm),
+            style: .destructive
+        ) { [weak self] _ in
             self?.viewModel?.leaveGroup()
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(
+            title: .localized(for: .cancel),
+            style: .cancel
+        )
         
         alertController.addAction(leaveAction)
         alertController.addAction(cancelAction)

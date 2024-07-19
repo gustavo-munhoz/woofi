@@ -25,9 +25,12 @@ class EditProfileView: UIView {
         config.imagePadding = 24
         config.baseForegroundColor = .primary
         
-        config.attributedTitle = AttributedString("Change profile picture", attributes: AttributeContainer([
-            .font: UIFont.preferredFont(forTextStyle: .title3)
-        ]))
+        config.attributedTitle = AttributedString(
+            String.localized(for: .editProfileViewChangePictureButton),
+            attributes: AttributeContainer([
+                .font: UIFont.preferredFont(forTextStyle: .title3)
+            ])
+        )
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -40,7 +43,10 @@ class EditProfileView: UIView {
 
     
     private(set) lazy var pictureStackView: EditStackView = {
-        let view = EditStackView(title: "Profile Picture", editView: changePictureButton)
+        let view = EditStackView(
+            title: String.localized(for: .editProfileViewPictureStackTitle),
+            editView: changePictureButton
+        )
         
         return view
     }()
@@ -57,7 +63,10 @@ class EditProfileView: UIView {
     }()
     
     private(set) lazy var usernameStackView: EditStackView = {
-        EditStackView(title: "Username", editView: usernameTextView)
+        EditStackView(
+            title: String.localized(for: .editProfileViewUsernameStackTitle),
+            editView: usernameTextView
+        )
     }()
     
     private(set) lazy var biographyTextView: PaddedTextView = {
@@ -72,7 +81,10 @@ class EditProfileView: UIView {
     }()
     
     private(set) lazy var biographyStackView: EditStackView = {
-        EditStackView(title: "Biography", editView: biographyTextView)
+        EditStackView(
+            title: String.localized(for: .editProfileViewBioStackTitle),
+            editView: biographyTextView
+        )
     }()
     
     // MARK: - Class Methods

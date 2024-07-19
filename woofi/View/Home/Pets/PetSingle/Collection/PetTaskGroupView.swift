@@ -50,7 +50,7 @@ class PetTaskGroupView: UICollectionViewCell {
     func setup(withTaskGroup taskGroup: PetTaskGroup, pet: Pet?) {
         self.taskGroup = taskGroup
         
-        titleLabel.text = LocalizedString.Tasks.ofType(taskGroup.task)
+        titleLabel.text = taskGroup.task.localizedDescription
         
         instancesStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         

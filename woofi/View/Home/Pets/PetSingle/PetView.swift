@@ -44,7 +44,7 @@ class PetView: UIView {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.text = LocalizedString.Pet.largeTitleTasks
+        view.text = String.localized(for: .petViewLargeTitle)
         
         let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle)
         let boldFd = fd.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.bold]])

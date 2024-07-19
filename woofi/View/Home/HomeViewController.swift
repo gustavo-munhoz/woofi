@@ -47,19 +47,19 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         groupViewController.tabBarItem = UITabBarItem(
-            title: LocalizedString.Group.navbarTitle,
+            title: .localized(for: .homeVCGroupNavbarTitle),
             image: UIImage(systemName: "person.3.sequence.fill"),
             tag: 0
         )
         
         petListViewController.tabBarItem = UITabBarItem(
-            title: LocalizedString.PetList.navbarTitle,
+            title: .localized(for: .homeVCPetsNavbarTitle),
             image: UIImage(systemName: "pawprint.fill"),
             tag: 1
         )
         
         profileViewController.tabBarItem = UITabBarItem(
-            title: "Profile",
+            title: .localized(for: .homeVCProfileNavbarTitle),
             image: UIImage(systemName: "person.fill"),
             tag: 2
         )
@@ -89,7 +89,7 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
         
         navigationItem.setHidesBackButton(true, animated: false)
         
-        navigationItem.title = selectedIndex == 0 ? LocalizedString.Group.navbarTitle : LocalizedString.PetList.navbarTitle
+        navigationItem.title = selectedIndex == 0 ? .localized(for: .homeVCGroupNavbarTitle) : .localized(for: .homeVCPetsNavbarTitle)
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.primary]

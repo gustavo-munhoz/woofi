@@ -179,12 +179,20 @@ extension PetListViewController: UIContextMenuInteractionDelegate {
         
         let pet = viewModel.pets.value[indexPath.row]
         
-        return UIContextMenuConfiguration(actionProvider: { [weak self] suggestedActions in
-            let editAction = UIAction(title: "Edit pet", image: UIImage(systemName: "square.and.pencil")) { _ in
+        return UIContextMenuConfiguration(actionProvider: {
+            [weak self] suggestedActions in
+            let editAction = UIAction(
+                title: .localized(for: .petListVCContextMenuEdit),
+                image: UIImage(systemName: "square.and.pencil")
+            ) { _ in
                 self?.presentPetEditView(for: pet)
             }
             
-            let deleteAction = UIAction(title: "Delete pet", image: UIImage(systemName: "trash"), attributes: [.destructive]) { _ in
+            let deleteAction = UIAction(
+                title: .localized(for: .petListVCContextMenuDelete),
+                image: UIImage(systemName: "trash"),
+                attributes: [.destructive]
+            ) { _ in
                 self?.alertPetDeletion(for: pet)
             }
             
@@ -201,14 +209,20 @@ extension PetListViewController: UIContextMenuInteractionDelegate {
     
     func alertPetDeletion(for pet: Pet) {
         let alert = UIAlertController(
-            title: "Delete \(pet.name)",
-            message: "Are you sure you want to delete \(pet.name)? This will delete \(pet.name) for everyone in your group.",
+            title: .localized(for: .petListVCDeleteAlertTitle(petName: pet.name)),
+            message: .localized(for: .petListVCDeleteAlertMessage(petName: pet.name)),
             preferredStyle: .alert
         )
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancel = UIAlertAction(
+            title: .localized(for: .cancel),
+            style: .cancel
+        )
         
-        let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+        let delete = UIAlertAction(
+            title: .localized(for: .delete),
+            style: .destructive
+        ) { [weak self] _ in
             self?.viewModel?.deletePet(pet)
         }
         

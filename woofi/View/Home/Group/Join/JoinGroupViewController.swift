@@ -71,11 +71,11 @@ class JoinGroupViewController: UIViewController {
             case .failure(let error):
                 print("Error fetching group ID: \(error.localizedDescription)")
                 let alert = UIAlertController(
-                    title: "Invalid Code",
-                    message: "The code you entered is invalid. Please try again.",
+                    title: .localized(for: .joinGroupVCInvalidCodeTitle),
+                    message: .localized(for: .joinGroupVCInvalidCodeMessage),
                     preferredStyle: .alert
                 )
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: .localized(for: .ok).uppercased(), style: .default, handler: nil))
                 DispatchQueue.main.async {
                     self.present(alert, animated: true, completion: nil)
                 }

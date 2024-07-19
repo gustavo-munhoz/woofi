@@ -97,7 +97,7 @@ class UserView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title1)
         label.textColor = .primary
-        label.text = LocalizedString.Tasks.title
+        label.text = String.localized(for: .userViewStatsLabel)
         return label
     }()
     

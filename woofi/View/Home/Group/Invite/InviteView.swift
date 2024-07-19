@@ -14,7 +14,7 @@ class InviteView: UIView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Invite Members"
+        label.text = .localized(for: .inviteViewTitle)
         
         let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle)
         
@@ -35,7 +35,7 @@ class InviteView: UIView {
     
     let tutorialLabel: UILabel = {
         let label = UILabel()
-        label.text = "Share this code with people you want to invite."
+        label.text = .localized(for: .inviteViewTutorial)
         label.numberOfLines = 0
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +55,7 @@ class InviteView: UIView {
     
     let sendButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Send invite", for: .normal)
+        button.setTitle(.localized(for: .inviteViewShareButton), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         button.backgroundColor = .systemBlue

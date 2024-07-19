@@ -41,7 +41,7 @@ class EditPetViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationItem.title = "Edit your pet"
+        navigationItem.title = String.localized(for: .editPetVCNavigationItemTitle)
         navigationItem.largeTitleDisplayMode = .always
     }
     
@@ -72,14 +72,20 @@ class EditPetViewController: UIViewController {
         guard let pet = viewModel?.pet else { return }
         
         let alert = UIAlertController(
-            title: "Delete \(pet.name)",
-            message: "Are you sure you want to delete \(pet.name)? This will delete \(pet.name) for everyone in your group.",
+            title: String.localized(for: .editPetVCDeleteAlertTitle(petName: pet.name)),
+            message: String.localized(for: .editPetVCDeleteAlertMessage(petName: pet.name)),
             preferredStyle: .alert
         )
         
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancel = UIAlertAction(
+            title: String.localized(for: .cancel),
+            style: .cancel
+        )
         
-        let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+        let delete = UIAlertAction(
+            title: String.localized(for: .delete),
+            style: .destructive
+        ) { [weak self] _ in
             self?.viewModel?.deletePet(pet) {
                 DispatchQueue.main.async {
                     self?.navigationController?.popViewController(animated: true)
@@ -109,11 +115,17 @@ class EditPetViewController: UIViewController {
                     
                 case .denied, .restricted, .notDetermined:
                     let alert = UIAlertController(
-                        title: "Acesso às Fotos Negado",
-                        message: "Por favor, permita o acesso às suas fotos nas configurações do dispositivo.",
+                        title: String.localized(for: .photosAccessDeniedTitle),
+                        message: String.localized(for: .photosAccessDeniedMessage),
                         preferredStyle: .alert
                     )
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    alert.addAction(
+                        UIAlertAction(
+                            title: String.localized(for: .ok).uppercased(),
+                            style: .default,
+                            handler: nil
+                        )
+                    )
                     self.present(alert, animated: true, completion: nil)
                     
                 @unknown default:

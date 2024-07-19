@@ -93,6 +93,7 @@
 		B3FC79852C47D5B700CBC03D /* EditPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79842C47D5B700CBC03D /* EditPetView.swift */; };
 		B3FC79872C47D70100CBC03D /* EditPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79862C47D70100CBC03D /* EditPetViewController.swift */; };
 		B3FC798B2C489CD800CBC03D /* DebugOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC798A2C489CD800CBC03D /* DebugOptions.swift */; };
+		B3FC798D2C4A864200CBC03D /* String+LocalizedKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC798C2C4A864200CBC03D /* String+LocalizedKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -185,6 +186,7 @@
 		B3FC79842C47D5B700CBC03D /* EditPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPetView.swift; sourceTree = "<group>"; };
 		B3FC79862C47D70100CBC03D /* EditPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPetViewController.swift; sourceTree = "<group>"; };
 		B3FC798A2C489CD800CBC03D /* DebugOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOptions.swift; sourceTree = "<group>"; };
+		B3FC798C2C4A864200CBC03D /* String+LocalizedKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedKey.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -476,6 +478,7 @@
 				B354B66C2C2B57AF00CEA618 /* Data+base36EncodedString.swift */,
 				B354B66E2C2B740F00CEA618 /* Notification+groupIDDidChange.swift */,
 				B3FC798A2C489CD800CBC03D /* DebugOptions.swift */,
+				B3FC798C2C4A864200CBC03D /* String+LocalizedKey.swift */,
 			);
 			path = "+ext";
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 				B31D31D62BF3F0C300CE903A /* PetTaskInstance.swift in Sources */,
 				B31D31BA2BEEB80F00CE903A /* PetListView.swift in Sources */,
 				B30623092BE88437009441CB /* GroupViewController.swift in Sources */,
+				B3FC798D2C4A864200CBC03D /* String+LocalizedKey.swift in Sources */,
 				B35CC3802C010DB7007FBEFC /* JoinGroupView.swift in Sources */,
 				B31D31BF2BEEBBE600CE903A /* Pet.swift in Sources */,
 				B35CC3712BFD366E007FBEFC /* DefaultPetTaskStructure.swift in Sources */,

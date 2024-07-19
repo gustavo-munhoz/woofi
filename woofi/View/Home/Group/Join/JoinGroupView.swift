@@ -7,7 +7,7 @@ class JoinGroupView: UIView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Join Group"
+        label.text = .localized(for: .joinGroupViewTitle)
         
         let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle)
         
@@ -26,7 +26,7 @@ class JoinGroupView: UIView {
     
     let tutorialLabel: UILabel = {
         let label = UILabel()
-        label.text = "Enter the code you received to join the group."
+        label.text = .localized(for: .joinGroupViewTutorial)
         label.numberOfLines = 0
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +47,7 @@ class JoinGroupView: UIView {
 
     let joinButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Join group", for: .normal)
+        button.setTitle(.localized(for: .joinGroupViewButton), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         button.backgroundColor = .systemBlue
@@ -139,7 +139,7 @@ class JoinGroupView: UIView {
             
             UIView.animate(withDuration: duration) {
                 self.joinButton.snp.updateConstraints { make in
-                    make.bottom.equalTo(self.safeAreaLayoutGuide).inset(30)
+                    make.bottom.equalTo(self.safeAreaLayoutGuide).inset(24)
                 }
                 self.layoutIfNeeded()
             }

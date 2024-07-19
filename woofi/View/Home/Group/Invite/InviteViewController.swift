@@ -46,7 +46,7 @@ class InviteViewController: UIViewController {
     @objc private func sendInvite() {
         guard let code = code else { return }
         
-        let inviteMessage = "Join my Woofy group using this code: \(code)"
+        let inviteMessage = String.localized(for: .inviteVCMessage(code: code))
         
         let activityVC = UIActivityViewController(activityItems: [inviteMessage], applicationActivities: nil)
         present(activityVC, animated: true, completion: nil)

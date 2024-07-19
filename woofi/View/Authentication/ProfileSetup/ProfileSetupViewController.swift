@@ -20,7 +20,7 @@ class ProfileSetupViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.setHidesBackButton(true, animated: false)
-        navigationItem.title = "Almost done!"
+        navigationItem.title = .localized(for: .profileSetupVCNavigationTitle)
         
         profileSetupView.onPictureButtonTapped = presentImagePicker
         profileSetupView.onContinueButtonTapped = buildAndSetUser
@@ -49,11 +49,11 @@ class ProfileSetupViewController: UIViewController {
                     
                 case .denied, .restricted, .notDetermined:
                     let alert = UIAlertController(
-                        title: "Acesso às Fotos Negado",
-                        message: "Por favor, permita o acesso às suas fotos nas configurações do dispositivo.",
+                        title: .localized(for: .photosAccessDeniedTitle),
+                        message: .localized(for: .photosAccessDeniedMessage),
                         preferredStyle: .alert
                     )
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    alert.addAction(UIAlertAction(title: .localized(for: .ok), style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                     
                 @unknown default:

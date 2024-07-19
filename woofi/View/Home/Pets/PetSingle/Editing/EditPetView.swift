@@ -26,9 +26,12 @@ class EditPetView: UIView {
         config.imagePadding = 24
         config.baseForegroundColor = .primary
         
-        config.attributedTitle = AttributedString("Change Pet Picture", attributes: AttributeContainer([
-            .font: UIFont.preferredFont(forTextStyle: .title3)
-        ]))
+        config.attributedTitle = AttributedString(
+            String.localized(for: .editPetViewChangePictureButton),
+            attributes: AttributeContainer([
+                .font: UIFont.preferredFont(forTextStyle: .title3)
+            ])
+        )
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +44,10 @@ class EditPetView: UIView {
 
     
     private(set) lazy var pictureStackView: EditStackView = {
-        let view = EditStackView(title: "Pet Picture", editView: changePictureButton)
+        let view = EditStackView(
+            title: String.localized(for: .editPetViewPictureStackTitle),
+            editView: changePictureButton
+        )
         
         return view
     }()
@@ -58,7 +64,10 @@ class EditPetView: UIView {
     }()
     
     private(set) lazy var petNameStackView: EditStackView = {
-        EditStackView(title: "Pet name", editView: petNameTextView)
+        EditStackView(
+            title: String.localized(for: .editPetViewPetNameStackTitle),
+            editView: petNameTextView
+        )
     }()
     
     private(set) lazy var petBreedTextView: PaddedTextView = {
@@ -73,7 +82,10 @@ class EditPetView: UIView {
     }()
     
     private(set) lazy var petBreedStackView: EditStackView = {
-        EditStackView(title: "Pet breed", editView: petBreedTextView)
+        EditStackView(
+            title: String.localized(for: .editPetViewBreedStackTitle),
+            editView: petBreedTextView
+        )
     }()
     
     private(set) lazy var petAgeTextView: PaddedTextView = {
@@ -88,15 +100,21 @@ class EditPetView: UIView {
     }()
     
     private(set) lazy var petAgeStackView: EditStackView = {
-        EditStackView(title: "Pet Age", editView: petAgeTextView)
+        EditStackView(
+            title: String.localized(for: .editPetViewAgeStackTitle),
+            editView: petAgeTextView
+        )
     }()
     
     private(set) lazy var deleteButton: UIButton = {
         var config = UIButton.Configuration.plain()
         config.baseForegroundColor = .systemRed
-        config.attributedTitle = AttributedString("Delete pet", attributes: AttributeContainer([
-            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body)
-        ]))
+        config.attributedTitle = AttributedString(
+            String.localized(for: .editPetViewDeleteButton),
+            attributes: AttributeContainer([
+                NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body)
+            ])
+        )
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -11,13 +11,13 @@ struct DefaultPetTaskStructure {
     static func dailyTasks() -> [PetTaskGroup] {
         return [
             PetTaskGroup(task: .walk, frequency: .daily, instances: [
-                PetTaskInstance(label: LocalizedString.Tasks.morningWalk),
-                PetTaskInstance(label: LocalizedString.Tasks.afternoonWalk),
-                PetTaskInstance(label: LocalizedString.Tasks.nightWalk)
+                PetTaskInstance(label: .localized(for: .taskDailyMorningWalk)),
+                PetTaskInstance(label: .localized(for: .taskDailyAfternoonWalk)),
+                PetTaskInstance(label: .localized(for: .taskDailyEveningWalk))
             ]),
             PetTaskGroup(task: .feed, frequency: .daily, instances: [
-                PetTaskInstance(label: LocalizedString.Tasks.morningMeal),
-                PetTaskInstance(label: LocalizedString.Tasks.nightMeal)
+                PetTaskInstance(label: .localized(for: .taskDailyMorningMeal)),
+                PetTaskInstance(label: .localized(for: .taskDailyEveningMeal))
             ])
         ]
     }
@@ -25,7 +25,7 @@ struct DefaultPetTaskStructure {
     static func weeklyTasks() -> [PetTaskGroup] {
         return [
             PetTaskGroup(task: .brush, frequency: .weekly, instances: [
-                PetTaskInstance(label: LocalizedString.Tasks.weeklyBrush)
+                PetTaskInstance(label: .localized(for: .taskWeeklyBrush))
             ])
         ]
     }
@@ -33,11 +33,11 @@ struct DefaultPetTaskStructure {
     static func monthlyTasks() -> [PetTaskGroup] {
         return [
             PetTaskGroup(task: .bath, frequency: .monthly, instances: [
-                PetTaskInstance(label: LocalizedString.Tasks.firstBath),
-                PetTaskInstance(label: LocalizedString.Tasks.secondBath)
+                PetTaskInstance(label: .localized(for: .taskMonthlyBathFirst)),
+                PetTaskInstance(label: .localized(for: .taskMonthlyBathSecond))
             ]),
             PetTaskGroup(task: .vet, frequency: .monthly, instances: [
-                PetTaskInstance(label: LocalizedString.Tasks.monthlyVet)
+                PetTaskInstance(label: .localized(for: .taskMonthlyVet))
             ])
         ]
     }

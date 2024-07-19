@@ -26,9 +26,12 @@ class ProfileSetupView: UIView {
         config.imagePadding = 24
         config.baseForegroundColor = .primary
         
-        config.attributedTitle = AttributedString("Add profile picture", attributes: AttributeContainer([
-            .font: UIFont.preferredFont(forTextStyle: .title3)
-        ]))
+        config.attributedTitle = AttributedString(
+            .localized(for: .profileSetupViewChangePictureButton),
+            attributes: AttributeContainer([
+                .font: UIFont.preferredFont(forTextStyle: .title3)
+            ])
+        )
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +45,10 @@ class ProfileSetupView: UIView {
 
     
     private(set) lazy var pictureStackView: EditStackView = {
-        let view = EditStackView(title: "Set your profile picture", editView: changePictureButton)
+        let view = EditStackView(
+            title: .localized(for: .profileSetupViewPictureStackTitle),
+            editView: changePictureButton
+        )
         
         return view
     }()
@@ -59,7 +65,10 @@ class ProfileSetupView: UIView {
     }()
     
     private(set) lazy var usernameStackView: EditStackView = {
-        EditStackView(title: "Enter your username", editView: usernameTextView)
+        EditStackView(
+            title: .localized(for: .profileSetupViewUsernameStackTitle),
+            editView: usernameTextView
+        )
     }()
     
     private(set) lazy var biographyTextView: PaddedTextView = {
@@ -74,12 +83,15 @@ class ProfileSetupView: UIView {
     }()
     
     private(set) lazy var biographyStackView: EditStackView = {
-        EditStackView(title: "Enter your biography", editView: biographyTextView)
+        EditStackView(
+            title: .localized(for: .profileSetupViewBioStackTitle),
+            editView: biographyTextView
+        )
     }()
     
     private(set) lazy var continueButton: UIButton = {
         var config = UIButton.Configuration.filled()
-        config.title = "Continue"
+        config.title = .localized(for: ._continue)
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false

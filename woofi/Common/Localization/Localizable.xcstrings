@@ -1,7 +1,62 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "emailInput" : {
+    "addPetViewAge" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Age"
+          }
+        }
+      }
+    },
+    "addPetViewBreed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breed"
+          }
+        }
+      }
+    },
+    "addPetViewCreateButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create pet"
+          }
+        }
+      }
+    },
+    "addPetViewName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
+    },
+    "addPetViewTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add new pet"
+          }
+        }
+      }
+    },
+    "authEmailInputLabel" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -12,29 +67,7 @@
         }
       }
     },
-    "group" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your group"
-          }
-        }
-      }
-    },
-    "largeTitleTasks" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tasks"
-          }
-        }
-      }
-    },
-    "loginButton" : {
+    "authLoginButtonTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -45,7 +78,7 @@
         }
       }
     },
-    "passwordInput" : {
+    "authPasswordInputLabel" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -56,17 +89,8 @@
         }
       }
     },
-    "petList" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pets"
-          }
-        }
-      }
-    },
-    "registerButton" : {
+    "authRegisterButtonTitle" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -76,94 +100,487 @@
         }
       }
     },
-    "taskBath" : {
+    "authUsernameInputLabel" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bath"
+            "value" : "Username"
           }
         }
       }
     },
-    "taskBathFirst" : {
+    "cancel" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "First bath"
+            "value" : "Cancel"
           }
         }
       }
     },
-    "taskBathSecond" : {
+    "continue" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Second bath"
+            "value" : "Continue"
           }
         }
       }
     },
-    "taskBrush" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Brushing"
-          }
-        }
-      }
-    },
-    "taskFeed" : {
+    "delete" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Feeding"
+            "value" : "Delete"
           }
         }
       }
     },
-    "taskFeedMorning" : {
+    "editPetVCDeleteAlertMessage" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Morning meal"
+            "value" : "Are you sure you want to delete %@? This will delete %@ for everyone in your group."
           }
         }
       }
     },
-    "taskFeedNight" : {
+    "editPetVCDeleteAlertTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Night meal"
+            "value" : "Delete %@?"
           }
         }
       }
     },
-    "taskBrushWeekly" : {
+    "editPetVCNavigationItemTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Weekly brush"
+            "value" : "Edit your pet"
           }
         }
       }
     },
-    "taskSectionTitleDaily" : {
+    "editPetViewAgeStackTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pet Age"
+          }
+        }
+      }
+    },
+    "editPetViewBreedStackTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pet Breed"
+          }
+        }
+      }
+    },
+    "editPetViewChangePictureButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change pet picture"
+          }
+        }
+      }
+    },
+    "editPetViewDeleteButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete pet"
+          }
+        }
+      }
+    },
+    "editPetViewPetNameStackTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pet Name"
+          }
+        }
+      }
+    },
+    "editPetViewPictureStackTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pet Picture"
+          }
+        }
+      }
+    },
+    "editProfileViewBioStackTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biography"
+          }
+        }
+      }
+    },
+    "editProfileViewChangePictureButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change profile picture"
+          }
+        }
+      }
+    },
+    "editProfileViewPictureStackTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile Picture"
+          }
+        }
+      }
+    },
+    "editProfileViewUsernameStackTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username"
+          }
+        }
+      }
+    },
+    "emailInput" : {
+
+    },
+    "group" : {
+
+    },
+    "groupVCAlertMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please choose an option below:"
+          }
+        }
+      }
+    },
+    "groupVCAlertTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group options"
+          }
+        }
+      }
+    },
+    "groupVCInviteActionTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invite members"
+          }
+        }
+      }
+    },
+    "groupVCJoinActionTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join group"
+          }
+        }
+      }
+    },
+    "groupVCLeaveActionTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave group"
+          }
+        }
+      }
+    },
+    "groupVCLeaveWarningConfirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave"
+          }
+        }
+      }
+    },
+    "groupVCLeaveWarningMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to leave the group?"
+          }
+        }
+      }
+    },
+    "groupVCLeaveWarningTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave group?"
+          }
+        }
+      }
+    },
+    "homeVCGroupNavbarTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group"
+          }
+        }
+      }
+    },
+    "homeVCPetsNavbarTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pets"
+          }
+        }
+      }
+    },
+    "homeVCProfileNavbarTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        }
+      }
+    },
+    "inviteVCMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join my woofy group using this code: %@"
+          }
+        }
+      }
+    },
+    "inviteViewShareButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share code"
+          }
+        }
+      }
+    },
+    "inviteViewTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invite Members"
+          }
+        }
+      }
+    },
+    "inviteViewTutorial" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share this code with people you want to invite."
+          }
+        }
+      }
+    },
+    "joinGroupVCInvalidCodeMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The code you entered is invalid. Please try again."
+          }
+        }
+      }
+    },
+    "joinGroupVCInvalidCodeTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid Code"
+          }
+        }
+      }
+    },
+    "joinGroupViewButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join group"
+          }
+        }
+      }
+    },
+    "joinGroupViewTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join Group"
+          }
+        }
+      }
+    },
+    "joinGroupViewTutorial" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter the code you received to join the group."
+          }
+        }
+      }
+    },
+    "largeTitleTasks" : {
+
+    },
+    "loginButton" : {
+
+    },
+    "ok" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        }
+      }
+    },
+    "passwordInput" : {
+
+    },
+    "petList" : {
+
+    },
+    "petListVCContextMenuDelete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete pet"
+          }
+        }
+      }
+    },
+    "petListVCContextMenuEdit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit pet"
+          }
+        }
+      }
+    },
+    "petListVCDeleteAlertMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete %@? This will delete %@ for everyone in your group."
+          }
+        }
+      }
+    },
+    "petListVCDeleteAlertTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete %@?"
+          }
+        }
+      }
+    },
+    "petVCDailyTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -174,7 +591,7 @@
         }
       }
     },
-    "taskSectionTitleMonthly" : {
+    "petVCMonthlyTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -185,7 +602,7 @@
         }
       }
     },
-    "taskSectionTitleWeekly" : {
+    "petVCWeeklyTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -196,50 +613,113 @@
         }
       }
     },
-    "tasksTitle" : {
+    "petViewLargeTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tasks completed"
+            "value" : "Tasks"
           }
         }
       }
     },
-    "taskVet" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Veterinary"
-          }
-        }
-      }
-    },
-    "taskVeterinaryFirst" : {
+    "photosAccessDeniedMessage" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Veterinary appointment"
+            "value" : "Please, allow access to your pictures in your device settings."
           }
         }
       }
     },
-    "taskWalk" : {
+    "photosAccessDeniedTitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Walks"
+            "value" : "Access to Photos Denied"
           }
         }
       }
     },
-    "taskWalkAfternoon" : {
+    "profileSetupVCNavigationTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Almost done!"
+          }
+        }
+      }
+    },
+    "profileSetupViewBioStackTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your biography"
+          }
+        }
+      }
+    },
+    "profileSetupViewChangePictureButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add profile picture"
+          }
+        }
+      }
+    },
+    "profileSetupViewPictureStackTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set your profile picture"
+          }
+        }
+      }
+    },
+    "profileSetupViewUsernameStackTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your username"
+          }
+        }
+      }
+    },
+    "registerButton" : {
+
+    },
+    "taskBath" : {
+
+    },
+    "taskBathFirst" : {
+
+    },
+    "taskBathSecond" : {
+
+    },
+    "taskBrush" : {
+
+    },
+    "taskBrushWeekly" : {
+
+    },
+    "taskDailyAfternoonWalk" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -250,7 +730,40 @@
         }
       }
     },
-    "taskWalkMorning" : {
+    "taskDailyEveningMeal" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evening meal"
+          }
+        }
+      }
+    },
+    "taskDailyEveningWalk" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Evening walk"
+          }
+        }
+      }
+    },
+    "taskDailyMorningMeal" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Morning meal"
+          }
+        }
+      }
+    },
+    "taskDailyMorningWalk" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -261,24 +774,154 @@
         }
       }
     },
-    "taskWalkNight" : {
+    "taskFeed" : {
+
+    },
+    "taskFeedMorning" : {
+
+    },
+    "taskFeedNight" : {
+
+    },
+    "taskMonthlyBathFirst" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Night walk"
+            "value" : "First bath"
+          }
+        }
+      }
+    },
+    "taskMonthlyBathSecond" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Second bath"
+          }
+        }
+      }
+    },
+    "taskMonthlyVet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veterinary appointment"
+          }
+        }
+      }
+    },
+    "taskSectionTitleDaily" : {
+
+    },
+    "taskSectionTitleMonthly" : {
+
+    },
+    "taskSectionTitleWeekly" : {
+
+    },
+    "tasksTitle" : {
+
+    },
+    "taskTypeBath" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bath"
+          }
+        }
+      }
+    },
+    "taskTypeBrush" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brushing"
+          }
+        }
+      }
+    },
+    "taskTypeFeed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feeding"
+          }
+        }
+      }
+    },
+    "taskTypeVet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veterinary"
+          }
+        }
+      }
+    },
+    "taskTypeWalk" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Walks"
+          }
+        }
+      }
+    },
+    "taskVet" : {
+
+    },
+    "taskVeterinaryFirst" : {
+
+    },
+    "taskWalk" : {
+
+    },
+    "taskWalkAfternoon" : {
+
+    },
+    "taskWalkMorning" : {
+
+    },
+    "taskWalkNight" : {
+
+    },
+    "taskWeeklyBrush" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekly brush"
           }
         }
       }
     },
     "usernameInput" : {
+
+    },
+    "userViewStatsLabel" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Username"
+            "value" : "Tasks completed"
           }
         }
       }

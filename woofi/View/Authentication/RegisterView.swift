@@ -37,7 +37,7 @@ class RegisterView: UIView {
         let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.placeholder = LocalizedString.LoginAndRegister.emailInput
+        view.placeholder = .localized(for: .authEmailInputLabel)
         view.borderStyle = .roundedRect
         
         return view
@@ -47,7 +47,7 @@ class RegisterView: UIView {
         let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.placeholder = LocalizedString.LoginAndRegister.usernameInput
+        view.placeholder = .localized(for: .authUsernameInputLabel)
         view.borderStyle = .roundedRect
         
         return view
@@ -57,7 +57,7 @@ class RegisterView: UIView {
         let view = UITextField()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.placeholder = LocalizedString.LoginAndRegister.passwordInput
+        view.placeholder = .localized(for: .authPasswordInputLabel)
         view.borderStyle = .roundedRect
         view.isSecureTextEntry = true
         
@@ -68,7 +68,7 @@ class RegisterView: UIView {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .systemBlue
         config.attributedTitle = AttributedString(
-            LocalizedString.LoginAndRegister.registerButton,
+            .localized(for: .authRegisterButtonTitle),
             attributes: AttributeContainer([
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .regular),
                 NSAttributedString.Key.foregroundColor: UIColor.white
@@ -87,7 +87,7 @@ class RegisterView: UIView {
         config.background.strokeColor = .white
     
         config.attributedTitle = AttributedString(
-            LocalizedString.LoginAndRegister.loginButton,
+            .localized(for: .authLoginButtonTitle),
             attributes: AttributeContainer([
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .regular),
                 NSAttributedString.Key.foregroundColor: UIColor.white

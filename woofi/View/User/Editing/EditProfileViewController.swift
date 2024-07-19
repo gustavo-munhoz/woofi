@@ -74,11 +74,17 @@ class EditProfileViewController: UIViewController {
                     
                 case .denied, .restricted, .notDetermined:
                     let alert = UIAlertController(
-                        title: "Acesso às Fotos Negado",
-                        message: "Por favor, permita o acesso às suas fotos nas configurações do dispositivo.",
+                        title: String.localized(for: .photosAccessDeniedTitle),
+                        message: String.localized(for: .photosAccessDeniedMessage),
                         preferredStyle: .alert
                     )
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    alert.addAction(
+                        UIAlertAction(
+                            title: String.localized(for: .ok).uppercased(),
+                            style: .default,
+                            handler: nil
+                        )
+                    )
                     self.present(alert, animated: true, completion: nil)
                     
                 @unknown default:

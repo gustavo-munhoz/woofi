@@ -17,11 +17,11 @@ fileprivate enum Section: Int, CaseIterable {
     var title: String {
         switch self {
         case .daily:
-            return LocalizedString.Pet.dailyTasksTitle
+            return String.localized(for: .petVCDailyTitle)
         case .weekly:
-            return LocalizedString.Pet.weeklyTasksTitle
+            return String.localized(for: .petVCWeeklyTitle)
         case .monthly:
-            return LocalizedString.Pet.monthlyTasksTitle
+            return String.localized(for: .petVCMonthlyTitle)
         }
     }
 }
