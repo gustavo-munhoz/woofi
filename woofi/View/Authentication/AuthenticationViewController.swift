@@ -124,15 +124,6 @@ class AuthenticationViewController: UIViewController {
     
     private func fadeInOutToView(_ newView: UIView) {
         self.view = newView
-//        UIView.animate(withDuration: 0.15) {
-//            self.view.alpha = 0
-//            
-//        } completion: { _ in
-//            UIView.animate(withDuration: 0.15) {
-//                self.view = newView
-//                self.view.alpha = 1
-//            }
-//        }
     }    
     
     // MARK: Notifications

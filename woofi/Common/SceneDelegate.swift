@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        let rootViewController: UIViewController = Session.shared.currentUser == nil ? AuthenticationViewController() : HomeViewController()
+        let rootViewController: UIViewController = Session.shared.currentUser == nil ? LoginViewController() : HomeViewController()
         let navigationController = UINavigationController(rootViewController: rootViewController)
         
         window?.rootViewController = navigationController

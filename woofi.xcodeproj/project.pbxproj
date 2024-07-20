@@ -96,6 +96,7 @@
 		B3FC79902C4B0E8000CBC03D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B3FC798F2C4B0E8000CBC03D /* Lottie */; };
 		B3FC79932C4B0F2A00CBC03D /* walking-dog-login.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FC79922C4B0F2A00CBC03D /* walking-dog-login.json */; };
 		B3FC79952C4C51A300CBC03D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79942C4C51A300CBC03D /* LoginViewController.swift */; };
+		B3FC79972C4C534600CBC03D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79962C4C534600CBC03D /* LoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -190,6 +191,7 @@
 		B3FC798C2C4A864200CBC03D /* String+LocalizedKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedKey.swift"; sourceTree = "<group>"; };
 		B3FC79922C4B0F2A00CBC03D /* walking-dog-login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "walking-dog-login.json"; sourceTree = "<group>"; };
 		B3FC79942C4C51A300CBC03D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B3FC79962C4C534600CBC03D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 			children = (
 				B30622EC2BE8141D009441CB /* AuthenticationViewModel.swift */,
 				B30622EF2BE81475009441CB /* AuthenticationType.swift */,
+				B3FC79962C4C534600CBC03D /* LoginViewModel.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -758,6 +761,7 @@
 				B31D31BF2BEEBBE600CE903A /* Pet.swift in Sources */,
 				B35CC3712BFD366E007FBEFC /* DefaultPetTaskStructure.swift in Sources */,
 				B30622FF2BE83C14009441CB /* UITextField+Publisher.swift in Sources */,
+				B3FC79972C4C534600CBC03D /* LoginViewModel.swift in Sources */,
 				B30622EB2BE81100009441CB /* RegisterView.swift in Sources */,
 				B3B980602C3DD85200520A3F /* PaddedTextView.swift in Sources */,
 				B30622F62BE82B91009441CB /* FirestoreServiceProtocol.swift in Sources */,
