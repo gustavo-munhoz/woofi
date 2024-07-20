@@ -120,6 +120,19 @@ class EditPetView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(handleDeleteButtonTap), for: .touchUpInside)
         
+        view.configurationUpdateHandler = { sender in
+            switch sender.state {
+            case .highlighted, .selected:
+                sender.alpha = 0.6
+                
+            case .normal:
+                sender.alpha = 1
+                
+            default:
+                break
+            }
+        }
+        
         return view
     }()
     

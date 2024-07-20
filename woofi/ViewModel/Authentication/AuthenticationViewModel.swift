@@ -54,7 +54,6 @@ class AuthenticationViewModel: NSObject {
         }
     }
     
-    
     // MARK: - Login logic
     
     private func loginUserWithEmailAndPassword() {

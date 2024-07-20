@@ -108,6 +108,7 @@ class LoginView: UIView {
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(loginButtonPress), for: .touchUpInside)
+        view.isEnabled = false
         
         return view
     }()
@@ -176,6 +177,19 @@ class LoginView: UIView {
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
         
+        view.configurationUpdateHandler = { sender in
+            switch sender.state {
+            case .highlighted, .selected:
+                sender.alpha = 0.6
+                
+            case .normal:
+                sender.alpha = 1
+                
+            default:
+                break
+            }
+        }
+        
         return view
     }()
     
@@ -242,6 +256,17 @@ class LoginView: UIView {
             .store(in: &cancellables)
     }
     
+    private func setupTextFieldObservers() {
+        emailTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+    
+    @objc private func textFieldDidChange() {
+        let isFormValid = !(emailTextField.text?.isEmpty ?? true) && !(passwordTextField.text?.isEmpty ?? true)
+        
+        loginButton.isEnabled = isFormValid
+    }
+    
     // MARK: - Default methods
     
     override init(frame: CGRect) {
@@ -251,6 +276,7 @@ class LoginView: UIView {
         addSubviews()
         setupConstraints()
         setupTapGesture()
+        setupTextFieldObservers()
     }
     
     required init?(coder: NSCoder) {
@@ -318,4 +344,5 @@ class LoginView: UIView {
             make.width.equalToSuperview().multipliedBy(0.75)
         }
     }
+    
 }
