@@ -159,6 +159,7 @@ extension String {
         // MARK: - LoginView/RegisterView
         case loginViewWelcomeBack
         case loginViewSeparator
+        case loginViewSigningIn
         case loginViewRegisterLabel
         case loginViewRegisterButton
         case authEmailInputLabel

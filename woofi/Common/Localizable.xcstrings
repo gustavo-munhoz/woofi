@@ -540,6 +540,17 @@
         }
       }
     },
+    "loginViewSigningIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signing in..."
+          }
+        }
+      }
+    },
     "loginViewWelcomeBack" : {
       "extractionState" : "manual",
       "localizations" : {

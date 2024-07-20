@@ -24,6 +24,10 @@ class LoginView: UIView {
     var onGoogleButtonTap: (() -> Void)?
     var onAppleButtonTap: (() -> Void)?
     
+    private var isLoginFormValid: Bool {
+        !(emailTextField.text?.isEmpty ?? true) && !(passwordTextField.text?.isEmpty ?? true)
+    }
+    
     // MARK: - Views
     
     private(set) lazy var dogAnimation: LottieAnimationView = {
@@ -69,6 +73,7 @@ class LoginView: UIView {
         
         view.placeholder = .localized(for: .authEmailInputLabel)
         view.borderStyle = .roundedRect
+        view.delegate = self
         
         return view
     }()
@@ -80,6 +85,7 @@ class LoginView: UIView {
         view.placeholder = .localized(for: .authPasswordInputLabel)
         view.borderStyle = .roundedRect
         view.isSecureTextEntry = true
+        view.delegate = self
         
         return view
     }()
@@ -88,14 +94,13 @@ class LoginView: UIView {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .actionGreen
         config.buttonSize = .small
+        config.imagePlacement = .leading
+        config.imagePadding = 8
         
         let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title3)
-        
-        let customFd = fd.addingAttributes([
-            .traits: [
+        let customFd = fd.addingAttributes([.traits: [
                 UIFontDescriptor.TraitKey.weight: UIFont.Weight.semibold
-            ]
-        ])
+        ]])
         
         config.attributedTitle = AttributedString(
             .localized(for: .authLoginButtonTitle),
@@ -109,6 +114,24 @@ class LoginView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(loginButtonPress), for: .touchUpInside)
         view.isEnabled = false
+        
+        view.configurationUpdateHandler = { [weak self] button in
+            guard let self = self, let viewModel = self.viewModel else { return }
+            
+            var config = button.configuration
+            config?.showsActivityIndicator = viewModel.isSigningIn
+            config?.attributedTitle = AttributedString(
+                .localized(for: viewModel.isSigningIn ? .loginViewSigningIn : .authLoginButtonTitle),
+                attributes: AttributeContainer([
+                    NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
+                    NSAttributedString.Key.foregroundColor: UIColor.white
+                ])
+            )
+            
+            button.isEnabled = !viewModel.isSigningIn && self.isLoginFormValid
+            
+            button.configuration = config
+        }
         
         return view
     }()
@@ -233,7 +256,7 @@ class LoginView: UIView {
     }
     
     @objc func registerButtonPress() {
-        viewModel?.toggleCurrentAuthType()
+        // will change logic now
     }
     
     @objc func googleButtonPress() {
@@ -254,6 +277,13 @@ class LoginView: UIView {
         passwordTextField.textPublisher
             .assign(to: \.value, on: viewModel.password)
             .store(in: &cancellables)
+        
+        viewModel.$isSigningIn
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.loginButton.setNeedsUpdateConfiguration()
+            }
+            .store(in: &cancellables)
     }
     
     private func setupTextFieldObservers() {
@@ -262,9 +292,7 @@ class LoginView: UIView {
     }
     
     @objc private func textFieldDidChange() {
-        let isFormValid = !(emailTextField.text?.isEmpty ?? true) && !(passwordTextField.text?.isEmpty ?? true)
-        
-        loginButton.isEnabled = isFormValid
+        loginButton.isEnabled = isLoginFormValid
     }
     
     // MARK: - Default methods
@@ -345,4 +373,13 @@ class LoginView: UIView {
         }
     }
     
+}
+
+// MARK: - UITextFieldDelegate
+
+extension LoginView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

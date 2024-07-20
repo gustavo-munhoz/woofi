@@ -58,15 +58,17 @@ class AuthenticationViewModel: NSObject {
     
     private func loginUserWithEmailAndPassword() {
         Task {
+            isSigningIn = true
             do {
                 let authResult = try await AuthenticationService.shared.loginUser(
                     withEmail: email.value,
                     password: password.value
                 )
                 onAuthenticationSuccess?(authResult.user.uid)
-                
+                isSigningIn = false
             } catch {
                 onAuthenticationFailure?(error)
+                isSigningIn = false
             }
         }
     }
@@ -80,7 +82,7 @@ class AuthenticationViewModel: NSObject {
                 
             } catch {
                 print("Error signing in with Google: \(error.localizedDescription)")
-                onAuthenticationFailure?(error)                
+                onAuthenticationFailure?(error)
             }
         }
     }
