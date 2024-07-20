@@ -95,6 +95,7 @@
 		B3FC798D2C4A864200CBC03D /* String+LocalizedKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC798C2C4A864200CBC03D /* String+LocalizedKey.swift */; };
 		B3FC79902C4B0E8000CBC03D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B3FC798F2C4B0E8000CBC03D /* Lottie */; };
 		B3FC79932C4B0F2A00CBC03D /* walking-dog-login.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FC79922C4B0F2A00CBC03D /* walking-dog-login.json */; };
+		B3FC79952C4C51A300CBC03D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79942C4C51A300CBC03D /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -188,6 +189,7 @@
 		B3FC798A2C489CD800CBC03D /* DebugOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOptions.swift; sourceTree = "<group>"; };
 		B3FC798C2C4A864200CBC03D /* String+LocalizedKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+LocalizedKey.swift"; sourceTree = "<group>"; };
 		B3FC79922C4B0F2A00CBC03D /* walking-dog-login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "walking-dog-login.json"; sourceTree = "<group>"; };
+		B3FC79942C4C51A300CBC03D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,7 @@
 				B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */,
 				B30622DD2BE80705009441CB /* LoginView.swift */,
 				B30622EA2BE81100009441CB /* RegisterView.swift */,
+				B3FC79942C4C51A300CBC03D /* LoginViewController.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -750,6 +753,7 @@
 				B31D31BA2BEEB80F00CE903A /* PetListView.swift in Sources */,
 				B30623092BE88437009441CB /* GroupViewController.swift in Sources */,
 				B3FC798D2C4A864200CBC03D /* String+LocalizedKey.swift in Sources */,
+				B3FC79952C4C51A300CBC03D /* LoginViewController.swift in Sources */,
 				B35CC3802C010DB7007FBEFC /* JoinGroupView.swift in Sources */,
 				B31D31BF2BEEBBE600CE903A /* Pet.swift in Sources */,
 				B35CC3712BFD366E007FBEFC /* DefaultPetTaskStructure.swift in Sources */,
