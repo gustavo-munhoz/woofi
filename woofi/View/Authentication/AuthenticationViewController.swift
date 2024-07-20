@@ -100,7 +100,7 @@ class AuthenticationViewController: UIViewController {
     private func showLoginView() {
         if loginView == nil {
             loginView = LoginView()
-            loginView?.viewModel = viewModel
+//            loginView?.viewModel = viewModel
             loginView?.onGoogleButtonTap = loginWithGoogle
             loginView?.onAppleButtonTap = loginWithApple
         }

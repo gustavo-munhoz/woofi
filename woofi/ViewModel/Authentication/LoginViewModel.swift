@@ -57,4 +57,26 @@ class LoginViewModel {
             return nil
         }
     }
+    
+    func signInWithEmailAndPassword() {
+        guard !email.isEmpty, !password.isEmpty else { return }
+        
+        Task {
+            isSigningIn = true
+            
+            do {
+                let authResult = try await AuthenticationService.shared.loginUser(
+                    withEmail: email,
+                    password: password
+                )
+                
+                onAuthenticationSuccess?(authResult.user.uid)
+                
+            } catch {
+                onAuthenticationFailure?(error)
+            }
+            
+            isSigningIn = false
+        }
+    }
 }

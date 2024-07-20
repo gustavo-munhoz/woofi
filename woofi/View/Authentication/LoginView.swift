@@ -15,12 +15,13 @@ class LoginView: UIView {
     
     // MARK: - Properties
     private var cancellables = Set<AnyCancellable>()
-    weak var viewModel: AuthenticationViewModel? {
+    weak var viewModel: LoginViewModel? {
         didSet {
             bindViewModel()
         }
     }
     
+    var onSignInButtonTap: (() -> Void)?
     var onGoogleButtonTap: (() -> Void)?
     var onAppleButtonTap: (() -> Void)?
     
@@ -246,17 +247,12 @@ class LoginView: UIView {
         endEditing(true)
     }
     
-    @objc func loginButtonPress() {
-        guard let email = emailTextField.text,
-              let password = passwordTextField.text,
-              !email.isEmpty, !password.isEmpty
-        else { return }
-        
-        viewModel?.performAuthentication(type: .login)
-    }
-    
     @objc func registerButtonPress() {
         // will change logic now
+    }
+    
+    @objc func loginButtonPress() {
+        onSignInButtonTap?()
     }
     
     @objc func googleButtonPress() {
@@ -271,12 +267,10 @@ class LoginView: UIView {
         guard let viewModel = viewModel else { return }
         
         emailTextField.textPublisher
-            .assign(to: \.value, on: viewModel.email)
-            .store(in: &cancellables)
+            .assign(to: &viewModel.$email)
         
         passwordTextField.textPublisher
-            .assign(to: \.value, on: viewModel.password)
-            .store(in: &cancellables)
+            .assign(to: &viewModel.$password)
         
         viewModel.$isSigningIn
             .receive(on: RunLoop.main)
