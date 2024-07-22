@@ -27,7 +27,9 @@ class LoginViewController: UIViewController {
     
     private func setupViewActions() {
         loginView.startAnimation()
-        loginView.onSignInButtonTap = handleLoginWithEmailAndPassword
+        loginView.onSignInButtonTap = handleSignInWithEmailAndPassword
+        loginView.onGoogleButtonTap = handleSignInWithGoogle
+        loginView.onAppleButtonTap = handleSignInWithApple
     }
     
     // MARK: - Authentication logic
@@ -66,8 +68,16 @@ class LoginViewController: UIViewController {
         print("Authentication failed: \(error.localizedDescription)")
     }
     
-    private func handleLoginWithEmailAndPassword() {
+    private func handleSignInWithEmailAndPassword() {
         viewModel.signInWithEmailAndPassword()
+    }
+    
+    private func handleSignInWithGoogle() {
+        viewModel.signInWithGoogle(viewControllerRef: self)
+    }
+    
+    private func handleSignInWithApple() {
+        viewModel.signInWithApple()
     }
 }
 
