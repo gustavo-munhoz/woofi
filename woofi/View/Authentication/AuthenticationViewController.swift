@@ -114,7 +114,7 @@ class AuthenticationViewController: UIViewController {
     private func showRegisterView() {
         if registerView == nil {
             registerView = RegisterView()
-            registerView?.viewModel = viewModel
+//            registerView?.viewModel = viewModel
         }
 
         guard let registerView = registerView else { return }

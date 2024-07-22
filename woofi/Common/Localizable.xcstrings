@@ -507,6 +507,17 @@
         }
       }
     },
+    "loginVCNavTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in"
+          }
+        }
+      }
+    },
     "loginViewRegisterButton" : {
       "extractionState" : "manual",
       "localizations" : {

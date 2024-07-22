@@ -21,6 +21,7 @@ class LoginView: UIView {
         }
     }
     
+    var onSignUpButtonTap: (() -> Void)?
     var onSignInButtonTap: (() -> Void)?
     var onGoogleButtonTap: (() -> Void)?
     var onAppleButtonTap: (() -> Void)?
@@ -201,6 +202,7 @@ class LoginView: UIView {
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
         
+        view.addTarget(self, action: #selector(registerButtonPress), for: .touchUpInside)
         view.configurationUpdateHandler = { sender in
             switch sender.state {
             case .highlighted, .selected:
@@ -248,7 +250,7 @@ class LoginView: UIView {
     }
     
     @objc func registerButtonPress() {
-        // will change logic now
+        onSignUpButtonTap?()
     }
     
     @objc func loginButtonPress() {

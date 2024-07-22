@@ -97,6 +97,8 @@
 		B3FC79932C4B0F2A00CBC03D /* walking-dog-login.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FC79922C4B0F2A00CBC03D /* walking-dog-login.json */; };
 		B3FC79952C4C51A300CBC03D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79942C4C51A300CBC03D /* LoginViewController.swift */; };
 		B3FC79972C4C534600CBC03D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79962C4C534600CBC03D /* LoginViewModel.swift */; };
+		B3FC79992C4DF94E00CBC03D /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79982C4DF94E00CBC03D /* RegisterViewModel.swift */; };
+		B3FC799D2C4DFA7A00CBC03D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC799C2C4DFA7A00CBC03D /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -192,6 +194,8 @@
 		B3FC79922C4B0F2A00CBC03D /* walking-dog-login.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "walking-dog-login.json"; sourceTree = "<group>"; };
 		B3FC79942C4C51A300CBC03D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B3FC79962C4C534600CBC03D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		B3FC79982C4DF94E00CBC03D /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		B3FC799C2C4DFA7A00CBC03D /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,11 +244,10 @@
 		B30622DF2BE80706009441CB /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				B3FC799B2C4DFA6700CBC03D /* Register */,
+				B3FC799A2C4DFA6400CBC03D /* Login */,
 				B3B9806D2C3F73BA00520A3F /* ProfileSetup */,
 				B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */,
-				B30622DD2BE80705009441CB /* LoginView.swift */,
-				B30622EA2BE81100009441CB /* RegisterView.swift */,
-				B3FC79942C4C51A300CBC03D /* LoginViewController.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				B30622EC2BE8141D009441CB /* AuthenticationViewModel.swift */,
 				B30622EF2BE81475009441CB /* AuthenticationType.swift */,
 				B3FC79962C4C534600CBC03D /* LoginViewModel.swift */,
+				B3FC79982C4DF94E00CBC03D /* RegisterViewModel.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -632,6 +636,24 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		B3FC799A2C4DFA6400CBC03D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B30622DD2BE80705009441CB /* LoginView.swift */,
+				B3FC79942C4C51A300CBC03D /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		B3FC799B2C4DFA6700CBC03D /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				B30622EA2BE81100009441CB /* RegisterView.swift */,
+				B3FC799C2C4DFA7A00CBC03D /* RegisterViewController.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -736,6 +758,7 @@
 				B31D31DE2BFC5CAF00CE903A /* PetTaskInstanceView.swift in Sources */,
 				B354B66D2C2B57AF00CEA618 /* Data+base36EncodedString.swift in Sources */,
 				B3FC79872C47D70100CBC03D /* EditPetViewController.swift in Sources */,
+				B3FC799D2C4DFA7A00CBC03D /* RegisterViewController.swift in Sources */,
 				B3B9806F2C3F73CB00520A3F /* ProfileSetupViewController.swift in Sources */,
 				B3B9805C2C3DB21A00520A3F /* EditProfileViewController.swift in Sources */,
 				B30623072BE8842F009441CB /* GroupView.swift in Sources */,
@@ -771,6 +794,7 @@
 				B30622F82BE82BB6009441CB /* FirestoreKeys.swift in Sources */,
 				B3B980632C3DD86100520A3F /* EditStackView.swift in Sources */,
 				B31D30222BED148300CE903A /* TaskType.swift in Sources */,
+				B3FC79992C4DF94E00CBC03D /* RegisterViewModel.swift in Sources */,
 				B30622F02BE81475009441CB /* AuthenticationType.swift in Sources */,
 				B31D31DA2BF64E0100CE903A /* UIView+Spacer.swift in Sources */,
 				B30622DE2BE80705009441CB /* LoginView.swift in Sources */,

@@ -168,6 +168,9 @@ extension String {
         case authLoginButtonTitle
         case authRegisterButtonTitle
         
+        // MARK: - LoginViewController
+        case loginVCNavTitle
+        
     }
     
     static func localized(for key: LocalizedKey) -> String {

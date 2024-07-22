@@ -23,6 +23,9 @@ class LoginViewController: UIViewController {
         
         setupViewModel()
         setupViewActions()
+        
+        navigationItem.title = .localized(for: .loginVCNavTitle)
+        navigationItem.titleView = UIView()
     }
     
     private func setupViewActions() {
@@ -30,6 +33,7 @@ class LoginViewController: UIViewController {
         loginView.onSignInButtonTap = handleSignInWithEmailAndPassword
         loginView.onGoogleButtonTap = handleSignInWithGoogle
         loginView.onAppleButtonTap = handleSignInWithApple
+        loginView.onSignUpButtonTap = handleSignUp
     }
     
     // MARK: - Authentication logic
@@ -68,6 +72,8 @@ class LoginViewController: UIViewController {
         print("Authentication failed: \(error.localizedDescription)")
     }
     
+    // MARK: - Actions
+    
     private func handleSignInWithEmailAndPassword() {
         viewModel.signInWithEmailAndPassword()
     }
@@ -78,6 +84,10 @@ class LoginViewController: UIViewController {
     
     private func handleSignInWithApple() {
         viewModel.signInWithApple()
+    }
+    
+    private func handleSignUp() {
+        navigationController?.pushViewController(RegisterViewController(), animated: true)
     }
 }
 
