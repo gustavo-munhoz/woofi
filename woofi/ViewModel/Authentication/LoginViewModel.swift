@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 typealias UserId = String
 
@@ -77,6 +78,21 @@ class LoginViewModel {
             }
             
             isSigningIn = false
+        }
+    }
+    
+    func signInWithGoogle(viewControllerRef vc: UIViewController) {
+        Task {
+            do {
+                let authResult = try await AuthenticationService.shared.loginUser(withGoogleForm: vc)
+                
+                print("User signed in with Google: \(authResult.user.uid)")
+                onAuthenticationSuccess?(authResult.user.uid)
+                
+            } catch {
+                print("Error signing in with google: \(error.localizedDescription)")
+                onAuthenticationFailure?(error)
+            }
         }
     }
 }
