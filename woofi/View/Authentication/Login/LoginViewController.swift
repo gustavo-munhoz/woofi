@@ -87,7 +87,12 @@ class LoginViewController: UIViewController {
     }
     
     private func handleSignUp() {
-        navigationController?.pushViewController(RegisterViewController(), animated: true)
+        let registerVC = RegisterViewController()
+        
+        registerVC.modalPresentationStyle = .fullScreen
+//        registerVC.modal
+        
+        present(registerVC, animated: true)
     }
 }
 

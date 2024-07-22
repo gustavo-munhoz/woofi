@@ -18,7 +18,11 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        registerView.onCloseButtonTap = handleCloseButtonTap
+    }
+    
+    private func handleCloseButtonTap() {
+        dismiss(animated: true)
     }
 }
 

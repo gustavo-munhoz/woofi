@@ -21,6 +21,7 @@ class RegisterView: UIView {
         }
     }
     
+    var onCloseButtonTap: (() -> Void)?
     var onSignUpButtonTap: (() -> Void)?
     var onGoogleButtonTap: (() -> Void)?
     var onAppleButtonTap: (() -> Void)?
@@ -169,7 +170,20 @@ class RegisterView: UIView {
         return view
     }()
     
+    private(set) lazy var dismissButton: UIButton = {
+        let view = UIButton()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        view.addTarget(self, action: #selector(closeButtonPress), for: .touchUpInside)
+        return view
+    }()
+    
     // MARK: - Actions
+    
+    @objc func closeButtonPress() {
+        onCloseButtonTap?()
+    }
     
     func startAnimation() {
         dogAnimation.play()
@@ -246,9 +260,16 @@ class RegisterView: UIView {
         addSubview(orSeparatorLabel)
         addSubview(googleSignUpButton)
         addSubview(appleSignUpButton)
+        addSubview(dismissButton)
     }
     
     func setupConstraints() {
+        dismissButton.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide)
+            make.right.equalToSuperview().inset(16)
+            make.width.height.equalTo(44)
+        }
+        
         headerStackView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).offset(-36)
             make.centerX.width.equalToSuperview()
