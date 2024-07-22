@@ -154,7 +154,7 @@ class LoginView: UIView {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.setImage(UIImage(iconKey: .google), for: .normal)
+        view.setImage(UIImage(iconKey: .googleSignIn), for: .normal)
         view.addTarget(self, action: #selector(googleButtonPress), for: .touchUpInside)
         
         return view
@@ -164,7 +164,7 @@ class LoginView: UIView {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.setImage(UIImage(iconKey: .apple), for: .normal)
+        view.setImage(UIImage(iconKey: .appleSignIn), for: .normal)
         view.addTarget(self, action: #selector(appleButtonPress), for: .touchUpInside)
         
         return view

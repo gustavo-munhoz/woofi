@@ -156,7 +156,7 @@ extension String {
         // MARK: - UserView
         case userViewStatsLabel
         
-        // MARK: - LoginView/RegisterView
+        // MARK: - LoginView
         case loginViewWelcomeBack
         case loginViewSeparator
         case loginViewSigningIn
@@ -171,6 +171,9 @@ extension String {
         // MARK: - LoginViewController
         case loginVCNavTitle
         
+        // MARK: - RegisterView
+        case registerViewWelcome
+        case registerViewSignUpButton
     }
     
     static func localized(for key: LocalizedKey) -> String {

@@ -32,17 +32,17 @@ class RegisterView: UIView {
     // MARK: - Views
     
     private(set) lazy var dogAnimation: LottieAnimationView = {
-        let view = LottieAnimationView(name: "walking-dog-login")
+        let view = LottieAnimationView(name: "sitting-dog-register")
         view.translatesAutoresizingMaskIntoConstraints = false
         
         view.contentMode = .scaleAspectFit
         view.loopMode = .loop
-        view.animationSpeed = 0.6
+        view.animationSpeed = 1
         
         return view
     }()
     
-    private(set) lazy var welcomeBackLabel: UILabel = {
+    private(set) lazy var welcomeLabel: UILabel = {
         let view = UILabel()
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -52,13 +52,13 @@ class RegisterView: UIView {
         ]])
         view.font = UIFont(descriptor: customFd, size: 0)
         view.textColor = .primary
-        view.text = .localized(for: .loginViewWelcomeBack)
+        view.text = .localized(for: .registerViewWelcome)
         
         return view
     }()
     
     private(set) lazy var headerStackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [dogAnimation, welcomeBackLabel])
+        let view = UIStackView(arrangedSubviews: [dogAnimation, welcomeLabel])
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
         view.alignment = .center
@@ -104,7 +104,7 @@ class RegisterView: UIView {
         ]])
         
         config.attributedTitle = AttributedString(
-            .localized(for: .authLoginButtonTitle),
+            .localized(for: .registerViewSignUpButton),
             attributes: AttributeContainer([
                 NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
                 NSAttributedString.Key.foregroundColor: UIColor.white
@@ -149,21 +149,21 @@ class RegisterView: UIView {
         return view
     }()
     
-    private(set) lazy var googleSignInButton: UIButton = {
+    private(set) lazy var googleSignUpButton: UIButton = {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.setImage(UIImage(iconKey: .google), for: .normal)
+        view.setImage(UIImage(iconKey: .googleSignUp), for: .normal)
         view.addTarget(self, action: #selector(googleButtonPress), for: .touchUpInside)
         
         return view
     }()
     
-    private(set) lazy var appleSignInButton: UIButton = {
+    private(set) lazy var appleSignUpButton: UIButton = {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.setImage(UIImage(iconKey: .apple), for: .normal)
+        view.setImage(UIImage(iconKey: .appleSignUp), for: .normal)
         view.addTarget(self, action: #selector(appleButtonPress), for: .touchUpInside)
         
         return view
@@ -244,8 +244,8 @@ class RegisterView: UIView {
         addSubview(passwordTextField)
         addSubview(signUpButton)
         addSubview(orSeparatorLabel)
-        addSubview(googleSignInButton)
-        addSubview(appleSignInButton)
+        addSubview(googleSignUpButton)
+        addSubview(appleSignUpButton)
     }
     
     func setupConstraints() {
@@ -282,13 +282,13 @@ class RegisterView: UIView {
             make.left.right.equalToSuperview()
         }
         
-        googleSignInButton.snp.makeConstraints { make in
+        googleSignUpButton.snp.makeConstraints { make in
             make.top.equalTo(orSeparatorLabel.snp.bottom).offset(15)
             make.width.height.centerX.equalTo(emailTextField)
         }
         
-        appleSignInButton.snp.makeConstraints { make in
-            make.top.equalTo(googleSignInButton.snp.bottom).offset(18)
+        appleSignUpButton.snp.makeConstraints { make in
+            make.top.equalTo(googleSignUpButton.snp.bottom).offset(18)
             make.width.height.centerX.equalTo(emailTextField)
         }
     }

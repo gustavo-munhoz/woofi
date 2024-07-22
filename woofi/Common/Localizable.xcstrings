@@ -89,17 +89,6 @@
         }
       }
     },
-    "authRegisterButtonTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Register"
-          }
-        }
-      }
-    },
     "authUsernameInputLabel" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -745,6 +734,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter your username"
+          }
+        }
+      }
+    },
+    "registerViewSignUpButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up"
+          }
+        }
+      }
+    },
+    "registerViewWelcome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Woofy!"
           }
         }
       }
