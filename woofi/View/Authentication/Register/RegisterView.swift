@@ -38,7 +38,7 @@ class RegisterView: UIView {
         
         view.contentMode = .scaleAspectFit
         view.loopMode = .loop
-        view.animationSpeed = 1
+        view.animationSpeed = 1        
         
         return view
     }()
@@ -184,11 +184,7 @@ class RegisterView: UIView {
     }()
     
     // MARK: - Actions
-    
-    @objc func closeButtonPress() {
-        onCloseButtonTap?()
-    }
-    
+        
     func startAnimation() {
         dogAnimation.play()
     }
@@ -200,6 +196,10 @@ class RegisterView: UIView {
     
     @objc private func handleTap() {
         endEditing(true)
+    }
+    
+    @objc func closeButtonPress() {
+        onCloseButtonTap?()
     }
     
     @objc func signUpButtonPress() {
@@ -275,13 +275,13 @@ class RegisterView: UIView {
         }
         
         headerStackView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(-36)
+            make.top.equalTo(safeAreaLayoutGuide)
             make.centerX.width.equalToSuperview()
             make.height.equalTo(250)
         }
         
         dogAnimation.snp.makeConstraints { make in
-            make.height.equalTo(175)
+            make.height.equalTo(160)
         }
         
         emailTextField.snp.makeConstraints { make in

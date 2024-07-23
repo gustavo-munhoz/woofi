@@ -99,7 +99,7 @@
 		B3FC79972C4C534600CBC03D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79962C4C534600CBC03D /* LoginViewModel.swift */; };
 		B3FC79992C4DF94E00CBC03D /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79982C4DF94E00CBC03D /* RegisterViewModel.swift */; };
 		B3FC799D2C4DFA7A00CBC03D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC799C2C4DFA7A00CBC03D /* RegisterViewController.swift */; };
-		B3FC799F2C4E7C1600CBC03D /* sitting-dog-register.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FC799E2C4E7C1500CBC03D /* sitting-dog-register.json */; };
+		B3FC79A12C4FC31400CBC03D /* sitting-dog-register.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FC79A02C4FC31400CBC03D /* sitting-dog-register.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -197,7 +197,7 @@
 		B3FC79962C4C534600CBC03D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		B3FC79982C4DF94E00CBC03D /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		B3FC799C2C4DFA7A00CBC03D /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		B3FC799E2C4E7C1500CBC03D /* sitting-dog-register.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sitting-dog-register.json"; sourceTree = "<group>"; };
+		B3FC79A02C4FC31400CBC03D /* sitting-dog-register.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sitting-dog-register.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -633,7 +633,7 @@
 		B3FC79912C4B0F0700CBC03D /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
-				B3FC799E2C4E7C1500CBC03D /* sitting-dog-register.json */,
+				B3FC79A02C4FC31400CBC03D /* sitting-dog-register.json */,
 				B3FC79922C4B0F2A00CBC03D /* walking-dog-login.json */,
 			);
 			path = Lottie;
@@ -738,7 +738,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3FC799F2C4E7C1600CBC03D /* sitting-dog-register.json in Resources */,
+				B3FC79A12C4FC31400CBC03D /* sitting-dog-register.json in Resources */,
 				B3A7E8512BE74DFB009B6630 /* Assets.xcassets in Resources */,
 				B37059652C35186F00FDD70B /* GoogleService-Info.plist in Resources */,
 				B3A7E8542BE74DFB009B6630 /* Base in Resources */,
