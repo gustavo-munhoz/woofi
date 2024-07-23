@@ -22,7 +22,8 @@ class RegisterViewModel {
     var onSignUpFailure: ((Error) -> Void)?
     
     private var lastAuthType: AuthenticationType?
-    private(set) var shouldSkipSetupProfilePublisher = PassthroughSubject<Bool, Never>()
+    private(set) var shouldSkipSetupProfilePublisher = PassthroughSubject<Void, Never>()
+    private(set) var shouldShowUserAlreadyRegisteredAlert = PassthroughSubject<Void, Never>()
     
     // MARK: - Sign up logic
     
@@ -42,8 +43,10 @@ class RegisterViewModel {
                 onSignUpSuccess?(authResult.user.uid)
                 
             } catch {
-                onSignUpFailure?(error)
+                let authError = AuthError(error: error as NSError)
+                onSignUpFailure?(authError)
             }
+            isSigningUp = false
         }
     }
     
@@ -61,37 +64,42 @@ class RegisterViewModel {
                 print("Error signing in with google: \(error.localizedDescription)")
                 onSignUpFailure?(error)
             }
+            isSigningUp = false
         }
     }
     
     func signUpWithApple() {
         lastAuthType = .appleSignIn
         
-        AuthenticationService.shared.signInWithApple { result in
+        AuthenticationService.shared.signInWithApple { [weak self] result in
             switch result {
             case .success(let userId):
                 print("User signed in with Apple: \(userId)")
-                self.onSignUpSuccess?(userId)
+                self?.onSignUpSuccess?(userId)
                 
             case .failure(let failure):
                 print("Error signing in with Apple: \(failure.localizedDescription)")
-                self.onSignUpFailure?(failure)
+                self?.onSignUpFailure?(failure)
                 
             }
+            self?.isSigningUp = false
         }
     }
     
     // MARK: - Handling user already exists
     
     func handleUserAlreadyExists(id: UserId) {
-        guard lastAuthType == .googleLogin || lastAuthType == .appleSignIn else { return }
+        guard lastAuthType == .googleLogin || lastAuthType == .appleSignIn else { 
+            shouldShowUserAlreadyRegisteredAlert.send()
+            return
+        }
         
         Task {
             do {
                 guard let user = await fetchUserFromFirebase(id: id) else { return }
                 
                 Session.shared.currentUser = user                
-                shouldSkipSetupProfilePublisher.send(true)
+                shouldSkipSetupProfilePublisher.send()
             }
         }
     }

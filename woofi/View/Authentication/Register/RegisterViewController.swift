@@ -35,9 +35,16 @@ class RegisterViewController: UIViewController {
     }
     
     private func setupSubscriptions() {
+        viewModel.shouldShowUserAlreadyRegisteredAlert
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in
+                self?.showAlertForAuthError(.userAlreadyExists)
+            }
+            .store(in: &cancellables)
+        
         viewModel.shouldSkipSetupProfilePublisher
             .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
+            .sink { [weak self] in
                 self?.dismiss(animated: true)
                 DispatchQueue.main.async {
                     self?.navigationController?.pushViewController(HomeViewController(), animated: true)
@@ -48,23 +55,6 @@ class RegisterViewController: UIViewController {
     }
     
     // MARK: - Authentication logic
-    
-    enum AuthError: Int, Error {
-        case userAlreadyExists
-        case unknownError
-        
-        init(error: Error) {
-            let nsError = error as NSError
-            
-            switch nsError.code {
-            case AuthError.userAlreadyExists.rawValue:
-                self = .userAlreadyExists
-                
-            default:
-                self = .unknownError
-            }
-        }
-    }
     
     private func handleAuthSuccess(id: UserId) {
         Task {
@@ -81,12 +71,12 @@ class RegisterViewController: UIViewController {
                 }
                 
             } catch {
-                let authError = AuthError(error: error)
+                let authError = AuthError(error: error as NSError)
                 switch authError {
                 case .userAlreadyExists:
                     print("Error: user already exists. Will try to skip profile setup.")
                     viewModel.handleUserAlreadyExists(id: id)
-                case .unknownError:
+                default:
                     print("Unknown error creating user: \(error.localizedDescription)")
                 }
             }
@@ -94,6 +84,9 @@ class RegisterViewController: UIViewController {
     }
     
     private func handleAuthFailure(with error: Error) {
+        if let authError = error as? AuthError {
+            showAlertForAuthError(authError)
+        }
         print("Authentication failed with error: \(error.localizedDescription)")
     }
     
@@ -121,6 +114,39 @@ class RegisterViewController: UIViewController {
     
     private func handleSignUpWithApple() {
         viewModel.signUpWithApple()
+    }
+    
+    // MARK: - Alert logic
+    
+    private func showAlertForAuthError(_ error: AuthError) {
+        let alert = UIAlertController(
+            title: error.errorTitle,
+            message: error.errorMessage,
+            preferredStyle: .alert
+        )
+        
+        if error == .userAlreadyExists {
+            let signInAction = UIAlertAction(
+                title: .localized(for: .authLoginButtonTitle),
+                style: .default
+            ) { [weak self] _ in
+                self?.dismiss(animated: true)
+            }
+            
+            alert.addAction(signInAction)
+        }
+        
+        let dismissAction = UIAlertAction(
+            title: .localized(for: .ok).uppercased(),
+            style: .cancel
+        )
+        
+        alert.addAction(dismissAction)
+        
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alert, animated: true)
+        }
     }
 }
 
