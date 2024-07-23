@@ -100,6 +100,7 @@
 		B3FC79992C4DF94E00CBC03D /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79982C4DF94E00CBC03D /* RegisterViewModel.swift */; };
 		B3FC799D2C4DFA7A00CBC03D /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC799C2C4DFA7A00CBC03D /* RegisterViewController.swift */; };
 		B3FC79A12C4FC31400CBC03D /* sitting-dog-register.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FC79A02C4FC31400CBC03D /* sitting-dog-register.json */; };
+		B3FC79A42C4FE1AF00CBC03D /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FC79A32C4FE1AF00CBC03D /* AuthError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -198,6 +199,7 @@
 		B3FC79982C4DF94E00CBC03D /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		B3FC799C2C4DFA7A00CBC03D /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		B3FC79A02C4FC31400CBC03D /* sitting-dog-register.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sitting-dog-register.json"; sourceTree = "<group>"; };
+		B3FC79A32C4FE1AF00CBC03D /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -537,6 +539,7 @@
 				B35CC3862C054872007FBEFC /* +ext */,
 				B3B980732C409C1600520A3F /* Builder */,
 				B30622DB2BE80629009441CB /* Common */,
+				B3FC79A22C4FE1A200CBC03D /* Error */,
 				B3FC79912C4B0F0700CBC03D /* Lottie */,
 				B3A7E8652BE7FB0D009B6630 /* Model */,
 				B3A7E8672BE7FB16009B6630 /* View */,
@@ -655,6 +658,14 @@
 				B3FC799C2C4DFA7A00CBC03D /* RegisterViewController.swift */,
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		B3FC79A22C4FE1A200CBC03D /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				B3FC79A32C4FE1AF00CBC03D /* AuthError.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -820,6 +831,7 @@
 				B31D31C72BF3043400CE903A /* PetViewModel.swift in Sources */,
 				B35CC3762BFFC77D007FBEFC /* InviteViewController.swift in Sources */,
 				B306231A2BEB06D9009441CB /* UserViewController.swift in Sources */,
+				B3FC79A42C4FE1AF00CBC03D /* AuthError.swift in Sources */,
 				B31D31E32BFD284900CE903A /* Session.swift in Sources */,
 				B35CC38B2C07F32E007FBEFC /* AddPetView.swift in Sources */,
 				B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */,
