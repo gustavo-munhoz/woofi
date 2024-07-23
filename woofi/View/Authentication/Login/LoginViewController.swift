@@ -7,8 +7,11 @@
 
 import Foundation
 import UIKit
+import Combine
 
 class LoginViewController: UIViewController {
+    
+    private var cancellables = Set<AnyCancellable>()
     
     private var loginView = LoginView()
     
@@ -23,6 +26,7 @@ class LoginViewController: UIViewController {
         
         setupViewModel()
         setupViewActions()
+        setupSubscriptions()
         
         navigationItem.title = .localized(for: .loginVCNavTitle)
         navigationItem.titleView = UIView()
@@ -34,6 +38,19 @@ class LoginViewController: UIViewController {
         loginView.onGoogleButtonTap = handleSignInWithGoogle
         loginView.onAppleButtonTap = handleSignInWithApple
         loginView.onSignUpButtonTap = handleSignUp
+    }
+    
+    private func setupSubscriptions() {
+        viewModel.shouldSetupProfilePublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] uid in
+                DispatchQueue.main.async {
+                    let vc = ProfileSetupViewController()
+                    vc.setUserId(uid)
+                    
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+            }.store(in: &cancellables)
     }
     
     // MARK: - Authentication logic
@@ -64,6 +81,7 @@ class LoginViewController: UIViewController {
                 
             } catch {
                 print("User was not found during authentication success.")
+                viewModel.handleUserNotFound(for: id)
             }
         }
     }
@@ -88,9 +106,7 @@ class LoginViewController: UIViewController {
     
     private func handleSignUp() {
         let registerVC = RegisterViewController()
-        
         registerVC.modalPresentationStyle = .fullScreen
-//        registerVC.modal
         
         present(registerVC, animated: true)
     }

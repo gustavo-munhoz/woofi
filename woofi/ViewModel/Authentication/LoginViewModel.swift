@@ -23,6 +23,10 @@ class LoginViewModel {
     var onAuthenticationSuccess: ((UserId) -> Void)?
     var onAuthenticationFailure: ((Error) -> Void)?
     
+    private var lastAuthType: AuthenticationType?
+    
+    private(set) var shouldSetupProfilePublisher = PassthroughSubject<UserId, Never>()
+    
     // MARK: - Login logic
     
     func fetchUserFromFirebase(id: UserId) async -> User? {
@@ -61,6 +65,7 @@ class LoginViewModel {
     
     func signInWithEmailAndPassword() {
         guard !email.isEmpty, !password.isEmpty else { return }
+        lastAuthType = .login
         
         Task {
             isSigningIn = true
@@ -82,6 +87,8 @@ class LoginViewModel {
     }
     
     func signInWithGoogle(viewControllerRef vc: UIViewController) {
+        lastAuthType = .googleLogin
+        
         Task {
             do {
                 let authResult = try await AuthenticationService.shared.loginUser(withGoogleForm: vc)
@@ -97,6 +104,8 @@ class LoginViewModel {
     }
     
     func signInWithApple() {
+        lastAuthType = .appleSignIn
+        
         AuthenticationService.shared.signInWithApple { result in
             switch result {
             case .success(let userId):
@@ -109,5 +118,15 @@ class LoginViewModel {
                 
             }
         }
+    }
+    
+    // MARK: - Handle user not existing
+    
+    func handleUserNotFound(for id: UserId) {
+        guard lastAuthType == .googleLogin || lastAuthType == .appleSignIn else {
+            return
+        }
+        
+        shouldSetupProfilePublisher.send(id)
     }
 }

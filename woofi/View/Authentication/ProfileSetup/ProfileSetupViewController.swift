@@ -34,6 +34,10 @@ class ProfileSetupViewController: UIViewController {
     
     // MARK: - Actions
     
+    func setUserId(_ id: UserId) {
+        profileSetupView.userBuilder.setId(id)
+    }
+    
     private func presentImagePicker() {
         PHPhotoLibrary.requestAuthorization { status in
             DispatchQueue.main.async {
