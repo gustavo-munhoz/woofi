@@ -276,6 +276,116 @@
         }
       }
     },
+    "errorEmailTakenMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This email has already been registered in Woofy."
+          }
+        }
+      }
+    },
+    "errorEmailTakenTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email taken"
+          }
+        }
+      }
+    },
+    "errorInvalidEmailMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The entered email is invalid."
+          }
+        }
+      }
+    },
+    "errorInvalidEmailTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid email"
+          }
+        }
+      }
+    },
+    "errorUnknownMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An unknown error has ocurred, please try again."
+          }
+        }
+      }
+    },
+    "errorUnknownTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown error"
+          }
+        }
+      }
+    },
+    "errorUserNotFoundOrIncorrectPasswordMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The entered password or email are invalid."
+          }
+        }
+      }
+    },
+    "errorUserNotFoundOrIncorrectPasswordTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid email or password"
+          }
+        }
+      }
+    },
+    "errorWeakPasswordMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The entered password is too weak."
+          }
+        }
+      }
+    },
+    "errorWeakPasswordTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weak password"
+          }
+        }
+      }
+    },
     "groupVCAlertMessage" : {
       "extractionState" : "manual",
       "localizations" : {

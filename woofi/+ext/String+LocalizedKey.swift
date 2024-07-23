@@ -175,6 +175,18 @@ extension String {
         case registerViewWelcome
         case registerViewSignUpButton
         case registerViewSigningUp
+        
+        // MARK: - RegisterViewController Alerts
+        case errorEmailTakenTitle
+        case errorEmailTakenMessage
+        case errorUserNotFoundOrIncorrectPasswordTitle
+        case errorUserNotFoundOrIncorrectPasswordMessage
+        case errorWeakPasswordTitle
+        case errorWeakPasswordMessage
+        case errorInvalidEmailTitle
+        case errorInvalidEmailMessage
+        case errorUnknownTitle
+        case errorUnknownMessage
     }
     
     static func localized(for key: LocalizedKey) -> String {
