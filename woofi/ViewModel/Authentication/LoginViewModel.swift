@@ -21,7 +21,7 @@ class LoginViewModel {
     @Published var password: String = ""
     
     var onAuthenticationSuccess: ((UserId) -> Void)?
-    var onAuthenticationFailure: ((Error) -> Void)?
+    var onAuthenticationFailure: ((AuthError) -> Void)?
     
     private var lastAuthType: AuthenticationType?
     

@@ -13,7 +13,10 @@ enum AuthError: Error, Equatable {
     case userNotFound
     case wrongPassword
     case weakPassword
+    case malformedCredential
+    case expiredCredential
     case invalidEmail
+    case userCancelled
     case unknownError(String)
     
     static func ==(lhs: AuthError, rhs: AuthError) -> Bool {
@@ -21,6 +24,9 @@ enum AuthError: Error, Equatable {
         case (.userAlreadyExists, .userAlreadyExists),             
              (.userNotFound, .userNotFound),
              (.weakPassword, .weakPassword),
+             (.malformedCredential, .malformedCredential),
+             (.expiredCredential, .expiredCredential),
+             (.userCancelled, .userCancelled),
              (.invalidEmail, .invalidEmail):
             return true
         case (.unknownError(let lhsMessage), .unknownError(let rhsMessage)):
@@ -43,8 +49,23 @@ enum AuthError: Error, Equatable {
                 self = .weakPassword
             case .invalidEmail:
                 self = .invalidEmail
+            case .invalidCredential:
+                self = .malformedCredential
+            case .userTokenExpired:
+                self = .expiredCredential
+                
             default:
-                self = .unknownError(error.localizedDescription)
+                if error.domain == "com.google.GIDSignIn" && error.code == -5 {
+                    self = .userCancelled
+                }
+                else if error.domain == "com.apple.AuthenticationServices.AuthorizationError" &&
+                            (error.code == 1000 || error.code == 1001 )
+                {
+                    self = .userCancelled
+                }
+                else {
+                    self = .unknownError(error.localizedDescription)
+                }
         }
     }
     
@@ -52,13 +73,13 @@ enum AuthError: Error, Equatable {
         switch self {
         case .userAlreadyExists:
             return .localized(for: .errorEmailTakenTitle)
-        case .userNotFound, .wrongPassword:
+        case .userNotFound, .wrongPassword, .expiredCredential, .malformedCredential:
             return .localized(for: .errorUserNotFoundOrIncorrectPasswordTitle)
         case .weakPassword:
             return .localized(for: .errorWeakPasswordTitle)
         case .invalidEmail:
             return .localized(for: .errorInvalidEmailTitle)
-        case .unknownError:
+        case .unknownError, .userCancelled:
             return .localized(for: .errorUnknownTitle)
         }
     }
@@ -67,15 +88,14 @@ enum AuthError: Error, Equatable {
         switch self {
         case .userAlreadyExists:
             return .localized(for: .errorEmailTakenMessage)
-        case .userNotFound, .wrongPassword:
+        case .userNotFound, .wrongPassword, .expiredCredential, .malformedCredential:
             return .localized(for: .errorUserNotFoundOrIncorrectPasswordMessage)
         case .weakPassword:
             return .localized(for: .errorWeakPasswordMessage)
         case .invalidEmail:
             return .localized(for: .errorInvalidEmailMessage)
-        case .unknownError:
+        case .unknownError, .userCancelled:
             return .localized(for: .errorUnknownMessage)
         }
     }       
 }
-

@@ -19,7 +19,7 @@ class RegisterViewModel {
     @Published var password: String = ""
     
     var onSignUpSuccess: ((UserId) -> Void)?
-    var onSignUpFailure: ((Error) -> Void)?
+    var onSignUpFailure: ((AuthError) -> Void)?
     
     private var lastAuthType: AuthenticationType?
     private(set) var shouldSkipSetupProfilePublisher = PassthroughSubject<Void, Never>()
@@ -43,8 +43,7 @@ class RegisterViewModel {
                 onSignUpSuccess?(authResult.user.uid)
                 
             } catch {
-                let authError = AuthError(error: error as NSError)
-                onSignUpFailure?(authError)
+                onSignUpFailure?(AuthError(error: error as NSError))
             }
             isSigningUp = false
         }
@@ -62,7 +61,7 @@ class RegisterViewModel {
                 
             } catch {
                 print("Error signing in with google: \(error.localizedDescription)")
-                onSignUpFailure?(error)
+                onSignUpFailure?(AuthError(error: error as NSError))
             }
             isSigningUp = false
         }
@@ -77,9 +76,9 @@ class RegisterViewModel {
                 print("User signed in with Apple: \(userId)")
                 self?.onSignUpSuccess?(userId)
                 
-            case .failure(let failure):
-                print("Error signing in with Apple: \(failure.localizedDescription)")
-                self?.onSignUpFailure?(failure)
+            case .failure(let error):
+                print("Error signing in with Apple: \(error.localizedDescription)")
+                self?.onSignUpFailure?(AuthError(error: error as NSError))
                 
             }
             self?.isSigningUp = false

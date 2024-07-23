@@ -83,11 +83,11 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    private func handleAuthFailure(with error: Error) {
-        if let authError = error as? AuthError {
-            showAlertForAuthError(authError)
-        }
-        print("Authentication failed with error: \(error.localizedDescription)")
+    private func handleAuthFailure(with authError: AuthError) {
+        guard authError != .userCancelled else { return }
+        showAlertForAuthError(authError)
+        
+        print("Authentication failed with error: \(authError.errorMessage)")
     }
     
     // MARK: - Actions
