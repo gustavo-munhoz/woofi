@@ -58,7 +58,7 @@ enum AuthError: Error, Equatable {
             return .localized(for: .errorWeakPasswordTitle)
         case .invalidEmail:
             return .localized(for: .errorInvalidEmailTitle)
-        case .unknownError(let string):
+        case .unknownError:
             return .localized(for: .errorUnknownTitle)
         }
     }
@@ -73,7 +73,7 @@ enum AuthError: Error, Equatable {
             return .localized(for: .errorWeakPasswordMessage)
         case .invalidEmail:
             return .localized(for: .errorInvalidEmailMessage)
-        case .unknownError(let message):
+        case .unknownError:
             return .localized(for: .errorUnknownMessage)
         }
     }       

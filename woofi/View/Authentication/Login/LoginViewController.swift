@@ -55,10 +55,6 @@ class LoginViewController: UIViewController {
     
     // MARK: - Authentication logic
     
-    enum AuthError: Swift.Error {
-        case userNotFound
-    }
-    
     private func setupViewModel() {
         loginView.viewModel = viewModel
         viewModel.onAuthenticationSuccess = handleAuthSuccess(id:)
@@ -87,6 +83,10 @@ class LoginViewController: UIViewController {
     }
     
     private func handleAuthFailure(with error: Error) {
+        if let authError = error as? AuthError {
+            showAlertForAuthError(authError)
+        }
+        
         print("Authentication failed: \(error.localizedDescription)")
     }
     
@@ -109,6 +109,39 @@ class LoginViewController: UIViewController {
         registerVC.modalPresentationStyle = .fullScreen
         
         present(registerVC, animated: true)
+    }
+    
+    // MARK: - Alert logic
+    
+    private func showAlertForAuthError(_ error: AuthError) {
+        let alert = UIAlertController(
+            title: error.errorTitle,
+            message: error.errorMessage,
+            preferredStyle: .alert
+        )
+        
+        if error == .userAlreadyExists {
+            let signInAction = UIAlertAction(
+                title: .localized(for: .authLoginButtonTitle),
+                style: .default
+            ) { [weak self] _ in
+                self?.dismiss(animated: true)
+            }
+            
+            alert.addAction(signInAction)
+        }
+        
+        let dismissAction = UIAlertAction(
+            title: .localized(for: .ok).uppercased(),
+            style: .cancel
+        )
+        
+        alert.addAction(dismissAction)
+        
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alert, animated: true)
+        }
     }
 }
 

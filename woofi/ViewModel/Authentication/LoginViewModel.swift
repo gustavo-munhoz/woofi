@@ -79,7 +79,8 @@ class LoginViewModel {
                 onAuthenticationSuccess?(authResult.user.uid)
                 
             } catch {
-                onAuthenticationFailure?(error)
+                let authError = AuthError(error: error as NSError)
+                onAuthenticationFailure?(authError)
             }
             
             isSigningIn = false
@@ -98,7 +99,8 @@ class LoginViewModel {
                 
             } catch {
                 print("Error signing in with google: \(error.localizedDescription)")
-                onAuthenticationFailure?(error)
+                let authError = AuthError(error: error as NSError)
+                onAuthenticationFailure?(authError)
             }
         }
     }
@@ -112,9 +114,10 @@ class LoginViewModel {
                 print("User signed in with Apple: \(userId)")
                 self.onAuthenticationSuccess?(userId)
                 
-            case .failure(let failure):
-                print("Error signing in with Apple: \(failure.localizedDescription)")
-                self.onAuthenticationFailure?(failure)
+            case .failure(let error):
+                print("Error signing in with Apple: \(error.localizedDescription)")
+                let authError = AuthError(error: error as NSError)
+                self.onAuthenticationFailure?(authError)
                 
             }
         }
