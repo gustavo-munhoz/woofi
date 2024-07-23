@@ -175,7 +175,11 @@ class RegisterView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         view.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        view.setPreferredSymbolConfiguration(.init(pointSize: 30), forImageIn: .normal)
+        view.tintColor = .systemGray2
+        
         view.addTarget(self, action: #selector(closeButtonPress), for: .touchUpInside)
+        
         return view
     }()
     
