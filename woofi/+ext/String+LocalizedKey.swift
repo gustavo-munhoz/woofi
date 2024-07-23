@@ -174,6 +174,7 @@ extension String {
         // MARK: - RegisterView
         case registerViewWelcome
         case registerViewSignUpButton
+        case registerViewSigningUp
     }
     
     static func localized(for key: LocalizedKey) -> String {

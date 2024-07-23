@@ -738,6 +738,17 @@
         }
       }
     },
+    "registerViewSigningUp" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signing up..."
+          }
+        }
+      }
+    },
     "registerViewSignUpButton" : {
       "extractionState" : "manual",
       "localizations" : {

@@ -123,7 +123,7 @@ class RegisterView: UIView {
             var config = button.configuration
             config?.showsActivityIndicator = viewModel.isSigningUp
             config?.attributedTitle = AttributedString(
-                .localized(for: viewModel.isSigningUp ? .loginViewSigningIn : .authLoginButtonTitle),
+                .localized(for: viewModel.isSigningUp ? .registerViewSigningUp : .registerViewSignUpButton),
                 attributes: AttributeContainer([
                     NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
                     NSAttributedString.Key.foregroundColor: UIColor.white
