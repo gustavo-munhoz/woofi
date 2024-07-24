@@ -35,6 +35,23 @@ class GroupView: UIView {
         return refreshControl
     }()
     
+    private(set) lazy var loadingStackView: UIStackView = {
+        let view = UIStackView(
+            arrangedSubviews: Array(
+                repeating: UIImageView(image: UIImage(imageKey: .loadingUserCard)),
+                count: 5
+            )
+        )
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .vertical
+        view.spacing = 16
+        view.alignment = .fill
+        view.distribution = .fillEqually
+        
+        
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubviews()
@@ -46,16 +63,29 @@ class GroupView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setToLoadedView() {
+        UIView.animate(withDuration: 0.35) { [weak self] in
+            guard let self = self else { return }
+            self.subviews.forEach { $0.removeFromSuperview() }
+            
+            self.addSubview(self.usersCollectionView)
+            self.usersCollectionView.snp.makeConstraints { make in
+                make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(24)
+                make.right.equalToSuperview().offset(-24)
+                make.left.equalToSuperview().offset(24)
+                make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-24)
+            }
+        }
+    }
+    
     private func addSubviews() {
-        addSubview(usersCollectionView)
+        addSubview(loadingStackView)
     }
     
     private func setupConstraints() {
-        usersCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(24)
-            make.right.equalToSuperview().offset(-24)
-            make.left.equalToSuperview().offset(24)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-24)
+        loadingStackView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).offset(24)
+            make.left.right.equalToSuperview().inset(24)
         }
     }
     

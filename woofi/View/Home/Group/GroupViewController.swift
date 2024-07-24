@@ -15,7 +15,6 @@ fileprivate enum Section {
 class GroupViewController: UIViewController {
          
     private var groupView = GroupView()
-    
     private var cancellables = Set<AnyCancellable>()
     private var dataSource: UICollectionViewDiffableDataSource<Section, User>!
     var viewModel: GroupViewModel?
@@ -30,10 +29,9 @@ class GroupViewController: UIViewController {
         super.viewDidLoad()
         
         setupViewModel()
+        setupSubscriptions()
         configureDataSource()
         configureCollectionView()
-        setupSubscriptions()
-        
         groupView.refreshAction = refreshGroup
     }
     
@@ -98,7 +96,8 @@ class GroupViewController: UIViewController {
         viewModel?.users
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] users in
-                self?.applySnapshot(users: users)
+                guard !users.isEmpty else { return }
+                self?.applySnapshot(users: users)                
             })
             .store(in: &cancellables)
         
@@ -110,6 +109,15 @@ class GroupViewController: UIViewController {
                 
                 self?.navigationController?.pushViewController(vc, animated: true)
             })
+            .store(in: &cancellables)
+        
+        viewModel?.$isLoading
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isLoading in
+                if !isLoading {
+                    self?.groupView.setToLoadedView()
+                }
+            }
             .store(in: &cancellables)
     }
     
@@ -218,6 +226,7 @@ class GroupViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, User>()
         snapshot.appendSections([.main])
         snapshot.appendItems(users)
+        print("Applying snapshot with \(users.count) users.")
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }

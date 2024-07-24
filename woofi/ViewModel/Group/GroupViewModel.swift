@@ -12,12 +12,14 @@ class GroupViewModel: NSObject {
     
     private var cancellables = Set<AnyCancellable>()
     
+    @Published var isLoading = true
+    
     /// The current list of users related to the main app user.
     var users = CurrentValueSubject<[User], Never>.init([])
     
     /// Sends a signal to change the current view to a `UserView`.
     private(set) var navigateToUserPublisher = PassthroughSubject<User, Never>()
- 
+    
     override init() {
         super.init()
         
@@ -34,12 +36,13 @@ class GroupViewModel: NSObject {
         let result = await FirestoreService.shared.fetchUsersInSameGroup(groupID: groupID)
         
         switch result {
-            case .success(let users):
-                print("Users fetched: \(users.map { $0.id })")
-                self.users.value = users
-                
-            case .failure(let error):
-                print("Error loading users: \(error)")
+        case .success(let users):
+            print("Users fetched: \(users.map { $0.id })")
+            self.isLoading = false
+            self.users.value = users
+            
+        case .failure(let error):
+            print("Error loading users: \(error)")
         }
     }
     
