@@ -154,7 +154,7 @@ class RegisterView: UIView {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.setImage(UIImage(iconKey: .googleSignUp), for: .normal)
+        view.setImage(UIImage(imageKey: .googleSignUp), for: .normal)
         view.addTarget(self, action: #selector(googleButtonPress), for: .touchUpInside)
         
         return view
@@ -164,7 +164,7 @@ class RegisterView: UIView {
         let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        view.setImage(UIImage(iconKey: .appleSignUp), for: .normal)
+        view.setImage(UIImage(imageKey: .appleSignUp), for: .normal)
         view.addTarget(self, action: #selector(appleButtonPress), for: .touchUpInside)
         
         return view

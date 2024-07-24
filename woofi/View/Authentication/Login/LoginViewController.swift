@@ -107,7 +107,9 @@ class LoginViewController: UIViewController {
         let registerVC = RegisterViewController()
         registerVC.modalPresentationStyle = .fullScreen
         
-        present(registerVC, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(registerVC, animated: true)
+        }
     }
     
     // MARK: - Alert logic

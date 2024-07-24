@@ -143,7 +143,6 @@ class RegisterViewController: UIViewController {
         
         alert.addAction(dismissAction)
         
-        
         DispatchQueue.main.async { [weak self] in
             self?.present(alert, animated: true)
         }
