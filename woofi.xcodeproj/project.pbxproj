@@ -85,7 +85,7 @@
 		B3B980632C3DD86100520A3F /* EditStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B980622C3DD86100520A3F /* EditStackView.swift */; };
 		B3B980662C3F53BE00520A3F /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = B3B980652C3F53BE00520A3F /* GoogleSignIn */; };
 		B3B980682C3F53BE00520A3F /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B3B980672C3F53BE00520A3F /* GoogleSignInSwift */; };
-		B3B9806A2C3F5DEE00520A3F /* UIImage+IconKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B980692C3F5DEE00520A3F /* UIImage+IconKeys.swift */; };
+		B3B9806A2C3F5DEE00520A3F /* UIImage+ImageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B980692C3F5DEE00520A3F /* UIImage+ImageKey.swift */; };
 		B3B9806C2C3F73B600520A3F /* ProfileSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9806B2C3F73B600520A3F /* ProfileSetupView.swift */; };
 		B3B9806F2C3F73CB00520A3F /* ProfileSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B9806E2C3F73CB00520A3F /* ProfileSetupViewController.swift */; };
 		B3B980752C409C2200520A3F /* UserBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B980742C409C2200520A3F /* UserBuilder.swift */; };
@@ -185,7 +185,7 @@
 		B3B9805B2C3DB21A00520A3F /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		B3B9805F2C3DD85200520A3F /* PaddedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextView.swift; sourceTree = "<group>"; };
 		B3B980622C3DD86100520A3F /* EditStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStackView.swift; sourceTree = "<group>"; };
-		B3B980692C3F5DEE00520A3F /* UIImage+IconKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+IconKeys.swift"; sourceTree = "<group>"; };
+		B3B980692C3F5DEE00520A3F /* UIImage+ImageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageKey.swift"; sourceTree = "<group>"; };
 		B3B9806B2C3F73B600520A3F /* ProfileSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupView.swift; sourceTree = "<group>"; };
 		B3B9806E2C3F73CB00520A3F /* ProfileSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSetupViewController.swift; sourceTree = "<group>"; };
 		B3B980742C409C2200520A3F /* UserBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBuilder.swift; sourceTree = "<group>"; };
@@ -302,7 +302,7 @@
 				B30622FE2BE83C14009441CB /* UITextField+Publisher.swift */,
 				B30623142BEAFA1B009441CB /* UIColor+Primary.swift */,
 				B31D31D92BF64E0100CE903A /* UIView+Spacer.swift */,
-				B3B980692C3F5DEE00520A3F /* UIImage+IconKeys.swift */,
+				B3B980692C3F5DEE00520A3F /* UIImage+ImageKey.swift */,
 			);
 			path = "+ext";
 			sourceTree = "<group>";
@@ -783,7 +783,7 @@
 				B354B66B2C2B579900CEA618 /* String+sha256.swift in Sources */,
 				B35CC3882C054883007FBEFC /* UserDefaults+ext.swift in Sources */,
 				B37059792C365F2700FDD70B /* ProfileViewController.swift in Sources */,
-				B3B9806A2C3F5DEE00520A3F /* UIImage+IconKeys.swift in Sources */,
+				B3B9806A2C3F5DEE00520A3F /* UIImage+ImageKey.swift in Sources */,
 				B30623132BEACCC2009441CB /* UserCollectionViewCell.swift in Sources */,
 				B30623032BE8835F009441CB /* HomeViewController.swift in Sources */,
 				B31D31D22BF3F04E00CE903A /* TaskFrequency.swift in Sources */,
