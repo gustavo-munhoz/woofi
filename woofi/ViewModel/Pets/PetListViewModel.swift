@@ -9,8 +9,10 @@ import Foundation
 import Combine
 
 class PetListViewModel: NSObject {
-    
+        
     private var cancellables = Set<AnyCancellable>()
+    
+    @Published var isLoading = true
     
     /// The current list of pets in the user's group.
     var pets = CurrentValueSubject<[Pet], Never>.init([])
@@ -36,7 +38,7 @@ class PetListViewModel: NSObject {
         guard let currentUser = Session.shared.currentUser else {
             return
         }
-        
+        isLoading = true
         FirestoreService.shared.addPetsListener(groupID: currentUser.groupID) { [weak self] result in
             switch result {
             case .success(let changesDict):
@@ -52,7 +54,7 @@ class PetListViewModel: NSObject {
                         print("Appended pet: \(pet.name)")
                     }
                 }
-                
+                self?.isLoading = false
                 self?.pets.value = updatedPets
                 self?.setupSubscriptions()
                 

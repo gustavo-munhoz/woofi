@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class PetListView: UIView {
+    var gradientLayer: CAGradientLayer!
     
     weak var viewModel: PetListViewModel? {
         didSet {
@@ -36,6 +37,19 @@ class PetListView: UIView {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         return refreshControl
+    }()
+    
+    private(set) lazy var loadingStackView: UIStackView = {
+        let view = UIStackView(
+            arrangedSubviews: (0..<2).map { _ in UIImageView(image: UIImage(imageKey: .loadingPetCard)) }
+        )
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.axis = .vertical
+        view.spacing = 16
+        view.alignment = .fill
+        view.distribution = .fillEqually
+        
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -73,16 +87,35 @@ class PetListView: UIView {
         self.petsCollectionView.setCollectionViewLayout(newLayout, animated: true)
     }
     
+    func setToLoadedView() {
+        UIView.animate(withDuration: 0.15) { [weak self] in
+            guard let self = self else { return }
+            self.subviews.forEach { $0.removeFromSuperview() }
+            
+        } completion: { _ in
+            UIView.animate(withDuration: 0.15) { [weak self] in
+                guard let self = self else { return }
+                
+                self.addSubview(self.petsCollectionView)
+                self.petsCollectionView.snp.makeConstraints { make in
+                    make.top.equalTo(self.safeAreaLayoutGuide).offset(24)
+                    make.bottom.equalTo(self.safeAreaLayoutGuide)
+                    make.right.left.equalToSuperview().inset(24).priority(.high)
+                    make.right.left.greaterThanOrEqualToSuperview().inset(24).priority(.required)
+                }
+            }
+        }
+
+    }
+    
     private func addSubviews() {
-        addSubview(petsCollectionView)
+        addSubview(loadingStackView)
     }
     
     private func setupConstraints() {
-        petsCollectionView.snp.makeConstraints { make in
+        loadingStackView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).offset(24)
-            make.bottom.equalTo(safeAreaLayoutGuide)
-            make.right.left.equalToSuperview().inset(24).priority(.high)
-            make.right.left.greaterThanOrEqualToSuperview().inset(24).priority(.required)
+            make.left.right.equalToSuperview().inset(24)
         }
     }
     
@@ -95,6 +128,34 @@ class PetListView: UIView {
         petsCollectionView.delegate = delegate
         petsCollectionView.dataSource = dataSource
         petsCollectionView.register(cellClass.self, forCellWithReuseIdentifier: reuseIdentifier)
+    }
+    
+    func startGradientAnimation() {
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        gradientLayer.colors = [
+            UIColor.black.withAlphaComponent(0.25).cgColor,
+            UIColor.black.cgColor,
+            UIColor.black.withAlphaComponent(0.25).cgColor,
+        ]
+        gradientLayer.locations = [0.0, 0.5, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        
+        loadingStackView.layer.mask = gradientLayer
+                
+        let positionAnimation = CABasicAnimation(keyPath: "locations")
+        positionAnimation.fromValue = [-0.5, 0.0, 0.5]
+        positionAnimation.toValue = [0.5, 1.0, 1.5]
+        positionAnimation.duration = 2
+        
+        let animationGroup = CAAnimationGroup()
+        animationGroup.animations = [positionAnimation]
+        animationGroup.duration = 2
+        animationGroup.repeatCount = .infinity
+        animationGroup.autoreverses = true
+        animationGroup.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        gradientLayer.add(animationGroup, forKey: nil)
     }
 }
 

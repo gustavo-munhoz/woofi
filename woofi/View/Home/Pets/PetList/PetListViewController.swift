@@ -47,6 +47,8 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
         if let tabvc = tabBarController as? HomeViewController {
             tabvc.addButton.addTarget(self, action: #selector(presentAddPetSheet), for: .touchUpInside)
         }
+        
+        petListView.startGradientAnimation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -128,6 +130,15 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
                 
                 self?.navigationController?.pushViewController(vc, animated: true)
             })
+            .store(in: &cancellables)
+        
+        viewModel?.$isLoading
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isLoading in
+                if !isLoading {
+                    self?.petListView.setToLoadedView()
+                }
+            }
             .store(in: &cancellables)
     }
     

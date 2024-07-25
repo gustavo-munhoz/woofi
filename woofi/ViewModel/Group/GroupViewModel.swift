@@ -32,6 +32,7 @@ class GroupViewModel: NSObject {
     /// Loads related users from firestore.
     func loadUsers() async {
         guard let groupID = Session.shared.currentUser?.groupID else { return }
+        self.isLoading = true
         
         let result = await FirestoreService.shared.fetchUsersInSameGroup(groupID: groupID)
         
