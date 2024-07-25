@@ -43,6 +43,8 @@ class GroupViewController: UIViewController {
         if let tabvc = tabBarController as? HomeViewController {
             tabvc.addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         }
+        
+        groupView.startGradientAnimation()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

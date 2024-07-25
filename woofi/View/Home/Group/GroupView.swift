@@ -10,6 +10,7 @@ import SnapKit
 
 class GroupView: UIView {
     
+    var gradientLayer: CAGradientLayer!
     var refreshAction: (() -> Void)?
     
     private(set) lazy var usersCollectionView: UICollectionView = {
@@ -20,7 +21,7 @@ class GroupView: UIView {
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
-
+        
         view.alwaysBounceVertical = true
         view.backgroundColor = .systemBackground
         view.refreshControl = refreshControl
@@ -45,15 +46,14 @@ class GroupView: UIView {
         view.alignment = .fill
         view.distribution = .fillEqually
         
-        
         return view
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .systemBackground
         addSubviews()
         setupConstraints()
-        backgroundColor = .systemBackground
     }
     
     required init?(coder: NSCoder) {
@@ -99,6 +99,34 @@ class GroupView: UIView {
     
     @objc func handleRefresh() {
         refreshAction?()
+    }
+    
+    func startGradientAnimation() {
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        gradientLayer.colors = [
+            UIColor.black.withAlphaComponent(0.25).cgColor,
+            UIColor.black.cgColor,
+            UIColor.black.withAlphaComponent(0.25).cgColor,
+        ]
+        gradientLayer.locations = [0.0, 0.5, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        
+        loadingStackView.layer.mask = gradientLayer
+                
+        let positionAnimation = CABasicAnimation(keyPath: "locations")
+        positionAnimation.fromValue = [-0.5, 0.0, 0.5]
+        positionAnimation.toValue = [0.5, 1.0, 1.5]
+        positionAnimation.duration = 2
+        
+        let animationGroup = CAAnimationGroup()
+        animationGroup.animations = [positionAnimation]
+        animationGroup.duration = 2
+        animationGroup.repeatCount = .infinity
+        animationGroup.autoreverses = true
+        animationGroup.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        gradientLayer.add(animationGroup, forKey: nil)
     }
 }
 
