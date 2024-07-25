@@ -46,6 +46,34 @@ class FirestoreService: FirestoreServiceProtocol {
         }
     }
     
+    func fetchUser(for id: UserId) async throws -> User {
+        let data = try await fetchUserData(userId: id)
+     
+        let id: String = data[FirestoreKeys.Users.uid] as! String
+        let username = data[FirestoreKeys.Users.username] as? String
+        let bio = data[FirestoreKeys.Users.bio] as? String
+        let email = data[FirestoreKeys.Users.email] as? String
+        let picturePath = data[FirestoreKeys.Users.profileImageUrl] as? String
+        let groupId = data[FirestoreKeys.Users.groupID] as! String
+        let stats: [UserTaskStat]?
+        
+        if let statsData = data[FirestoreKeys.Users.Stats.title] as? [String: Int] {
+            stats = UserTaskStat.createFromDictionary(statsData)
+        } else {
+            stats = nil
+        }
+        
+        return User(
+            id: id,
+            username: username,
+            bio: bio,
+            email: email,
+            remoteProfilePicturePath: picturePath,
+            groupID: groupId,
+            stats: stats
+        )
+    }
+    
     /// Fetches all users related to the same group as the current user
     func fetchUsersInSameGroup(groupID: String) async -> Result<[User], Error> {
         do {
