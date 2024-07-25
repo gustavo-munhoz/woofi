@@ -37,10 +37,7 @@ class GroupView: UIView {
     
     private(set) lazy var loadingStackView: UIStackView = {
         let view = UIStackView(
-            arrangedSubviews: Array(
-                repeating: UIImageView(image: UIImage(imageKey: .loadingUserCard)),
-                count: 5
-            )
+            arrangedSubviews: (0..<5).map { _ in UIImageView(image: UIImage(imageKey: .loadingUserCard)) }
         )
         view.translatesAutoresizingMaskIntoConstraints = false
         view.axis = .vertical
