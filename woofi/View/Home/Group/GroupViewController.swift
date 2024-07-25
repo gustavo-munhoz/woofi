@@ -58,7 +58,7 @@ class GroupViewController: UIViewController {
         
         for cell in groupView.usersCollectionView.visibleCells {
             if let userCell = cell as? UserCollectionViewCell {
-                userCell.profilePicture.layer.cornerRadius = userCell.profilePicture.frame.width / 2
+                userCell.profilePicture.layer.cornerRadius = 27
             }
         }
     }

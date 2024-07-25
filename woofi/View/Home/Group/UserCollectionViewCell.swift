@@ -61,7 +61,11 @@ class UserCollectionViewCell: UICollectionViewCell {
     }()    
     
     func setup(with user: User) {
-        self.image = user.profilePicture
+        // TODO: Find where this image is being set and fix it
+        self.profilePicture.image = user.profilePicture ?? UIImage(
+            systemName: "person.crop.circle"
+        )?.withTintColor(.primary, renderingMode: .alwaysOriginal)
+        
         self.title = user.username
         self.subtitle = user.bio
         
@@ -80,7 +84,7 @@ class UserCollectionViewCell: UICollectionViewCell {
             make.top.equalToSuperview().offset(14)
             make.left.equalToSuperview().offset(18)
             make.width.height.equalTo(54)
-        }
+        }        
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(profilePicture.snp.top).offset(4)
