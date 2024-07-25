@@ -53,6 +53,8 @@ extension String {
         case _continue
         case photosAccessDeniedTitle
         case photosAccessDeniedMessage
+        case placeholderUsername
+        case placeholderBio
         
         // MARK: - TaskType
         case taskTypeWalk

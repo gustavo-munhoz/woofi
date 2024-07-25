@@ -793,6 +793,28 @@
         }
       }
     },
+    "placeholderBio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hello!"
+          }
+        }
+      }
+    },
+    "placeholderUsername" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User"
+          }
+        }
+      }
+    },
     "profileSetupVCNavigationTitle" : {
       "extractionState" : "manual",
       "localizations" : {
