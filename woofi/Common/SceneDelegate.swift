@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let isUserLoaded = await Session.shared.setup()
             await MainActor.run {
                 // TODO: Add animation (maybe)
-                let rootViewController = Session.shared.currentUser == nil ? LoginViewController() : HomeViewController()
+                let rootViewController = isUserLoaded ? HomeViewController() : LoginViewController()
                 let navigationController = UINavigationController(rootViewController: rootViewController)
                 
                 window?.rootViewController = navigationController
