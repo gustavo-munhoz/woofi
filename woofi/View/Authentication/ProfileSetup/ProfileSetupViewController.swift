@@ -77,8 +77,8 @@ class ProfileSetupViewController: UIViewController {
                     userId: user.id,
                     data: [
                         FirestoreKeys.Users.uid: user.id,
-                        FirestoreKeys.Users.username: user.username,
-                        FirestoreKeys.Users.bio: user.bio ?? "",
+                        FirestoreKeys.Users.username: user.username ?? .localized(for: .placeholderUsername),
+                        FirestoreKeys.Users.bio: user.bio ?? .localized(for: .placeholderBio),
                         FirestoreKeys.Users.email: user.email ?? "",
                         FirestoreKeys.Users.groupID: user.groupID
                     ]
