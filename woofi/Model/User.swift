@@ -52,6 +52,11 @@ class User: Hashable {
         self.groupID = groupID
         self.remoteProfilePicturePath = remoteProfilePicturePath
         self.stats = stats ?? UserTaskStat.createAllWithZeroValue()
+        
+        if let path = remoteProfilePicturePath,
+           let url = URL(string: path) {
+            setProfilePicture(from: url)
+        }
     }
     
     func setProfilePicture(from url: URL) {
@@ -59,7 +64,7 @@ class User: Hashable {
             do {
                 let image = try await FirestoreService.shared.fetchImage(from: url)
                 setProfilePicture(image)
-                
+                publishSelf()
             } catch {
                 print("Error fetching profile picture: \(error.localizedDescription)")
                 setProfilePicture(UIImage(systemName: "person.crop.fill")!)
@@ -71,12 +76,24 @@ class User: Hashable {
         self.profilePicture = image
     }
     
-    static func ==(_ lhs: User, _ rhs: User) -> Bool {
-        lhs.id == rhs.id
+    static func == (lhs: User, rhs: User) -> Bool {
+       return lhs.id == rhs.id
+        && lhs.username == rhs.username
+        && lhs.bio == rhs.bio
+        && lhs.email == rhs.email
+        && lhs.groupID == rhs.groupID
+        && lhs.profilePicture == rhs.profilePicture
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+        hasher.combine(username)
+        hasher.combine(bio)
+        hasher.combine(email)
+        hasher.combine(groupID)
+        if let profilePicture = profilePicture {
+            hasher.combine(profilePicture.pngData())
+        }
     }
     
     func publishSelf() {
