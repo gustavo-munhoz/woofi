@@ -8,35 +8,19 @@
 import Foundation
 
 extension UserDefaults {
-    
     private enum Keys {
-        static let currentUser = "currentUser"
+        static let uid = "uid"
     }
     
-    func saveUser(_ user: User) {
-        do {
-            let data = try JSONEncoder().encode(user)
-            set(data, forKey: Keys.currentUser)
-            print("User saved successfully in UserDefaults. Id: \(user.id)")
-        } catch {
-            print("Failed to save user: \(error)")
-        }
+    func saveUserId(_ id: UserId) {
+        set(id, forKey: Keys.uid)
     }
     
-    func loadUser() -> User? {
-        guard let data = data(forKey: Keys.currentUser) else { return nil }
-        do {
-            let user = try JSONDecoder().decode(User.self, from: data)
-            print("User loaded successfully from UserDefaults. id: \(user.id)")
-            return user
-        } catch {
-            print("Failed to load user: \(error)")
-            return nil
-        }
+    func loadUserId() -> String? {
+        string(forKey: Keys.uid)
     }
     
-    func removeUser() {
-        print("User removed successfully from UserDefaults.")
-        removeObject(forKey: Keys.currentUser)
+    func resetUserId() {
+        UserDefaults.standard.removeObject(forKey: Keys.uid)
     }
 }
