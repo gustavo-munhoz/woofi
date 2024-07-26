@@ -14,34 +14,32 @@ class Session {
     
     static let shared = Session()
     
-    private init() {
-        if let user = UserDefaults.standard.loadUser() {
-            self.currentUser = user
-            
-            if let path = currentUser?.remoteProfilePicturePath,
-               let url = URL(string: path) {
-                Task {
-                    do {
-                        let image = try await FirestoreService.shared.fetchImage(from: url)
-                        currentUser?.profilePicture = image
-                    } catch {
-                        print("Error fetching profile picture: \(error.localizedDescription)")
-                    }
-                }
+    func setup() async -> Bool {
+        if let uid = UserDefaults.standard.loadUserId() {
+            do {
+                let user = try await FirestoreService.shared.fetchUser(for: uid)
+                self.currentUser = user
+                return true
+                
+            } catch {
+                print("Failed to fetch user in Session: \(error.localizedDescription)")
+                return false
             }
         }
+        return false
     }
+    
+    private init() { }
     
     var cachedUsers: CurrentValueSubject<[User], Never> = CurrentValueSubject([])
     
     var currentUser: User? {
         didSet {
-            if let user = currentUser {
-                UserDefaults.standard.saveUser(user)
+            guard let id = currentUser?.id else {
+                UserDefaults.standard.resetUserId()
+                return
             }
-            else {
-                UserDefaults.standard.removeUser()
-            }
+            UserDefaults.standard.saveUserId(id)
         }
     }
 }
