@@ -84,34 +84,26 @@ class FirestoreService: FirestoreServiceProtocol {
                 .getDocuments()
             
             var users = [User]()
+            var fetchUserTasks: [Task<User, Error>] = []
             
             for document in querySnapshot.documents {
-                let data = document.data()
-                
-                if let id = data[FirestoreKeys.Users.uid] as? String,
-                   id != Session.shared.currentUser?.id,
-                   let name = data[FirestoreKeys.Users.username] as? String,
-                   let bio = data[FirestoreKeys.Users.bio] as? String,
-                   let groupID = data[FirestoreKeys.Users.groupID] as? String {
-                    
-                    let user = User(id: id, username: name, bio: bio, groupID: groupID)
-                    
-                    if let profilePictureURL = data[FirestoreKeys.Users.profileImageUrl] as? String,
-                       let url = URL(string: profilePictureURL) {
-                        
-                        do {
-                            let image = try await fetchImage(from: url)
-                            user.profilePicture = image
-                        } catch {
-                            print("Error fetching profile picture for user \(id): \(error.localizedDescription)")
-                        }
+                if let userId = document.data()[FirestoreKeys.Users.uid] as? String,
+                   userId != Session.shared.currentUser?.id {
+                    let fetchUserTask = Task {
+                        try await fetchUser(for: userId)
                     }
-                    
-                    if let statsData = data[FirestoreKeys.Users.Stats.title] as? [String: Int] {
-                        user.stats = UserTaskStat.createFromDictionary(statsData)
-                    }
-                    
+                    fetchUserTasks.append(fetchUserTask)
+                }
+            }
+            
+            // Await all fetch user tasks and collect the results
+            for task in fetchUserTasks {
+                do {
+                    let user = try await task.value
                     users.append(user)
+                } catch {
+                    print("Error fetching user: \(error.localizedDescription)")
+                    return .failure(error)
                 }
             }
             
