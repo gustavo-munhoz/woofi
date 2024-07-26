@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseDynamicLinks
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -16,14 +15,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
         window = UIWindow(windowScene: windowScene)
         
-        let rootViewController: UIViewController = Session.shared.currentUser == nil ? LoginViewController() : HomeViewController()
-        let navigationController = UINavigationController(rootViewController: rootViewController)
-        
-        window?.rootViewController = navigationController
+        let loadingViewController = UIViewController()
+        loadingViewController.view.backgroundColor = .systemBackground
+        window?.rootViewController = loadingViewController
         window?.makeKeyAndVisible()
+        
+        Task {
+            let isUserLoaded = await Session.shared.setup()
+            await MainActor.run {
+                // TODO: Add animation (maybe)
+                let rootViewController = Session.shared.currentUser == nil ? LoginViewController() : HomeViewController()
+                let navigationController = UINavigationController(rootViewController: rootViewController)
+                
+                window?.rootViewController = navigationController
+            }
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
