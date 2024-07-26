@@ -46,6 +46,8 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tabBar.backgroundColor = .systemBackground        
+        
         groupViewController.tabBarItem = UITabBarItem(
             title: .localized(for: .homeVCGroupNavbarTitle),
             image: UIImage(systemName: "person.3.sequence.fill"),
