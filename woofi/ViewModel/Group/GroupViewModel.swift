@@ -42,6 +42,16 @@ class GroupViewModel: NSObject {
             self.isLoading = false
             self.users.value = users
             
+            for user in users {
+                user.updatePublisher
+                    .receive(on: RunLoop.main)
+                    .sink { [weak self] updatedUser in
+                        guard let index = self?.users.value.firstIndex(where: { $0 == user }) else { return }
+                        self?.users.value[index] = updatedUser
+                    }
+                    .store(in: &cancellables)
+            }
+            
         case .failure(let error):
             print("Error loading users: \(error)")
         }

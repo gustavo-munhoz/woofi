@@ -87,7 +87,7 @@ class GroupViewController: UIViewController {
                     for: indexPath
                 ) as? UserCollectionViewCell
                 
-                cell?.setup(with: user)
+                cell?.setup(with: user)                
                 
                 return cell
             }
@@ -229,7 +229,9 @@ class GroupViewController: UIViewController {
         snapshot.appendSections([.main])
         snapshot.appendItems(users)
         print("Applying snapshot with \(users.count) users.")
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot, animatingDifferences: true) { [weak self] in
+            self?.groupView.usersCollectionView.reloadData()
+        }
     }
 }
 
