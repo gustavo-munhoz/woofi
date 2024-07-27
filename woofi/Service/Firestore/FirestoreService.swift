@@ -107,7 +107,8 @@ class FirestoreService: FirestoreServiceProtocol {
                 }
             }
             
-            return .success(users)
+            let sortedUsers = users.sortedByUsername()
+            return .success(sortedUsers)
             
         } catch {
             return .failure(error)

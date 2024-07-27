@@ -99,7 +99,7 @@ class GroupViewController: UIViewController {
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] users in
                 guard !users.isEmpty else { return }
-                self?.applySnapshot(users: users)                
+                self?.applySnapshot(users: users)
             })
             .store(in: &cancellables)
         

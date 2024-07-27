@@ -105,3 +105,9 @@ class User: Hashable {
         leaveGroupPublisher.send(true)
     }
 }
+
+extension Array where Element: User {
+    func sortedByUsername() -> Self {
+        return self.sorted(by: { $0.username!.lowercased() < $1.username!.lowercased() })
+    }
+}
