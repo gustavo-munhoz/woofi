@@ -96,10 +96,12 @@ class GroupViewController: UIViewController {
     
     private func setupSubscriptions() {
         viewModel?.users
+            .debounce(for: .milliseconds(750), scheduler: RunLoop.main)
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] users in
                 guard !users.isEmpty else { return }
-                self?.applySnapshot(users: users)
+                
+                self?.applySnapshot(users: users.sortedByUsername())
             })
             .store(in: &cancellables)
         
