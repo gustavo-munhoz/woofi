@@ -86,7 +86,7 @@ class GroupViewModel: NSObject {
             .sink { [weak self] users in
                 guard !users.isEmpty else { return }
                 
-                self?.users.value = users
+                self?.users.value = users.sortedByUsername()
             }
             .store(in: &cancellables)
     }
