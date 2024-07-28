@@ -130,7 +130,11 @@ class LoginView: UIView {
                 ])
             )
             
-            button.isEnabled = !viewModel.isSigningIn && self.isLoginFormValid
+            button.isEnabled = !(
+                viewModel.isSigningIn
+                || viewModel.isSigningInWithGoogle
+                || viewModel.isSigningInWithApple)
+                && self.isLoginFormValid
             
             button.configuration = config
         }
@@ -150,12 +154,57 @@ class LoginView: UIView {
         return view
     }()
     
+//    private(set) lazy var googleSignInButton: UIButton = {
+//        let view = UIButton()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        
+//        view.setImage(UIImage(imageKey: .googleSignIn), for: .normal)
+//        view.addTarget(self, action: #selector(googleButtonPress), for: .touchUpInside)
+//        
+//        return view
+//    }()
+    
     private(set) lazy var googleSignInButton: UIButton = {
-        let view = UIButton()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .googleButtonBackground
+        config.background.strokeColor = .googleButtonStroke
+        config.background.strokeWidth = 1
+        config.buttonSize = .small
+        config.image = UIImage(imageKey: .googleIcon)
+        config.imagePadding = 8
         
-        view.setImage(UIImage(imageKey: .googleSignIn), for: .normal)
+        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title3)
+        let customFd = fd.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.semibold]])
+        
+        config.attributedTitle = AttributedString(
+            String.localized(for: .loginViewSignInWithGoogle),
+            attributes: AttributeContainer([
+                NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
+                NSAttributedString.Key.foregroundColor: UIColor.primary
+        ]))
+        
+        
+        
+        let view = UIButton(configuration: config)
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(googleButtonPress), for: .touchUpInside)
+        
+        view.configurationUpdateHandler = { [weak self] button in
+            guard let self = self, let viewModel = self.viewModel else { return }
+            
+            var config = button.configuration
+            config?.showsActivityIndicator = viewModel.isSigningInWithGoogle
+            config?.attributedTitle = AttributedString(
+                String.localized(for: viewModel.isSigningInWithGoogle ? .loginViewSigningIn : .loginViewSignInWithGoogle),
+                attributes: AttributeContainer([
+                    NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
+                    NSAttributedString.Key.foregroundColor: UIColor.black
+            ]))
+            
+            button.isEnabled = !(viewModel.isSigningIn || viewModel.isSigningInWithGoogle || viewModel.isSigningInWithApple)
+            
+            button.configuration = config
+        }
         
         return view
     }()
@@ -278,6 +327,20 @@ class LoginView: UIView {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.loginButton.setNeedsUpdateConfiguration()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$isSigningInWithGoogle
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.googleSignInButton.setNeedsUpdateConfiguration()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$isSigningInWithApple
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.appleSignInButton.setNeedsUpdateConfiguration()
             }
             .store(in: &cancellables)
     }

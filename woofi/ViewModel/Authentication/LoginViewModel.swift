@@ -16,6 +16,8 @@ class LoginViewModel {
     // MARK: - Attributes
     
     @Published var isSigningIn = false
+    @Published var isSigningInWithGoogle = false
+    @Published var isSigningInWithApple = false
     
     @Published var email: String = ""
     @Published var password: String = ""
@@ -89,7 +91,7 @@ class LoginViewModel {
     
     func signInWithGoogle(viewControllerRef vc: UIViewController) {
         lastAuthType = .googleLogin
-        
+        isSigningInWithGoogle = true
         Task {
             do {
                 let authResult = try await AuthenticationService.shared.loginUser(withGoogleForm: vc)
@@ -102,24 +104,27 @@ class LoginViewModel {
                 let authError = AuthError(error: error as NSError)
                 onAuthenticationFailure?(authError)
             }
+            isSigningInWithGoogle = false
         }
     }
     
     func signInWithApple() {
         lastAuthType = .appleSignIn
+        isSigningInWithApple = true
         
-        AuthenticationService.shared.signInWithApple { result in
+        AuthenticationService.shared.signInWithApple { [weak self] result in
             switch result {
             case .success(let userId):
                 print("User signed in with Apple: \(userId)")
-                self.onAuthenticationSuccess?(userId)
+                self?.onAuthenticationSuccess?(userId)
                 
             case .failure(let error):
                 print("Error signing in with Apple: \(error.localizedDescription)")
                 let authError = AuthError(error: error as NSError)
-                self.onAuthenticationFailure?(authError)
+                self?.onAuthenticationFailure?(authError)
                 
             }
+            self?.isSigningInWithApple = false
         }
     }
     
