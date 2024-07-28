@@ -43,8 +43,7 @@ class AddPetViewController: UIViewController {
             if let error = error {
                 print("Failed to save pet: \(error.localizedDescription)")
             } else {
-                print("Successfully saved pet")
-                self?.petListViewModel?.pets.value.append(pet)
+                print("Successfully saved pet")                
                 DispatchQueue.main.async {
                     self?.dismiss(animated: true, completion: nil)
                 }
