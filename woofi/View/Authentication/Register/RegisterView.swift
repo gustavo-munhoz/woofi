@@ -30,6 +30,11 @@ class RegisterView: UIView {
         !(emailTextField.text?.isEmpty ?? true) && !(passwordTextField.text?.isEmpty ?? true)
     }
     
+    private var isSigningUp: Bool {
+        guard let viewModel = self.viewModel else { return true }
+        return (viewModel.isSigningUp || viewModel.isSigningUpWithGoogle || viewModel.isSigningUpWithApple)
+    }
+    
     // MARK: - Views
     
     private(set) lazy var dogAnimation: LottieAnimationView = {
@@ -123,11 +128,7 @@ class RegisterView: UIView {
             var config = button.configuration
             config?.showsActivityIndicator = viewModel.isSigningUp
             
-            button.isEnabled = !(
-                viewModel.isSigningUp
-                || viewModel.isSigningUpWithGoogle
-                || viewModel.isSigningUpWithApple)
-                && self.isLoginFormValid            
+            button.isEnabled = !isSigningUp && self.isLoginFormValid
             
             config?.attributedTitle = AttributedString(
                 .localized(for: viewModel.isSigningUp ? .registerViewSigningUp : .registerViewSignUpButton),
@@ -181,8 +182,6 @@ class RegisterView: UIView {
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
             
-            let isSigningUp = (viewModel.isSigningUp || viewModel.isSigningUpWithGoogle || viewModel.isSigningUpWithApple)
-            
             var config = button.configuration
             config?.showsActivityIndicator = viewModel.isSigningUpWithGoogle
             config?.attributedTitle = AttributedString(
@@ -227,8 +226,6 @@ class RegisterView: UIView {
         
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
-            
-            let isSigningUp = (viewModel.isSigningUp || viewModel.isSigningUpWithGoogle || viewModel.isSigningUpWithApple)
             
             var config = button.configuration
             config?.showsActivityIndicator = viewModel.isSigningUpWithApple
@@ -300,25 +297,16 @@ class RegisterView: UIView {
             .assign(to: &viewModel.$password)
         
         viewModel.$isSigningUp
+            .combineLatest(viewModel.$isSigningUpWithGoogle, viewModel.$isSigningUpWithApple)
+            .map { $0 || $1 || $2 }
+            .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.signUpButton.setNeedsUpdateConfiguration()
-            }
-            .store(in: &cancellables)
-        
-        viewModel.$isSigningUpWithGoogle
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
                 self?.googleSignUpButton.setNeedsUpdateConfiguration()
-            }
-            .store(in: &cancellables)
-        
-        viewModel.$isSigningUpWithApple
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
                 self?.appleSignUpButton.setNeedsUpdateConfiguration()
             }
-            .store(in: &cancellables)
+            .store(in: &cancellables)       
     }
     
     private func setupTextFieldObservers() {

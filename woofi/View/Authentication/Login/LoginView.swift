@@ -30,6 +30,12 @@ class LoginView: UIView {
         !(emailTextField.text?.isEmpty ?? true) && !(passwordTextField.text?.isEmpty ?? true)
     }
     
+    private var isSigningIn: Bool {
+        guard let viewModel = self.viewModel else { return true }
+        
+        return (viewModel.isSigningIn || viewModel.isSigningInWithGoogle || viewModel.isSigningInWithApple)
+    }
+    
     // MARK: - Views
     
     private(set) lazy var dogAnimation: LottieAnimationView = {
@@ -119,15 +125,10 @@ class LoginView: UIView {
         
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
-            
             var config = button.configuration
             config?.showsActivityIndicator = viewModel.isSigningIn
             
-            button.isEnabled = !(
-                viewModel.isSigningIn
-                || viewModel.isSigningInWithGoogle
-                || viewModel.isSigningInWithApple)
-                && self.isLoginFormValid
+            button.isEnabled = !isSigningIn && self.isLoginFormValid
             
             config?.attributedTitle = AttributedString(
                 .localized(for: viewModel.isSigningIn ? .loginViewSigningIn : .authLoginButtonTitle),
@@ -181,8 +182,6 @@ class LoginView: UIView {
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
             
-            let isSigningIn = (viewModel.isSigningIn || viewModel.isSigningInWithGoogle || viewModel.isSigningInWithApple)
-            
             var config = button.configuration
             config?.showsActivityIndicator = viewModel.isSigningInWithGoogle
             config?.attributedTitle = AttributedString(
@@ -228,7 +227,7 @@ class LoginView: UIView {
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
             
-            let isSigningIn = (viewModel.isSigningIn || viewModel.isSigningInWithGoogle || viewModel.isSigningInWithApple)
+            button.isEnabled = !isSigningIn
             
             var config = button.configuration
             config?.showsActivityIndicator = viewModel.isSigningInWithApple
@@ -240,7 +239,7 @@ class LoginView: UIView {
             ]))
             
             
-            button.isEnabled = !isSigningIn
+            
             button.configuration = config
         }
         
@@ -350,24 +349,15 @@ class LoginView: UIView {
         
         passwordTextField.textPublisher
             .assign(to: &viewModel.$password)
-        
+
         viewModel.$isSigningIn
+            .combineLatest(viewModel.$isSigningInWithGoogle, viewModel.$isSigningInWithApple)
+            .map { $0 || $1 || $2 }
+            .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.loginButton.setNeedsUpdateConfiguration()
-            }
-            .store(in: &cancellables)
-        
-        viewModel.$isSigningInWithGoogle
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
                 self?.googleSignInButton.setNeedsUpdateConfiguration()
-            }
-            .store(in: &cancellables)
-        
-        viewModel.$isSigningInWithApple
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
                 self?.appleSignInButton.setNeedsUpdateConfiguration()
             }
             .store(in: &cancellables)
