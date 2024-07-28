@@ -15,6 +15,7 @@ extension UIImage {
         case appleSignUp = "apple-su-wide"
         case loadingUserCard = "user-card-loading"
         case loadingPetCard = "pet-card-loading"
+        case googleIcon = "google-icon"
     }
     
     convenience init(imageKey: ImageKey) {
