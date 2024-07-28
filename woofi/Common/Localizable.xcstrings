@@ -749,6 +749,17 @@
         }
       }
     },
+    "petListViewEmptyText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You currently have no pets in your group. Create a pet or join a group!"
+          }
+        }
+      }
+    },
     "petVCDailyTitle" : {
       "extractionState" : "manual",
       "localizations" : {

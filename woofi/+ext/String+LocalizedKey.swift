@@ -102,6 +102,9 @@ extension String {
         case petVCWeeklyTitle
         case petVCMonthlyTitle
         
+        // MARK: - PetListView
+        case petListViewEmptyText
+        
         // MARK: - PetListViewController
         case petListVCContextMenuEdit
         case petListVCContextMenuDelete
