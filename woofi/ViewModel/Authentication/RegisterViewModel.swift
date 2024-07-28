@@ -14,6 +14,8 @@ class RegisterViewModel {
     // MARK: - Attributes
     
     @Published var isSigningUp = false
+    @Published var isSigningUpWithGoogle = false
+    @Published var isSigningUpWithApple = false
     
     @Published var email: String = ""
     @Published var password: String = ""
@@ -51,7 +53,7 @@ class RegisterViewModel {
     
     func signUpWithGoogle(viewControllerRef vc: UIViewController) {
         lastAuthType = .googleLogin
-        
+        isSigningUpWithGoogle = true
         Task {
             do {
                 let authResult = try await AuthenticationService.shared.loginUser(withGoogleForm: vc)
@@ -63,12 +65,13 @@ class RegisterViewModel {
                 print("Error signing in with google: \(error.localizedDescription)")
                 onSignUpFailure?(AuthError(error: error as NSError))
             }
-            isSigningUp = false
+            isSigningUpWithGoogle = false
         }
     }
     
     func signUpWithApple() {
         lastAuthType = .appleSignIn
+        isSigningUpWithApple = true
         
         AuthenticationService.shared.signInWithApple { [weak self] result in
             switch result {
@@ -81,7 +84,7 @@ class RegisterViewModel {
                 self?.onSignUpFailure?(AuthError(error: error as NSError))
                 
             }
-            self?.isSigningUp = false
+            self?.isSigningUpWithApple = true
         }
     }
     

@@ -122,15 +122,20 @@ class RegisterView: UIView {
             
             var config = button.configuration
             config?.showsActivityIndicator = viewModel.isSigningUp
+            
+            button.isEnabled = !(
+                viewModel.isSigningUp
+                || viewModel.isSigningUpWithGoogle
+                || viewModel.isSigningUpWithApple)
+                && self.isLoginFormValid            
+            
             config?.attributedTitle = AttributedString(
                 .localized(for: viewModel.isSigningUp ? .registerViewSigningUp : .registerViewSignUpButton),
                 attributes: AttributeContainer([
                     NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
-                    NSAttributedString.Key.foregroundColor: UIColor.white
+                    NSAttributedString.Key.foregroundColor: button.isEnabled ? UIColor.white : UIColor.primary
                 ])
             )
-            
-            button.isEnabled = !viewModel.isSigningUp && self.isLoginFormValid
             
             button.configuration = config
         }
@@ -151,21 +156,92 @@ class RegisterView: UIView {
     }()
     
     private(set) lazy var googleSignUpButton: UIButton = {
-        let view = UIButton()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .googleButtonBackground
+        config.background.strokeColor = .googleButtonStroke
+        config.background.strokeWidth = 1
+        config.buttonSize = .small
+        config.image = UIImage(imageKey: .googleIcon)
+        config.imagePadding = 8
         
-        view.setImage(UIImage(imageKey: .googleSignUp), for: .normal)
+        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title3)
+        let customFd = fd.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.semibold]])
+        
+        config.attributedTitle = AttributedString(
+            String.localized(for: .registerViewSignUpWithGoogle),
+            attributes: AttributeContainer([
+                NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
+                NSAttributedString.Key.foregroundColor: UIColor.primary
+        ]))
+        
+        let view = UIButton(configuration: config)
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(googleButtonPress), for: .touchUpInside)
+        
+        view.configurationUpdateHandler = { [weak self] button in
+            guard let self = self, let viewModel = self.viewModel else { return }
+            
+            let isSigningUp = (viewModel.isSigningUp || viewModel.isSigningUpWithGoogle || viewModel.isSigningUpWithApple)
+            
+            var config = button.configuration
+            config?.showsActivityIndicator = viewModel.isSigningUpWithGoogle
+            config?.attributedTitle = AttributedString(
+                String.localized(for: viewModel.isSigningUpWithGoogle ? .registerViewSigningUp : .registerViewSignUpWithGoogle),
+                attributes: AttributeContainer([
+                    NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
+                    NSAttributedString.Key.foregroundColor: isSigningUp ? UIColor.primary : UIColor.black
+            ]))
+            
+            button.isEnabled = !isSigningUp
+            button.configuration = config
+        }
         
         return view
     }()
     
     private(set) lazy var appleSignUpButton: UIButton = {
-        let view = UIButton()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .primary
+        config.background.strokeColor = .systemGray
+        config.background.strokeWidth = 1
+        config.buttonSize = .small
+        config.image = UIImage(systemName: "apple.logo")?.withTintColor(
+            .systemBackground,
+            renderingMode: .alwaysOriginal
+        )
+        config.imagePadding = 8
         
-        view.setImage(UIImage(imageKey: .appleSignUp), for: .normal)
+        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title3)
+        let customFd = fd.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.semibold]])
+        
+        config.attributedTitle = AttributedString(
+            String.localized(for: .registerViewSignUpWithApple),
+            attributes: AttributeContainer([
+                NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
+                NSAttributedString.Key.foregroundColor: UIColor.systemBackground
+        ]))
+        
+        let view = UIButton(configuration: config)
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(appleButtonPress), for: .touchUpInside)
+        
+        view.configurationUpdateHandler = { [weak self] button in
+            guard let self = self, let viewModel = self.viewModel else { return }
+            
+            let isSigningUp = (viewModel.isSigningUp || viewModel.isSigningUpWithGoogle || viewModel.isSigningUpWithApple)
+            
+            var config = button.configuration
+            config?.showsActivityIndicator = viewModel.isSigningUpWithApple
+            config?.attributedTitle = AttributedString(
+                String.localized(for: viewModel.isSigningUpWithApple ? .registerViewSigningUp : .registerViewSignUpWithApple),
+                attributes: AttributeContainer([
+                    NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
+                    NSAttributedString.Key.foregroundColor: isSigningUp ? UIColor.primary : UIColor.systemBackground
+            ]))
+            
+            button.isEnabled = !isSigningUp
+            button.configuration = config
+        }
         
         return view
     }()
@@ -227,6 +303,20 @@ class RegisterView: UIView {
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 self?.signUpButton.setNeedsUpdateConfiguration()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$isSigningUpWithGoogle
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.googleSignUpButton.setNeedsUpdateConfiguration()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.$isSigningUpWithApple
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.appleSignUpButton.setNeedsUpdateConfiguration()
             }
             .store(in: &cancellables)
     }

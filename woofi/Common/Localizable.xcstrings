@@ -914,6 +914,28 @@
         }
       }
     },
+    "registerViewSignUpWithApple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up with Apple"
+          }
+        }
+      }
+    },
+    "registerViewSignUpWithGoogle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up with Google"
+          }
+        }
+      }
+    },
     "registerViewWelcome" : {
       "extractionState" : "manual",
       "localizations" : {

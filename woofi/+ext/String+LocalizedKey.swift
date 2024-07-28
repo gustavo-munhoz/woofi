@@ -172,6 +172,8 @@ extension String {
         
         case loginViewSignInWithGoogle
         case loginViewSignInWithApple
+        case registerViewSignUpWithGoogle
+        case registerViewSignUpWithApple
         
         // MARK: - LoginViewController
         case loginVCNavTitle
