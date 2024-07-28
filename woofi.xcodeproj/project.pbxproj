@@ -74,6 +74,7 @@
 		B370595A2C33495A00FDD70B /* NotificationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37059592C33495A00FDD70B /* NotificationFactory.swift */; };
 		B37059652C35186F00FDD70B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B37059642C35186F00FDD70B /* GoogleService-Info.plist */; };
 		B37059792C365F2700FDD70B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37059782C365F2700FDD70B /* ProfileViewController.swift */; };
+		B38C9E5C2C56BE870054D3E0 /* error-dog.json in Resources */ = {isa = PBXBuildFile; fileRef = B38C9E5B2C56BE870054D3E0 /* error-dog.json */; };
 		B3A7E8482BE74DF9009B6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */; };
 		B3A7E84A2BE74DF9009B6630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */; };
 		B3A7E84C2BE74DF9009B6630 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A7E84B2BE74DF9009B6630 /* AuthenticationViewController.swift */; };
@@ -174,6 +175,7 @@
 		B37059592C33495A00FDD70B /* NotificationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationFactory.swift; sourceTree = "<group>"; };
 		B37059642C35186F00FDD70B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B37059782C365F2700FDD70B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		B38C9E5B2C56BE870054D3E0 /* error-dog.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "error-dog.json"; sourceTree = "<group>"; };
 		B3A7E8442BE74DF9009B6630 /* woofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = woofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A7E8472BE74DF9009B6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3A7E8492BE74DF9009B6630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -636,6 +638,7 @@
 		B3FC79912C4B0F0700CBC03D /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				B38C9E5B2C56BE870054D3E0 /* error-dog.json */,
 				B3FC79A02C4FC31400CBC03D /* sitting-dog-register.json */,
 				B3FC79922C4B0F2A00CBC03D /* walking-dog-login.json */,
 			);
@@ -749,6 +752,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B38C9E5C2C56BE870054D3E0 /* error-dog.json in Resources */,
 				B3FC79A12C4FC31400CBC03D /* sitting-dog-register.json in Resources */,
 				B3A7E8512BE74DFB009B6630 /* Assets.xcassets in Resources */,
 				B37059652C35186F00FDD70B /* GoogleService-Info.plist in Resources */,
