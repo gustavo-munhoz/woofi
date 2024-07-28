@@ -122,19 +122,20 @@ class LoginView: UIView {
             
             var config = button.configuration
             config?.showsActivityIndicator = viewModel.isSigningIn
-            config?.attributedTitle = AttributedString(
-                .localized(for: viewModel.isSigningIn ? .loginViewSigningIn : .authLoginButtonTitle),
-                attributes: AttributeContainer([
-                    NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
-                    NSAttributedString.Key.foregroundColor: UIColor.white
-                ])
-            )
             
             button.isEnabled = !(
                 viewModel.isSigningIn
                 || viewModel.isSigningInWithGoogle
                 || viewModel.isSigningInWithApple)
                 && self.isLoginFormValid
+            
+            config?.attributedTitle = AttributedString(
+                .localized(for: viewModel.isSigningIn ? .loginViewSigningIn : .authLoginButtonTitle),
+                attributes: AttributeContainer([
+                    NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
+                    NSAttributedString.Key.foregroundColor: button.isEnabled ? UIColor.white : UIColor.primary
+                ])
+            )
             
             button.configuration = config
         }
@@ -153,16 +154,6 @@ class LoginView: UIView {
         
         return view
     }()
-    
-//    private(set) lazy var googleSignInButton: UIButton = {
-//        let view = UIButton()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        view.setImage(UIImage(imageKey: .googleSignIn), for: .normal)
-//        view.addTarget(self, action: #selector(googleButtonPress), for: .touchUpInside)
-//        
-//        return view
-//    }()
     
     private(set) lazy var googleSignInButton: UIButton = {
         var config = UIButton.Configuration.filled()
@@ -183,8 +174,6 @@ class LoginView: UIView {
                 NSAttributedString.Key.foregroundColor: UIColor.primary
         ]))
         
-        
-        
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(googleButtonPress), for: .touchUpInside)
@@ -192,17 +181,18 @@ class LoginView: UIView {
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
             
+            let isSigningIn = (viewModel.isSigningIn || viewModel.isSigningInWithGoogle || viewModel.isSigningInWithApple)
+            
             var config = button.configuration
             config?.showsActivityIndicator = viewModel.isSigningInWithGoogle
             config?.attributedTitle = AttributedString(
                 String.localized(for: viewModel.isSigningInWithGoogle ? .loginViewSigningIn : .loginViewSignInWithGoogle),
                 attributes: AttributeContainer([
                     NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
-                    NSAttributedString.Key.foregroundColor: UIColor.black
+                    NSAttributedString.Key.foregroundColor: isSigningIn ? UIColor.primary : UIColor.black
             ]))
             
-            button.isEnabled = !(viewModel.isSigningIn || viewModel.isSigningInWithGoogle || viewModel.isSigningInWithApple)
-            
+            button.isEnabled = !isSigningIn
             button.configuration = config
         }
         
@@ -250,7 +240,7 @@ class LoginView: UIView {
             ]))
             
             
-            button.isEnabled = !isSigningIn            
+            button.isEnabled = !isSigningIn
             button.configuration = config
         }
         
