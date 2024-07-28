@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Lottie
 
 class PetListView: UIView {
     var gradientLayer: CAGradientLayer!
@@ -39,6 +40,7 @@ class PetListView: UIView {
         return refreshControl
     }()
     
+    // MARK: - Loading
     private(set) lazy var loadingStackView: UIStackView = {
         let view = UIStackView(
             arrangedSubviews: (0..<2).map { _ in UIImageView(image: UIImage(imageKey: .loadingPetCard)) }
@@ -52,6 +54,33 @@ class PetListView: UIView {
         return view
     }()
     
+    // MARK: - Empty view
+    
+    private(set) lazy var errorDogLottieView: LottieAnimationView = {
+        let view = LottieAnimationView(name: "error-dog")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.contentMode = .scaleAspectFit
+        view.loopMode = .loop
+        
+        return view
+    }()
+    
+    private(set) lazy var emptyListLabel: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.text = .localized(for: .petListViewEmptyText)
+        view.textColor = .primary.withAlphaComponent(0.6)
+        view.textAlignment = .center
+        view.numberOfLines = -1
+        view.lineBreakMode = .byWordWrapping
+        view.font = .preferredFont(forTextStyle: .title3)
+        
+        return view
+    }()
+    
+    // MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .systemBackground
@@ -63,6 +92,8 @@ class PetListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // MARK: - View Setup
     @objc private func handleRefresh() {
         refreshAction?()
     }
@@ -87,7 +118,7 @@ class PetListView: UIView {
         self.petsCollectionView.setCollectionViewLayout(newLayout, animated: true)
     }
     
-    func setToLoadedView() {
+    func setToLoadedView(isEmpty: Bool = false) {
         UIView.animate(withDuration: 0.15) { [weak self] in
             guard let self = self else { return }
             self.subviews.forEach { $0.removeFromSuperview() }
@@ -96,16 +127,45 @@ class PetListView: UIView {
             UIView.animate(withDuration: 0.15) { [weak self] in
                 guard let self = self else { return }
                 
-                self.addSubview(self.petsCollectionView)
-                self.petsCollectionView.snp.makeConstraints { make in
-                    make.top.equalTo(self.safeAreaLayoutGuide).offset(24)
-                    make.bottom.equalTo(self.safeAreaLayoutGuide)
-                    make.right.left.equalToSuperview().inset(24).priority(.high)
-                    make.right.left.greaterThanOrEqualToSuperview().inset(24).priority(.required)
+                if isEmpty {
+                    self.setupLottieAnimationAndText()
+                    
+                } else {
+                    self.setupCollectionViewAndConstraints()
                 }
             }
         }
 
+    }
+    
+    private func setupLottieAnimationAndText() {
+        addSubview(errorDogLottieView)
+        addSubview(emptyListLabel)
+                
+        errorDogLottieView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-40)
+            make.width.equalToSuperview().multipliedBy(0.7)
+            make.height.equalTo(errorDogLottieView.snp.width)
+        }
+        
+        emptyListLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(errorDogLottieView)
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.top.equalTo(errorDogLottieView.snp.bottom)
+        }
+        
+        errorDogLottieView.play()
+    }
+    
+    private func setupCollectionViewAndConstraints() {
+        self.addSubview(self.petsCollectionView)
+        self.petsCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide).offset(24)
+            make.bottom.equalTo(self.safeAreaLayoutGuide)
+            make.right.left.equalToSuperview().inset(24).priority(.high)
+            make.right.left.greaterThanOrEqualToSuperview().inset(24).priority(.required)
+        }
     }
     
     private func addSubviews() {

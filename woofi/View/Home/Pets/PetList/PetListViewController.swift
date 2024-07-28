@@ -109,6 +109,10 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
             .sink(receiveValue: { [weak self] pets in
                 self?.applySnapshot(pets: pets)
                 
+                if pets.isEmpty {
+                    self?.petListView.setToLoadedView(isEmpty: true)
+                }
+                
                 guard let currentPet = self?.currentPet else { return }
                 
                 for p in pets {
@@ -135,8 +139,9 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
         viewModel?.$isLoading
             .receive(on: RunLoop.main)
             .sink { [weak self] isLoading in
+                guard let vm = self?.viewModel else { return }
                 if !isLoading {
-                    self?.petListView.setToLoadedView()
+                    self?.petListView.setToLoadedView(isEmpty: vm.pets.value.isEmpty)
                 }
             }
             .store(in: &cancellables)
