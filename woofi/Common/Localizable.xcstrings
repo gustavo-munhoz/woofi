@@ -661,6 +661,20 @@
         }
       }
     },
+    "loginViewSignInWithApple" : {
+      "extractionState" : "manual"
+    },
+    "loginViewSignInWithGoogle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in with Google"
+          }
+        }
+      }
+    },
     "loginViewWelcomeBack" : {
       "extractionState" : "manual",
       "localizations" : {
