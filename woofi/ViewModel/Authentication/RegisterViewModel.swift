@@ -84,7 +84,7 @@ class RegisterViewModel {
                 self?.onSignUpFailure?(AuthError(error: error as NSError))
                 
             }
-            self?.isSigningUpWithApple = true
+            self?.isSigningUpWithApple = false
         }
     }
     
