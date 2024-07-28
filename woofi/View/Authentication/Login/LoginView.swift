@@ -210,11 +210,49 @@ class LoginView: UIView {
     }()
     
     private(set) lazy var appleSignInButton: UIButton = {
-        let view = UIButton()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .primary
+        config.background.strokeColor = .systemGray
+        config.background.strokeWidth = 1
+        config.buttonSize = .small
+        config.image = UIImage(systemName: "apple.logo")?.withTintColor(
+            .systemBackground,
+            renderingMode: .alwaysOriginal
+        )
+        config.imagePadding = 8
         
-        view.setImage(UIImage(imageKey: .appleSignIn), for: .normal)
+        let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .title3)
+        let customFd = fd.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.semibold]])
+        
+        config.attributedTitle = AttributedString(
+            String.localized(for: .loginViewSignInWithApple),
+            attributes: AttributeContainer([
+                NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
+                NSAttributedString.Key.foregroundColor: UIColor.systemBackground
+        ]))
+        
+        let view = UIButton(configuration: config)
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(appleButtonPress), for: .touchUpInside)
+        
+        view.configurationUpdateHandler = { [weak self] button in
+            guard let self = self, let viewModel = self.viewModel else { return }
+            
+            let isSigningIn = (viewModel.isSigningIn || viewModel.isSigningInWithGoogle || viewModel.isSigningInWithApple)
+            
+            var config = button.configuration
+            config?.showsActivityIndicator = viewModel.isSigningInWithApple
+            config?.attributedTitle = AttributedString(
+                String.localized(for: viewModel.isSigningInWithApple ? .loginViewSigningIn : .loginViewSignInWithApple),
+                attributes: AttributeContainer([
+                    NSAttributedString.Key.font: UIFont(descriptor: customFd, size: 0),
+                    NSAttributedString.Key.foregroundColor: isSigningIn ? UIColor.primary : UIColor.systemBackground
+            ]))
+            
+            
+            button.isEnabled = !isSigningIn            
+            button.configuration = config
+        }
         
         return view
     }()
