@@ -43,7 +43,6 @@ class RegisterView: UIView {
         
         view.contentMode = .scaleAspectFit
         view.loopMode = .loop
-        view.animationSpeed = 1        
         
         return view
     }()
@@ -306,7 +305,7 @@ class RegisterView: UIView {
                 self?.googleSignUpButton.setNeedsUpdateConfiguration()
                 self?.appleSignUpButton.setNeedsUpdateConfiguration()
             }
-            .store(in: &cancellables)       
+            .store(in: &cancellables)
     }
     
     private func setupTextFieldObservers() {

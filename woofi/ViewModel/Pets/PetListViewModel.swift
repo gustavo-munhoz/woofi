@@ -54,8 +54,8 @@ class PetListViewModel: NSObject {
                         print("Appended pet: \(pet.name)")
                     }
                 }
-                self?.isLoading = false
                 self?.pets.value = updatedPets
+                self?.isLoading = false
                 self?.setupSubscriptions()
                 
             case .failure(let error):
