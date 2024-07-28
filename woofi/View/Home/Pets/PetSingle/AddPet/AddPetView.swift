@@ -14,7 +14,7 @@ class AddPetView: UIView {
 
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Add new pet"
+        label.text = .localized(for: .addPetViewTitle)
         
         let fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .largeTitle)
         let customFd = fd.addingAttributes([
@@ -31,7 +31,7 @@ class AddPetView: UIView {
     
     let nameTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Name"
+        textField.placeholder = .localized(for: .addPetViewName)
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -39,7 +39,7 @@ class AddPetView: UIView {
     
     let breedTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Breed"
+        textField.placeholder = .localized(for: .addPetViewBreed)
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -47,7 +47,7 @@ class AddPetView: UIView {
     
     let ageTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Age"
+        textField.placeholder = .localized(for: .addPetViewAge)
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -55,7 +55,7 @@ class AddPetView: UIView {
     
     lazy var createPetButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Create pet", for: .normal)
+        button.setTitle(.localized(for: .addPetViewCreateButton), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         button.backgroundColor = .systemGray
