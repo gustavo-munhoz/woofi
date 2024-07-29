@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Lottie
 
 class GroupView: UIView {
     
@@ -36,6 +37,7 @@ class GroupView: UIView {
         return refreshControl
     }()
     
+    // MARK: - Loading group
     private(set) lazy var loadingStackView: UIStackView = {
         let view = UIStackView(
             arrangedSubviews: (0..<5).map { _ in UIImageView(image: UIImage(imageKey: .loadingUserCard)) }
@@ -56,22 +58,77 @@ class GroupView: UIView {
         setupConstraints()
     }
     
+    // MARK: - Empty group
+    private(set) lazy var emptyGroupLottieView: LottieAnimationView = {
+        let view = LottieAnimationView(name: "error-group")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.contentMode = .scaleAspectFit
+        view.loopMode = .loop
+        
+        return view
+    }()
+    
+    private(set) lazy var emptyGroupLabel: UILabel = {
+        let view = UILabel()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.text = .localized(for: .groupViewEmptyText)
+        view.textColor = .primary.withAlphaComponent(0.6)
+        view.textAlignment = .center
+        view.numberOfLines = -1
+        view.lineBreakMode = .byWordWrapping
+        view.font = .preferredFont(forTextStyle: .title3)
+        
+        return view
+    }()
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setToLoadedView() {
+    private func setupLottieAnimationAndText() {
+        addSubview(emptyGroupLottieView)
+        addSubview(emptyGroupLabel)
+                
+        emptyGroupLottieView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-40)
+            make.width.equalToSuperview().multipliedBy(0.7)
+            make.height.equalTo(emptyGroupLottieView.snp.width)
+        }
+        
+        emptyGroupLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(emptyGroupLottieView)
+            make.width.equalToSuperview().multipliedBy(0.85)
+            make.top.equalTo(emptyGroupLottieView.snp.bottom)
+        }
+        
+        emptyGroupLottieView.play()
+    }
+    
+    func setToLoadedView(isEmpty: Bool = false) {
         UIView.animate(withDuration: 0.35) { [weak self] in
             guard let self = self else { return }
             self.subviews.forEach { $0.removeFromSuperview() }
             
-            self.addSubview(self.usersCollectionView)
-            self.usersCollectionView.snp.makeConstraints { make in
-                make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(24)
-                make.right.equalToSuperview().offset(-24)
-                make.left.equalToSuperview().offset(24)
-                make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-24)
+        } completion: { _ in
+            if isEmpty {
+                self.setupLottieAnimationAndText()
+                
+            } else {
+                self.setupCollectionViewAndConstraints()
             }
+        }
+    }
+    
+    private func setupCollectionViewAndConstraints() {
+        addSubview(usersCollectionView)
+        usersCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(24)
+            make.right.equalToSuperview().offset(-24)
+            make.left.equalToSuperview().offset(24)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-24)
         }
     }
     
