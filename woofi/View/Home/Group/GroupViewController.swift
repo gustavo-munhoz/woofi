@@ -118,8 +118,18 @@ class GroupViewController: UIViewController {
         viewModel?.$isLoading
             .receive(on: RunLoop.main)
             .sink { [weak self] isLoading in
+                guard let vm = self?.viewModel else { return }
                 if !isLoading {
-                    self?.groupView.setToLoadedView()
+                    self?.groupView.setToLoadedView(isEmpty: vm.users.value.isEmpty)
+                }
+            }
+            .store(in: &cancellables)
+        
+        Session.shared.currentUser?.leaveGroupPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] didLeave in
+                if didLeave {
+                    self?.groupView.setToLoadedView(isEmpty: true)
                 }
             }
             .store(in: &cancellables)
