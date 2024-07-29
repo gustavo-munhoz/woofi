@@ -138,6 +138,9 @@ extension String {
         case groupVCLeaveWarningMessage
         case groupVCLeaveWarningConfirm
         
+        // MARK: - GroupView
+        case groupViewEmptyText
+        
         // MARK: - HomeViewController
         case homeVCGroupNavbarTitle
         case homeVCPetsNavbarTitle

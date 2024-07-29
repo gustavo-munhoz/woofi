@@ -474,6 +474,17 @@
         }
       }
     },
+    "groupViewEmptyText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You don't have anyone in your group right now. Invite members or join a group to begin!"
+          }
+        }
+      }
+    },
     "homeVCGroupNavbarTitle" : {
       "extractionState" : "manual",
       "localizations" : {
