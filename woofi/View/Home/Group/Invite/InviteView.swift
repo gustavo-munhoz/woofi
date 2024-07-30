@@ -9,9 +9,6 @@ import UIKit
 
 class InviteView: UIView {
     
-    // TODO: Localize texts
-    
-    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = .localized(for: .inviteViewTitle)
@@ -25,7 +22,6 @@ class InviteView: UIView {
         ])
         
         label.font = UIFont(descriptor: customFd, size: .zero)
-        
         
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +54,7 @@ class InviteView: UIView {
         button.setTitle(.localized(for: .inviteViewShareButton), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .actionBlue
         button.tintColor = .white
         button.layer.cornerRadius = 12
         

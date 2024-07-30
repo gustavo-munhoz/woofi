@@ -77,7 +77,7 @@ class PetViewController: UIViewController {
             barButtonSystemItem: .edit,
             target: self,
             action: #selector(navigateToEdit)
-        )
+        )                
     }
     
     override func viewDidAppear(_ animated: Bool) {

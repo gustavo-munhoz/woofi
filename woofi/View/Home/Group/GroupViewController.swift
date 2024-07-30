@@ -176,8 +176,6 @@ class GroupViewController: UIViewController {
             handler: nil
         )
         
-        alertController.view.tintColor = .actionBlue
-        
         alertController.addAction(inviteAction)
         alertController.addAction(joinAction)
         

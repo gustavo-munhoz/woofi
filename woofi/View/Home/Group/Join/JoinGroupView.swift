@@ -50,7 +50,7 @@ class JoinGroupView: UIView {
         button.setTitle(.localized(for: .joinGroupViewButton), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .actionBlue
         button.tintColor = .white
         button.layer.cornerRadius = 12
         return button

@@ -31,6 +31,7 @@ class PetTaskInstanceView: UIView {
     private(set) lazy var completionImage: UIImageView = {
         let view = UIImageView(image: UIImage(systemName: "circle"))
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.tintColor = .iconGreen
         
         return view
     }()

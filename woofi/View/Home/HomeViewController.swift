@@ -91,7 +91,7 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
         }
         
         navigationItem.setHidesBackButton(true, animated: false)
-        
+        navigationController?.navigationBar.tintColor = .iconBlue
         navigationItem.title = selectedIndex == 0 ? .localized(for: .homeVCGroupNavbarTitle) : .localized(for: .homeVCPetsNavbarTitle)
         
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -106,8 +106,7 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
                 barButtonSystemItem: .edit,
                 target: self,
                 action: #selector(navigateToEditView)
-            )
-            navigationItem.rightBarButtonItem?.tintColor = .iconBlue
+            )            
             navigationItem.title = nil
             addButton.isHidden = true
             return
