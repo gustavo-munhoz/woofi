@@ -46,7 +46,8 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBar.backgroundColor = .systemBackground        
+        tabBar.backgroundColor = .systemBackground
+        tabBar.tintColor = .iconBlue
         
         groupViewController.tabBarItem = UITabBarItem(
             title: .localized(for: .homeVCGroupNavbarTitle),
@@ -106,7 +107,7 @@ class HomeViewController: UITabBarController, UIScrollViewDelegate {
                 target: self,
                 action: #selector(navigateToEditView)
             )
-            
+            navigationItem.rightBarButtonItem?.tintColor = .iconBlue
             navigationItem.title = nil
             addButton.isHidden = true
             return
