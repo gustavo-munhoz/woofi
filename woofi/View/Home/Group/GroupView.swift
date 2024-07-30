@@ -11,6 +11,7 @@ import Lottie
 
 class GroupView: UIView {
     
+    var isEmpty = false
     var gradientLayer: CAGradientLayer!
     var refreshAction: (() -> Void)?
     
@@ -108,6 +109,8 @@ class GroupView: UIView {
     }
     
     func setToLoadedView(isEmpty: Bool = false) {
+        self.isEmpty = isEmpty
+        
         UIView.animate(withDuration: 0.35) { [weak self] in
             guard let self = self else { return }
             self.subviews.forEach { $0.removeFromSuperview() }

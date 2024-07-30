@@ -95,20 +95,7 @@ class AddPetView: UIView {
         
         return view
     }()
-    
-//    lazy var createPetButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setTitle(.localized(for: .addPetViewCreateButton), for: .normal)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-//        button.backgroundColor = .systemGray
-//        button.tintColor = .white
-//        button.layer.cornerRadius = 12
-//        button.addTarget(self, action: #selector(didPressCreateButton), for: .touchUpInside)
-//        button.isEnabled = false
-//        
-//        return button
-//    }()
+
     
     var didPressCreateAction: (() -> Void)?
     

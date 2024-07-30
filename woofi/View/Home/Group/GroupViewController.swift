@@ -101,6 +101,10 @@ class GroupViewController: UIViewController {
             .sink(receiveValue: { [weak self] users in
                 guard !users.isEmpty else { return }
                 
+                if (self?.groupView.isEmpty ?? false) {
+                    self?.groupView.setToLoadedView()
+                }
+                
                 self?.applySnapshot(users: users.sortedByUsername())
             })
             .store(in: &cancellables)
@@ -171,6 +175,8 @@ class GroupViewController: UIViewController {
             style: .cancel,
             handler: nil
         )
+        
+        alertController.view.tintColor = .actionBlue
         
         alertController.addAction(inviteAction)
         alertController.addAction(joinAction)
