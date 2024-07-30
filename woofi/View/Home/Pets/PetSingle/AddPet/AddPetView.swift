@@ -53,19 +53,60 @@ class AddPetView: UIView {
         return textField
     }()
     
-    lazy var createPetButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle(.localized(for: .addPetViewCreateButton), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.backgroundColor = .systemGray
-        button.tintColor = .white
-        button.layer.cornerRadius = 12
-        button.addTarget(self, action: #selector(didPressCreateButton), for: .touchUpInside)
-        button.isEnabled = false
+    private(set) lazy var createPetButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .actionGreen
+        config.attributedTitle = AttributedString(
+            .localized(for: .addPetViewCreateButton),
+            attributes: AttributeContainer([
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .bold),
+                NSAttributedString.Key.foregroundColor: UIColor.white
+            ])
+        )
+        config.buttonSize = .small
         
-        return button
+        let view = UIButton(configuration: config)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isEnabled = false
+        view.configurationUpdateHandler = { button in
+            var config = button.configuration
+            
+            switch button.state {
+            case .normal:
+                config?.baseBackgroundColor = .actionGreen
+                button.alpha = 1
+                
+            case .disabled:
+                config?.baseBackgroundColor = .systemGray
+                button.alpha = 1
+                
+            case .highlighted:
+                config?.baseBackgroundColor = .actionGreen
+                button.alpha = 0.5
+                
+            default:
+                break
+            }
+            
+            button.configuration = config
+        }
+        
+        return view
     }()
+    
+//    lazy var createPetButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle(.localized(for: .addPetViewCreateButton), for: .normal)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+//        button.backgroundColor = .systemGray
+//        button.tintColor = .white
+//        button.layer.cornerRadius = 12
+//        button.addTarget(self, action: #selector(didPressCreateButton), for: .touchUpInside)
+//        button.isEnabled = false
+//        
+//        return button
+//    }()
     
     var didPressCreateAction: (() -> Void)?
     
@@ -138,8 +179,7 @@ class AddPetView: UIView {
         !(breedTextField.text?.isEmpty ?? true) &&
         !(ageTextField.text?.isEmpty ?? true)
         
-        createPetButton.isEnabled = isFormValid
-        createPetButton.backgroundColor = isFormValid ? .systemBlue : .systemGray
+        createPetButton.isEnabled = isFormValid        
     }
     
     private func setupTapGesture() {

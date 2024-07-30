@@ -135,7 +135,6 @@ class PetListView: UIView {
                 }
             }
         }
-
     }
     
     private func setupLottieAnimationAndText() {
