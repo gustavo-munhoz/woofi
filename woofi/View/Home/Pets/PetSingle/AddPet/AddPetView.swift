@@ -91,6 +91,8 @@ class AddPetView: UIView {
             button.configuration = config
         }
         
+        view.addTarget(self, action: #selector(didPressCreateButton), for: .touchUpInside)
+        
         return view
     }()
     
@@ -179,7 +181,7 @@ class AddPetView: UIView {
         !(breedTextField.text?.isEmpty ?? true) &&
         !(ageTextField.text?.isEmpty ?? true)
         
-        createPetButton.isEnabled = isFormValid        
+        createPetButton.isEnabled = isFormValid
     }
     
     private func setupTapGesture() {
