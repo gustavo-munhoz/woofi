@@ -43,6 +43,7 @@ class RegisterView: UIView {
         
         view.contentMode = .scaleAspectFit
         view.loopMode = .loop
+        view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
         return view
     }()
@@ -58,6 +59,7 @@ class RegisterView: UIView {
         view.font = UIFont(descriptor: customFd, size: 0)
         view.textColor = .primary
         view.text = .localized(for: .registerViewWelcome)
+        view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
         return view
     }()
@@ -120,7 +122,7 @@ class RegisterView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(signUpButtonPress), for: .touchUpInside)
         view.isEnabled = false
-        
+        view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
             
@@ -177,7 +179,7 @@ class RegisterView: UIView {
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(googleButtonPress), for: .touchUpInside)
-        
+        view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
             
@@ -222,7 +224,7 @@ class RegisterView: UIView {
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(appleButtonPress), for: .touchUpInside)
-        
+        view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
             
@@ -354,18 +356,21 @@ class RegisterView: UIView {
         headerStackView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide)
             make.centerX.width.equalToSuperview()
-            make.height.equalTo(250)
+            make.height.equalTo(250).priority(.high)
+            make.height.greaterThanOrEqualTo(125).priority(.required)
         }
         
         dogAnimation.snp.makeConstraints { make in
-            make.height.equalTo(160)
+            make.height.equalTo(160).priority(.high)
+            make.height.greaterThanOrEqualTo(60).priority(.required)
         }
         
         emailTextField.snp.makeConstraints { make in
             make.top.equalTo(headerStackView.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
             make.width.equalTo(342)
-            make.height.equalTo(54)
+            make.height.equalTo(54).priority(.high)
+            make.height.greaterThanOrEqualTo(44).priority(.required)
         }
         
         passwordTextField.snp.makeConstraints { make in
@@ -392,6 +397,7 @@ class RegisterView: UIView {
         appleSignUpButton.snp.makeConstraints { make in
             make.top.equalTo(googleSignUpButton.snp.bottom).offset(18)
             make.width.height.centerX.equalTo(emailTextField)
+            make.bottom.lessThanOrEqualTo(safeAreaLayoutGuide).inset(12).priority(.required)
         }
     }
     
