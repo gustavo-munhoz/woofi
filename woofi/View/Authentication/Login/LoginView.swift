@@ -45,6 +45,7 @@ class LoginView: UIView {
         view.contentMode = .scaleAspectFit
         view.loopMode = .loop
         view.animationSpeed = 0.6
+        view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
         return view
     }()
@@ -60,6 +61,8 @@ class LoginView: UIView {
         view.font = UIFont(descriptor: customFd, size: 0)
         view.textColor = .primary
         view.text = .localized(for: .loginViewWelcomeBack)
+        view.minimumScaleFactor = 0.5
+        view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
         return view
     }()
@@ -122,7 +125,7 @@ class LoginView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(loginButtonPress), for: .touchUpInside)
         view.isEnabled = false
-        
+        view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
             var config = button.configuration
@@ -178,7 +181,7 @@ class LoginView: UIView {
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(googleButtonPress), for: .touchUpInside)
-        
+        view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
             
@@ -223,7 +226,7 @@ class LoginView: UIView {
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addTarget(self, action: #selector(appleButtonPress), for: .touchUpInside)
-        
+        view.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         view.configurationUpdateHandler = { [weak self] button in
             guard let self = self, let viewModel = self.viewModel else { return }
             
@@ -277,7 +280,6 @@ class LoginView: UIView {
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addTarget(self, action: #selector(registerButtonPress), for: .touchUpInside)
         view.configurationUpdateHandler = { sender in
             switch sender.state {
@@ -306,6 +308,7 @@ class LoginView: UIView {
         
         view.axis = .horizontal
         view.alignment  = .center
+        view.distribution = .fill
         
         return view
     }()
@@ -401,20 +404,27 @@ class LoginView: UIView {
     
     func setupConstraints() {
         headerStackView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(-36)
+            make.top.equalToSuperview().inset(24)
             make.centerX.width.equalToSuperview()
-            make.height.equalTo(250)
+            make.height.equalTo(250).priority(.high)
+            make.height.greaterThanOrEqualTo(125).priority(.required)
+        }
+        
+        welcomeBackLabel.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(50).priority(.required)
         }
         
         dogAnimation.snp.makeConstraints { make in
-            make.height.equalTo(175)
+            make.height.equalTo(175).priority(.high)
+            make.height.greaterThanOrEqualTo(65).priority(.required)
         }
         
         emailTextField.snp.makeConstraints { make in
             make.top.equalTo(headerStackView.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
             make.width.equalTo(342)
-            make.height.equalTo(54)
+            make.height.equalTo(54).priority(.high)
+            make.height.greaterThanOrEqualTo(44).priority(.required)
         }
         
         passwordTextField.snp.makeConstraints { make in
@@ -429,7 +439,7 @@ class LoginView: UIView {
         
         orSeparatorLabel.snp.makeConstraints { make in
             make.top.equalTo(loginButton.snp.bottom).offset(15)
-            make.height.equalTo(20)
+            make.height.equalTo(20).priority(.medium)
             make.left.right.equalToSuperview()
         }
         
@@ -446,7 +456,8 @@ class LoginView: UIView {
         registerStack.snp.makeConstraints { make in
             make.top.equalTo(appleSignInButton.snp.bottom).offset(18)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.75)
+            make.width.equalToSuperview().multipliedBy(0.8)
+            make.bottom.lessThanOrEqualTo(safeAreaLayoutGuide).inset(12).priority(.required)
         }
     }
     
