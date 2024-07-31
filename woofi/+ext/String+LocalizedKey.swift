@@ -25,6 +25,36 @@ extension String {
             case .petListVCDeleteAlertMessage:
                 return "petListVCDeleteAlertMessage"
                 
+            case .notificationMessageWalkTitle:
+                return "notificationMessageWalkTitle"
+                
+            case .notificationMessageWalkBody:
+                return "notificationMessageWalkBody"
+                
+            case .notificationMessageFeedTitle:
+                return "notificationMessageFeedTitle"
+            
+            case .notificationMessageFeedBody:
+                return "notificationMessageFeedBody"
+                
+            case .notificationMessageBathTitle:
+                return "notificationMessageBathTitle"
+            
+            case .notificationMessageBathBody:
+                return "notificationMessageBathBody"
+                
+            case .notificationMessageBrushTitle:
+                return "notificationMessageBrushBody"
+                
+            case .notificationMessageBrushBody:
+                return "notificationMessageBrushBody"
+                
+            case .notificationMessageVetTitle:
+                return "notificationMessageVetTitle"
+                
+            case .notificationMessageVetBody:
+                return "notificationMessageVetBody"
+                
             case ._continue:
                 return "continue"
                 
@@ -35,11 +65,25 @@ extension String {
         
         fileprivate var values: [CVarArg] {
             switch self {
-            case .editPetVCDeleteAlertTitle(let petName), .petListVCDeleteAlertTitle(let petName):
+            case .editPetVCDeleteAlertTitle(let petName),
+                    .petListVCDeleteAlertTitle(let petName),
+                    .notificationMessageWalkTitle(let petName),
+                    .notificationMessageFeedTitle(let petName),
+                    .notificationMessageBathTitle(let petName),
+                    .notificationMessageBrushTitle(let petName),
+                    .notificationMessageVetTitle(let petName):
+                
                 return [petName]
                 
             case .editPetVCDeleteAlertMessage(let petName), .petListVCDeleteAlertMessage(let petName):
                 return [petName, petName]
+                
+            case .notificationMessageWalkBody(let username, let petName),
+                    .notificationMessageFeedBody(let username, let petName),
+                    .notificationMessageBathBody(let username, let petName),
+                    .notificationMessageBrushBody(let username, let petName),
+                    .notificationMessageVetBody(let username, let petName):
+                return [username, petName]
                 
             default:
                 return []
@@ -200,6 +244,18 @@ extension String {
         case errorInvalidEmailMessage
         case errorUnknownTitle
         case errorUnknownMessage
+        
+        // MARK: - Notifications
+        case notificationMessageWalkTitle(petName: String)
+        case notificationMessageWalkBody(username: String, petName: String)
+        case notificationMessageFeedTitle(petName: String)
+        case notificationMessageFeedBody(username: String, petName: String)
+        case notificationMessageBathTitle(petName: String)
+        case notificationMessageBathBody(username: String, petName: String)
+        case notificationMessageBrushTitle(petName: String)
+        case notificationMessageBrushBody(username: String, petName: String)
+        case notificationMessageVetTitle(petName: String)
+        case notificationMessageVetBody(username: String, petName: String)
     }
     
     static func localized(for key: LocalizedKey) -> String {
