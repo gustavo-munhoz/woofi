@@ -16,24 +16,24 @@ final class NotificationFactory {
         
         switch taskType {
         case .walk:
-            title = "\(petName) walk completed!"
-            body = "\(username) has just walked with \(petName)."
+            title = .localized(for: .notificationMessageWalkTitle(petName: petName))
+            body = .localized(for: .notificationMessageWalkBody(username: username, petName: petName))
             
         case .feed:
-            title = "\(petName) fed!"
-            body = "\(username) has just fed \(petName)."
+            title = .localized(for: .notificationMessageFeedTitle(petName: petName))
+            body = .localized(for: .notificationMessageFeedBody(username: username, petName: petName))
             
         case .bath:
-            title = "\(petName) bath completed!"
-            body = "\(username) has just given \(petName) a bath."
+            title = .localized(for: .notificationMessageBathTitle(petName: petName))
+            body = .localized(for: .notificationMessageBathBody(username: username, petName: petName))
             
         case .brush:
-            title = "\(petName) brushed!"
-            body = "\(username) has just brushed \(petName)."
+            title = .localized(for: .notificationMessageBrushTitle(petName: petName))
+            body = .localized(for: .notificationMessageBrushBody(username: username, petName: petName))
             
         case .vet:
-            title = "\(petName) vet visit done!"
-            body = "\(username) has just taken \(petName) to the vet."
+            title = .localized(for: .notificationMessageVetTitle(petName: petName))
+            body = .localized(for: .notificationMessageVetBody(username: username, petName: petName))
         }
         
         return (title, body)
