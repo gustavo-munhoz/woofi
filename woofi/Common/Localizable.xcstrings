@@ -705,6 +705,116 @@
         }
       }
     },
+    "notificationMessageBathBody" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has just given %@ a bath."
+          }
+        }
+      }
+    },
+    "notificationMessageBathTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ bath completed!"
+          }
+        }
+      }
+    },
+    "notificationMessageBrushBody" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has just brushed %@."
+          }
+        }
+      }
+    },
+    "notificationMessageBrushTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ brushed!"
+          }
+        }
+      }
+    },
+    "notificationMessageFeedBody" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has just fed %@."
+          }
+        }
+      }
+    },
+    "notificationMessageFeedTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ fed!"
+          }
+        }
+      }
+    },
+    "notificationMessageVetBody" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has just taken %@ to the vet."
+          }
+        }
+      }
+    },
+    "notificationMessageVetTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ vet visit done!"
+          }
+        }
+      }
+    },
+    "notificationMessageWalkBody" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has just walked with %@."
+          }
+        }
+      }
+    },
+    "notificationMessageWalkTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ walk completed!"
+          }
+        }
+      }
+    },
     "ok" : {
       "extractionState" : "manual",
       "localizations" : {
