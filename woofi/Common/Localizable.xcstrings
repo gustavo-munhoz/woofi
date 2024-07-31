@@ -9,6 +9,12 @@
             "state" : "translated",
             "value" : "Age"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idade"
+          }
         }
       }
     },
@@ -19,6 +25,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Breed"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raça"
           }
         }
       }
@@ -31,6 +43,12 @@
             "state" : "translated",
             "value" : "Create pet"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar pet"
+          }
         }
       }
     },
@@ -41,6 +59,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Name"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome"
           }
         }
       }
@@ -53,6 +77,12 @@
             "state" : "translated",
             "value" : "Add new pet"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar novo pet"
+          }
         }
       }
     },
@@ -60,6 +90,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        },
+        "pt-br" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Email"
@@ -75,6 +111,12 @@
             "state" : "translated",
             "value" : "Sign in"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrar"
+          }
         }
       }
     },
@@ -85,6 +127,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Password"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senha"
           }
         }
       }
@@ -97,6 +145,12 @@
             "state" : "translated",
             "value" : "Username"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome de usuário"
+          }
         }
       }
     },
@@ -107,6 +161,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
           }
         }
       }
@@ -119,6 +179,12 @@
             "state" : "translated",
             "value" : "Continue"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
         }
       }
     },
@@ -129,6 +195,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deletar"
           }
         }
       }
@@ -141,6 +213,12 @@
             "state" : "translated",
             "value" : "Are you sure you want to delete %@? This will delete %@ for everyone in your group."
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você tem certeza que quer deletar %@? Isso deletará %@ para todos no seu grupo."
+          }
         }
       }
     },
@@ -151,6 +229,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete %@?"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deletar %@?"
           }
         }
       }
@@ -163,6 +247,12 @@
             "state" : "translated",
             "value" : "Edit your pet"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar seu pet"
+          }
         }
       }
     },
@@ -173,6 +263,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pet Age"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idade do pet"
           }
         }
       }
@@ -185,6 +281,12 @@
             "state" : "translated",
             "value" : "Pet Breed"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raça do pet"
+          }
         }
       }
     },
@@ -195,6 +297,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Change pet picture"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mudar foto do pet"
           }
         }
       }
@@ -207,6 +315,12 @@
             "state" : "translated",
             "value" : "Delete pet"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deletar pet"
+          }
         }
       }
     },
@@ -217,6 +331,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pet Name"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome do pet"
           }
         }
       }
@@ -229,6 +349,12 @@
             "state" : "translated",
             "value" : "Pet Picture"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foto do pet"
+          }
         }
       }
     },
@@ -239,6 +365,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Biography"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biografia"
           }
         }
       }
@@ -251,6 +383,12 @@
             "state" : "translated",
             "value" : "Change profile picture"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mudar foto do perfil"
+          }
         }
       }
     },
@@ -261,6 +399,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Profile Picture"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foto do perfil"
           }
         }
       }
@@ -273,6 +417,12 @@
             "state" : "translated",
             "value" : "Username"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome de usuário"
+          }
         }
       }
     },
@@ -283,6 +433,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This email has already been registered in Woofy."
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este email já foi registrado no Woofy."
           }
         }
       }
@@ -295,6 +451,12 @@
             "state" : "translated",
             "value" : "Email taken"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email já registrado"
+          }
         }
       }
     },
@@ -305,6 +467,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The entered email is invalid."
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O email inserido é inválido."
           }
         }
       }
@@ -317,6 +485,12 @@
             "state" : "translated",
             "value" : "Invalid email"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email inválido"
+          }
         }
       }
     },
@@ -326,7 +500,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "An unknown error has ocurred, please try again."
+            "value" : "An unknown error has occurred, please try again."
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Um erro desconhecido ocorreu, por favor tente novamente."
           }
         }
       }
@@ -339,6 +519,12 @@
             "state" : "translated",
             "value" : "Unknown error"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erro desconhecido"
+          }
         }
       }
     },
@@ -349,6 +535,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The entered password or email are invalid."
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A senha ou email inserido são inválidos."
           }
         }
       }
@@ -361,6 +553,12 @@
             "state" : "translated",
             "value" : "Invalid email or password"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email ou senha inválidos"
+          }
         }
       }
     },
@@ -371,6 +569,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The entered password is too weak."
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A senha inserida é muito fraca."
           }
         }
       }
@@ -383,6 +587,12 @@
             "state" : "translated",
             "value" : "Weak password"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senha fraca"
+          }
         }
       }
     },
@@ -393,6 +603,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please choose an option below:"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, escolha uma opção abaixo:"
           }
         }
       }
@@ -405,6 +621,12 @@
             "state" : "translated",
             "value" : "Group options"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opções de grupo"
+          }
         }
       }
     },
@@ -415,6 +637,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Invite members"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Convidar membros"
           }
         }
       }
@@ -427,6 +655,12 @@
             "state" : "translated",
             "value" : "Join group"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrar no grupo"
+          }
         }
       }
     },
@@ -437,6 +671,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Leave group"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sair do grupo"
           }
         }
       }
@@ -449,6 +689,12 @@
             "state" : "translated",
             "value" : "Leave"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sair"
+          }
         }
       }
     },
@@ -459,6 +705,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Are you sure you want to leave the group?"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você tem certeza que quer sair do grupo?"
           }
         }
       }
@@ -471,6 +723,12 @@
             "state" : "translated",
             "value" : "Leave group?"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sair do grupo?"
+          }
         }
       }
     },
@@ -481,6 +739,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You don't have anyone in your group right now. Invite members or join a group to begin!"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você não tem ninguém no seu grupo agora. Convidar membros ou entrar em um grupo para começar!"
           }
         }
       }
@@ -493,6 +757,12 @@
             "state" : "translated",
             "value" : "Group"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grupo"
+          }
         }
       }
     },
@@ -500,6 +770,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pets"
+          }
+        },
+        "pt-br" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pets"
@@ -515,6 +791,12 @@
             "state" : "translated",
             "value" : "Profile"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Perfil"
+          }
         }
       }
     },
@@ -525,6 +807,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Join my woofy group using this code: %@"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Junte-se ao meu grupo woofy usando este código: %@"
           }
         }
       }
@@ -537,6 +825,12 @@
             "state" : "translated",
             "value" : "Share code"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compartilhar código"
+          }
         }
       }
     },
@@ -547,6 +841,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Invite Members"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Convidar Membros"
           }
         }
       }
@@ -559,6 +859,12 @@
             "state" : "translated",
             "value" : "Share this code with people you want to invite."
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compartilhe este código com as pessoas que você quer convidar."
+          }
         }
       }
     },
@@ -569,6 +875,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The code you entered is invalid. Please try again."
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O código que você inseriu é inválido. Por favor, tente novamente."
           }
         }
       }
@@ -581,6 +893,12 @@
             "state" : "translated",
             "value" : "Invalid Code"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código Inválido"
+          }
         }
       }
     },
@@ -591,6 +909,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Join group"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrar no grupo"
           }
         }
       }
@@ -603,6 +927,12 @@
             "state" : "translated",
             "value" : "Join Group"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrar no Grupo"
+          }
         }
       }
     },
@@ -613,6 +943,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter the code you received to join the group."
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insira o código que você recebeu para entrar no grupo."
           }
         }
       }
@@ -625,6 +961,12 @@
             "state" : "translated",
             "value" : "Sign in"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrar"
+          }
         }
       }
     },
@@ -635,6 +977,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sign up now"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cadastre-se agora"
           }
         }
       }
@@ -647,6 +995,12 @@
             "state" : "translated",
             "value" : "Don't have an account?"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não tem uma conta?"
+          }
         }
       }
     },
@@ -657,6 +1011,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "or"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ou"
           }
         }
       }
@@ -669,6 +1029,12 @@
             "state" : "translated",
             "value" : "Signing in..."
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrando..."
+          }
         }
       }
     },
@@ -679,6 +1045,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sign in with Apple"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrar com Apple"
           }
         }
       }
@@ -691,6 +1063,12 @@
             "state" : "translated",
             "value" : "Sign in with Google"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrar com Google"
+          }
         }
       }
     },
@@ -701,6 +1079,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Welcome back!"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bem-vindo de volta!"
           }
         }
       }
@@ -713,6 +1097,12 @@
             "state" : "translated",
             "value" : "%@ has just given %@ a bath."
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ acabou de dar um banho em %@."
+          }
         }
       }
     },
@@ -723,6 +1113,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ bath completed!"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Banho de %@ completo!"
           }
         }
       }
@@ -735,6 +1131,12 @@
             "state" : "translated",
             "value" : "%@ has just brushed %@."
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ acabou de escovar %@."
+          }
         }
       }
     },
@@ -745,6 +1147,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ brushed!"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escovação de %@ feita!"
           }
         }
       }
@@ -757,6 +1165,12 @@
             "state" : "translated",
             "value" : "%@ has just fed %@."
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ acabou de alimentar %@."
+          }
         }
       }
     },
@@ -767,6 +1181,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ fed!"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alimentação de %@ feita!"
           }
         }
       }
@@ -779,6 +1199,12 @@
             "state" : "translated",
             "value" : "%@ has just taken %@ to the vet."
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ acabou de levar %@ ao veterinário."
+          }
         }
       }
     },
@@ -789,6 +1215,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ vet visit done!"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visita ao veterinário de %@ feita!"
           }
         }
       }
@@ -801,6 +1233,12 @@
             "state" : "translated",
             "value" : "%@ has just walked with %@."
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ acabou de passear com %@."
+          }
         }
       }
     },
@@ -812,6 +1250,12 @@
             "state" : "translated",
             "value" : "%@ walk completed!"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passeio de %@ completo!"
+          }
         }
       }
     },
@@ -819,6 +1263,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        },
+        "pt-br" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ok"
@@ -834,6 +1284,12 @@
             "state" : "translated",
             "value" : "Delete pet"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deletar pet"
+          }
         }
       }
     },
@@ -844,6 +1300,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit pet"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar pet"
           }
         }
       }
@@ -856,6 +1318,12 @@
             "state" : "translated",
             "value" : "Are you sure you want to delete %@? This will delete %@ for everyone in your group."
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você tem certeza que quer deletar %@? Isso deletará %@ para todos no seu grupo."
+          }
         }
       }
     },
@@ -866,6 +1334,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete %@?"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deletar %@?"
           }
         }
       }
@@ -878,6 +1352,12 @@
             "state" : "translated",
             "value" : "You currently have no pets in your group. Create a pet or join a group!"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você não tem pets no seu grupo. Crie um pet ou entre em um grupo!"
+          }
         }
       }
     },
@@ -888,6 +1368,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Today"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoje"
           }
         }
       }
@@ -900,6 +1386,12 @@
             "state" : "translated",
             "value" : "This month"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este mês"
+          }
         }
       }
     },
@@ -910,6 +1402,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This week"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta semana"
           }
         }
       }
@@ -922,6 +1420,12 @@
             "state" : "translated",
             "value" : "Tasks"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarefas"
+          }
         }
       }
     },
@@ -932,6 +1436,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please, allow access to your pictures in your device settings."
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, permita o acesso às suas fotos nas configurações do seu dispositivo."
           }
         }
       }
@@ -944,6 +1454,12 @@
             "state" : "translated",
             "value" : "Access to Photos Denied"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acesso às Fotos Negado"
+          }
         }
       }
     },
@@ -954,6 +1470,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hello!"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Olá!"
           }
         }
       }
@@ -966,6 +1488,12 @@
             "state" : "translated",
             "value" : "User"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuário"
+          }
         }
       }
     },
@@ -976,6 +1504,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Almost done!"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quase pronto!"
           }
         }
       }
@@ -988,6 +1522,12 @@
             "state" : "translated",
             "value" : "Enter your biography"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insira sua biografia"
+          }
         }
       }
     },
@@ -998,6 +1538,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add profile picture"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar foto do perfil"
           }
         }
       }
@@ -1010,6 +1556,12 @@
             "state" : "translated",
             "value" : "Set your profile picture"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Defina sua foto do perfil"
+          }
         }
       }
     },
@@ -1020,6 +1572,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter your username"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insira seu nome de usuário"
           }
         }
       }
@@ -1032,6 +1590,12 @@
             "state" : "translated",
             "value" : "Signing up..."
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cadastrando..."
+          }
         }
       }
     },
@@ -1042,6 +1606,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sign up"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cadastrar"
           }
         }
       }
@@ -1054,6 +1624,12 @@
             "state" : "translated",
             "value" : "Sign up with Apple"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cadastrar com Apple"
+          }
         }
       }
     },
@@ -1064,6 +1640,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sign up with Google"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cadastrar com Google"
           }
         }
       }
@@ -1076,6 +1658,12 @@
             "state" : "translated",
             "value" : "Welcome to Woofy!"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bem-vindo ao Woofy!"
+          }
         }
       }
     },
@@ -1086,6 +1674,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Afternoon walk"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passeio da tarde"
           }
         }
       }
@@ -1098,6 +1692,12 @@
             "state" : "translated",
             "value" : "Evening meal"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refeição da noite"
+          }
         }
       }
     },
@@ -1108,6 +1708,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Evening walk"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passeio da noite"
           }
         }
       }
@@ -1120,6 +1726,12 @@
             "state" : "translated",
             "value" : "Morning meal"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refeição da manhã"
+          }
         }
       }
     },
@@ -1130,6 +1742,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Morning walk"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passeio da manhã"
           }
         }
       }
@@ -1142,6 +1760,12 @@
             "state" : "translated",
             "value" : "First bath"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Primeiro banho"
+          }
         }
       }
     },
@@ -1152,6 +1776,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Second bath"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Segundo banho"
           }
         }
       }
@@ -1164,6 +1794,12 @@
             "state" : "translated",
             "value" : "Veterinary appointment"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consulta veterinária"
+          }
         }
       }
     },
@@ -1174,6 +1810,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bath"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Banho"
           }
         }
       }
@@ -1186,6 +1828,12 @@
             "state" : "translated",
             "value" : "Brushing"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escovação"
+          }
         }
       }
     },
@@ -1196,6 +1844,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Feeding"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alimentação"
           }
         }
       }
@@ -1208,6 +1862,12 @@
             "state" : "translated",
             "value" : "Veterinary"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veterinário"
+          }
         }
       }
     },
@@ -1218,6 +1878,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Walks"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passeios"
           }
         }
       }
@@ -1230,6 +1896,12 @@
             "state" : "translated",
             "value" : "Weekly brush"
           }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escovação semanal"
+          }
         }
       }
     },
@@ -1240,6 +1912,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tasks completed"
+          }
+        },
+        "pt-br" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarefas concluídas"
           }
         }
       }
