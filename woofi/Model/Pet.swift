@@ -48,6 +48,9 @@ class Pet: Hashable, Codable {
     
     static func == (_ lhs: Pet, _ rhs: Pet) -> Bool {
         lhs.id == rhs.id
+        && lhs.dailyTasks.value == rhs.dailyTasks.value
+        && lhs.weeklyTasks.value == rhs.weeklyTasks.value
+        && lhs.monthlyTasks.value == rhs.monthlyTasks.value
     }
     
     func publishUpdates() {

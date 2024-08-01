@@ -24,7 +24,10 @@ class PetTaskGroup: Hashable, Codable {
     }
     
     static func == (lhs: PetTaskGroup, rhs: PetTaskGroup) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
+        && lhs.task == rhs.task
+        && lhs.frequency == rhs.frequency
+        && lhs.instances == rhs.instances
     }
 
     func hash(into hasher: inout Hasher) {

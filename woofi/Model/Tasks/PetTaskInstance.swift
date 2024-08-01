@@ -22,7 +22,10 @@ class PetTaskInstance: Hashable, Codable {
     }
 
     static func == (lhs: PetTaskInstance, rhs: PetTaskInstance) -> Bool {
-        return lhs.id == rhs.id
+        lhs.id == rhs.id
+        && lhs.label == rhs.label
+        && lhs.completed == rhs.completed
+        && lhs.completedByUserWithID == rhs.completedByUserWithID
     }
 
     func hash(into hasher: inout Hasher) {
