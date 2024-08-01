@@ -308,11 +308,6 @@ class FirestoreService: FirestoreServiceProtocol {
 
     /// Add listeners to pet. Returns a
     func addPetsListener(groupID: String, onUpdate: @escaping (Result<[String: Pet], Error>) -> Void) {
-        petListeners.forEach { listener in
-            listener.remove()
-        }
-        petListeners.removeAll()
-        
         let petsRef = db.collection(FirestoreKeys.Pets.collectionTitle).whereField("groupID", isEqualTo: groupID)
         
         let listener = petsRef.addSnapshotListener { (snapshot, error) in
@@ -333,15 +328,10 @@ class FirestoreService: FirestoreServiceProtocol {
                     for document in documents {
                         var data = document.data()
                         
-                        guard let updateId = data["lastUpdatedByUserId"] as? String else { 
-                            print("Skipping pet since no lastUpdatedByUserId.")
-                            continue
-                        }
+                        guard let updateId = data["lastUpdatedByUserId"] as? String else { continue }
                         
-                        // will cause pet not being correctly decoded
+                        // Remove fields that could break decoding
                         data.removeValue(forKey: "lastUpdatedByUserId")
-                        
-                        // Remove the createdAt field if it exists
                         data.removeValue(forKey: "createdAt")
                         
                         let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
@@ -369,6 +359,7 @@ class FirestoreService: FirestoreServiceProtocol {
         
         petListeners.append(listener)
     }
+
 
     func savePetImage(petId: String, image: UIImage) async throws -> String {
         guard let imageData = image.jpegData(compressionQuality: 0.75) else {
