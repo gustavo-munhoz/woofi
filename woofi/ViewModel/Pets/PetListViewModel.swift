@@ -15,7 +15,8 @@ class PetListViewModel: NSObject {
     @Published var isLoading = true
     
     /// The current list of pets in the user's group.
-    var pets = CurrentValueSubject<[Pet], Never>.init([])
+//    var pets = CurrentValueSubject<[Pet], Never>.init([])
+    @Published var pets: [Pet] = []
     
     /// The publisher to signal controllers to navigate.
     var navigateToPetPublisher = PassthroughSubject<Pet, Never>()
@@ -39,30 +40,33 @@ class PetListViewModel: NSObject {
             return
         }
         isLoading = true
+        
         FirestoreService.shared.addPetsListener(groupID: currentUser.groupID) { [weak self] result in
+            guard let self = self else { return }
+            
             switch result {
             case .success(let changesDict):
-                var updatedPets = self?.pets.value ?? []
-                                                
-                for (userId, pet) in changesDict {
-                    if let index = updatedPets.firstIndex(where: { $0 == pet }) {
-                        guard currentUser.id != userId else { continue }
-                        updatedPets[index] = pet
+                for (uid, pet) in changesDict {
+                    if let index = pets.firstIndex(where: { $0.id == pet.id }) {
+                        guard currentUser.id == uid else { continue }
+                        
+                        pets[index] = pet
                         print("Updated pet: \(pet.name)")
                     } else {
-                        updatedPets.append(pet)
+                        pets.append(pet)
                         print("Appended pet: \(pet.name)")
                     }
                 }
-                self?.pets.value = updatedPets
-                self?.isLoading = false
-                self?.setupSubscriptions()
-                
+                self.isLoading = false
+                self.setupSubscriptions()
+
             case .failure(let error):
                 print("Error fetching pets: \(error.localizedDescription)")
+                self.isLoading = false
             }
         }
     }
+
     
     func publishPetChange(_ pet: Pet) {
         updatePetPublisher.send(pet)
@@ -76,7 +80,7 @@ class PetListViewModel: NSObject {
         Task {
             do {
                 try await FirestoreService.shared.removePet(petId: pet.id)
-                self.pets.value.removeAll(where: { pet == $0 })
+                pets.removeAll(where: { pet.id == $0.id })
                 
                 print("Deleted pet with id: \(pet.id)")
                 
@@ -87,23 +91,11 @@ class PetListViewModel: NSObject {
     }
     
     private func setupSubscriptions() {
-        pets.value.forEach { pet in
-            guard pet.cancellables.isEmpty else { return }
-            
-            pet.updatePublisher
-                .receive(on: RunLoop.main)
-                .sink { [weak self] pet in
-                    guard let index = self?.pets.value.firstIndex(where: { $0 == pet }) else { return }
-                    self?.pets.value[index] = pet
-                }
-                .store(in: &pet.cancellables)
-            
+        pets.forEach { pet in
             pet.deletionPublisher
                 .receive(on: RunLoop.main)
                 .sink { [weak self] shouldDelete in
-                    if shouldDelete {
-                        self?.pets.value.removeAll(where: { $0 == pet })
-                    }
+                    if shouldDelete { self?.pets.removeAll(where: { $0.id == pet.id })}
                 }
                 .store(in: &pet.cancellables)
         }
@@ -112,7 +104,7 @@ class PetListViewModel: NSObject {
             .receive(on: RunLoop.main)
             .sink { [weak self] didLeave in
                 if didLeave {
-                    self?.pets.value.removeAll()
+                    self?.pets.removeAll()
                 }
             }
             .store(in: &cancellables)
