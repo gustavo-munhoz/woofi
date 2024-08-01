@@ -92,7 +92,7 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
                 
                 cell?.setup(
                     with: pet,
-                    isTall: self.viewModel?.pets.value.count ?? 1 <= 2
+                    isTall: self.viewModel?.pets.count ?? 1 <= 2
                 )
                 
                 let interaction = UIContextMenuInteraction(delegate: self)
@@ -104,23 +104,14 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func setupSubscriptions() {
-        viewModel?.pets
+        viewModel?.$pets
             .receive(on: RunLoop.main)
             .sink(receiveValue: { [weak self] pets in
                 self?.applySnapshot(pets: pets)
                 
                 if pets.isEmpty {
                     self?.petListView.setToLoadedView(isEmpty: true)
-                }
-                
-                guard let currentPet = self?.currentPet else { return }
-                
-                for p in pets {
-                    if p == currentPet {
-                        self?.currentPet = p
-                        self?.viewModel?.publishPetChange(p)
-                    }
-                }
+                }                
             })
             .store(in: &cancellables)
         
@@ -141,7 +132,7 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
             .sink { [weak self] isLoading in
                 guard let vm = self?.viewModel else { return }
                 if !isLoading {
-                    self?.petListView.setToLoadedView(isEmpty: vm.pets.value.isEmpty)
+                    self?.petListView.setToLoadedView(isEmpty: vm.pets.isEmpty)
                 }
             }
             .store(in: &cancellables)
@@ -163,7 +154,10 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Pet>()
         snapshot.appendSections([.main])
         snapshot.appendItems(pets, toSection: .main)
-        dataSource.apply(snapshot, animatingDifferences: true)
+        print("Applying snapshot for \(pets.count) pets.")
+        dataSource.apply(snapshot, animatingDifferences: true) { [weak self] in
+            self?.petListView.petsCollectionView.reloadData()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -189,11 +183,11 @@ extension PetListViewController: UIContextMenuInteractionDelegate {
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         guard let indexPath = petListView.petsCollectionView.indexPathForItem(at: location),
               let viewModel = viewModel,
-              indexPath.row < viewModel.pets.value.count else {
+              indexPath.row < viewModel.pets.count else {
             return nil
         }
         
-        let pet = viewModel.pets.value[indexPath.row]
+        let pet = viewModel.pets[indexPath.row]
         
         return UIContextMenuConfiguration(actionProvider: {
             [weak self] suggestedActions in

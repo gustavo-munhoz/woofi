@@ -15,7 +15,6 @@ class PetListViewModel: NSObject {
     @Published var isLoading = true
     
     /// The current list of pets in the user's group.
-//    var pets = CurrentValueSubject<[Pet], Never>.init([])
     @Published var pets: [Pet] = []
     
     /// The publisher to signal controllers to navigate.
@@ -48,7 +47,7 @@ class PetListViewModel: NSObject {
             case .success(let changesDict):
                 for (uid, pet) in changesDict {
                     if let index = pets.firstIndex(where: { $0.id == pet.id }) {
-                        guard currentUser.id == uid else { continue }
+                        guard currentUser.id != uid else { continue }
                         
                         pets[index] = pet
                         print("Updated pet: \(pet.name)")

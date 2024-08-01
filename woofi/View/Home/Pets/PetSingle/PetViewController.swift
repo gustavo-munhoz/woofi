@@ -17,11 +17,11 @@ fileprivate enum Section: Int, CaseIterable {
     var title: String {
         switch self {
         case .daily:
-            return String.localized(for: .petVCDailyTitle)
+            return .localized(for: .petVCDailyTitle)
         case .weekly:
-            return String.localized(for: .petVCWeeklyTitle)
+            return .localized(for: .petVCWeeklyTitle)
         case .monthly:
-            return String.localized(for: .petVCMonthlyTitle)
+            return .localized(for: .petVCMonthlyTitle)
         }
     }
 }
@@ -35,12 +35,16 @@ class PetViewController: UIViewController {
     
     var viewModel: PetViewModel
     
-    weak var petListViewModel: PetListViewModel? {
+    unowned var petListViewModel: PetListViewModel? {
         didSet {
-            petListViewModel?.updatePetPublisher
+            petListViewModel?.$pets
                 .receive(on: RunLoop.main)
-                .sink { [weak self] pet in
-                    self?.viewModel.pet = pet
+                .sink { [weak self] pets in
+                    guard let self = self else { return }
+                    if let index = pets.firstIndex(where: { $0.id == self.viewModel.pet.id }) {
+                        viewModel.pet = pets[index]
+                    }
+//                    self?.viewModel.pet = pet
                 }
                 .store(in: &cancellables)
         }
@@ -88,18 +92,18 @@ class PetViewController: UIViewController {
         petView.viewModel = viewModel
         
         navigationItem.title = viewModel.pet.name
-        
-        viewModel.changePublisher
+        // EVERYTHING IS BEING UPDATED TWICE.
+        viewModel.$pet
             .receive(on: RunLoop.main)
             .sink { [weak self] pet in
-                self?.navigationItem.title = pet.name
+                guard let self = self else { return }
                 
-                self?.applySnapshot(
+                self.navigationItem.title = pet.name
+                self.applySnapshot(
                     dailyTasks: pet.dailyTasks.value,
                     weeklyTasks: pet.weeklyTasks.value,
                     monthlyTasks: pet.monthlyTasks.value
                 )
-                
             }
             .store(in: &cancellables)
     }
@@ -167,7 +171,9 @@ class PetViewController: UIViewController {
         snapshot.appendItems(weeklyTasks, toSection: .weekly)
         snapshot.appendItems(monthlyTasks, toSection: .monthly)
         
-        self.dataSource.apply(snapshot, animatingDifferences: true)
+        self.dataSource.apply(snapshot, animatingDifferences: true) { [weak self] in
+            self?.petView.tasksCollectionView.reloadData()
+        }
     }
 }
 

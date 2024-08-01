@@ -10,9 +10,7 @@ import Combine
 import UIKit
 
 class PetViewModel {
-    var pet: Pet
-    
-    var changePublisher = PassthroughSubject<Pet, Never>()
+    @Published var pet: Pet
     
     init(pet: Pet) {
         self.pet = pet
@@ -32,8 +30,8 @@ class PetViewModel {
                 ])
                 
                 print("Pet data updated successfully on Firestore.")
-                pet.publishUpdates()
-                changePublisher.send(pet)
+//                pet.publishUpdates()
+//                changePublisher.send(pet)
             } catch {
                 print("Error updating Pet on Firestore: \(error.localizedDescription)")
             }
@@ -51,8 +49,8 @@ class PetViewModel {
                 )
                 
                 pet.pictureURL = petImageUrl
-                pet.publishUpdates()
-                changePublisher.send(pet)
+//                pet.publishUpdates()
+//                changePublisher.send(pet)
                 print("Pet picture and URL updated successfully: \(petImageUrl)")
                 
             } catch {
