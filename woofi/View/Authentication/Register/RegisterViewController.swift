@@ -61,14 +61,19 @@ class RegisterViewController: UIViewController {
     private func handleAuthSuccess(id: UserId) {
         Task {
             do {
+                let type = viewModel.getLastAuthType()
                 let userExists = try await FirestoreService.shared.checkIfUserExists(id: id)
-                if userExists && viewModel.getLastAuthType() != .register {
+                if userExists && type != .register {
                     throw AuthError.userAlreadyExists
                 }
+                var email: String?
+                if type == .register { email = viewModel.email }
                 
                 DispatchQueue.main.async { [weak self] in
                     let vc = ProfileSetupViewController()
                     vc.setUserId(id)
+                    
+                    if let email = email { vc.setUserEmail(email) }
                     
                     print("User signed up successfully.")
                     self?.dismiss(animated: true) { [weak self] in

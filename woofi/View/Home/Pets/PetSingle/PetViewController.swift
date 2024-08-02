@@ -91,7 +91,6 @@ class PetViewController: UIViewController {
         petView.viewModel = viewModel
         
         navigationItem.title = viewModel.pet.name
-        // EVERYTHING IS BEING UPDATED TWICE.
         viewModel.$pet
             .receive(on: RunLoop.main)
             .sink { [weak self] pet in

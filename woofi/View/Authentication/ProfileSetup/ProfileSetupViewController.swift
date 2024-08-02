@@ -38,6 +38,10 @@ class ProfileSetupViewController: UIViewController {
         profileSetupView.userBuilder.setId(id)
     }
     
+    func setUserEmail(_ email: String) {
+        profileSetupView.userBuilder.setEmail(email)
+    }
+    
     private func presentImagePicker() {
         PHPhotoLibrary.requestAuthorization { status in
             DispatchQueue.main.async {

@@ -13,15 +13,12 @@ class PetListView: UIView {
     var gradientLayer: CAGradientLayer!
     
     weak var viewModel: PetListViewModel? {
-        didSet {
-            updateCollectionViewLayout()
-        }
+        didSet { updateCollectionViewLayout() }
     }
     
     var refreshAction: (() -> Void)?
     
     private(set) lazy var petsCollectionView: UICollectionView = {
-//        let layout = createCollectionViewLayout(for: viewModel?.pets.value.count ?? 1)
         let layout = createCollectionViewLayout(for: viewModel?.pets.count ?? 1)
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -113,7 +110,6 @@ class PetListView: UIView {
     }
     
     private func updateCollectionViewLayout() {
-//        guard let petCount = viewModel?.pets.value.count else { return }
         guard let petCount = viewModel?.pets.count else { return }
         
         let newLayout = createCollectionViewLayout(for: petCount)
