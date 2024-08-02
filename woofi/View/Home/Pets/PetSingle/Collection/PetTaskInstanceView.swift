@@ -20,7 +20,6 @@ class PetTaskInstanceView: UIView {
         didSet {
             titleLabel.text = taskInstance?.label
             updateCompletionImage()
-            loadCompletedByUser()
         }
     }
     
@@ -113,7 +112,13 @@ class PetTaskInstanceView: UIView {
         taskInstance.completedByUserWithID = taskInstance.completed ? Session.shared.currentUser?.id : nil
         
         UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            self.updateCompletionImage()
+            let imageName = taskInstance.completed ? "checkmark.circle.fill" : "circle"
+            
+            self.setCompletedImage(name: imageName)
+            
+            if let user = Session.shared.currentUser {
+                self.completedByLabel.text = taskInstance.completed ? user.username : nil
+            }
         }, completion: { _ in
             self.updateTaskInstanceInFirestore()
             
@@ -152,40 +157,52 @@ class PetTaskInstanceView: UIView {
             logger.log(level: .fault, "Task Instance is not set.")
             return
         }
-        
-        let imageName = taskInstance.completed ? "checkmark.circle.fill" : "circle"
-        
-        if let image = UIImage(systemName: imageName) {
+        Task {
+            let username = await loadCompletedByUser()
+            if let user = username {
+                self.completedByLabel.text = user
+                setCompletedImage(name: "checkmark.circle.fill")
+                return
+            }
+//            
+//            let imageName = taskInstance.completed ? "checkmark.circle.fill" : "circle"
+//            
+//            setCompletedImage(name: imageName)
+//            
+//            if let user = Session.shared.currentUser,
+//               taskInstance.completedByUserWithID == user.id  {
+//                completedByLabel.text = taskInstance.completed ? user.username : nil
+//            }
+        }
+    }
+    
+    private func setCompletedImage(name: String) {
+        if let image = UIImage(systemName: name) {
             if #available(iOS 17.0, *) {
                 completionImage.setSymbolImage(image, contentTransition: .replace)
             } else {
                 completionImage.image = image
             }
         }
-        
-        completedByLabel.text = taskInstance.completed ? Session.shared.currentUser?.username : nil
     }
     
-    private func loadCompletedByUser() {
-        Task {
+    private func loadCompletedByUser() async -> String? {
+//        Task {
             do {
                 if let taskInstance = taskInstance, let id = taskInstance.completedByUserWithID {
+                    
                     let userData = try await FirestoreService.shared.fetchUserData(userId: id)
                     let username = userData[FirestoreKeys.Users.username] as? String
-                    DispatchQueue.main.async {
-                        self.completedByLabel.text = username ?? ""
-                    }
+                    
+                    return username // self.completedByLabel.text = username
                 } else {
-                    DispatchQueue.main.async {
-                        self.completedByLabel.text = ""
-                    }
+                    return nil
+//                        self.completedByLabel.text = ""
                 }
             } catch {
-                DispatchQueue.main.async {
-                    self.completedByLabel.text = "Error"
-                }
+                return nil
             }
-        }
+//        }
     }
     
     private func updateTaskInstanceInFirestore() {

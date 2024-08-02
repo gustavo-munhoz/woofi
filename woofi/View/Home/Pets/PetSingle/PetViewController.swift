@@ -44,7 +44,6 @@ class PetViewController: UIViewController {
                     if let index = pets.firstIndex(where: { $0.id == self.viewModel.pet.id }) {
                         viewModel.pet = pets[index]
                     }
-//                    self?.viewModel.pet = pet
                 }
                 .store(in: &cancellables)
         }

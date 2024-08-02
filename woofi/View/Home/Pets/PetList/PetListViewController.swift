@@ -111,7 +111,7 @@ class PetListViewController: UIViewController, UICollectionViewDelegate {
                 
                 if pets.isEmpty {
                     self?.petListView.setToLoadedView(isEmpty: true)
-                }                
+                }
             })
             .store(in: &cancellables)
         
