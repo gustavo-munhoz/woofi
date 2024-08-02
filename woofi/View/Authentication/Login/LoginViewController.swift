@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 import Combine
 
+protocol AuthNavigationDelegate: AnyObject {
+    func navigation(shouldPushHomeVC: Bool)
+    func navigation(shouldPushProfileSetupVC: Bool)
+}
+
 class LoginViewController: UIViewController {
     
     private var cancellables = Set<AnyCancellable>()
@@ -106,6 +111,7 @@ class LoginViewController: UIViewController {
     private func handleSignUp() {
         let registerVC = RegisterViewController()
         registerVC.modalPresentationStyle = .fullScreen
+        registerVC.delegate = self
         
         DispatchQueue.main.async { [weak self] in
             self?.present(registerVC, animated: true)
@@ -146,3 +152,16 @@ class LoginViewController: UIViewController {
     }
 }
 
+extension LoginViewController: AuthNavigationDelegate {
+    func navigation(shouldPushHomeVC: Bool) {
+        if shouldPushHomeVC {
+            navigationController?.pushViewController(HomeViewController(), animated: true)
+        }
+    }
+    
+    func navigation(shouldPushProfileSetupVC: Bool) {
+        if shouldPushProfileSetupVC {
+            navigationController?.pushViewController(ProfileSetupViewController(), animated: true)
+        }
+    }
+}

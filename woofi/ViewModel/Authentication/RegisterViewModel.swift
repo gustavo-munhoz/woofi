@@ -46,8 +46,8 @@ class RegisterViewModel {
                 
             } catch {
                 onSignUpFailure?(AuthError(error: error as NSError))
+                isSigningUp = false
             }
-            isSigningUp = false
         }
     }
     
@@ -64,8 +64,8 @@ class RegisterViewModel {
             } catch {
                 print("Error signing in with google: \(error.localizedDescription)")
                 onSignUpFailure?(AuthError(error: error as NSError))
+                isSigningUpWithGoogle = false
             }
-            isSigningUpWithGoogle = false
         }
     }
     
@@ -81,14 +81,16 @@ class RegisterViewModel {
                 
             case .failure(let error):
                 print("Error signing in with Apple: \(error.localizedDescription)")
-                self?.onSignUpFailure?(AuthError(error: error as NSError))
-                
+                self?.onSignUpFailure?(AuthError(error: error as NSError))                
+                self?.isSigningUpWithApple = false
             }
-            self?.isSigningUpWithApple = false
         }
     }
     
     // MARK: - Handling user already exists
+    func getLastAuthType() -> AuthenticationType? {
+        return lastAuthType
+    }
     
     func handleUserAlreadyExists(id: UserId) {
         guard lastAuthType == .googleLogin || lastAuthType == .appleSignIn else { 

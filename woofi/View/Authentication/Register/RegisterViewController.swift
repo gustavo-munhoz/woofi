@@ -16,6 +16,8 @@ class RegisterViewController: UIViewController {
     
     var viewModel = RegisterViewModel()
     
+    weak var delegate: AuthNavigationDelegate?
+    
     override func loadView() {
         view = registerView
     }
@@ -60,14 +62,19 @@ class RegisterViewController: UIViewController {
         Task {
             do {
                 let userExists = try await FirestoreService.shared.checkIfUserExists(id: id)
-                if userExists { throw AuthError.userAlreadyExists }
+                if userExists && viewModel.getLastAuthType() != .register {
+                    throw AuthError.userAlreadyExists
+                }
                 
                 DispatchQueue.main.async { [weak self] in
                     let vc = ProfileSetupViewController()
                     vc.setUserId(id)
                     
                     print("User signed up successfully.")
-                    self?.navigationController?.pushViewController(vc, animated: true)
+                    self?.dismiss(animated: true) { [weak self] in
+                        guard let self = self else { return }
+                        self.delegate?.navigation(shouldPushProfileSetupVC: true)
+                    }
                 }
                 
             } catch {
