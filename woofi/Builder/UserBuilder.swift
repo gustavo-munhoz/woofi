@@ -44,10 +44,10 @@ class UserBuilder {
     }
     
     func build() throws -> User {
-        guard let id = userId else { throw Error.missingId }
+        if userId == nil { userId = UUID().uuidString }
         
         let user = User(
-            id: id,
+            id: userId!,
             username: username,
             bio: biography,
             email: email,
