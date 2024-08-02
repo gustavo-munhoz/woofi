@@ -241,8 +241,6 @@ class LoginView: UIView {
                     NSAttributedString.Key.foregroundColor: isSigningIn ? UIColor.primary : UIColor.systemBackground
             ]))
             
-            
-            
             button.configuration = config
         }
         
@@ -257,6 +255,7 @@ class LoginView: UIView {
         view.textColor = .primary
         view.textAlignment = .center
         view.text = .localized(for: .loginViewRegisterLabel)
+        view.adjustsFontSizeToFitWidth = true
         
         return view
     }()
