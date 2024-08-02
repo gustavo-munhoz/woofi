@@ -11,7 +11,7 @@ import Combine
 
 protocol AuthNavigationDelegate: AnyObject {
     func navigation(shouldPushHomeVC: Bool)
-    func navigation(shouldPushProfileSetupVC: Bool)
+    func navigateToProfileSetup(userId: String, email: String)
 }
 
 class LoginViewController: UIViewController {
@@ -159,9 +159,11 @@ extension LoginViewController: AuthNavigationDelegate {
         }
     }
     
-    func navigation(shouldPushProfileSetupVC: Bool) {
-        if shouldPushProfileSetupVC {
-            navigationController?.pushViewController(ProfileSetupViewController(), animated: true)
-        }
+    func navigateToProfileSetup(userId: String, email: String) {
+        let vc = ProfileSetupViewController()
+        vc.setUserId(userId)
+        vc.setUserEmail(email)
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

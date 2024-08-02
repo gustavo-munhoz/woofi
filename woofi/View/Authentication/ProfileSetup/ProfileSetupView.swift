@@ -208,7 +208,10 @@ extension ProfileSetupView: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard text != "\n" else { return false }
+        guard text != "\n" else {
+            textView.resignFirstResponder()
+            return false
+        }
         
         let characterLimit = textView == usernameTextView ? 20 : 75
         let currentText: NSString = textView.text as NSString

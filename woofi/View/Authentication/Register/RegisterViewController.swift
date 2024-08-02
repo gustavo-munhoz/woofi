@@ -70,15 +70,10 @@ class RegisterViewController: UIViewController {
                 if type == .register { email = viewModel.email }
                 
                 DispatchQueue.main.async { [weak self] in
-                    let vc = ProfileSetupViewController()
-                    vc.setUserId(id)
-                    
-                    if let email = email { vc.setUserEmail(email) }
-                    
                     print("User signed up successfully.")
                     self?.dismiss(animated: true) { [weak self] in
                         guard let self = self else { return }
-                        self.delegate?.navigation(shouldPushProfileSetupVC: true)
+                        self.delegate?.navigateToProfileSetup(userId: id, email: email ?? "")
                     }
                 }
                 
@@ -160,4 +155,3 @@ class RegisterViewController: UIViewController {
         }
     }
 }
-

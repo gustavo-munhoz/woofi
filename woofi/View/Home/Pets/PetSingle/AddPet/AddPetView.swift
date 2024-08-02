@@ -228,3 +228,10 @@ class AddPetView: UIView {
         NotificationCenter.default.removeObserver(self)
     }
 }
+
+extension AddPetView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}

@@ -80,11 +80,11 @@ class AuthenticationService: NSObject, AuthenticationServiceProtocol {
     func registerUser(withEmail email: String, password: String, additionalData: [String: Any]) async throws -> AuthDataResult {
         do {
             let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
-//            var userData = additionalData
-//            userData[FirestoreKeys.Users.uid] = authResult.user.uid
-//            userData[FirestoreKeys.Users.email] = authResult.user.email
-//            
-//            try await FirestoreService.shared.saveUserData(userId: authResult.user.uid, data: userData)
+            var userData = additionalData
+            userData[FirestoreKeys.Users.uid] = authResult.user.uid
+            userData[FirestoreKeys.Users.email] = authResult.user.email
+            
+            try await FirestoreService.shared.saveUserData(userId: authResult.user.uid, data: userData)
             return authResult
         } catch {
             throw error

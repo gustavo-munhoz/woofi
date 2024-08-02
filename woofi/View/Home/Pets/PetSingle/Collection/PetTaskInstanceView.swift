@@ -153,10 +153,10 @@ class PetTaskInstanceView: UIView {
     }
     
     private func updateCompletionImage() {
-        guard let taskInstance = taskInstance else {
-            logger.log(level: .fault, "Task Instance is not set.")
-            return
-        }
+//        guard let taskInstance = taskInstance else {
+//            logger.log(level: .fault, "Task Instance is not set.")
+//            return
+//        }
         Task {
             let username = await loadCompletedByUser()
             if let user = username {
