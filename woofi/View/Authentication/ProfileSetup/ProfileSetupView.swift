@@ -92,6 +92,7 @@ class ProfileSetupView: UIView {
     private(set) lazy var continueButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.title = .localized(for: ._continue)
+        config.baseBackgroundColor = .actionBlue
         
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
