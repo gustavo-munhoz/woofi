@@ -7,10 +7,12 @@
 
 import UIKit
 import PhotosUI
+import Combine
 
 class EditProfileViewController: UIViewController {
     
     // MARK: - Properties
+    private var cancellables = Set<AnyCancellable>()
     
     private var editProfileView = EditProfileView()
     
@@ -25,6 +27,14 @@ class EditProfileViewController: UIViewController {
     
     func setViewModel(_ vm: UserViewModel) {
         viewModel = vm
+        
+        vm.signOutPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in
+                self?.navigationController?.popToRootViewController(animated: false)
+                self?.navigationController?.pushViewController(LoginViewController(), animated: true)
+            }
+            .store(in: &cancellables)
     }
     
     override func loadView() {

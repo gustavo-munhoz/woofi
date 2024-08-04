@@ -87,6 +87,42 @@ class EditProfileView: UIView {
         )
     }()
     
+    private(set) lazy var signOutButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        config.baseForegroundColor = .destructiveRed
+        
+        let view = UIButton(configuration: config)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.configurationUpdateHandler = { button in
+            switch button.state {
+            case .highlighted:
+                button.alpha = 0.5
+            default:
+                button.alpha = 1
+            }
+        }
+        
+        view.setTitle(.localized(for: .editProfileSignOut), for: .normal)
+        view.addTarget(self, action: #selector(handleSingOutTap), for: .touchUpInside)
+        return view
+    }()
+    
+    private(set) lazy var deleteAccountButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .destructiveRed
+        config.baseForegroundColor = .white
+        config.attributedTitle = AttributedString(
+            .localized(for: .editProfileViewDeleteAccount),
+            attributes: AttributeContainer([
+                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)
+            ])
+        )
+        let view = UIButton(configuration: config)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     // MARK: - Class Methods
     
     override init(frame: CGRect) {
@@ -106,6 +142,8 @@ class EditProfileView: UIView {
         addSubview(pictureStackView)
         addSubview(usernameStackView)
         addSubview(biographyStackView)
+        addSubview(signOutButton)
+        addSubview(deleteAccountButton)
     }
     
     private func setupConstraints() {
@@ -138,9 +176,24 @@ class EditProfileView: UIView {
             make.left.right.equalTo(usernameStackView)
             make.height.equalTo(130)
         }
+                        
+        deleteAccountButton.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(24)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(12)
+            make.height.equalTo(44)
+        }
+        
+        signOutButton.snp.makeConstraints { make in
+            make.left.right.height.equalTo(deleteAccountButton)
+            make.bottom.equalTo(deleteAccountButton.snp.top).offset(-12)
+        }
     }
     
     // MARK: - Actions
+    
+    @objc func handleSingOutTap() {
+        viewModel?.signOut()
+    }
     
     @objc func handlePictureButtonTap() {
         onPictureButtonTapped?()
