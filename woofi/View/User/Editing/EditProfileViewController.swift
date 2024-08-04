@@ -35,6 +35,13 @@ class EditProfileViewController: UIViewController {
                 self?.navigationController?.pushViewController(LoginViewController(), animated: true)
             }
             .store(in: &cancellables)
+        
+        vm.$isBeingDeleted
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.editProfileView.deleteAccountButton.setNeedsUpdateConfiguration()
+            }
+            .store(in: &cancellables)
     }
     
     override func loadView() {

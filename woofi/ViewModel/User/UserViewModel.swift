@@ -17,6 +17,8 @@ class UserViewModel: NSObject {
     private(set) var userPublisher = PassthroughSubject<User, Never>()
     private(set) var signOutPublisher = PassthroughSubject<Void, Never>()
     
+    @Published var isBeingDeleted = false
+    
     init(user: User) {
         self.user = user
     }
@@ -35,6 +37,28 @@ class UserViewModel: NSObject {
     func signOut() {
         Session.shared.signOut()
         signOutPublisher.send()
+    }
+    
+    func deleteAccount() {
+        isBeingDeleted = true
+        Task {
+            do {
+                try await FirestoreService.shared.removeUser(userId: user.id)
+                AuthenticationService.shared.removeUser { result in
+                    switch result {
+                    case .success(let success):
+                        self.signOut()
+                    case .failure(let failure):
+                        print("Error deleting user in AuthService: \(failure.localizedDescription)")
+                    }
+                }
+                isBeingDeleted = false
+                
+            } catch {
+                print("Error deleting user: \(error.localizedDescription)")
+                isBeingDeleted = false
+            }
+        }
     }
     
     func updateUser(username: String, bio: String) {

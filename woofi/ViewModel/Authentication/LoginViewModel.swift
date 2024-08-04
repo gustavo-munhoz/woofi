@@ -25,7 +25,7 @@ class LoginViewModel {
     var onAuthenticationSuccess: ((UserId) -> Void)?
     var onAuthenticationFailure: ((AuthError) -> Void)?
     
-    private var lastAuthType: AuthenticationType?
+    var lastAuthType: AuthenticationType?
     
     private(set) var shouldSetupProfilePublisher = PassthroughSubject<UserId, Never>()
     
@@ -110,11 +110,7 @@ class LoginViewModel {
     
     // MARK: - Handle user not existing
     
-    func handleUserNotFound(for id: UserId) {
-        guard lastAuthType == .googleLogin || lastAuthType == .appleSignIn else {
-            return
-        }
-        
+    func handleUserNotFound(for id: UserId) {        
         shouldSetupProfilePublisher.send(id)
     }
 }

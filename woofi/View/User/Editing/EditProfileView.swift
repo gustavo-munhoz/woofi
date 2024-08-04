@@ -119,7 +119,15 @@ class EditProfileView: UIView {
         )
         let view = UIButton(configuration: config)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.configurationUpdateHandler = { [weak self] button in
+            guard let self = self, let viewModel = self.viewModel else { return }
+            var config = button.configuration
+            
+            config?.showsActivityIndicator = viewModel.isBeingDeleted
+            button.isEnabled = !viewModel.isBeingDeleted
+        }
         
+        view.addTarget(self, action: #selector(handleDeleteAccountTap), for: .touchUpInside)
         return view
     }()
     
@@ -190,6 +198,10 @@ class EditProfileView: UIView {
     }
     
     // MARK: - Actions
+    
+    @objc func handleDeleteAccountTap() {
+        viewModel?.deleteAccount()
+    }
     
     @objc func handleSingOutTap() {
         viewModel?.signOut()
