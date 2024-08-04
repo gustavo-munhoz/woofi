@@ -55,7 +55,10 @@ class LoginViewController: UIViewController {
                     
                     self?.navigationController?.pushViewController(vc, animated: true)
                 }
-            }.store(in: &cancellables)
+            }
+            .store(in: &cancellables)
+        
+        
     }
     
     // MARK: - Authentication logic
@@ -83,7 +86,11 @@ class LoginViewController: UIViewController {
                 
             } catch {
                 print("User was not found during authentication success.")
-                viewModel.handleUserNotFound(for: id)
+                if viewModel.lastAuthType == .googleLogin || viewModel.lastAuthType == .appleSignIn {
+                    viewModel.handleUserNotFound(for: id)
+                } else {
+                    showAlertForAuthError(AuthError(error: error as NSError))
+                }
             }
         }
     }

@@ -201,6 +201,9 @@ extension ProfileSetupView: UITextViewDelegate {
         
         continueButton.isEnabled = isFormValid
         continueButton.backgroundColor = isFormValid ? .systemBlue : .systemGray
+        
+        userBuilder.setUsername(usernameTextView.text)
+        userBuilder.setBiography(biographyTextView.text)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
