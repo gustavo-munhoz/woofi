@@ -13,6 +13,20 @@ class Session {
     private var cancellables = Set<AnyCancellable>()
     
     static let shared = Session()
+
+    private init() { }
+    
+    var cachedUsers: CurrentValueSubject<[User], Never> = CurrentValueSubject([])
+    
+    var currentUser: User? {
+        didSet {
+            guard let id = currentUser?.id else {
+                UserDefaults.standard.resetUserId()
+                return
+            }
+            UserDefaults.standard.saveUserId(id)
+        }
+    }
     
     func setup() async -> Bool {
         if let uid = UserDefaults.standard.loadUserId() {
@@ -29,17 +43,7 @@ class Session {
         return false
     }
     
-    private init() { }
-    
-    var cachedUsers: CurrentValueSubject<[User], Never> = CurrentValueSubject([])
-    
-    var currentUser: User? {
-        didSet {
-            guard let id = currentUser?.id else {
-                UserDefaults.standard.resetUserId()
-                return
-            }
-            UserDefaults.standard.saveUserId(id)
-        }
+    func signOut() {
+        currentUser = nil
     }
 }

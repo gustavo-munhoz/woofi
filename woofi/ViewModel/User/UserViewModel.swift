@@ -15,6 +15,7 @@ class UserViewModel: NSObject {
     private var cancellables = Set<AnyCancellable>()
     
     private(set) var userPublisher = PassthroughSubject<User, Never>()
+    private(set) var signOutPublisher = PassthroughSubject<Void, Never>()
     
     init(user: User) {
         self.user = user
@@ -29,6 +30,11 @@ class UserViewModel: NSObject {
                 self?.userPublisher.send(updatedUser)
             }
             .store(in: &cancellables)
+    }
+    
+    func signOut() {
+        Session.shared.signOut()
+        signOutPublisher.send()
     }
     
     func updateUser(username: String, bio: String) {
