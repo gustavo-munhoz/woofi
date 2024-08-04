@@ -165,8 +165,8 @@ class FirestoreService: FirestoreServiceProtocol {
     }
     
     /// Removes a user from Firestore
-    func removeUser(userId: String, completion: @escaping (Error?) -> Void) {
-        db.collection(FirestoreKeys.Users.collectionTitle).document(userId).delete(completion: completion)
+    func removeUser(userId: String) async throws {
+        try await db.collection(FirestoreKeys.Users.collectionTitle).document(userId).delete()
     }
     
     func saveProfileImage(userID: String, image: UIImage) async throws -> String {

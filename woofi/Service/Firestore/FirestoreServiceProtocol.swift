@@ -10,5 +10,5 @@ protocol FirestoreServiceProtocol {
     func saveUserData(userId: String, data: [String: Any]) async throws
     func fetchUserData(userId: String) async throws -> [String:Any]
     func updateUserData(userId: String, data: [String: Any]) async throws
-    func removeUser(userId: String, completion: @escaping (Error?) -> Void)
+    func removeUser(userId: String) async throws
 }

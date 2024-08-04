@@ -91,6 +91,25 @@ class AuthenticationService: NSObject, AuthenticationServiceProtocol {
         }
     }
     
+    func removeUser(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            completion(.failure(NSError(
+                        domain: "AuthenticationService",
+                        code: -1,
+                        userInfo: [NSLocalizedDescriptionKey: "No current user."]
+            )))
+            return
+        }
+        
+        user.delete { error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            completion(.success(()))
+        }
+    }
+    
     func signInWithApple(completion: @escaping (Result<String, Error>) -> Void) {
         let request = ASAuthorizationAppleIDProvider().createRequest()
         request.requestedScopes = [.fullName, .email]
