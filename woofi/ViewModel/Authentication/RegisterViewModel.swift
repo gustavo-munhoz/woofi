@@ -27,6 +27,11 @@ class RegisterViewModel {
     private(set) var shouldSkipSetupProfilePublisher = PassthroughSubject<Void, Never>()
     private(set) var shouldShowUserAlreadyRegisteredAlert = PassthroughSubject<Void, Never>()
     
+    func resetSignUps() {
+        isSigningUp = false
+        isSigningUpWithGoogle = false
+        isSigningUpWithApple = false
+    }
     // MARK: - Sign up logic
     
     func signUpUser() {

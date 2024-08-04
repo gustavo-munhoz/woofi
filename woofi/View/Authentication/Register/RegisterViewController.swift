@@ -62,6 +62,7 @@ class RegisterViewController: UIViewController {
         Task {
             do {
                 let type = viewModel.getLastAuthType()
+                self.viewModel.resetSignUps()
                 let userExists = try await FirestoreService.shared.checkIfUserExists(id: id)
                 if userExists && type != .register {
                     throw AuthError.userAlreadyExists

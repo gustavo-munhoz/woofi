@@ -29,6 +29,12 @@ class LoginViewModel {
     
     private(set) var shouldSetupProfilePublisher = PassthroughSubject<UserId, Never>()
     
+    func resetSignIns() {
+        isSigningIn = false
+        isSigningInWithGoogle = false
+        isSigningInWithApple = false
+    }
+    
     // MARK: - Login logic
     
     func fetchUserFromFirebase(id: UserId) async -> User? {

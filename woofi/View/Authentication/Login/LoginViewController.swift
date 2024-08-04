@@ -76,7 +76,8 @@ class LoginViewController: UIViewController {
                 Session.shared.currentUser = user
                 
                 print("Authentication successful.")
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [unowned self] in
+                    self.viewModel.resetSignIns()
                     self.navigationController?.pushViewController(HomeViewController(), animated: true)
                 }
                 
