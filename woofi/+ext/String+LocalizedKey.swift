@@ -204,6 +204,7 @@ extension String {
         case editProfileViewPictureStackTitle
         case editProfileViewUsernameStackTitle
         case editProfileViewBioStackTitle
+        case editProfileSignOut
         
         // MARK: - UserView
         case userViewStatsLabel
