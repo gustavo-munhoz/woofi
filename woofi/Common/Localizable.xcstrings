@@ -409,6 +409,23 @@
         }
       }
     },
+    "editProfileViewDeleteAccount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete account"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apagar conta"
+          }
+        }
+      }
+    },
     "editProfileViewPictureStackTitle" : {
       "extractionState" : "manual",
       "localizations" : {
