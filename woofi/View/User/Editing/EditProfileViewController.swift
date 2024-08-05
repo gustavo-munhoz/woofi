@@ -30,9 +30,7 @@ class EditProfileViewController: UIViewController {
         
         vm.signOutPublisher
             .receive(on: RunLoop.main)
-            .sink { [weak self] in
-                guard let self = self else { return }
-                                
+            .sink {
                 if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                     let window = scene.windows.first
                     let loginVC = LoginViewController()
