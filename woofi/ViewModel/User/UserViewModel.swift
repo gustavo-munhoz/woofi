@@ -46,7 +46,7 @@ class UserViewModel: NSObject {
                 try await FirestoreService.shared.removeUser(userId: user.id)
                 AuthenticationService.shared.removeUser { result in
                     switch result {
-                    case .success(let success):
+                    case .success(_):
                         self.signOut()
                     case .failure(let failure):
                         print("Error deleting user in AuthService: \(failure.localizedDescription)")
