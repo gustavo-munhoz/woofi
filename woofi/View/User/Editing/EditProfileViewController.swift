@@ -52,6 +52,8 @@ class EditProfileViewController: UIViewController {
         super.viewDidLoad()
         
         editProfileView.onPictureButtonTapped = presentImagePicker
+        editProfileView.onSignOutButtonTapped = presentAlertForSignOut
+        editProfileView.onDeleteAccountButtonTapped = presentAlertForDeletion
     }
     
     override func viewWillLayoutSubviews() {
@@ -75,6 +77,54 @@ class EditProfileViewController: UIViewController {
     }    
     
     // MARK: - Actions
+    
+    private func presentAlertForSignOut() {
+        let alert = UIAlertController(
+            title: .localized(for: .editProfileViewSignOutAlertTitle),
+            message: .localized(for: .editProfileViewSignOutAlertMessage),
+            preferredStyle: .alert
+        )
+        
+        let cancelAction = UIAlertAction(
+            title: .localized(for: .cancel),
+            style: .cancel
+        )
+        
+        let signOutAction = UIAlertAction(
+            title: .localized(for: .editProfileViewSignOutButton),
+            style: .destructive) { [weak self] _ in
+                self?.viewModel?.signOut()
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(signOutAction)
+        
+        present(alert, animated: true)
+    }
+    
+    private func presentAlertForDeletion() {
+        let alert = UIAlertController(
+            title: .localized(for: .editProfileViewDeleteAlertTitle),
+            message: .localized(for: .editProfileViewDeleteAlertMessage),
+            preferredStyle: .alert
+        )
+        
+        let cancelAction = UIAlertAction(
+            title: .localized(for: .cancel),
+            style: .cancel
+        )
+        
+        let deleteAction = UIAlertAction(
+            title: .localized(for: .delete),
+            style: .destructive) { [weak self] _ in
+                self?.viewModel?.deleteAccount()
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        
+        present(alert, animated: true)
+    }
     
     private func presentImagePicker() {
         PHPhotoLibrary.requestAuthorization { status in

@@ -15,6 +15,8 @@ class EditProfileView: UIView {
     weak var viewModel: UserViewModel?
     
     var onPictureButtonTapped: (() -> Void)?
+    var onSignOutButtonTapped: (() -> Void)?
+    var onDeleteAccountButtonTapped: (() -> Void)?
     
     // MARK: - Subviews
     
@@ -200,11 +202,11 @@ class EditProfileView: UIView {
     // MARK: - Actions
     
     @objc func handleDeleteAccountTap() {
-        viewModel?.deleteAccount()
+        onDeleteAccountButtonTapped?()
     }
     
     @objc func handleSingOutTap() {
-        viewModel?.signOut()
+        onSignOutButtonTapped?()
     }
     
     @objc func handlePictureButtonTap() {
