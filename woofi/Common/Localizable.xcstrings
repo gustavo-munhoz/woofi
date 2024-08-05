@@ -426,6 +426,40 @@
         }
       }
     },
+    "editProfileViewDeleteAlertMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete your account?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tem certeza que deseja apagar sua conta?"
+          }
+        }
+      }
+    },
+    "editProfileViewDeleteAlertTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete account?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apagar conta?"
+          }
+        }
+      }
+    },
     "editProfileViewPictureStackTitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -439,6 +473,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Foto do perfil"
+          }
+        }
+      }
+    },
+    "editProfileViewSignOutAlertMessage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to sign out?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tem certeza de que deseja finalizar a sessão?"
+          }
+        }
+      }
+    },
+    "editProfileViewSignOutAlertTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign out?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finalizar sessão?"
+          }
+        }
+      }
+    },
+    "editProfileViewSignOutButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign out"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finalizar"
           }
         }
       }
