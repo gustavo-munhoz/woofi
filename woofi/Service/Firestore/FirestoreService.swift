@@ -50,11 +50,11 @@ class FirestoreService: FirestoreServiceProtocol {
         let data = try await fetchUserData(userId: id)
      
         let id: String = data[FirestoreKeys.Users.uid] as! String
-        let username = data[FirestoreKeys.Users.username] as? String
-        let bio = data[FirestoreKeys.Users.bio] as? String
+        let username = data[FirestoreKeys.Users.username] as? String ?? .localized(for: .placeholderUsername)
+        let bio = data[FirestoreKeys.Users.bio] as? String ?? .localized(for: .placeholderBio)
         let email = data[FirestoreKeys.Users.email] as? String
         let picturePath = data[FirestoreKeys.Users.profileImageUrl] as? String
-        let groupId = data[FirestoreKeys.Users.groupID] as! String
+        let groupId = data[FirestoreKeys.Users.groupID] as? String ?? UUID().uuidString
         let stats: [UserTaskStat]?
         
         if let statsData = data[FirestoreKeys.Users.Stats.title] as? [String: Int] {
