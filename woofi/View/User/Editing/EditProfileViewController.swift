@@ -31,8 +31,18 @@ class EditProfileViewController: UIViewController {
         vm.signOutPublisher
             .receive(on: RunLoop.main)
             .sink { [weak self] in
-                self?.navigationController?.popToRootViewController(animated: false)
-                self?.navigationController?.pushViewController(LoginViewController(), animated: true)
+                guard let self = self else { return }
+                                
+                if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                    let window = scene.windows.first
+                    let loginVC = LoginViewController()
+                    let navigationController = UINavigationController(rootViewController: loginVC)
+                    window?.rootViewController = navigationController
+                    window?.makeKeyAndVisible()
+                                        
+                    let options: UIView.AnimationOptions = .transitionCrossDissolve
+                    UIView.transition(with: window!, duration: 0.5, options: options, animations: {}, completion: nil)
+                }
             }
             .store(in: &cancellables)
         
